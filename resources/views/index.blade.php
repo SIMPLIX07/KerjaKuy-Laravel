@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link rel="stylesheet" href="/assets/index/index.css">
+</head>
+
+<body>
+    <nav>
+        <div class="left">
+            <img src="/assets/index/asset/logo.png" alt="">
+            <label for="">KerjaKuy</label>
+        </div>
+        <div class="mid">
+            <ul>
+                <li>
+                    <a href="">Download</a>
+                </li>
+                <li>
+                    <a href="">Blog</a>
+                </li>
+                <li>
+                    <a href="">Tentang</a>
+                </li>
+                <li>
+                    <a href="">Dukungan</a>
+                </li>
+            </ul>
+        </div>
+        <div class="right">
+            <ul>
+                <li>
+                    <div class="dropdown">
+                        <button id="daftar">Daftar</button>
+                        <div class="dropdown-content">
+                            <a href="/register/pelamar">Pelamar</a>
+                            <a href="/register/perusahaan">Perusahaan</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="dropdown">
+                        <button id="login">Login</button>
+                        <div class="dropdown-content">
+                            <a href="/login/pelamar">Pelamar</a>
+                            <a href="/login/perusahaan">Perusahaan</a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="konten1">
+        <h1>KerjaKuy</h1>
+        <p id="isi">Tempat anda menemukan</p>
+        <p id="isi">Pekerjaan impian anda</p>
+    </div>
+    <div class="konten2">
+        <div class="tentang">
+            <h2>Tentang KerjaKuy</h2>
+            <p>
+                KerjaKuy adalah platform pencari kerja terkemuka yang menyederhanakan proses pencarian pekerjaan Anda.
+                Aplikasi ini menawarkan akses ke ribuan lowongan kerja dari berbagai sektor industri, mulai dari
+                entry-level hingga posisi manajerial.
+                Dengan antarmuka yang mudah digunakan dan fitur pencarian canggih, Anda bisa menyaring lowongan
+                berdasarkan lokasi, gaji, jenis pekerjaan, dan banyak lagi.
+            </p>
+        </div>
+        <div class="tentang2">
+            <h2>Tentang KerjaKuy</h2>
+            <p>
+                KerjaKuy adalah platform pencari kerja terkemuka yang menyederhanakan proses pencarian pekerjaan Anda.
+                Aplikasi ini menawarkan akses ke ribuan lowongan kerja dari berbagai sektor industri, mulai dari
+                entry-level hingga posisi manajerial.
+                Dengan antarmuka yang mudah digunakan dan fitur pencarian canggih, Anda bisa menyaring lowongan
+                berdasarkan lokasi, gaji, jenis pekerjaan, dan banyak lagi.
+            </p>
+        </div>
+        <div class="tentang">
+            <h2>Tentang KerjaKuy</h2>
+            <p>
+                KerjaKuy adalah platform pencari kerja terkemuka yang menyederhanakan proses pencarian pekerjaan Anda.
+                Aplikasi ini menawarkan akses ke ribuan lowongan kerja dari berbagai sektor industri, mulai dari
+                entry-level hingga posisi manajerial.
+                Dengan antarmuka yang mudah digunakan dan fitur pencarian canggih, Anda bisa menyaring lowongan
+                berdasarkan lokasi, gaji, jenis pekerjaan, dan banyak lagi.
+            </p>
+        </div>
+    </div>
+    <div class="end">
+
+    </div>
+    <script src="/assets/index/index.js"></script>
+</body>
+
+</html>

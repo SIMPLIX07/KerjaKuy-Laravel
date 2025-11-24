@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/assets/pageLamar/lamar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <nav>
+        <div class="navbar">
+            <div class="left">
+                <img src="/assets/pageLamar/asset/logo.png" alt="KerjaKuyLogo">
+                <label for="">KerjaKuy</label>
+            </div>
+            <div class="middle">
+                <ul>
+                    <li id="lowongan">Lowongan Kerja</li>
+                    <li id="lamaran"><a href="../LamaranAnda/Lamaran.html">Lamaran Anda</a></li>
+                </ul>
+            </div>
+            <div class="right">
+                <Label>{{ session('pelamar_nama') }}</Label>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <div class="cardTop">
+            <div class="back">
+                <div class="seluruh">
+                    <img src="/assets/pageLamar/asset/logoPerusahaan.png" alt="">
+                    <div class="profile">
+                        <label for="" id="perusahaan">PT. Grab Indonesia</label>
+                        <label for="" id="posisi">Project Supervisor</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cardDown">
+            <div class="top">
+                <div class="tengah">
+                    <img src="/assets/pageLamar/asset/gaji.png" alt="">
+                    <label for=""> IDR 5.000.000 - 10.000.000</label>
+                </div>
+                <div class="tengah">
+                    <img src="/assets/pageLamar/asset/waktu.png" alt="">
+                    <label for=""> Penuh Waktu</label>
+                </div>
+                <div class="tengah">
+                    <img src="/assets/pageLamar/asset/lokasi.png" alt="">
+                    <label for=""> Jakarta Pusat, Jakarta Raya</label>
+                </div>
+            </div>
+            <div class="middle">
+                <h2>Deskripsi Pekerjaan</h2>
+                <ul class="list" >
+                    <li>Bertanggung jawab untuk menjemput dan mengantarkan penumpang atau barang ke tujuan dengan aman, cepat, dan nyaman sesuai pesanan yang diterima melalui aplikasi Grab.</li>
+                    <li>Melakukan komunikasi yang sopan dan ramah dengan pelanggan untuk memberikan pengalaman perjalanan yang menyenangkan.</li>
+                    <li>Mengoperasikan aplikasi Grab secara efektif untuk menerima order, menentukan rute perjalanan, dan melakukan konfirmasi penyelesaian pesanan.</li>
+                </ul>
+            </div>
+            <div class="bottom">
+                <h2>Syarat</h2>
+                <ul class="list" >
+                    <li>Memiliki SIM C (untuk pengemudi motor) atau SIM A (untuk pengemudi mobil) yang masih berlaku.</li>
+                    <li>Memiliki kendaraan pribadi dalam kondisi baik dan memenuhi standar kelayakan Grab.</li>
+                    <li>Memiliki smartphone Android/iOS yang kompatibel dengan aplikasi Grab.</li>
+                </ul>
+            </div>
+            <button class="button">Lamar</button>
+        </div>
+    </div>
+</body>
+<script src="/assets/pageLamar/lamar.js"></script>
+</html>
