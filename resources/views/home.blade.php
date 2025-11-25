@@ -20,7 +20,8 @@
     <div class="cstm-nav-container">
       <div class="nav-logo">
         <img src="/assets/HomePelamar/asset/KerjaKuy.png" alt="Kerjakuy Logo" class="logo-img" />
-        <span class="brand-text">KerjaKuy</span>
+        <a href="/" class="brand-text">KerjaKuy</a>
+
       </div>
 
       <div class="cstm-nav-menu">

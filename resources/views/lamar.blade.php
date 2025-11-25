@@ -20,7 +20,7 @@
             <div class="middle">
                 <ul>
                     <li id="lowongan">Lowongan Kerja</li>
-                    <li id="lamaran"><a href="../LamaranAnda/Lamaran.html">Lamaran Anda</a></li>
+                    <li id="lamaran"><a href="/lamaran-anda">Lamaran Anda</a></li>
                 </ul>
             </div>
             <div class="right">

@@ -6,12 +6,13 @@ use App\Http\Controllers\AuthPelamarController;
 
 
 Route::get('/', function () {
+    session()->flush();
     return view('index');
 });
 
 
 
-Route::get('/lamar', function() {
+Route::get('/lamar', function () {
     return view('lamar');
 });
 

@@ -42,6 +42,10 @@ body {
     font-size: 30px;
 }
 
+body .nav-logo a{
+    text-decoration: none;
+}
+
 .cstm-nav-menu {
     display: flex;
     align-items: center;
