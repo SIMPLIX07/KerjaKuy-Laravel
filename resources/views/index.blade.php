@@ -34,11 +34,9 @@
             <ul>
                 <li>
                     <div class="dropdown">
+                        <a href="/pilihRole">
                         <button id="daftar">Daftar</button>
-                        <div class="dropdown-content">
-                            <a href="/register/pelamar">Pelamar</a>
-                            <a href="/register/perusahaan">Perusahaan</a>
-                        </div>
+                        </a>
                     </div>
                 </li>
                 <li>

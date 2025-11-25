@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const username = document.querySelector(".user-margin").textContent.trim();
 
     try {
-        const response = await fetch("./dataLamaran.json");
+        const response = await fetch("assets/LamaranAnda/dataLamaran.json");
         const data = await response.json();
 
         const user = data.userPelamar.find(u => u.username === username);
