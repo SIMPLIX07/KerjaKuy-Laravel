@@ -26,7 +26,7 @@
 
       <div class="cstm-nav-menu">
         <a href="#" class="cstm-nav-link active">Lowongan Kerja</a>
-        <a href="#" class="cstm-nav-link">Lamaran anda</a>
+        <a href="/lamaran-anda" class="cstm-nav-link">Lamaran anda</a>
       </div>
 
       <div class="cstm-nav-user">

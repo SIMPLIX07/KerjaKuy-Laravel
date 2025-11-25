@@ -22,7 +22,7 @@
             </div>
 
             <div class="nav-user">
-                <span class="user-margin"><a class="nav-user" href="/setting">Muhammad Salman</a></span>
+                <span class="user-margin"><a class="nav-user" href="/setting">{{ session('pelamar_nama') }}</a></span>
             </div>
         </div>
     </nav>

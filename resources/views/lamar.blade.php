@@ -24,7 +24,7 @@
                 </ul>
             </div>
             <div class="right">
-                <Label>{{ session('pelamar_nama') }}</Label>
+                <a href="/setting">{{ session('pelamar_nama') }}</a>
             </div>
         </div>
     </nav>
