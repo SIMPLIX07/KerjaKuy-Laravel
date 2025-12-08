@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Keahlian extends Model
 {
-    protected $fillable = ['nama_keahlian'];
+    protected $fillable = [
+        'pelamar_id',
+        'nama_keahlian'
+    ];
 
-    public function pelamars()
+    public function pelamar()
     {
-        return $this->belongsToMany(Pelamar::class, 'pelamar_keahlian');
+        return $this->belongsTo(Pelamar::class);
     }
 }
