@@ -12,8 +12,6 @@ Route::get('/', function () {
     return view('index');
 });
 
-
-
 Route::get('/lamar', function () {
     return view('lamar');
 });
@@ -37,6 +35,12 @@ Route::get('/register/perusahaan', function () {
 Route::get('/home-pelamar', function () {
     return view('home');
 });
+
+//DAFTAR
+Route::get('/pilihRole', function () {
+    return view('daftarPelamar/pilihRole');
+});
+
 
 Route::get('/lamaran-anda', function () {
     return view('Lamaran');

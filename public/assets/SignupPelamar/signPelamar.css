@@ -1,5 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+:root {
+    --background-start: #1FACA2;
+    --background-end: #000E3A;
+    --card-bg-initial: rgba(255, 255, 255, 0.07);
+    --card-border-initial: rgba(255, 255, 255, 0.45);
+    --card-bg-hover: #FFFFFF;
+    --text-color-initial: #FFFFFF;
+    --text-color-hover: #333333;
+}
+
 *{
     margin:0;
     padding:0;
@@ -8,12 +18,12 @@
 }
 
 body{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    width:100%;
-    height:100vh;
-    background:linear-gradient(to bottom right,#1FACA2,#114841);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(to bottom right, #1FACA2, #114841);
 }
 
 .container{
