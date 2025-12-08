@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PelamarController;
 use App\Http\Controllers\AuthPelamarController;
+use App\Http\Controllers\PerusahaanController;
+
 
 
 Route::get('/', function () {
@@ -48,5 +50,14 @@ Route::get('/setting', function () {
     return view('setting');
 });
 
-Route::post('/register/pelamar', [PelamarController::class, 'store'])->name('pelamar.store');
-Route::post('/login/pelamar', [PelamarController::class, 'login'])->name('pelamar.login');
+Route::get('/home-perusahaan', function () {
+    return view('homePerusahaan');
+});
+
+
+Route::post('/register/pelamar', [PelamarController::class, 'store'])->name('register.pelamar');
+Route::post('/login/pelamar', [PelamarController::class, 'login'])->name('login.pelamar');
+Route::post('/login/perusahaan', [PerusahaanController::class, 'login'])->name('login.perusahaan');
+
+
+

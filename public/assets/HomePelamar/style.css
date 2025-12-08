@@ -42,7 +42,7 @@ body {
     font-size: 30px;
 }
 
-body .nav-logo a{
+body .nav-logo a {
     text-decoration: none;
 }
 
@@ -102,7 +102,7 @@ body .nav-logo a{
     overflow: hidden;
     width: 60%;
     max-width: 600px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .search-input {
@@ -131,7 +131,7 @@ body .nav-logo a{
     background-color: #109485;
 }
 
-.btn-lamar{
+.btn-lamar {
     background-color: #16b3a3;
     position: absolute;
     bottom: 15px;
@@ -144,7 +144,7 @@ body .nav-logo a{
     transition: background-color 0.3s;
 }
 
-.card-job{
+.card-job {
     height: 300px;
     padding: 20px;
     border-radius: 20px;
@@ -152,13 +152,18 @@ body .nav-logo a{
     border-color: rgb(186, 185, 185);
 }
 
-.card-company{
+.card-company {
     display: flex;
     flex-direction: row;
     gap: 20px;
 }
 
-.card-company img{
+.card-company img {
     width: 60px;
     height: 60px;
+}
+
+.user-link:hover {
+    color: #1FACA2;
+    cursor: pointer;
 }

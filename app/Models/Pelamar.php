@@ -16,4 +16,9 @@ class Pelamar extends Model
         'password',
         'foto_profil'
     ];
+
+    public function keahlians()
+    {
+        return $this->belongsToMany(Keahlian::class, 'pelamar_keahlian');
+    }
 }

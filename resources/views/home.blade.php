@@ -30,8 +30,13 @@
       </div>
 
       <div class="cstm-nav-user">
-        <span class="cstm-user-margin">{{ session('pelamar_nama') }}</span>
+        <a href="/setting" class="cstm-user-margin" style="color:white; text-decoration:none;">
+          {{ session('pelamar_nama') }}
+        </a>
+
+
       </div>
+
     </div>
   </nav>
 
