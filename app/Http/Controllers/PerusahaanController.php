@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Perusahaan;
+use App\Models\Karyawan; // perlu ditambahkan
 use Illuminate\Support\Facades\Hash;
 
 class PerusahaanController extends Controller
@@ -24,7 +25,7 @@ class PerusahaanController extends Controller
         session([
             'perusahaan_id'   => $perusahaan->id,
             'perusahaan_nama' => $perusahaan->nama_perusahaan,
-            'perusahaan_email'=> $perusahaan->email
+            'perusahaan_email' => $perusahaan->email
         ]);
 
         return redirect('/karyawanPerusahaan');
@@ -47,9 +48,20 @@ class PerusahaanController extends Controller
         session([
             'perusahaan_id'   => $perusahaan->id,
             'perusahaan_nama' => $perusahaan->nama_perusahaan,
-            'perusahaan_email'=> $perusahaan->email
+            'perusahaan_email' => $perusahaan->email
         ]);
 
         return redirect('/karyawanPerusahaan')->with('success', 'Registrasi perusahaan berhasil');
+    }
+
+    public function kategoriKaryawan()
+    {
+        $kategori = Karyawan::where('id_perusahaan', session('perusahaan_id'))
+            ->select('kategori_pekerjaan')
+            ->selectRaw('COUNT(*) as jumlah')
+            ->groupBy('kategori_pekerjaan')
+            ->get();
+
+        return view('karyawanPerusahaan', compact('kategori'));
     }
 }

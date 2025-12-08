@@ -167,3 +167,59 @@ body .nav-logo a {
     color: #1FACA2;
     cursor: pointer;
 }
+
+/* Container kategori */
+.category-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+    margin: 60px auto;
+    max-width: 1100px;
+}
+
+/* Card kategori */
+.category-card {
+    background: white;
+    width: 280px;
+    padding: 22px;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    text-align: center;
+    transition: transform 0.25s ease;
+}
+
+.category-card:hover {
+    transform: translateY(-6px);
+}
+
+/* Judul kategori */
+.category-card h4 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #002b4d;
+    margin-bottom: 6px;
+}
+
+/* Jumlah karyawan */
+.category-card p {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 16px;
+}
+
+/* Tombol lihat */
+.category-btn {
+    display: inline-block;
+    background: #16b3a3;
+    color: white;
+    padding: 8px 18px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.25s;
+}
+
+.category-btn:hover {
+    background: #109485;
+}

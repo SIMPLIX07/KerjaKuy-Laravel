@@ -47,5 +47,11 @@
         </div>
     </div>
 
+    <!-- //<form action="{{ route('lamaran.terima', $lamaran->id) }}" method="POST">
+    @csrf
+    <button type="submit" class="btn btn-success">Terima</button>
+</form> -->
+
+
 </body>
 </html>

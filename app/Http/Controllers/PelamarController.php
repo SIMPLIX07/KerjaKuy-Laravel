@@ -37,8 +37,10 @@ class PelamarController extends Controller
             $skills = array_map('trim', explode(',', $request->keahlian));
 
             foreach ($skills as $skill) {
-                $keahlian = Keahlian::firstOrCreate(['nama_keahlian' => $skill]);
-                $pelamar->keahlians()->attach($keahlian->id);
+                Keahlian::create([
+                    'pelamar_id'    => $pelamar->id,
+                    'nama_keahlian' => $skill
+                ]);
             }
         }
 

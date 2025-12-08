@@ -58,9 +58,7 @@ Route::get('/setting', function () {
 Route::get('/home-perusahaan', function () {
     return view('homePerusahaan');
 });
-Route::get('/karyawanPerusahaan', function () {
-    return view('karyawanPerusahaan');
-});
+
 
 
 Route::post('/register/pelamar', [PelamarController::class, 'store'])->name('register.pelamar');
@@ -68,6 +66,11 @@ Route::post('/login/pelamar', [PelamarController::class, 'login'])->name('login.
 Route::post('/login/perusahaan', [PerusahaanController::class, 'login'])->name('login.perusahaan');
 Route::post('/register/perusahaan', [PerusahaanController::class, 'register'])->name('register.perusahaan');
 Route::post('/lowongan/tambah', [LowonganController::class, 'store'])->name('lowongan.store');
+Route::post('/lamaran/terima/{id}', [PerusahaanController::class, 'terimaPelamar'])
+    ->name('lamaran.terima');
+Route::get('/karyawanPerusahaan', [PerusahaanController::class, 'kategoriKaryawan']);
+
+
 
 
 

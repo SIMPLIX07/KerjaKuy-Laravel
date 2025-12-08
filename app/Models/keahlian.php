@@ -8,7 +8,9 @@ class Keahlian extends Model
 {
     protected $fillable = [
         'pelamar_id',
-        'nama_keahlian'
+        'nama_keahlian',
+        'deskripsi',
+        'tingkat_kemampuan'
     ];
 
     public function pelamar()
