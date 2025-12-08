@@ -21,4 +21,8 @@ class Pelamar extends Model
     {
         return $this->belongsToMany(Keahlian::class, 'pelamar_keahlian');
     }
+    public function lamarans()
+    {
+        return $this->hasMany(Lamaran::class, 'pelamar_id');
+    }
 }

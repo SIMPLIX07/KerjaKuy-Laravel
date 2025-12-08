@@ -20,7 +20,7 @@
                 <p>Pengguna yang akan melamar pekerjaan disuatu perusahaan</p>
             </a>
 
-            <a href="#" class="role-card" id="company-card">
+            <a href="/register/perusahaan" class="role-card" id="company-card">
                 <div class="icon-wrapper">
                     <img src="{{ asset('assets/daftarPelamar/img/rolePerusahaanPutih.png') }}" alt="Perusahaan" class="icon-default">
                     <img src="{{ asset('assets/daftarPelamar/img/rolePerusahaanBiru.png') }}" alt="Perusahaan Hover" class="icon-hover">

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PelamarController;
 use App\Http\Controllers\AuthPelamarController;
 use App\Http\Controllers\PerusahaanController;
+use App\Http\Controllers\LowonganController;
 
 
 
@@ -57,11 +58,18 @@ Route::get('/setting', function () {
 Route::get('/home-perusahaan', function () {
     return view('homePerusahaan');
 });
+Route::get('/karyawanPerusahaan', function () {
+    return view('karyawanPerusahaan');
+});
 
 
 Route::post('/register/pelamar', [PelamarController::class, 'store'])->name('register.pelamar');
 Route::post('/login/pelamar', [PelamarController::class, 'login'])->name('login.pelamar');
 Route::post('/login/perusahaan', [PerusahaanController::class, 'login'])->name('login.perusahaan');
+Route::post('/register/perusahaan', [PerusahaanController::class, 'register'])->name('register.perusahaan');
+Route::post('/lowongan/tambah', [LowonganController::class, 'store'])->name('lowongan.store');
+
+
 
 
 
