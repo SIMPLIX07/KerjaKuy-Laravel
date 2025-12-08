@@ -223,3 +223,16 @@ body .nav-logo a {
 .category-btn:hover {
     background: #109485;
 }
+
+.no-data {
+    text-align: center;
+    width: 100%;
+    margin-top: 50px;
+    color: #3b3b3b;
+}
+
+.no-data h3 {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}

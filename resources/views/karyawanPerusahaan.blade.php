@@ -38,7 +38,13 @@
         </div>
     </div>
 
-    <div class="category-wrapper">
+<div class="category-wrapper">
+    @if ($kategori->isEmpty())
+        <div class="no-data">
+            <h3>Belum ada karyawan</h3>
+            <p>Terima pelamar terlebih dahulu agar karyawan tampil di sini.</p>
+        </div>
+    @else
         @foreach ($kategori as $item)
             <div class="category-card">
                 <h4>{{ $item->kategori_pekerjaan }}</h4>
@@ -46,7 +52,9 @@
                 <a href="/karyawanPerusahaan/{{ $item->kategori_pekerjaan }}" class="category-btn">Lihat</a>
             </div>
         @endforeach
-    </div>
+    @endif
+</div>
+
 
 </body>
 </html>
