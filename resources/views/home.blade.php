@@ -8,11 +8,8 @@
 
   <link rel="stylesheet" href="/assets/HomePelamar/style.css" />
 
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
-    crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
 </head>
 
 <body>
@@ -30,7 +27,7 @@
       </div>
 
       <div class="cstm-nav-user">
-        <a href="/setting" class="cstm-user-margin" style="color:white; text-decoration:none;">
+        <a href="{{ route('pelamar.settings') }}" class="cstm-user-margin" style="color:white; text-decoration:none;">
           {{ session('pelamar_nama') }}
         </a>
 
@@ -54,9 +51,7 @@
 
   <img src="" alt="">
 
-  <div
-    class="container my-5 d-flex flex-wrap justify-content-center gap-4"
-    id="list-pekerjaan">
+  <div class="container my-5 d-flex flex-wrap justify-content-center gap-4" id="list-pekerjaan">
   </div>
 
   <script>

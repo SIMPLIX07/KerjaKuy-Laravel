@@ -1,0 +1,168 @@
+/* public/assets/settingPerusahaan/settingPerusahaan.css */
+
+/* =================================== */
+/* 1. SIDEBAR & NAVIGASI */
+/* =================================== */
+.cstm-sidebar {
+    width: 280px;
+    background: linear-gradient(180deg, #16b3a3, #00193f);
+    flex-shrink: 0;
+}
+
+.cstm-sidebar h4 {
+    font-weight: 600;
+}
+
+/* Styling Link Navigasi Sidebar */
+.cstm-nav-link {
+    color: rgba(255, 255, 255, 0.7);
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.cstm-nav-link:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.cstm-nav-link.active {
+    color: #00193f !important;
+    background-color: white !important;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* =================================== */
+/* 2. KONTEN UTAMA (DISPLAY DATA) */
+/* =================================== */
+.cstm-content {
+    background-color: #ffffff;
+}
+
+/* Garis pemisah horizontal (cstm-divider) */
+.cstm-divider {
+    border: 0;
+    border-top: 1px solid #e0e0e0;
+    opacity: 1;
+}
+
+/* Styling Foto Profil */
+.cstm-avatar-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #e0e0e0; 
+}
+
+/* Ikon Edit di samping Foto Profil */
+.cstm-edit-icon {
+    width: 20px; 
+    height: 20px;
+}
+
+/* Styling Display Input (Kotak Read-Only Penuh) */
+.cstm-field-group .form-label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.cstm-display-input {
+    border: 1px solid #ced4da;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background-color: white; 
+    color: #333;
+    cursor: default; 
+    opacity: 1; 
+}
+
+/* Menghilangkan border dan shadow saat fokus pada input read-only */
+.cstm-display-input:focus {
+    box-shadow: none;
+    border-color: #ced4da;
+}
+/* public/assets/settingPerusahaan/settingPerusahaan.css */
+
+/* ... (Kode CSS untuk Sidebar dan Tampilan Display Data) ... */
+
+/* =================================== */
+/* MODAL CUSTOM STYLING */
+/* =================================== */
+
+/* 1. Melebarkan Modal Pop-up */
+.cstm-wide-modal {
+    max-width: 700px; 
+    width: 90%; 
+}
+
+/* 2. Tombol Batal (Merah) & Simpan (Teal) ... (tetap sama) ... */
+.cstm-btn-batal {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+.cstm-btn-batal:hover {
+    background-color: #c82333;
+    color: white;
+}
+
+.cstm-btn-simpan-teal {
+    background-color: #16b3a3;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+.cstm-btn-simpan-teal:hover {
+    background-color: #128f82;
+    color: white;
+}
+
+
+/* 3. Styling Input di dalam Modal */
+
+/* Label di modal (agar ada jarak ke bawah) */
+.modal-body .form-label {
+    font-weight: normal;
+    margin-bottom: 8px; /* Ditingkatkan jaraknya ke input */
+    display: block; /* Memastikan label mengambil baris penuh */
+}
+
+.modal-body .form-control {
+    border: 1px solid #ced4da;
+    background-color: white; 
+    padding: 10px 12px; /* Meningkatkan tinggi input */
+    height: auto; /* Mengatasi height default yang mungkin terlalu kecil */
+}
+
+.cstm-toast-container {
+    /* Lebar kustom untuk notifikasi */
+    width: 600px; 
+    max-width: 90%; 
+    z-index: 1050; /* Pastikan di atas modal (modal z-index ~1040) */
+}
+
+/* Kustomisasi tampilan toast */
+#successToast {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    width: 100%; /* Memastikan Toast mengisi lebar containernya */
+}
+
+.cstm-link-keluar {
+    font-size: 16px;
+    text-decoration: none;
+}
+.cstm-link-keluar:hover {
+    color: #dc3545; 
+    text-decoration: underline;
+}

@@ -1,57 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KerjaKuy - Perusahaan</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KerjaKuy</title>
 
-    <link rel="stylesheet" href="/assets/HomePerusahaan/homePerusahaan.css">
+    <link rel="stylesheet" href="/assets/homePerusahaan/homePerusahaan.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
-<body>
 
+<body>
     <nav class="cstm-navbar">
         <div class="cstm-nav-container">
             <div class="nav-logo">
-                <img src="/assets/HomePelamar/asset/KerjaKuy.png" class="logo-img">
-                <span class="brand-text">KerjaKuy</span>
+                <img src="/assets/HomePelamar/asset/KerjaKuy.png" class="logo-img" />
+                <a href="/" class="brand-text">KerjaKuy</a>
             </div>
 
             <div class="cstm-nav-menu">
-                <a href="#" class="cstm-nav-link active">Lowongan</a>
+                <a href="/home-perusahaan" class="cstm-nav-link active">Lowongan Anda</a>
                 <a href="/karyawanPerusahaan" class="cstm-nav-link">Karyawan</a>
             </div>
 
             <div class="cstm-nav-user">
-                <span class="cstm-user-margin">{{ session('perusahaan_nama') }}</span>
-                <a href="/logout" class="logout-btn">Logout</a>
+                <a href="{{ route('perusahaan.settings') }}" class="cstm-user-margin"
+                    style="color:white; text-decoration:none;">
+                    {{ session('perusahaan_nama') }}
+                </a>
             </div>
         </div>
     </nav>
 
-    <div class="search-container">
-        <input type="text" placeholder="Cari lowongan" class="search-input">
-        <button class="search-btn">Cari</button>
-    </div>
-
-    <div class="plus-wrapper">
-        <a href="/buat-lowongan" class="btn-plus">+</a>
-    </div>
-
-    <div class="card-wrapper">
-        {{-- contoh statis dulu nanti backend --}}
-        <div class="job-card">
-            <h3>Back-end Developer</h3>
-            <p>Dicari developer yang mahir dalam logika server...</p>
-            <p class="pelamar-info">Pelamar: <span class="badge">12</span></p>
-            <p class="date-info">20-10-2025 — 10-11-2025</p>
+    <div class="search-bar-container">
+        <div>
+            <input type="text" placeholder="Cari kategori pekerjaan" class="search-input" />
+            <button class="search-button">Cari</button>
         </div>
     </div>
 
-    <!-- //<form action="{{ route('lamaran.terima', $lamaran->id) }}" method="POST">
-    @csrf
-    <button type="submit" class="btn btn-success">Terima</button>
-</form> -->
+    
 
 
 </body>
+
 </html>

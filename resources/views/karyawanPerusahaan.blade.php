@@ -24,7 +24,8 @@
             </div>
 
             <div class="cstm-nav-user">
-                <a href="/setting" class="cstm-user-margin" style="color:white; text-decoration:none;">
+                <a href="{{ route('perusahaan.settings') }}" class="cstm-user-margin"
+                    style="color:white; text-decoration:none;">
                     {{ session('perusahaan_nama') }}
                 </a>
             </div>
@@ -38,23 +39,24 @@
         </div>
     </div>
 
-<div class="category-wrapper">
-    @if ($kategori->isEmpty())
-        <div class="no-data">
-            <h3>Belum ada karyawan</h3>
-            <p>Terima pelamar terlebih dahulu agar karyawan tampil di sini.</p>
-        </div>
-    @else
-        @foreach ($kategori as $item)
-            <div class="category-card">
-                <h4>{{ $item->kategori_pekerjaan }}</h4>
-                <p>{{ $item->jumlah }} Karyawan</p>
-                <a href="/karyawanPerusahaan/{{ $item->kategori_pekerjaan }}" class="category-btn">Lihat</a>
+    <div class="category-wrapper">
+        @if ($kategori->isEmpty())
+            <div class="no-data">
+                <h3>Belum ada karyawan</h3>
+                <p>Terima pelamar terlebih dahulu agar karyawan tampil di sini.</p>
             </div>
-        @endforeach
-    @endif
-</div>
+        @else
+            @foreach ($kategori as $item)
+                <div class="category-card">
+                    <h4>{{ $item->kategori_pekerjaan }}</h4>
+                    <p>{{ $item->jumlah }} Karyawan</p>
+                    <a href="/karyawanPerusahaan/{{ $item->kategori_pekerjaan }}" class="category-btn">Lihat</a>
+                </div>
+            @endforeach
+        @endif
+    </div>
 
 
 </body>
+
 </html>

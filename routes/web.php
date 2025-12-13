@@ -51,9 +51,9 @@ Route::get('/kelola', function () {
     return view('Kelola');
 });
 
-Route::get('/setting', function () {
+Route::get('/pelamar/setting', function () {
     return view('setting');
-});
+})->name('pelamar.settings');
 
 Route::get('/home-perusahaan', function () {
     return view('homePerusahaan');
@@ -70,6 +70,16 @@ Route::post('/lamaran/terima/{id}', [PerusahaanController::class, 'terimaPelamar
     ->name('lamaran.terima');
 Route::get('/karyawanPerusahaan', [PerusahaanController::class, 'kategoriKaryawan']);
 
+Route::get('/perusahaan/pengaturan', [PerusahaanController::class, 'showPengaturanAkun'])
+    ->name('perusahaan.settings');
+Route::post('/perusahaan/pengaturan', [PerusahaanController::class, 'updatePengaturanAkun'])
+    ->name('perusahaan.settings.update');
+Route::post('/perusahaan/logout', [PerusahaanController::class, 'logout'])
+    ->name('perusahaan.logout');
+
+    Route::get('/lowongan-perusahaan', function () {
+    return view('homePelamar.lowongan');
+});
 
 
 

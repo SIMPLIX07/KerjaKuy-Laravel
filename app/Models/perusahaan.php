@@ -11,6 +11,8 @@ class perusahaan extends Model
         'email',
         'password',
         'alamat',
-        'telepon'
+        'telepon',
+        'npwp',
+        'sertifikat'
     ];
 }

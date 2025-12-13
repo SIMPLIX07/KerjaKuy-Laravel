@@ -28,7 +28,7 @@ class PerusahaanController extends Controller
             'perusahaan_email' => $perusahaan->email
         ]);
 
-        return redirect('/karyawanPerusahaan');
+        return redirect('/home-perusahaan');
     }
 
     public function register(Request $request)
@@ -36,22 +36,37 @@ class PerusahaanController extends Controller
         $request->validate([
             'nama_perusahaan' => 'required',
             'email'           => 'required|email|unique:perusahaans,email',
-            'password'        => 'required|min:3'
+            'password'        => 'required|min:3',
+            'telepon'        => 'required|string|max:15',
+            'npwp'            => 'required|string|max:20|unique:perusahaans,npwp',
+            'sertifikat'      => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048'
         ]);
+
+        $fileName = null;
+
+        if ($request->hasFile('sertifikat')) {
+        // Simpan file ke storage (misal: storage/app/public/sertifikat)
+        // Anda perlu memastikan symbolic link sudah dibuat: php artisan storage:link
+        $fileName = time() . '.' . $request->sertifikat->extension();
+        $request->sertifikat->storeAs('public/sertifikat', $fileName);
+    }
 
         $perusahaan = Perusahaan::create([
             'nama_perusahaan' => $request->nama_perusahaan,
             'email'           => $request->email,
-            'password'        => Hash::make($request->password)
+            'password'        => Hash::make($request->password),
+            'telepon'         => $request->telepon,
+            'npwp'            => $request->npwp,
+            'sertifikat'      => $fileName
         ]);
 
         session([
             'perusahaan_id'   => $perusahaan->id,
             'perusahaan_nama' => $perusahaan->nama_perusahaan,
-            'perusahaan_email' => $perusahaan->email
+            'perusahaan_email' => $perusahaan->email,
         ]);
 
-        return redirect('/karyawanPerusahaan')->with('success', 'Registrasi perusahaan berhasil');
+        return redirect('/home-perusahaan')->with('success', 'Registrasi perusahaan berhasil');
     }
 
     public function kategoriKaryawan()
@@ -64,4 +79,70 @@ class PerusahaanController extends Controller
 
         return view('karyawanPerusahaan', compact('kategori'));
     }
+
+    public function showPengaturanAkun()
+    {
+        $perusahaanId = session('perusahaan_id');
+        
+        // --- LOGIKA OTENTIKASI MANUAL ---
+        if (!$perusahaanId) {
+            // Jika tidak ada ID di session, redirect ke halaman login
+            return redirect('/login/perusahaan')->with('error', 'Anda harus login untuk mengakses pengaturan.');
+        }
+        // ---------------------------------
+        
+        // Cari data perusahaan
+        $perusahaan = Perusahaan::find($perusahaanId); 
+
+        if (!$perusahaan) {
+            // Ini terjadi jika ID ada tapi data tidak ditemukan di DB
+            return redirect('/login/perusahaan');
+        }
+
+        return view('perusahaan.settingPerusahaan', compact('perusahaan')); 
+    }
+
+    public function updatePengaturanAkun(Request $request)
+    {
+        $perusahaanId = session('perusahaan_id');
+        if (!$perusahaanId) {
+            return redirect('/login/perusahaan')->with('error', 'Akses ditolak. Silakan login kembali.');
+        }
+
+        $perusahaan = Perusahaan::find($perusahaanId);
+            
+        // Validasi data perusahaan
+        $request->validate([
+            'nama_perusahaan' => 'required|string|max:255',
+            'email'           => 'required|email|max:255|unique:perusahaans,email,' . $perusahaanId,
+            'telepon'         => 'required|string|max:15',
+            'lokasi'          => 'nullable|string|max:255', 
+        ]);
+
+        // Update data di database
+        $perusahaan->update([
+            'nama_perusahaan' => $request->nama_perusahaan,
+            'email'           => $request->email,
+            'telepon'         => $request->telepon,
+            'alamat'          => $request->lokasi, 
+        ]);
+
+        // Update session agar nama dan email di navigasi tetap terbaru
+        session([
+            'perusahaan_nama'  => $perusahaan->nama_perusahaan,
+            'perusahaan_email' => $perusahaan->email
+        ]);
+
+        // Redirect kembali ke halaman pengaturan dengan notifikasi success
+        return redirect()->route('perusahaan.settings')->with('success', 'Pengaturan akun berhasil diperbarui!');
+    }
+
+    public function logout(Request $request)
+        {
+            $request->session()->forget(['perusahaan_id', 'perusahaan_nama', 'perusahaan_email']);
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            
+            return redirect('/login/perusahaan')->with('success', 'Anda telah berhasil keluar.');
+        }
 }
