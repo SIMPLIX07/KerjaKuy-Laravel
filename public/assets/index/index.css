@@ -2,14 +2,13 @@
 
 * {
     margin: 0;
-    padding: 0;
     box-sizing: border-box;
     font-family: 'inter', sans-serif;
-    color: #FFFFFF;
 }
 
 body {
-    background: linear-gradient(to right, #1FACA2, #000E3A)
+    background: linear-gradient(to right, #1FACA2, #000E3A);
+    color: #FFFFFF;
 }
 
 nav {
@@ -123,61 +122,35 @@ ul li a {
     font-weight: 300;
 }
 
-.konten2 {
+.about_us{
+    width: 100%;
+    padding:100px 230px;
+    background-color: white;
+    color: black;
+    display: flex;
+    flex-direction: row;
+    gap: 60px;
+}
+
+.about_us_text{
     display: flex;
     flex-direction: column;
-    position: relative;
-    background-image: url(/assets/index/asset/back.png);
-    background-size: 30%;
-    background-position: calc(100% + 200px) center;
-    background-repeat: no-repeat;
-    z-index: -1;
+    gap: 40px;
+    justify-content: center;
+    color: black;
 }
 
-.konten2 .tentang {
-    margin-bottom: 40px;
-    margin-left: 100px;
-    padding-top: 20px;
-    padding-bottom: 90px;
-    padding-left: 40px;
-    padding-right: 40px;
-    border-radius: 15px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    width: 800px;
-    height: 343;
+.about_us_text button{
+    width: 170px;
+    background-color: #1FACA2;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
 }
 
-.konten2 .tentang p {
-    margin-top: 30px;
-    font-size: 14px;
-}
-
-.konten2 .tentang h2 {
-    font-size: 40px;
-}
-
-.konten2 .tentang2 p {
-    margin-top: 30px;
-    font-size: 14px;
-}
-
-.konten2 .tentang2 h2 {
-    font-size: 40px;
-}
-
-.konten2 .tentang2 {
-    margin-bottom: 40px;
-    margin-left: 500px;
-    padding-top: 20px;
-    padding-bottom: 90px;
-    padding-left: 40px;
-    padding-right: 40px;
-    border-radius: 15px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    width: 800px;
-    height: 343;
+.about_us img{
+    width: 500px;
 }
 
 .end {

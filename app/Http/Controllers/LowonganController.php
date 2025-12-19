@@ -7,7 +7,11 @@ use App\Models\Lowongan;
 
 class LowonganController extends Controller
 {
-     public function store(Request $request)
+    public function index(){
+        
+    }
+
+    public function store(Request $request)
     {
         $request->validate([
             'kategori_pekerjaan' => 'required',
