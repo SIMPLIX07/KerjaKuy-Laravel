@@ -7,45 +7,77 @@ use App\Models\Lowongan;
 
 class LowonganController extends Controller
 {
-    public function index(){
-        
+    public function index()
+    {
+        if (!session('perusahaan_id')) {
+            return redirect('/login/perusahaan');
+        }
+
+        $lowongans = Lowongan::withCount('lamarans')
+            ->where('perusahaan_id', session('perusahaan_id'))
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('homePerusahaan', compact('lowongans'));
     }
 
     public function store(Request $request)
     {
+        if (!session('perusahaan_id')) {
+            return redirect('/login/perusahaan');
+        }
+
         $request->validate([
-            'kategori_pekerjaan' => 'required',
-            'posisi_pekerjaan'   => 'required',
-            'jenis_pekerjaan'    => 'required',
-            'gaji'               => 'required',
-            'deskripsi_singkat'  => 'required',
-            'deskripsi_pekerjaan'=> 'required',
-            'syarat'             => 'required',
-            'provinsi'           => 'required',
-            'kabupaten'          => 'required',
-            'kecamatan'          => 'required',
-            'alamat_lengkap'     => 'required',
-            'tanggal_mulai'      => 'required|date',
-            'tanggal_berakhir'   => 'required|date',
+            'kategori'          => 'required',
+            'posisi'            => 'required',
+            'jenis'             => 'required',
+            'gaji'              => 'required',
+            'deskripsi_singkat' => 'required',
+            'deskripsi'         => 'required',
+            'syarat'            => 'required',
+            'provinsi'          => 'required',
+            'kota'              => 'required',
+            'kecamatan'         => 'required',
+            'alamat'            => 'required',
+            'tanggal_mulai'     => 'required|date',
+            'tanggal_akhir'     => 'required|date|after_or_equal:tanggal_mulai',
+            'gambar'            => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
+
+        $namaGambar = null;
+
+        if ($request->hasFile('gambar')) {
+            $namaGambar = time() . '.' . $request->gambar->extension();
+            $request->gambar->storeAs('public/lowongan', $namaGambar);
+        }
 
         Lowongan::create([
-            'perusahaan_id'      => session('perusahaan_id'),
-            'kategori_pekerjaan' => $request->kategori_pekerjaan,
-            'posisi_pekerjaan'   => $request->posisi_pekerjaan,
-            'jenis_pekerjaan'    => $request->jenis_pekerjaan,
-            'gaji'               => $request->gaji,
-            'deskripsi_singkat'  => $request->deskripsi_singkat,
-            'deskripsi_pekerjaan'=> $request->deskripsi_pekerjaan,
-            'syarat'             => $request->syarat,
-            'provinsi'           => $request->provinsi,
-            'kabupaten'          => $request->kabupaten,
-            'kecamatan'          => $request->kecamatan,
-            'alamat_lengkap'     => $request->alamat_lengkap,
-            'tanggal_mulai'      => $request->tanggal_mulai,
-            'tanggal_berakhir'   => $request->tanggal_berakhir,
+            'perusahaan_id'        => session('perusahaan_id'),
+            'kategori_pekerjaan'   => $request->kategori,
+            'posisi_pekerjaan'     => $request->posisi,
+            'jenis_pekerjaan'      => $request->jenis,
+            'gaji'                 => $request->gaji,
+            'deskripsi_singkat'    => $request->deskripsi_singkat,
+            'deskripsi_pekerjaan'  => $request->deskripsi,
+            'syarat'               => $request->syarat,
+            'provinsi'             => $request->provinsi,
+            'kabupaten'            => $request->kota,
+            'kecamatan'            => $request->kecamatan,
+            'alamat_lengkap'       => $request->alamat,
+            'tanggal_mulai'        => $request->tanggal_mulai,
+            'tanggal_berakhir'     => $request->tanggal_akhir,
+            'gambar'               => $namaGambar,
         ]);
 
-        return redirect('/karyawanPerusahaan')->with('success','Lowongan berhasil dibuat');
+        return redirect('/home-perusahaan')->with('success', 'Lowongan berhasil dibuat');
+    }
+
+    public function listPelamar()
+    {
+        $lowongans = Lowongan::with('perusahaan')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('home', compact('lowongans'));
     }
 }

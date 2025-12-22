@@ -21,9 +21,15 @@ class Lowongan extends Model
         'alamat_lengkap',
         'tanggal_mulai',
         'tanggal_berakhir',
+        'gambar',
     ];
     public function lamarans()
     {
         return $this->hasMany(Lamaran::class, 'lowongan_id');
+    }
+
+    public function perusahaan()
+    {
+        return $this->belongsTo(Perusahaan::class, 'perusahaan_id');
     }
 }

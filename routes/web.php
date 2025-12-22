@@ -33,9 +33,8 @@ Route::get('/register/perusahaan', function () {
     return view('signPerusahaan');
 });
 
-Route::get('/home-pelamar', function () {
-    return view('home');
-});
+Route::get('/home-pelamar', [LowonganController::class, 'listPelamar']);
+
 
 //DAFTAR
 Route::get('/pilihRole', function () {
@@ -55,9 +54,8 @@ Route::get('/pelamar/setting', function () {
     return view('setting');
 })->name('pelamar.settings');
 
-Route::get('/home-perusahaan', function () {
-    return view('homePerusahaan');
-});
+Route::get('/home-perusahaan', [LowonganController::class, 'index']);
+
 
 
 
@@ -77,12 +75,10 @@ Route::post('/perusahaan/pengaturan', [PerusahaanController::class, 'updatePenga
 Route::post('/perusahaan/logout', [PerusahaanController::class, 'logout'])
     ->name('perusahaan.logout');
 
-    Route::get('/lowongan-perusahaan', function () {
+Route::get('/lowongan-perusahaan', function () {
     return view('homePelamar.lowongan');
 });
 
-
-
-
-
-
+Route::get('/lowongan/tambah', function () {
+    return view('lowongan.tambahLowongan');
+});

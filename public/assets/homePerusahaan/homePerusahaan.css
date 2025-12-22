@@ -236,3 +236,84 @@ body .nav-logo a {
     font-weight: 600;
     margin-bottom: 6px;
 }
+
+/* ================= TAMBAH LOWONGAN BUTTON ================= */
+.tambah-lowongan-wrapper {
+    margin-top: 110px;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-tambah-lowongan {
+    background-color: #4aa89c;
+    color: #ffffff;
+    padding: 26px 80px;
+    font-size: 22px;
+    font-weight: 500;
+    border-radius: 14px;
+    text-decoration: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+.btn-tambah-lowongan:hover {
+    background-color: #3a8f84;
+    transform: translateY(-3px);
+}
+
+/* CONTAINER */
+.lowongan-container {
+    display: flex;
+    gap: 24px;
+    padding: 60px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+/* CARD */
+.lowongan-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px;
+    width: 280px;
+    border: 1px solid #e0e0e0;
+}
+
+.lowongan-card h4 {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.lowongan-card .desc {
+    font-size: 13px;
+    color: #555;
+    margin: 10px 0;
+}
+
+.lowongan-card .info {
+    margin-bottom: 6px;
+}
+
+.lowongan-card .info span {
+    font-size: 13px;
+}
+
+.lowongan-card .tanggal {
+    font-size: 12px;
+    color: #888;
+}
+
+/* BUTTON PLUS */
+.btn-plus {
+    width: 56px;
+    height: 56px;
+    background: #4aa89c;
+    color: #fff;
+    font-size: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    margin-top: 20px;
+}

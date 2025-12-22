@@ -13,19 +13,19 @@
     <h2>Sign Up Perusahaan</h2>
 
     @if ($errors->any())
-      <div style="color:red; margin-bottom:10px;">
-        <ul>
-          @foreach ($errors->all() as $err)
-            <li>{{ $err }}</li>
-          @endforeach
-        </ul>
-      </div>
+    <div style="color:red; margin-bottom:10px;">
+      <ul>
+        @foreach ($errors->all() as $err)
+        <li>{{ $err }}</li>
+        @endforeach
+      </ul>
+    </div>
     @endif
 
     @if(session('success'))
-      <div style="color:green; margin-bottom:10px;">
-        {{ session('success') }}
-      </div>
+    <div style="color:green; margin-bottom:10px;">
+      {{ session('success') }}
+    </div>
     @endif
 
     <form action="{{ route('register.perusahaan') }}" method="POST" enctype="multipart/form-data">
@@ -59,6 +59,15 @@
         <input type="text" name="npwp" id="npwp" class="form_input"
           placeholder=" Misal: 00.000.000.0-000.000" value="{{ old('npwp') }}" />
       </div>
+
+      <div class="uploadFotoProfil">
+        <label class="upload-btn">
+          Upload Foto Profil
+          <input type="file" name="foto_profil" hidden accept="image/*">
+        </label>
+      </div>
+
+
 
       <div class="uploadSertif">
         <label for="fileInput">Sertifikat Perusahaan</label>

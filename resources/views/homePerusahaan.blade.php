@@ -39,7 +39,45 @@
         </div>
     </div>
 
-    
+    @if ($lowongans->isEmpty())
+    <!-- JIKA BELUM ADA LOWONGAN -->
+    <div class="tambah-lowongan-wrapper">
+        <a href="/lowongan/tambah" class="btn-tambah-lowongan">
+            Tambah Lowongan
+        </a>
+    </div>
+    @else
+    <!-- JIKA ADA LOWONGAN -->
+    <div class="lowongan-container">
+        @foreach ($lowongans as $lowongan)
+        <div class="lowongan-card">
+            <h4>{{ $lowongan->posisi_pekerjaan }}</h4>
+
+            <p class="desc">
+                {{ $lowongan->deskripsi_singkat }}
+            </p>
+
+            <div class="info">
+                <span>Pelamar:
+                    <strong>{{ $lowongan->lamarans_count }}</strong>
+                </span>
+            </div>
+
+            <div class="tanggal">
+                {{ \Carbon\Carbon::parse($lowongan->tanggal_mulai)->format('d-m-Y') }}
+                –
+                {{ \Carbon\Carbon::parse($lowongan->tanggal_berakhir)->format('d-m-Y') }}
+            </div>
+        </div>
+        @endforeach
+
+        <!-- BUTTON TAMBAH (+) -->
+        <a href="/lowongan/tambah" class="btn-plus">+</a>
+    </div>
+    @endif
+
+
+
 
 
 </body>

@@ -39,17 +39,24 @@ class PerusahaanController extends Controller
             'password'        => 'required|min:3',
             'telepon'        => 'required|string|max:15',
             'npwp'            => 'required|string|max:20|unique:perusahaans,npwp',
-            'sertifikat'      => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048'
+            'sertifikat'      => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
+            'foto_profil' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $fileName = null;
 
         if ($request->hasFile('sertifikat')) {
-        // Simpan file ke storage (misal: storage/app/public/sertifikat)
-        // Anda perlu memastikan symbolic link sudah dibuat: php artisan storage:link
-        $fileName = time() . '.' . $request->sertifikat->extension();
-        $request->sertifikat->storeAs('public/sertifikat', $fileName);
-    }
+            $fileName = time() . '.' . $request->sertifikat->extension();
+            $request->sertifikat->storeAs('public/sertifikat', $fileName);
+        }
+
+        $fotoProfilName = null;
+
+        if ($request->hasFile('foto_profil')) {
+            $fotoProfilName = time() . '_profil.' . $request->foto_profil->extension();
+            $request->foto_profil->storeAs('public/perusahaan/profil', $fotoProfilName);
+        }
+
 
         $perusahaan = Perusahaan::create([
             'nama_perusahaan' => $request->nama_perusahaan,
@@ -57,7 +64,8 @@ class PerusahaanController extends Controller
             'password'        => Hash::make($request->password),
             'telepon'         => $request->telepon,
             'npwp'            => $request->npwp,
-            'sertifikat'      => $fileName
+            'sertifikat'      => $fileName,
+            'foto_profil' => $fotoProfilName,
         ]);
 
         session([
@@ -83,23 +91,23 @@ class PerusahaanController extends Controller
     public function showPengaturanAkun()
     {
         $perusahaanId = session('perusahaan_id');
-        
+
         // --- LOGIKA OTENTIKASI MANUAL ---
         if (!$perusahaanId) {
             // Jika tidak ada ID di session, redirect ke halaman login
             return redirect('/login/perusahaan')->with('error', 'Anda harus login untuk mengakses pengaturan.');
         }
         // ---------------------------------
-        
+
         // Cari data perusahaan
-        $perusahaan = Perusahaan::find($perusahaanId); 
+        $perusahaan = Perusahaan::find($perusahaanId);
 
         if (!$perusahaan) {
             // Ini terjadi jika ID ada tapi data tidak ditemukan di DB
             return redirect('/login/perusahaan');
         }
 
-        return view('perusahaan.settingPerusahaan', compact('perusahaan')); 
+        return view('perusahaan.settingPerusahaan', compact('perusahaan'));
     }
 
     public function updatePengaturanAkun(Request $request)
@@ -110,13 +118,13 @@ class PerusahaanController extends Controller
         }
 
         $perusahaan = Perusahaan::find($perusahaanId);
-            
+
         // Validasi data perusahaan
         $request->validate([
             'nama_perusahaan' => 'required|string|max:255',
             'email'           => 'required|email|max:255|unique:perusahaans,email,' . $perusahaanId,
             'telepon'         => 'required|string|max:15',
-            'lokasi'          => 'nullable|string|max:255', 
+            'lokasi'          => 'nullable|string|max:255',
         ]);
 
         // Update data di database
@@ -124,7 +132,7 @@ class PerusahaanController extends Controller
             'nama_perusahaan' => $request->nama_perusahaan,
             'email'           => $request->email,
             'telepon'         => $request->telepon,
-            'alamat'          => $request->lokasi, 
+            'alamat'          => $request->lokasi,
         ]);
 
         // Update session agar nama dan email di navigasi tetap terbaru
@@ -138,11 +146,13 @@ class PerusahaanController extends Controller
     }
 
     public function logout(Request $request)
-        {
-            $request->session()->forget(['perusahaan_id', 'perusahaan_nama', 'perusahaan_email']);
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-            
-            return redirect('/login/perusahaan')->with('success', 'Anda telah berhasil keluar.');
-        }
+    {
+        $request->session()->forget(['perusahaan_id', 'perusahaan_nama', 'perusahaan_email']);
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login/perusahaan')->with('success', 'Anda telah berhasil keluar.');
+    }
+
+    
 }
