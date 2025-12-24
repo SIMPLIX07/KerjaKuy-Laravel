@@ -30,7 +30,7 @@
     </nav>
     <div class="content">
         <div class="cardTop">
-            <div class="back">
+            <div class="back" style="background-image: url('{{ asset('storage/'.$lowongan->perusahaan->foto_profil) }}')">
                 <div class="seluruh">
                     <img src="/assets/pageLamar/asset/logoPerusahaan.png" alt="">
                     <div class="profile">

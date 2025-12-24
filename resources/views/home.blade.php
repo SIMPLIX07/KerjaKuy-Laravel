@@ -58,8 +58,9 @@
                 <div div class="shadow-sm h-100 position-relative" style="width: 25rem">
                     <div class="card-job">
                         <div class="card-company">
-                            <img src="https://img.freepik.com/vektor-premium/vektor-desain-logo-minimalis-abstrak-yang-kreatif-dan-elegan-untuk-semua-perusahaan-merek_1253202-137546.jpg?semt=ais_hybrid&w=740&q=80"
-                                alt="">
+                            <div class="avatar">
+                                <img src="{{ asset('storage/' . $lowongan->perusahaan->foto_profil) }}" alt="">
+                            </div>
                             <div>
                                 <h5 class="">{{ $lowongan->posisi_pekerjaan }}</h5>
                                 <p class="">

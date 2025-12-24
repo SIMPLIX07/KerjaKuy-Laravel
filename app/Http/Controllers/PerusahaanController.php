@@ -43,19 +43,24 @@ class PerusahaanController extends Controller
             'foto_profil' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $fileName = null;
+        $sertifikatPath = null;
 
         if ($request->hasFile('sertifikat')) {
-            $fileName = time() . '.' . $request->sertifikat->extension();
-            $request->sertifikat->storeAs('public/sertifikat', $fileName);
+            $sertifikatPath = $request->file('sertifikat')->store(
+                'sertifikat',
+                'public'
+            );
         }
 
-        $fotoProfilName = null;
+        $fotoProfilPath = null;
 
         if ($request->hasFile('foto_profil')) {
-            $fotoProfilName = time() . '_profil.' . $request->foto_profil->extension();
-            $request->foto_profil->storeAs('public/perusahaan/profil', $fotoProfilName);
+            $fotoProfilPath = $request->file('foto_profil')->store(
+                'perusahaan/profil',
+                'public'
+            );
         }
+
 
 
         $perusahaan = Perusahaan::create([
@@ -64,8 +69,8 @@ class PerusahaanController extends Controller
             'password'        => Hash::make($request->password),
             'telepon'         => $request->telepon,
             'npwp'            => $request->npwp,
-            'sertifikat'      => $fileName,
-            'foto_profil' => $fotoProfilName,
+            'sertifikat' => $sertifikatPath,
+            'foto_profil' => $fotoProfilPath,
         ]);
 
         session([

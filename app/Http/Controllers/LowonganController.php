@@ -30,6 +30,14 @@ class LowonganController extends Controller
         return view('lamar', compact('lowongan'));
     }
 
+    public function create()
+    {
+        if (!session('perusahaan_id')) {
+            return redirect('/login/perusahaan');
+        }
+
+        return view('/lowongan/tambahLowongan');
+    }
 
     public function store(Request $request)
     {
