@@ -150,6 +150,8 @@ body .nav-logo a {
     border-radius: 20px;
     border-style: solid;
     border-color: rgb(186, 185, 185);
+    text-decoration: none;
+    color: inherit;
 }
 
 .card-company {
@@ -166,4 +168,15 @@ body .nav-logo a {
 .user-link:hover {
     color: #1FACA2;
     cursor: pointer;
+}
+
+.job-link {
+    text-decoration: none !important;
+    color: inherit !important;
+    display: block;
+}
+
+.job-link:hover {
+    color: inherit !important;
+    text-decoration: none !important;
 }

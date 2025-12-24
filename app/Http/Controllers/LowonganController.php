@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Lowongan;
+use App\Models\Perusahaan;
 
 class LowonganController extends Controller
 {
@@ -19,7 +20,16 @@ class LowonganController extends Controller
             ->get();
 
         return view('homePerusahaan', compact('lowongans'));
+
     }
+
+    public function detail($id)
+    {
+        $lowongan = Lowongan::with('perusahaan')->findOrFail($id);
+
+        return view('lamar', compact('lowongan'));
+    }
+
 
     public function store(Request $request)
     {

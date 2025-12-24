@@ -34,8 +34,13 @@
                 <div class="seluruh">
                     <img src="/assets/pageLamar/asset/logoPerusahaan.png" alt="">
                     <div class="profile">
-                        <label for="" id="perusahaan">PT. Grab Indonesia</label>
-                        <label for="" id="posisi">Project Supervisor</label>
+                        <label id="perusahaan">
+                            {{ $lowongan->perusahaan->nama_perusahaan }}
+                        </label>
+
+                        <label id="posisi">
+                            {{ $lowongan->posisi_pekerjaan }}
+                        </label>
                     </div>
                 </div>
             </div>
@@ -44,36 +49,48 @@
             <div class="top">
                 <div class="tengah">
                     <img src="/assets/pageLamar/asset/gaji.png" alt="">
-                    <label for=""> IDR 5.000.000 - 10.000.000</label>
+                    <label>
+                        IDR {{ number_format($lowongan->gaji, 0, ',', '.') }}
+                    </label>
+
                 </div>
                 <div class="tengah">
                     <img src="/assets/pageLamar/asset/waktu.png" alt="">
-                    <label for=""> Penuh Waktu</label>
+                    <label>
+                        {{ $lowongan->jenis_pekerjaan }}
+                    </label>
+
                 </div>
                 <div class="tengah">
                     <img src="/assets/pageLamar/asset/lokasi.png" alt="">
-                    <label for=""> Jakarta Pusat, Jakarta Raya</label>
+                    <label>
+                        {{ $lowongan->kabupaten }}, {{ $lowongan->provinsi }}
+                    </label>
+
                 </div>
             </div>
             <div class="middle">
                 <h2>Deskripsi Pekerjaan</h2>
-                <ul class="list" >
-                    <li>Bertanggung jawab untuk menjemput dan mengantarkan penumpang atau barang ke tujuan dengan aman, cepat, dan nyaman sesuai pesanan yang diterima melalui aplikasi Grab.</li>
-                    <li>Melakukan komunikasi yang sopan dan ramah dengan pelanggan untuk memberikan pengalaman perjalanan yang menyenangkan.</li>
-                    <li>Mengoperasikan aplikasi Grab secara efektif untuk menerima order, menentukan rute perjalanan, dan melakukan konfirmasi penyelesaian pesanan.</li>
+                <ul class="list">
+                    @foreach (explode("\n", $lowongan->deskripsi_pekerjaan) as $item)
+                        <li>{{ $item }}</li>
+                    @endforeach
                 </ul>
+
             </div>
             <div class="bottom">
                 <h2>Syarat</h2>
-                <ul class="list" >
-                    <li>Memiliki SIM C (untuk pengemudi motor) atau SIM A (untuk pengemudi mobil) yang masih berlaku.</li>
-                    <li>Memiliki kendaraan pribadi dalam kondisi baik dan memenuhi standar kelayakan Grab.</li>
-                    <li>Memiliki smartphone Android/iOS yang kompatibel dengan aplikasi Grab.</li>
+                <ul class="list">
+                    @foreach (explode("\n", $lowongan->syarat) as $item)
+                        <li>{{ $item }}</li>
+                    @endforeach
                 </ul>
+
             </div>
             <button class="button">Lamar</button>
         </div>
     </div>
 </body>
 <script src="/assets/pageLamar/lamar.js"></script>
+
 </html>
