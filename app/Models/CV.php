@@ -7,13 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 class CV extends Model
 {
     protected $fillable = [
-        'user_id',
+        'pelamar_id',
         'umur',
         'tentang_saya',
         'kontak',
         'title',
         'subtitle'
+        'universitas',
+        'jurusan',
+        'pendidikan'
     ];
+
+    public function pelamar()
+    {
+        return $this->belongsTo(Pelamar::class);
+    }
+
 
     public function pendidikans()
     {

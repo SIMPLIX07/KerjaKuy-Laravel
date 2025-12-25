@@ -38,9 +38,9 @@
     </nav>
     <div class="content">
         <div class="cardTop">
-            <div class="back" style="background-image: url('{{ asset('storage/'.$lowongan->perusahaan->foto_profil) }}')">
+            <div class="back" style="background-image: url('{{ asset('storage/'.$lowongan->gambar) }}')">
                 <div class="seluruh">
-                    <img src="/assets/pageLamar/asset/logoPerusahaan.png" alt="">
+                    <img src="{{ asset('storage/' . $lowongan->perusahaan->foto_profil) }}" alt="">
                     <div class="profile">
                         <label id="perusahaan">
                             {{ $lowongan->perusahaan->nama_perusahaan }}

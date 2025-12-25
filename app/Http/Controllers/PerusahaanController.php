@@ -61,8 +61,6 @@ class PerusahaanController extends Controller
             );
         }
 
-
-
         $perusahaan = Perusahaan::create([
             'nama_perusahaan' => $request->nama_perusahaan,
             'email'           => $request->email,

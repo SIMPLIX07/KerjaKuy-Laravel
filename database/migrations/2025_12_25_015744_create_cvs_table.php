@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('cvs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('pelamar_id')->constrained('pelamars')->onDelete('cascade');
             $table->integer('umur');
             $table->text('tentang_saya')->nullable();
             $table->string('kontak');
             $table->string('title');
             $table->string('subtitle')->nullable();
+            $table->string('universitas');
+            $table->string('jurusan');
+            $table->string('pendidikan');
             $table->timestamps();
         });
     }

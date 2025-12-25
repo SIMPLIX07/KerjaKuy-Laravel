@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthPelamarController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\LamaranController;
-
+use App\Http\Controllers\CVController;
 
 
 Route::get('/', function () {
@@ -63,14 +63,18 @@ Route::post('/lamaran/insert', [LamaranController::class, 'insertLamaran']);
 // Lowongan
 Route::post('/lowongan/tambah', [LowonganController::class, 'store'])->name('lowongan.store');
 Route::get('/lowongan/tambah', [LowonganController::class, 'create'])->name('lowongan.create');
-
 Route::post('/lamaran/terima/{id}', [PerusahaanController::class, 'terimaPelamar'])->name('lamaran.terima');
 Route::get('/karyawanPerusahaan', [PerusahaanController::class, 'kategoriKaryawan']);
 
+// CV
+Route::resource('/cv', CVController::class);
+Route::get('/pelamar/{pelamar}/cv/create', [CVController::class, 'create'])
+    ->name('cv.create');
+Route::post('/pelamar/{pelamar}/cv', [CVController::class, 'store'])
+    ->name('cv.store');
 
 // Perusahaan
 Route::get('/home-perusahaan', [LowonganController::class, 'index']);
-
 Route::post('/login/perusahaan', [PerusahaanController::class, 'login'])->name('login.perusahaan');
 Route::post('/register/perusahaan', [PerusahaanController::class, 'register'])->name('register.perusahaan');
 Route::get('/perusahaan/pengaturan', [PerusahaanController::class, 'showPengaturanAkun'])->name('perusahaan.settings');
@@ -84,7 +88,6 @@ Route::post('/lamaran/store', [LamaranController::class, 'insertLamaran']);
 Route::get('/lowongan-perusahaan', function () {
     return view('homePelamar.lowongan');
 });
-
 
 Route::get('/lowongan/tambah', function () {
     return view('lowongan.tambahLowongan');

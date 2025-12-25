@@ -30,6 +30,18 @@
                 </div>
             </div>
 
+            <a href="/cv">
+                <div class="general">
+                    <div class="profil">
+                        <div class="iconProfil">
+                            <img src="/assets/menuSettings/assets/user.png" alt="">
+                        </div>
+                        <label>CV</label>
+                    </div>
+                </div>
+            </a>
+
+
             <div class="System">
                 <div class="LogOut">
                     <div class="iconLogOut">

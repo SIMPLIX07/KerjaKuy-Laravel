@@ -81,44 +81,6 @@
         </a>
         @endforeach
     </div>
-
-    <script>
-        fetch("/assets/HomePelamar/pekerjaan.json")
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data); // tampilkan di console
-                // contoh menampilkan posisi ke dokumen HTML
-                const container = document.getElementById("list-pekerjaan");
-                data.forEach((job) => {
-                    const div = document.createElement("div");
-                    div.innerHTML = `
-      <div div class="shadow-sm h-100 position-relative" style="width: 25rem">
-        <div class="card-job">
-            <div class="card-company">
-                <img src="https://img.freepik.com/vektor-premium/vektor-desain-logo-minimalis-abstrak-yang-kreatif-dan-elegan-untuk-semua-perusahaan-merek_1253202-137546.jpg?semt=ais_hybrid&w=740&q=80" alt="">
-                <div>
-                    <h5 class="">${job.posisi}</h5>
-                    <p class="">
-                        ${job.nama_perusahaan}
-                    </p>
-                </div>
-            </div>
-          <p class="">
-            ${job.deskripsi}
-          </p>
-          <p class="">
-            ${job.lokasi}
-          </p>
-          
-          <a href="/lamar" class="btn-lamar btn-sm">Lamar</a>
-        </div>
-        </div>
-      `;
-                    container.appendChild(div);
-                });
-            })
-            .catch((error) => console.error("Gagal fetch data:", error));
-    </script>
 </body>
 
 </html>

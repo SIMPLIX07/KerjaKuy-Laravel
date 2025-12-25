@@ -25,4 +25,9 @@ class Pelamar extends Model
     {
         return $this->hasMany(Lamaran::class, 'pelamar_id');
     }
+    public function cv()
+    {
+        return $this->hasMany(Cv::class);
+    }
+
 }

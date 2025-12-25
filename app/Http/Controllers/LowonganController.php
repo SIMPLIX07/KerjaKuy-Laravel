@@ -65,8 +65,7 @@ class LowonganController extends Controller
         $namaGambar = null;
 
         if ($request->hasFile('gambar')) {
-            $namaGambar = time() . '.' . $request->gambar->extension();
-            $request->gambar->storeAs('public/lowongan', $namaGambar);
+            $namaGambar = $request->file('gambar')->store('lowongan', 'public');
         }
 
         Lowongan::create([
