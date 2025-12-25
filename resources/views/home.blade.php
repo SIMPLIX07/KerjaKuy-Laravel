@@ -54,31 +54,31 @@
 
     <div class="container my-5 d-flex flex-wrap justify-content-center gap-4">
         @foreach ($lowongans as $lowongan)
-            <a href="{{ route('lowongan.detail', $lowongan->id) }}" class="job-link">
-                <div div class="shadow-sm h-100 position-relative" style="width: 25rem">
-                    <div class="card-job">
-                        <div class="card-company">
-                            <div class="avatar">
-                                <img src="{{ asset('storage/' . $lowongan->perusahaan->foto_profil) }}" alt="">
-                            </div>
-                            <div>
-                                <h5 class="">{{ $lowongan->posisi_pekerjaan }}</h5>
-                                <p class="">
-                                    {{ $lowongan->perusahaan->nama_perusahaan }}
-                                </p>
-                            </div>
+        <a href="{{ route('lowongan.detail', $lowongan->id) }}" class="job-link">
+            <div div class="shadow-sm h-100 position-relative" style="width: 25rem">
+                <div class="card-job">
+                    <div class="card-company">
+                        <div class="avatar">
+                            <img src="{{ asset('storage/' . $lowongan->perusahaan->foto_profil) }}" alt="">
                         </div>
-                        <p class="">
-                            {{ $lowongan->deskripsi_singkat }}
-                        </p>
-                        <p class="">
-                            {{ $lowongan->alamat_lengkap }}
-                        </p>
-
-                        <span class="btn-lamar btn-sm">Lamar</span>
+                        <div>
+                            <h5 class="">{{ $lowongan->posisi_pekerjaan }}</h5>
+                            <p class="">
+                                {{ $lowongan->perusahaan->nama_perusahaan }}
+                            </p>
+                        </div>
                     </div>
+                    <p class="">
+                        {{ $lowongan->deskripsi_singkat }}
+                    </p>
+                    <p class="">
+                        {{ $lowongan->alamat_lengkap }}
+                    </p>
+
+                    <span class="btn-lamar btn-sm">Lamar</span>
                 </div>
-            </a>
+            </div>
+        </a>
         @endforeach
     </div>
 

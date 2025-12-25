@@ -209,3 +209,137 @@ nav .left img{
     color: white;
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-content {
+    background: white;
+    padding: 20px;
+    width: 350px;
+    border-radius: 10px;
+}
+
+.modal-action {
+    margin-top: 15px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.modal-content select {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.modal-action button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#btnKirimLamaran {
+    background: #1FACA2;
+    color: white;
+}
+
+#btnTutup {
+    background: #ccc;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 9999;
+
+}
+
+/* ukuran modal BESAR */
+.modal-content.large {
+    width: 700px;
+    max-height: 80vh;
+    background: white;
+    border-radius: 14px;
+    padding: 25px;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3); 
+}
+
+.cv-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+/* kartu CV */
+.cv-card {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 15px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.cv-card:hover {
+    border-color: #1FACA2;
+    background: #f2fffd;
+}
+
+.cv-card.active {
+    border-color: #1FACA2;
+    background: #e9fffb;
+}
+
+.cv-title {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.cv-date {
+    font-size: 12px;
+    color: #666;
+}
+
+.modal-action {
+    margin-top: 25px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+#btnKirimLamaran {
+    background: #1FACA2;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+#btnKirimLamaran:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+#btnTutup {
+    background: #ddd;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+}
+
+
+

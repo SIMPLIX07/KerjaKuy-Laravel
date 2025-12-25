@@ -5,6 +5,7 @@ use App\Http\Controllers\PelamarController;
 use App\Http\Controllers\AuthPelamarController;
 use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\LowonganController;
+use App\Http\Controllers\LamaranController;
 
 
 
@@ -42,9 +43,8 @@ Route::get('/pilihRole', function () {
 });
 
 
-Route::get('/lamaran-anda', function () {
-    return view('Lamaran');
-});
+Route::get('/lamaran-anda', [LamaranController::class, 'index']);
+
 
 Route::get('/kelola', function () {
     return view('Kelola');
@@ -57,6 +57,8 @@ Route::get('/pelamar/setting', function () {
 // Pelamar
 Route::post('/register/pelamar', [PelamarController::class, 'store'])->name('register.pelamar');
 Route::post('/login/pelamar', [PelamarController::class, 'login'])->name('login.pelamar');
+Route::get('/pelamar/cv', [LamaranController::class, 'getCvPelamar']);
+Route::post('/lamaran/insert', [LamaranController::class, 'insertLamaran']);
 
 // Lowongan
 Route::post('/lowongan/tambah', [LowonganController::class, 'store'])->name('lowongan.store');
@@ -64,6 +66,7 @@ Route::get('/lowongan/tambah', [LowonganController::class, 'create'])->name('low
 
 Route::post('/lamaran/terima/{id}', [PerusahaanController::class, 'terimaPelamar'])->name('lamaran.terima');
 Route::get('/karyawanPerusahaan', [PerusahaanController::class, 'kategoriKaryawan']);
+
 
 // Perusahaan
 Route::get('/home-perusahaan', [LowonganController::class, 'index']);
@@ -74,6 +77,8 @@ Route::get('/perusahaan/pengaturan', [PerusahaanController::class, 'showPengatur
 Route::post('/perusahaan/pengaturan', [PerusahaanController::class, 'updatePengaturanAkun'])->name('perusahaan.settings.update');
 Route::post('/perusahaan/logout', [PerusahaanController::class, 'logout'])->name('perusahaan.logout');
 Route::get('/lowongan/{id}', [LowonganController::class, 'detail'])->name('lowongan.detail');
+Route::post('/lamaran/store', [LamaranController::class, 'insertLamaran']);
+
 
 
 Route::get('/lowongan-perusahaan', function () {
@@ -84,3 +89,5 @@ Route::get('/lowongan-perusahaan', function () {
 Route::get('/lowongan/tambah', function () {
     return view('lowongan.tambahLowongan');
 });
+
+

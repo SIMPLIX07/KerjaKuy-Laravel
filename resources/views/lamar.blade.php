@@ -2,10 +2,18 @@
 <html lang="en">
 
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+<script>
+    window.PELAMAR_ID = {{ session('pelamar_id') }};
+    window.LOWONGAN_ID = {{ $lowongan->id }};
+</script>
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/assets/pageLamar/lamar.css">
+    <link rel="stylesheet" href="{{ asset('assets/pageLamar/lamar.css') }}">
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
@@ -73,7 +81,7 @@
                 <h2>Deskripsi Pekerjaan</h2>
                 <ul class="list">
                     @foreach (explode("\n", $lowongan->deskripsi_pekerjaan) as $item)
-                        <li>{{ $item }}</li>
+                    <li>{{ $item }}</li>
                     @endforeach
                 </ul>
 
@@ -82,14 +90,31 @@
                 <h2>Syarat</h2>
                 <ul class="list">
                     @foreach (explode("\n", $lowongan->syarat) as $item)
-                        <li>{{ $item }}</li>
+                    <li>{{ $item }}</li>
                     @endforeach
                 </ul>
 
             </div>
-            <button class="button">Lamar</button>
+            <button type="button" class="button">Lamar</button>
         </div>
     </div>
+
+    <div id="modalCv" class="modal">
+    <div class="modal-content large">
+
+        <h3>Pilih CV</h3>
+
+        <div id="cvList" class="cv-list">
+        </div>
+
+        <div class="modal-action">
+            <button id="btnKirimLamaran" disabled>Kirim Lamaran</button>
+            <button id="btnTutup">Batal</button>
+        </div>
+
+    </div>
+</div>
+
 </body>
 <script src="/assets/pageLamar/lamar.js"></script>
 

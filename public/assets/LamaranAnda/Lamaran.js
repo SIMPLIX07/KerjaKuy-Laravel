@@ -56,13 +56,13 @@
 //     }
 // });
 
-document.querySelector('.search-button').addEventListener('click', function() {
+document.querySelector('.search-button').addEventListener('click', function () {
     const searchValue = document.querySelector('.search-input').value.toLowerCase();
     const cards = document.querySelectorAll('.card');
 
     cards.forEach(card => {
         const title = card.querySelector('.card-title').textContent.toLowerCase();
-        const text = card.querySelector('.card-pesan').textContent.toLowerCase(); 
+        const text = card.querySelector('.card-pesan').textContent.toLowerCase();
         const perusahaan = card.querySelector('.card-perusahaan').textContent.toLowerCase();
 
         if (title.includes(searchValue) || text.includes(searchValue) || perusahaan.includes(searchValue)) {
@@ -98,5 +98,22 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+});
+
+document.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+        const status = btn.dataset.tab;
+
+        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("tab-active"));
+        btn.classList.add("tab-active");
+
+        document.querySelectorAll(".card").forEach(card => {
+            if (card.dataset.status === status) {
+                card.style.display = "block";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    });
 });
 

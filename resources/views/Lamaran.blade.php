@@ -47,29 +47,51 @@
         </div>
 
         <div class="cards-container" style="grid-column: span 12;">
-            <div class="card" data-status="diterima">
-                <div class="card-title">UI/UX Designer</div>
-                <div class="card-company">PT. Nebula</div>
-                <div class="card-desc">Sabar ya, lamaran kamu sedang dalam proses pemeriksaan</div>
-                <div class="card-date">10-09-2025</div>
+            @forelse ($lamarans as $lamaran)
+            <div class="card" data-status="{{ $lamaran->status }}">
+                <div class="card-title">
+                    {{ $lamaran->lowongan->posisi_pekerjaan }}
+                </div>
+
+                <div class="card-company">
+                    {{ $lamaran->lowongan->perusahaan->nama_perusahaan }}
+                </div>
+
+                <div class="card-desc">
+                    @if ($lamaran->status === 'proses')
+                    Lamaran kamu sedang diproses
+                    @elseif ($lamaran->status === 'wawancara')
+                    Kamu dipanggil untuk tahap wawancara
+                    @elseif ($lamaran->status === 'diterima')
+                    Selamat! Kamu diterima 🎉
+                    @else
+                    Maaf, kamu belum lolos
+                    @endif
+                </div>
+
+                <div class="card-date">
+                    {{ $lamaran->created_at->format('d-m-Y') }}
+                </div>
             </div>
+            @empty
+            <div class="empty-wrapper">
+                <div class="empty-card">
+                    <h3>Belum ada lamaran</h3>
+                    <p>
+                        Kamu belum mengirim lamaran ke lowongan mana pun.<br>
+                        Silakan cari lowongan dan mulai melamar.
+                    </p>
 
-
-            <div class="card" data-status="diproses">
-                <div class="card-title">UI/UX Designer</div>
-                <div class="card-company">PT. Nebula</div>
-                <div class="card-desc">Sabar ya, lamaran kamu sedang dalam proses pemeriksaan</div>
-                <div class="card-date">10-09-2025</div>
-
+                    <a href="/home-pelamar" class="empty-btn">
+                        Cari Lowongan
+                    </a>
+                </div>
             </div>
+            @endforelse
 
-            <div class="card" data-status="ditolak">
-                <div class="card-title">UI/UX Designer</div>
-                <div class="card-company">PT. Nebula</div>
-                <div class="card-desc">Sabar ya, lamaran kamu sedang dalam proses pemeriksaan</div>
-                <div class="card-date">10-09-2025</div>
-            </div>
+
         </div>
+
 
     </div>
 

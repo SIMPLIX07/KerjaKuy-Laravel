@@ -9,7 +9,8 @@ class Lamaran extends Model
     protected $fillable = [
         'pelamar_id',
         'lowongan_id',
-        'status'
+        'status',
+        'cv_id',
     ];
 
     public function pelamar()
@@ -20,5 +21,10 @@ class Lamaran extends Model
     public function lowongan()
     {
         return $this->belongsTo(Lowongan::class, 'lowongan_id');
+    }
+
+    public function cv()
+    {
+        return $this->belongsTo(Cv::class, 'cv_id');
     }
 }
