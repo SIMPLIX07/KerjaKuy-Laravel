@@ -12,7 +12,7 @@ class CV extends Model
         'tentang_saya',
         'kontak',
         'title',
-        'subtitle'
+        'subtitle',
         'universitas',
         'jurusan',
         'pendidikan'

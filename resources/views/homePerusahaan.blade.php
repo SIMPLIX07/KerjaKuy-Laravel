@@ -50,25 +50,27 @@
     <!-- JIKA ADA LOWONGAN -->
     <div class="lowongan-container">
         @foreach ($lowongans as $lowongan)
-        <div class="lowongan-card">
-            <h4>{{ $lowongan->posisi_pekerjaan }}</h4>
+        <a href="{{ route('perusahaan.lowongan.detail', $lowongan->id) }}" style="text-decoration: none; color: inherit;">
+            <div class="lowongan-card">
+                <h4>{{ $lowongan->posisi_pekerjaan }}</h4>
 
-            <p class="desc">
-                {{ $lowongan->deskripsi_singkat }}
-            </p>
+                <p class="desc">
+                    {{ $lowongan->deskripsi_singkat }}
+                </p>
 
-            <div class="info">
-                <span>Pelamar:
-                    <strong>{{ $lowongan->lamarans_count }}</strong>
-                </span>
+                <div class="info">
+                    <span>Pelamar:
+                        <strong>{{ $lowongan->lamarans_count }}</strong>
+                    </span>
+                </div>
+
+                <div class="tanggal">
+                    {{ \Carbon\Carbon::parse($lowongan->tanggal_mulai)->format('d-m-Y') }}
+                    –
+                    {{ \Carbon\Carbon::parse($lowongan->tanggal_berakhir)->format('d-m-Y') }}
+                </div>
             </div>
-
-            <div class="tanggal">
-                {{ \Carbon\Carbon::parse($lowongan->tanggal_mulai)->format('d-m-Y') }}
-                –
-                {{ \Carbon\Carbon::parse($lowongan->tanggal_berakhir)->format('d-m-Y') }}
-            </div>
-        </div>
+        </a>
         @endforeach
 
         <!-- BUTTON TAMBAH (+) -->
