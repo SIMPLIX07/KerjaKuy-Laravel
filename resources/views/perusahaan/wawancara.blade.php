@@ -7,7 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KerjaKuy - Wawancara</title>
 
+    <link rel="stylesheet" href="/assets/wawancaraPerusahaan/wawancara.css">
     <link rel="stylesheet" href="/assets/LamaranAnda/Lamaran.css">
+
+
 
 </head>
 
@@ -39,9 +42,7 @@
 
         <div class="search-bar-container">
             <div class="search-form-wrapper">
-                <input type="text"
-                    placeholder="Cari jadwal wawancara"
-                    class="search-input">
+                <input type="text" placeholder="Cari jadwal wawancara" class="search-input">
                 <button class="search-button">Cari</button>
             </div>
         </div>
@@ -51,7 +52,7 @@
     <div class="main-grid">
         <div class="tabs-wrapper">
             <div class="tabs-container">
-                <button class="tab-btn tab-active" data-tab="akan-datang">
+                <button class="tab-btn tab-active" data-tab="proses">
                     Akan Datang
                 </button>
                 <button class="tab-btn" data-tab="selesai">
@@ -60,61 +61,58 @@
 
             </div>
         </div>
-        <div class="cards-container" style="grid-column: span 12;">
+        <div class="wp-cards-container" style="grid-column: span 12;">
 
             @forelse ($wawancarans as $wawancara)
-            <div class="card" data-status="{{ $wawancara->status === 'proses' ? 'akan-datang' : 'selesai' }}">
 
-
-                <div class="card-title">
-                    {{ $wawancara->lowongan->posisi_pekerjaan }}
-                </div>
-
-                <div class="card-company">
-                    {{ $wawancara->pelamar->nama }}
-                </div>
-
-                <div class="card-desc">
-                    @if ($wawancara->status === 'proses')
-                    Menunggu pelaksanaan wawancara
-                    @elseif ($wawancara->status === 'selesai')
-                    Wawancara telah selesai
-                    @endif
-
-                </div>
-
-                <div class="card-date">
-                    {{ \Carbon\Carbon::parse($wawancara->tanggal)->format('d M Y') }}
-                    • {{ $wawancara->jam_mulai }} - {{ $wawancara->jam_selesai }}
-                </div>
-
-                <button
-                    class="detail-btn"
+                <div class="wp-card card-wawancara-item"
+                    data-nama="{{ $wawancara->pelamar->nama_lengkap }}"
                     data-id="{{ $wawancara->id }}"
-                    data-lamaran="{{ $wawancara->lowongan_id }}"
-                    data-pelamar="{{ $wawancara->pelamar->id }}"
-                    data-nama="{{ $wawancara->pelamar->nama }}"
                     data-posisi="{{ $wawancara->lowongan->posisi_pekerjaan }}"
                     data-tanggal="{{ \Carbon\Carbon::parse($wawancara->tanggal)->format('d M Y') }}"
                     data-jam="{{ $wawancara->jam_mulai }} - {{ $wawancara->jam_selesai }}"
-                    data-pesan="{{ $wawancara->pesan }}">
-                    Detail
-                </button>
+                    data-pesan="{{ $wawancara->pesan ?? 'Tidak ada pesan khusus.' }}"
+                    data-status="{{ $wawancara->status }}">
 
+                    <div class="wp-card-title">
+                        {{ $wawancara->lowongan->posisi_pekerjaan }}
+                    </div>
 
-            </div>
-            @empty
-            <div class="empty-wrapper">
-                <div class="empty-card">
-                    <h3>Belum ada wawancara</h3>
-                    <p>
-                        Belum ada jadwal wawancara untuk lowongan kamu.
-                    </p>
+                    <div class="wp-card-company">
+                        {{ $wawancara->pelamar->nama }}
+                        </div> <div class="wp-card-desc">
+                        @if ($wawancara->status === 'proses')
+                            Wawancara dengan:
+                            <strong>{{ $wawancara->pelamar->nama_lengkap }}</strong>
+                        @elseif ($wawancara->status === 'selesai')
+                            Wawancara telah selesai
+                        @endif
+                    </div>
+
+                    <div class="wp-link-label">
+                        Link:
+                        <a href="{{ $wawancara->link_meet }}" target="_blank" class="wp-link-url">
+                          {{ $wawancara->link_meet }}
+                        </a>
+                    </div>
+
+                    <div class="wp-card-date">
+                        {{ \Carbon\Carbon::parse($wawancara->tanggal)->format('d M Y') }}
+                        • {{ $wawancara->jam_mulai }} - {{ $wawancara->jam_selesai }}
+                    </div>
+
                 </div>
-            </div>
+            @empty
+                        <div class="empty-wrapper">
+                    <div class="empty-card">
+                        <h3>Belum ada wawancara</h3>
+                        <p>Belum ada jadwal wawancara untuk lowongan kamu.</p>
+                    </div>
+                </div>
             @endforelse
 
-        </div>
+    </div>
+
 
     </div>
 

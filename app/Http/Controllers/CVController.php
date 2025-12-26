@@ -102,9 +102,11 @@ class CVController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Cv $cVS)
+    public function show($id)
     {
-        //
+        // Mengambil CV berdasarkan ID beserta relasi skill dan pengalaman
+        $cv = Cv::with(['pelamar', 'skills', 'pengalamans'])->findOrFail($id);
+        return view('cv.detail', compact('cv'));
     }
 
     /**

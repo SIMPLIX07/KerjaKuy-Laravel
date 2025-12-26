@@ -1,45 +1,48 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     const tabs = document.querySelectorAll('.tab-btn');
-    const cards = document.querySelectorAll('.card');
+    const cards = document.querySelectorAll('.wp-card'); 
 
     function filterCards(status) {
         cards.forEach(card => {
-            card.style.display =
-                card.dataset.status === status ? 'block' : 'none';
+            // Jika status card cocok dengan tab yang diklik, tampilkan
+            if (card.dataset.status === status) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
         });
     }
 
-    filterCards('akan-datang');
+    // Default view saat pertama buka, tampilkan yang statusnya 'proses'
+    filterCards('proses');
 
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             tabs.forEach(t => t.classList.remove('tab-active'));
             tab.classList.add('tab-active');
-
             filterCards(tab.dataset.tab);
         });
     });
 
     const modal = document.getElementById('detailModal');
     const closeModal = document.getElementById('closeModal');
-
     let wawancaraId = null;
 
-    document.querySelectorAll('.detail-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+    // Menambah event click pada seluruh kartu
+    cards.forEach(card => {
+        card.addEventListener('click', function () {
+            // Ambil data dari atribut data di wp-card
+            wawancaraId = this.dataset.id;
+            const status = this.dataset.status;
 
-            const card = btn.closest('.card');
-            const status = card.dataset.status; 
+            document.getElementById('modalPosisi').innerText = this.dataset.posisi;
+            document.getElementById('modalNama').innerText = this.dataset.nama;
+            document.getElementById('modalTanggal').innerText = this.dataset.tanggal;
+            document.getElementById('modalJam').innerText = this.dataset.jam;
+            document.getElementById('modalPesan').innerText = this.dataset.pesan || '-';
 
-            wawancaraId = btn.dataset.id;
-
-            document.getElementById('modalPosisi').innerText = btn.dataset.posisi;
-            document.getElementById('modalNama').innerText = btn.dataset.nama;
-            document.getElementById('modalTanggal').innerText = btn.dataset.tanggal;
-            document.getElementById('modalJam').innerText = btn.dataset.jam;
-            document.getElementById('modalPesan').innerText = btn.dataset.pesan || '-';
-
+            // Sembunyikan tombol Terima/Tolak jika sudah selesai
             const modalActions = document.getElementById('modalActions');
             if (status === 'selesai') {
                 modalActions.style.display = 'none';
@@ -51,36 +54,67 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    document.getElementById('btnTerima').addEventListener('click', () => {
+    // Tombol Terima
+    document.getElementById('btnTerima').addEventListener('click', (e) => {
+        e.stopPropagation();
         if (!wawancaraId) return;
 
-        fetch(`/perusahaan/wawancara/${wawancaraId}/terima`, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document
-                    .querySelector('meta[name="csrf-token"]').content
-            }
-        })
-            .then(res => res.json())
-            .then(() => location.reload());
+        if (confirm('Terima pelamar ini sebagai karyawan?')) {
+            fetch(`/perusahaan/wawancara/${wawancaraId}/terima`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    // Nutup pop up otomatis
+                    document.getElementById('detailModal').style.display = 'none';
+
+                    // Notifikasi 
+                    alert("Berhasil! " + data.message);
+
+                    // Reload untuk memperbarui tampilan kartu
+                    location.reload();
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("Terjadi kesalahan saat memproses data.");
+                });
+        }
     });
 
-    document.getElementById('btnTolak').addEventListener('click', () => {
+    // Tombol Tolak
+    document.getElementById('btnTolak').addEventListener('click', (e) => {
+        e.stopPropagation();
         if (!wawancaraId) return;
 
-        fetch(`/perusahaan/wawancara/${wawancaraId}/tolak`, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document
-                    .querySelector('meta[name="csrf-token"]').content
-            }
-        })
-            .then(res => res.json())
-            .then(() => location.reload());
+        if (confirm('Tolak lamaran ini?')) {
+            fetch(`/perusahaan/wawancara/${wawancaraId}/tolak`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    alert(data.message);
+                    location.reload();
+                });
+        }
     });
 
+    // Tutup Modal
     closeModal.addEventListener('click', () => {
         modal.style.display = 'none';
     });
 
+    // Klik di luar modal biat ketutup
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 });

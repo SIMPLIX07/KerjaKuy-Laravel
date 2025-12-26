@@ -15,7 +15,9 @@ class LowonganController extends Controller
             return redirect('/login/perusahaan');
         }
 
-        $lowongans = Lowongan::withCount('lamarans')
+        $lowongans = Lowongan::withCount(['lamarans' => function ($query) {
+            $query->where('status', 'diproses');
+        }])
             ->where('perusahaan_id', session('perusahaan_id'))
             ->orderBy('created_at', 'desc')
             ->get();

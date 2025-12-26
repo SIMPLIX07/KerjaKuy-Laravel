@@ -48,43 +48,46 @@
 
         <div class="cards-container" style="grid-column: span 12;">
             @forelse ($lamarans as $lamaran)
-            <div class="card" data-status="{{ $lamaran->status }}">
-                <div class="card-title">
-                    {{ $lamaran->lowongan->posisi_pekerjaan }}
-                </div>
+                @php
+                    $uiStatus = ($lamaran->status === 'wawancara') ? 'diproses' : $lamaran->status;
+                @endphp
+                <div class="card" data-status="{{ $lamaran->status }}">
+                    <div class="card-title">
+                        {{ $lamaran->lowongan->posisi_pekerjaan }}
+                    </div>
 
-                <div class="card-company">
-                    {{ $lamaran->lowongan->perusahaan->nama_perusahaan }}
-                </div>
+                    <div class="card-company">
+                        {{ $lamaran->lowongan->perusahaan->nama_perusahaan }}
+                    </div>
 
-                <div class="card-desc">
-                    @if ($lamaran->status === 'diproses')
-                    Lamaran kamu sedang diproses
-                    @elseif ($lamaran->status === 'diterima')
-                    Selamat! Kamu diterima 🎉
-                    @else
-                    Maaf, kamu belum lolos
-                    @endif
-                </div>
+                    <div class="card-desc">
+                        @if ($lamaran->status === 'diproses')
+                            Lamaran kamu sedang diproses
+                        @elseif ($lamaran->status === 'diterima')
+                            Selamat! Kamu diterima 🎉
+                        @else
+                            Maaf, kamu belum lolos
+                        @endif
+                    </div>
 
-                <div class="card-date">
-                    {{ $lamaran->created_at->format('d-m-Y') }}
+                    <div class="card-date">
+                        {{ $lamaran->created_at->format('d-m-Y') }}
+                    </div>
                 </div>
-            </div>
             @empty
-            <div class="empty-wrapper">
-                <div class="empty-card">
-                    <h3>Belum ada lamaran</h3>
-                    <p>
-                        Kamu belum mengirim lamaran ke lowongan mana pun.<br>
-                        Silakan cari lowongan dan mulai melamar.
-                    </p>
+                <div class="empty-wrapper">
+                    <div class="empty-card">
+                        <h3>Belum ada lamaran</h3>
+                        <p>
+                            Kamu belum mengirim lamaran ke lowongan mana pun.<br>
+                            Silakan cari lowongan dan mulai melamar.
+                        </p>
 
-                    <a href="/home-pelamar" class="empty-btn">
-                        Cari Lowongan
-                    </a>
+                        <a href="/home-pelamar" class="empty-btn">
+                            Cari Lowongan
+                        </a>
+                    </div>
                 </div>
-            </div>
             @endforelse
 
 

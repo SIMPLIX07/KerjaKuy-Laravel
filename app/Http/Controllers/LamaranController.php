@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Lamaran;
 use App\Models\Cv;
+use App\Models\Wawancara;
 
 class LamaranController extends Controller
 {
@@ -47,9 +48,7 @@ class LamaranController extends Controller
             'status' => 'diterima'
         ]);
 
-        return response()->json([
-            'message' => 'Lamaran diterima'
-        ]);
+        return back()->with('success', 'Lamaran berhasil diterima.');
     }
     public function tolak($id)
     {
@@ -58,9 +57,7 @@ class LamaranController extends Controller
             'status' => 'ditolak'
         ]);
 
-        return response()->json([
-            'message' => 'Lamaran ditolak'
-        ]);
+        return back()->with('success', 'Lamaran pelamar ini telah ditolak.');
     }
 
     public function getCvPelamar()
@@ -84,5 +81,42 @@ class LamaranController extends Controller
             ->get();
 
         return view('Lamaran', compact('lamarans'));
+    }
+
+    public function tolakLamaran($id)
+{
+    $lamaran = Lamaran::findOrFail($id);
+    $lamaran->delete(); 
+
+    return back()->with('success', 'Lamaran berhasil ditolak.');
+}
+
+    public function jadwalWawancara(Request $request, $id)
+    {
+        $request->validate([
+            'tanggal' => 'required|date',
+            'jam_mulai' => 'required',
+            'jam_selesai' => 'required',
+            'link_meet' => 'required|url',
+        ]);
+
+        $lamaran = Lamaran::findOrFail($id);
+
+        // Pindah ke table wawancara
+        Wawancara::create([
+            'pelamar_id' => $lamaran->pelamar_id,
+            'perusahaan_id' => session('perusahaan_id'),
+            'lowongan_id' => $lamaran->lowongan_id,
+            'status' => 'proses',
+            'tanggal' => $request->tanggal,
+            'jam_mulai' => $request->jam_mulai,
+            'jam_selesai' => $request->jam_selesai,
+            'link_meet' => $request->link_meet,
+            'pesan' => "Kami tertarik dengan CV kamu, ditunggu di wawancara nanti ya",
+        ]);
+
+        $lamaran->update(['status' => 'wawancara']);
+
+        return back()->with('success', 'Undangan wawancara berhasil dikirim.');
     }
 }

@@ -56,73 +56,43 @@
 //     }
 // });
 
-document.querySelector('.search-button').addEventListener('click', function () {
-    const searchValue = document.querySelector('.search-input').value.toLowerCase();
-    const cards = document.querySelectorAll('.card');
-
-    cards.forEach(card => {
-        const title = card.querySelector('.card-title').textContent.toLowerCase();
-        const text = card.querySelector('.card-pesan').textContent.toLowerCase();
-        const perusahaan = card.querySelector('.card-perusahaan').textContent.toLowerCase();
-
-        if (title.includes(searchValue) || text.includes(searchValue) || perusahaan.includes(searchValue)) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    });
-});
-
 document.addEventListener('DOMContentLoaded', () => {
-    const activeTab = document.querySelector('.tab-btn.tab-active');
-    const status = activeTab.dataset.tab;
+    const tabs = document.querySelectorAll('.tab-btn');
     const cards = document.querySelectorAll('.card');
+    const searchInput = document.querySelector('.search-input');
+    const searchButton = document.querySelector('.search-button');
 
-    cards.forEach(card => {
-        card.style.display =
-            card.dataset.status === status ? 'block' : 'none';
-    });
-});
+    function filterAll() {
+        const activeStatus = document.querySelector('.tab-btn.tab-active').dataset.tab;
+        const searchText = searchInput.value.toLowerCase();
 
+        cards.forEach(card => {
+            const statusCocok = card.dataset.status === activeStatus;
+            
+            // Ambil teks untuk pencarian
+            const title = card.querySelector('.card-title').textContent.toLowerCase();
+            const company = card.querySelector('.card-company').textContent.toLowerCase();
+            const searchCocok = title.includes(searchText) || company.includes(searchText);
 
-
-document.addEventListener("DOMContentLoaded", function () {
-
-    const tabs = document.querySelectorAll(".tab-btn");
-    const cards = document.querySelectorAll(".card");
-
-    tabs.forEach(tab => {
-        tab.addEventListener("click", () => {
-            tabs.forEach(t => t.classList.remove("tab-active"));
-            tab.classList.add("tab-active");
-
-            const selected = tab.dataset.tab;
-            cards.forEach(card => {
-                if (card.dataset.status === selected) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
-            });
-        });
-    });
-
-});
-
-document.querySelectorAll(".tab-btn").forEach(btn => {
-    btn.addEventListener("click", () => {
-        const status = btn.dataset.tab;
-
-        document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("tab-active"));
-        btn.classList.add("tab-active");
-
-        document.querySelectorAll(".card").forEach(card => {
-            if (card.dataset.status === status) {
-                card.style.display = "block";
+            if (statusCocok && searchCocok) {
+                card.style.display = 'block';
             } else {
-                card.style.display = "none";
+                card.style.display = 'none';
             }
         });
-    });
-});
+    }
 
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('tab-active'));
+            tab.classList.add('tab-active');
+            filterAll();
+        });
+    });
+
+    searchButton.addEventListener('click', filterAll);
+
+    searchInput.addEventListener('keyup', filterAll);
+
+    filterAll();
+});

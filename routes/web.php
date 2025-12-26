@@ -62,24 +62,23 @@ Route::post('/login/pelamar', [PelamarController::class, 'login'])->name('login.
 Route::get('/pelamar/cv', [LamaranController::class, 'getCvPelamar']);
 Route::post('/lamaran/insert', [LamaranController::class, 'insertLamaran']);
 
-// Lowongan (Rute yang sudah digabung dan dibersihkan dari konflik)
+// Lowongan
 Route::prefix('lowongan')->group(function () {
-    // Menampilkan form tambah (GET) dan proses simpan (POST)
     Route::get('/tambah', [LowonganController::class, 'create'])->name('lowongan.create');
     Route::post('/tambah', [LowonganController::class, 'store'])->name('lowongan.store');
 
-    // Detail untuk sisi PERUSAHAAN (ada daftar pelamar)
+    // Detail Lowongan Perusahan
     Route::get('/detail/{id}', [LowonganController::class, 'showDetail'])->name('perusahaan.lowongan.detail');
-
-    // Proses hapus lowongan
     Route::delete('/delete/{id}', [LowonganController::class, 'destroy'])->name('perusahaan.lowongan.delete');
-
-    // Edit & Update
     Route::get('/edit/{id}', [LowonganController::class, 'edit'])->name('lowongan.edit');
     Route::put('/update/{id}', [LowonganController::class, 'update'])->name('lowongan.update');
 
-    // Detail untuk sisi PELAMAR (Ditempatkan paling bawah agar tidak bentrok dengan rute statis)
+    // Detail untuk sisi PELAMAR 
     Route::get('/{id}', [LowonganController::class, 'detail'])->name('lowongan.detail');
+
+    // Wawancara (Ini untuk tahap mengundang wawancara)
+    Route::post('/lamaran/{id}/tolak', [LamaranController::class, 'tolak'])->name('lamaran.tolak');
+    Route::post('/lamaran/{id}/jadwal-wawancara', [LamaranController::class, 'jadwalWawancara'])->name('lamaran.wawancara');
 });
 
 Route::post('/lamaran/terima/{id}', [PerusahaanController::class, 'terimaPelamar'])->name('lamaran.terima');
@@ -87,6 +86,7 @@ Route::get('/karyawanPerusahaan', [PerusahaanController::class, 'kategoriKaryawa
 
 // CV
 Route::resource('/cv', CVController::class);
+Route::get('/cv/detail/{id}', [CVController::class, 'show'])->name('cv.show');
 
 // Perusahaan
 Route::get('/home-perusahaan', [LowonganController::class, 'index']);
@@ -102,31 +102,23 @@ Route::get('/lowongan-perusahaan', function () {
     return view('homePelamar.lowongan');
 });
 
+//wawancara pelamar
 Route::get('/wawancara', [WawancaraController::class, 'index'])
     ->name('pelamar.wawancara');
 
+//wawancara perusahaan
 Route::get('/perusahaan/wawancara', [WawancaraController::class, 'indexPerusahaan'])
     ->name('perusahaan.wawancara');
 
 Route::post(
     '/perusahaan/wawancara/{id}/terima',
-    [WawancaraController::class, 'terima']
-);
-
-Route::post(
-    '/perusahaan/wawancara/{id}/tolak',
-    [WawancaraController::class, 'tolak']
-);
-
-Route::post(
-    '/perusahaan/wawancara/{id}/terima',
     [KaryawanController::class, 'storeFromWawancara']
-);
+)->name('perusahaan.wawancara.terima');
 
 Route::post(
     '/perusahaan/wawancara/{id}/tolak',
     [WawancaraController::class, 'tolak']
-);
+)->name('perusahaan.wawancara.tolak');
 
 Route::get(
     '/perusahaan/karyawan/by-kategori/{kategori}',

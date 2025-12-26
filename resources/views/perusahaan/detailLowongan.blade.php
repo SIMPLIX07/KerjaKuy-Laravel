@@ -29,7 +29,7 @@
                 }, 3000);
             </script>
         @endif
-        
+
         <div class="detail-wrapper">
             <div class="banner-container">
                 @if($lowongan->gambar)
@@ -50,7 +50,8 @@
 
             <div class="meta-bar">
                 <div class="meta-items">
-                    <div><i class="fas fa-money-bill-wave"></i> IDR {{ number_format((int) $lowongan->gaji, 0, ',', '.') }}
+                    <div><i class="fas fa-money-bill-wave"></i> IDR
+                        {{ number_format((int) $lowongan->gaji, 0, ',', '.') }}
 
                     </div>
                     <div><i class="far fa-clock"></i> {{ $lowongan->jenis_pekerjaan }}</div>
@@ -100,27 +101,102 @@
                                 <th>Nama</th>
                                 <th>Email</th>
                                 <th>CV</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($lowongan->lamarans as $lamaran)
+                            @forelse($lowongan->lamarans->whereIn('status', ['diproses', 'wawancara']) as $lamaran)
                                 <tr>
                                     <td>
                                         <img src="{{ $lamaran->pelamar->foto ? asset('storage/' . $lamaran->pelamar->foto) : '/assets/default-pelamar.png' }}"
                                             class="pelamar-avatar">
                                         {{ $lamaran->pelamar->name }}
+                                        
                                     </td>
                                     <td>{{ $lamaran->pelamar->email }}</td>
                                     <td>
-                                        <a href="{{ asset('storage/' . $lamaran->cv) }}"
+                                        <a href="{{ route('cv.show', $lamaran->cv_id) }}"
                                             class="text-decoration-none text-success" target="_blank">
                                             Resume.pdf
                                         </a>
                                     </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                            data-bs-target="#modalWawancara{{ $lamaran->id }}">
+                                            Wawancara
+                                        </button>
+
+                                        <form action="{{ route('lamaran.tolak', $lamaran->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-danger"
+                                                onclick="return confirm('Tolak lamaran ini?')">
+                                                Tolak
+                                            </button>
+                                        </form>
+                                    </td>
+
+                                    {{-- Pop up wawancara --}}
+                                    <div class="modal fade" id="modalWawancara{{ $lamaran->id }}" tabindex="-1"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <form action="{{ route('lamaran.wawancara', $lamaran->id) }}" method="POST">
+                                                    @csrf
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Jadwalkan Wawancara -
+                                                            {{ $lamaran->pelamar->nama_lengkap }}
+                                                        </h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="mb-3">
+                                                            <label>Tanggal Wawancara</label>
+                                                            <input type="date" name="tanggal" class="form-control" required>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-3">
+                                                                <label>Jam Mulai</label>
+                                                                <input type="time" name="jam_mulai" class="form-control"
+                                                                    required>
+                                                            </div>
+
+                                                            <div class="col-md-6 mb-3">
+                                                                <label>Jam Selesai</label>
+                                                                <input type="time" name="jam_selesai" class="form-control"
+                                                                    required>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <label>Link Wawancara (Zoom/GMeet)</label>
+                                                            <input type="url" name="link_meet" class="form-control"
+                                                                placeholder="https://..." required>
+                                                        </div>
+
+                                                        <div class="alert alert-info py-2" style="font-size: 0.85rem;">
+                                                            <i class="fas fa-info-circle me-1"></i> Pelamar akan menerima
+                                                            pesan otomatis:
+                                                            <br><em>"Kami tertarik dengan CV kamu, ditunggu di wawancara
+                                                                nanti ya"</em>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Batal</button>
+                                                        <button type="submit" class="btn btn-success">Kirim
+                                                            Undangan</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="3" class="text-center py-4 text-muted">Belum ada pelamar untuk lowongan
+                                    <td colspan="4" class="text-center py-4 text-muted">Belum ada pelamar untuk lowongan
                                         ini.</td>
                                 </tr>
                             @endforelse

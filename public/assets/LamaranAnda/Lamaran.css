@@ -14,11 +14,11 @@ body {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 20px;
-
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 40px auto;
-  padding: 0 20px;
+  padding: 0 16px; 
 }
+
 
 
 /* NAVBAR */
@@ -207,50 +207,6 @@ body {
   margin-top: 40px;
 }
 
-/* card */
-
-.cards-container {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 20px;
-}
-
-
-.card {
-  grid-column: span 4;
-  background: white;
-  padding: 20px;
-  border-radius: 12px;
-  border: 1px solid #e1e1e1;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-}
-
-
-.card-title {
-  font-size: 18px;
-  font-weight: 600;
-}
-
-
-.card-company {
-  font-size: 14px;
-  color: #555;
-}
-
-
-.card-desc {
-  font-size: 16px;
-  margin-top: 10px;
-  color: #444;
-}
-
-
-.card-date {
-  margin-top: 15px;
-  font-size: 12px;
-  color: #777;
-}
-
 /* Status Lamaran */
 .status {
   position: absolute;
@@ -288,11 +244,6 @@ body {
   .lamaran-wrapper {
     flex-direction: column;
     align-items: center;
-  }
-
-  .cards-container {
-    grid-template-columns: 1fr;
-    gap: 16px;
   }
 
   .kelola-wrapper {

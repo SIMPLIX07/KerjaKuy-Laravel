@@ -1,25 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.tab-btn');
-    const cards = document.querySelectorAll('.card');
+    const cards = document.querySelectorAll('.card-wawancara');
+    const searchInput = document.querySelector('.search-input');
+    const searchButton = document.querySelector('.search-button');
 
-    function filterCards(status) {
+    function filterAll() {
+        const activeTab = document.querySelector('.tab-btn.tab-active');
+        const activeStatus = activeTab ? activeTab.dataset.tab : 'proses';
+        const searchText = searchInput.value.toLowerCase();
+
         cards.forEach(card => {
-            card.style.display =
-                card.dataset.status === status ? 'block' : 'none';
+            const statusCocok = card.dataset.status === activeStatus;
+
+            const posisi = card.querySelector('.posisi-pekerjaan').textContent.toLowerCase();
+            const perusahaan = card.querySelector('.nama-perusahaan').textContent.toLowerCase();
+            const searchCocok = posisi.includes(searchText) || perusahaan.includes(searchText);
+
+            if (statusCocok && searchCocok) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
         });
     }
-
-    filterCards('akan-datang');
 
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             tabs.forEach(t => t.classList.remove('tab-active'));
             tab.classList.add('tab-active');
-
-            filterCards(tab.dataset.tab);
+            filterAll(); 
         });
     });
 
+    if (searchButton) searchButton.addEventListener('click', filterAll);
+    if (searchInput) searchInput.addEventListener('keyup', filterAll);
+
+    filterAll();
 
     const modal = document.getElementById('detailModal');
     const closeModal = document.getElementById('closeModal');
@@ -32,10 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('modalJam').innerText = btn.dataset.jam;
             document.getElementById('modalPesan').innerText = btn.dataset.pesan || '-';
 
-            const statusText = btn.dataset.status === 'proses'
-                ? 'Akan Datang'
-                : 'Selesai';
-
+            const statusText = btn.dataset.status === 'proses' ? 'Akan Datang' : 'Selesai';
             document.getElementById('modalStatus').innerText = statusText;
 
             const modalLink = document.getElementById('modalLink');
@@ -46,15 +59,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalLink.style.display = 'none';
             }
 
-            modal.style.display = 'flex';
+            if (modal) modal.style.display = 'flex';
         });
     });
 
-    closeModal.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
+    if (closeModal) {
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+    }
 
-    modal.addEventListener('click', (e) => {
+    window.addEventListener('click', (e) => {
         if (e.target === modal) {
             modal.style.display = 'none';
         }
