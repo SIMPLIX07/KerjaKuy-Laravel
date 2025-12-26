@@ -7,6 +7,7 @@ use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\LamaranController;
 use App\Http\Controllers\CVController;
+use App\Http\Controllers\WawancaraController;
 
 
 Route::get('/', function () {
@@ -65,13 +66,13 @@ Route::prefix('lowongan')->group(function () {
     // Menampilkan form tambah (GET) dan proses simpan (POST)
     Route::get('/tambah', [LowonganController::class, 'create'])->name('lowongan.create');
     Route::post('/tambah', [LowonganController::class, 'store'])->name('lowongan.store');
-    
+
     // Detail untuk sisi PERUSAHAAN (ada daftar pelamar)
     Route::get('/detail/{id}', [LowonganController::class, 'showDetail'])->name('perusahaan.lowongan.detail');
-    
+
     // Proses hapus lowongan
     Route::delete('/delete/{id}', [LowonganController::class, 'destroy'])->name('perusahaan.lowongan.delete');
-    
+
     // Edit & Update
     Route::get('/edit/{id}', [LowonganController::class, 'edit'])->name('lowongan.edit');
     Route::put('/update/{id}', [LowonganController::class, 'update'])->name('lowongan.update');
@@ -101,3 +102,6 @@ Route::post('/lamaran/store', [LamaranController::class, 'insertLamaran']);
 Route::get('/lowongan-perusahaan', function () {
     return view('homePelamar.lowongan');
 });
+
+Route::get('/wawancara', [WawancaraController::class, 'index'])
+    ->name('pelamar.wawancara');

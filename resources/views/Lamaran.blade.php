@@ -17,9 +17,9 @@
             </div>
 
             <div class="nav-menu">
-                {{-- ganti agar bisa pindah halaman --}}
                 <a href="/home-pelamar" class="nav-link">Lowongan Kerja</a>
                 <a href="/lamaran-anda" class="nav-link active">Lamaran Anda</a>
+                <a href="/wawancara" class="nav-link active">Wawancara</a>
             </div>
 
             <div class="nav-user">
