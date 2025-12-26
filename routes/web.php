@@ -106,5 +106,15 @@ Route::get('/lowongan-perusahaan', function () {
 Route::get('/wawancara', [WawancaraController::class, 'index'])
     ->name('pelamar.wawancara');
 
-    Route::get('/perusahaan/wawancara', [WawancaraController::class, 'indexPerusahaan'])
+Route::get('/perusahaan/wawancara', [WawancaraController::class, 'indexPerusahaan'])
     ->name('perusahaan.wawancara');
+
+Route::post(
+    '/perusahaan/wawancara/{id}/terima',
+    [WawancaraController::class, 'terima']
+);
+
+Route::post(
+    '/perusahaan/wawancara/{id}/tolak',
+    [WawancaraController::class, 'tolak']
+);

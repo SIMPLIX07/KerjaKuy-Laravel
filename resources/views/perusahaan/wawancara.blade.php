@@ -53,15 +53,17 @@
                 <button class="tab-btn tab-active" data-tab="akan-datang">
                     Akan Datang
                 </button>
-                <button class="tab-btn" data-tab="diproses">
-                    Diproses
+                <button class="tab-btn" data-tab="selesai">
+                    Selesai
                 </button>
+
             </div>
         </div>
         <div class="cards-container" style="grid-column: span 12;">
 
             @forelse ($wawancarans as $wawancara)
-            <div class="card" data-status="{{ $wawancara->status }}">
+            <div class="card" data-status="{{ $wawancara->status === 'proses' ? 'akan-datang' : 'selesai' }}">
+
 
                 <div class="card-title">
                     {{ $wawancara->lowongan->posisi_pekerjaan }}
@@ -72,17 +74,32 @@
                 </div>
 
                 <div class="card-desc">
-                    @if ($wawancara->status === 'akan-datang')
-                    Jadwal wawancara telah ditentukan
-                    @elseif ($wawancara->status === 'diproses')
-                    Menunggu konfirmasi pelamar
+                    @if ($wawancara->status === 'proses')
+                    Menunggu pelaksanaan wawancara
+                    @elseif ($wawancara->status === 'selesai')
+                    Wawancara telah selesai
                     @endif
+
                 </div>
 
                 <div class="card-date">
                     {{ \Carbon\Carbon::parse($wawancara->tanggal)->format('d M Y') }}
                     • {{ $wawancara->jam_mulai }} - {{ $wawancara->jam_selesai }}
                 </div>
+
+                <button
+                    class="detail-btn"
+                    data-id="{{ $wawancara->id }}"
+                    data-lamaran="{{ $wawancara->lowongan_id }}"
+                    data-pelamar="{{ $wawancara->pelamar->id }}"
+                    data-nama="{{ $wawancara->pelamar->nama }}"
+                    data-posisi="{{ $wawancara->lowongan->posisi_pekerjaan }}"
+                    data-tanggal="{{ \Carbon\Carbon::parse($wawancara->tanggal)->format('d M Y') }}"
+                    data-jam="{{ $wawancara->jam_mulai }} - {{ $wawancara->jam_selesai }}"
+                    data-pesan="{{ $wawancara->pesan }}">
+                    Detail
+                </button>
+
 
             </div>
             @empty
@@ -100,7 +117,25 @@
 
     </div>
 
-    <script src="/assets/LamaranAnda/Lamaran.js"></script>
+    <script src="/assets/wawancaraPerusahaan/wawancara.js"></script>
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-card">
+            <h3 id="modalPosisi"></h3>
+            <p><strong>Pelamar:</strong> <span id="modalNama"></span></p>
+            <p><strong>Tanggal:</strong> <span id="modalTanggal"></span></p>
+            <p><strong>Jam:</strong> <span id="modalJam"></span></p>
+            <p><strong>Pesan:</strong></p>
+            <p id="modalPesan"></p>
+
+            <div class="modal-actions">
+                <button class="btn-accept" id="btnTerima">Terima</button>
+                <button class="btn-reject" id="btnTolak">Tolak</button>
+            </div>
+
+            <button class="modal-close" id="closeModal">Tutup</button>
+        </div>
+    </div>
+
 </body>
 
 </html>

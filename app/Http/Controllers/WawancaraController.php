@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Wawancara;
+use App\Models\Lamaran;
+use App\Models\Karyawan;
 use Illuminate\Http\Request;
 
 class WawancaraController extends Controller
@@ -37,12 +39,51 @@ class WawancaraController extends Controller
 
         $wawancarans = Wawancara::with(['lowongan', 'pelamar'])
             ->where('perusahaan_id', $perusahaanId)
-            ->whereIn('status', ['akan-datang', 'diproses'])
+            ->whereIn('status', ['proses', 'selesai']) 
             ->orderBy('tanggal', 'asc')
             ->get();
 
         return view('perusahaan.wawancara', compact('wawancarans'));
     }
+
+
+    public function terima($id)
+    {
+        $wawancara = Wawancara::with('lowongan')->findOrFail($id);
+
+        $wawancara->update(['status' => 'selesai']);
+
+        Lamaran::where('pelamar_id', $wawancara->pelamar_id)
+            ->where('lowongan_id', $wawancara->lowongan_id)
+            ->update(['status' => 'diterima']);
+
+        Karyawan::create([
+            'id_pelamar'     => $wawancara->pelamar_id,
+            'id_lowongan'    => $wawancara->lowongan_id,
+            'id_perusahaan'  => $wawancara->perusahaan_id,
+            'kategori_pekerjaan' => $wawancara->lowongan->kategori_pekerjaan,
+            'posisi'         => $wawancara->lowongan->posisi_pekerjaan,
+            'tanggal_mulai'  => now(),
+            'status_karyawan' => 'aktif'
+        ]);
+
+        return response()->json(['message' => 'Pelamar diterima']);
+    }
+
+    public function tolak($id)
+    {
+        $wawancara = Wawancara::findOrFail($id);
+
+        $wawancara->update(['status' => 'selesai']);
+
+        Lamaran::where('pelamar_id', $wawancara->pelamar_id)
+            ->where('lowongan_id', $wawancara->lowongan_id)
+            ->update(['status' => 'ditolak']);
+
+        return response()->json(['message' => 'Pelamar ditolak']);
+    }
+
+
 
 
     /**
