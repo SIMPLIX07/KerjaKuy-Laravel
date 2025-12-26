@@ -41,21 +41,37 @@
 
     <div class="category-wrapper">
         @if ($kategori->isEmpty())
-            <div class="no-data">
-                <h3>Belum ada karyawan</h3>
-                <p>Terima pelamar terlebih dahulu agar karyawan tampil di sini.</p>
-            </div>
+        <div class="no-data">
+            <h3>Belum ada karyawan</h3>
+            <p>Terima pelamar terlebih dahulu agar karyawan tampil di sini.</p>
+        </div>
         @else
-            @foreach ($kategori as $item)
-                <div class="category-card">
-                    <h4>{{ $item->kategori_pekerjaan }}</h4>
-                    <p>{{ $item->jumlah }} Karyawan</p>
-                    <a href="/karyawanPerusahaan/{{ $item->kategori_pekerjaan }}" class="category-btn">Lihat</a>
-                </div>
-            @endforeach
+        @foreach ($kategori as $item)
+        <div class="category-card">
+            <h4>{{ $item->kategori_pekerjaan }}</h4>
+            <p>{{ $item->jumlah }} Karyawan</p>
+            <button
+                class="category-btn btn-lihat"
+                data-kategori="{{ $item->kategori_pekerjaan }}">
+                Lihat
+            </button>
+
+        </div>
+        @endforeach
         @endif
     </div>
 
+    <div class="modal-overlay" id="karyawanModal">
+        <div class="modal-card">
+            <h3 id="modalKategori"></h3>
+
+            <div id="modalKaryawanList">
+            </div>
+
+            <button class="modal-close" id="closeModal">Tutup</button>
+        </div>
+    </div>
+    <script src="/assets/karyawanPerusahaan/karyawanPerusahaan.js"></script>
 
 </body>
 

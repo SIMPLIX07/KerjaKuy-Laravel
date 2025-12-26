@@ -27,7 +27,7 @@ class KaryawanController extends Controller
                 'id_pelamar'        => $wawancara->pelamar_id,
                 'id_lowongan'       => $wawancara->lowongan_id,
                 'id_perusahaan'     => $wawancara->perusahaan_id,
-                'kategori_pekerjaan'=> $wawancara->lowongan->kategori_pekerjaan,
+                'kategori_pekerjaan' => $wawancara->lowongan->kategori_pekerjaan,
                 'posisi'            => $wawancara->lowongan->posisi_pekerjaan,
                 'tanggal_mulai'     => now(),
                 'status_karyawan'   => 'aktif',
@@ -37,5 +37,23 @@ class KaryawanController extends Controller
         return response()->json([
             'message' => 'Pelamar berhasil diterima dan menjadi karyawan'
         ]);
+    }
+
+    public function ajaxByKategori($kategori)
+    {
+        $perusahaanId = session('perusahaan_id');
+
+        $karyawans = Karyawan::where('id_perusahaan', $perusahaanId)
+            ->where('kategori_pekerjaan', $kategori)
+            ->with('pelamar')
+            ->get()
+            ->map(function ($k) {
+                return [
+                    'nama'   => $k->pelamar->nama,
+                    'posisi' => $k->posisi
+                ];
+            });
+
+        return response()->json($karyawans);
     }
 }

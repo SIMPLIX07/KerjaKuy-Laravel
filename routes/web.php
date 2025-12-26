@@ -127,3 +127,8 @@ Route::post(
     '/perusahaan/wawancara/{id}/tolak',
     [WawancaraController::class, 'tolak']
 );
+
+Route::get(
+    '/perusahaan/karyawan/by-kategori/{kategori}',
+    [KaryawanController::class, 'ajaxByKategori']
+);
