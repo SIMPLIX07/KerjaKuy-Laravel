@@ -263,3 +263,30 @@ body .nav-logo a {
     width: 100%;
     max-width: 420px;
 }
+
+.modal-close {
+    margin-top: 16px;
+    width: 100%;
+    padding: 10px 0;
+    background-color: #0f4c5c;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.modal-close:hover {
+    background-color: #163c4a;
+}
+
+.karyawan-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.karyawan-item strong {
+    color: #002b4d;
+}

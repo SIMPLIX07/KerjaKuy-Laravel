@@ -49,7 +49,7 @@ class KaryawanController extends Controller
             ->get()
             ->map(function ($k) {
                 return [
-                    'nama'   => $k->pelamar->nama,
+                    'nama'   => $k->pelamar->nama_lengkap,
                     'posisi' => $k->posisi
                 ];
             });
