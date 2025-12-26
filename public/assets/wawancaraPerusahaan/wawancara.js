@@ -1,16 +1,34 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    const tabs = document.querySelectorAll('.tab-btn');
+    const cards = document.querySelectorAll('.card');
+
+    function filterCards(status) {
+        cards.forEach(card => {
+            card.style.display =
+                card.dataset.status === status ? 'block' : 'none';
+        });
+    }
+
+    filterCards('akan-datang');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('tab-active'));
+            tab.classList.add('tab-active');
+
+            filterCards(tab.dataset.tab);
+        });
+    });
+
     const modal = document.getElementById('detailModal');
     const closeModal = document.getElementById('closeModal');
 
     let wawancaraId = null;
-    let pelamarId = null;
-    let lowonganId = null;
 
     document.querySelectorAll('.detail-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             wawancaraId = btn.dataset.id;
-            pelamarId = btn.dataset.pelamar;
-            lowonganId = btn.dataset.lamaran;
 
             document.getElementById('modalPosisi').innerText = btn.dataset.posisi;
             document.getElementById('modalNama').innerText = btn.dataset.nama;
@@ -22,23 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    document.getElementById('btnTerima').addEventListener('click', () => {
-        fetch(`/perusahaan/wawancara/${wawancaraId}/terima`, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            }
-        }).then(() => location.reload());
+    closeModal.addEventListener('click', () => {
+        modal.style.display = 'none';
     });
 
-    document.getElementById('btnTolak').addEventListener('click', () => {
-        fetch(`/perusahaan/wawancara/${wawancaraId}/tolak`, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
-            }
-        }).then(() => location.reload());
-    });
-
-    closeModal.addEventListener('click', () => modal.style.display = 'none');
 });
