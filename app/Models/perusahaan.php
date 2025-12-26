@@ -21,4 +21,8 @@ class Perusahaan extends Model
     {
         return $this->hasMany(Lowongan::class, 'perusahaan_id');
     }
+    public function wawancaras()
+    {
+        return $this->hasMany(Wawancara::class);
+    }
 }

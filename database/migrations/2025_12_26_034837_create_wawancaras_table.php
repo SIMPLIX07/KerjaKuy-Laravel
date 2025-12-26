@@ -14,24 +14,29 @@ return new class extends Migration
         Schema::create('wawancaras', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('pelamar_id');
             $table->unsignedBigInteger('perusahaan_id');
             $table->unsignedBigInteger('lowongan_id');
+
             $table->string('status');
             $table->string('jam_mulai');
             $table->string('jam_selesai');
             $table->date('tanggal');
             $table->string('link_meet')->nullable();
             $table->text('pesan')->nullable();
+
             $table->timestamps();
-            $table->foreign('user_id')
+
+            $table->foreign('pelamar_id')
                 ->references('id')
-                ->on('users')
+                ->on('pelamars')
                 ->onDelete('cascade');
+
             $table->foreign('perusahaan_id')
                 ->references('id')
                 ->on('perusahaans')
                 ->onDelete('cascade');
+
             $table->foreign('lowongan_id')
                 ->references('id')
                 ->on('lowongans')

@@ -29,5 +29,8 @@ class Pelamar extends Model
     {
         return $this->hasMany(Cv::class);
     }
-
+    public function wawancaras()
+    {
+        return $this->hasMany(Wawancara::class);
+    }
 }
