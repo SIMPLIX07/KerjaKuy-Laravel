@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
+
 document.addEventListener("DOMContentLoaded", function () {
 
     const tabs = document.querySelectorAll(".tab-btn");
@@ -92,14 +93,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     tabs.forEach(tab => {
         tab.addEventListener("click", () => {
-
-            // Remove aktif dari semua tab
             tabs.forEach(t => t.classList.remove("tab-active"));
             tab.classList.add("tab-active");
 
-            const selected = tab.dataset.tab; // diterima / diproses / ditolak
-
-            // Filter card
+            const selected = tab.dataset.tab;
             cards.forEach(card => {
                 if (card.dataset.status === selected) {
                     card.style.display = "block";

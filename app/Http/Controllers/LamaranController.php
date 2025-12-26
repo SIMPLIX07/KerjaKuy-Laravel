@@ -31,13 +31,36 @@ class LamaranController extends Controller
             'pelamar_id'  => $request->pelamar_id,
             'lowongan_id' => $request->lowongan_id,
             'cv_id'       => $request->cv_id,
-            'status'      => 'proses',
+            'status'      => 'diproses',
         ]);
 
         return response()->json([
             'message' => 'Lamaran berhasil dikirim',
             'data' => $lamaran
         ], 201);
+    }
+
+    public function terima($id)
+    {
+        $lamaran = Lamaran::findOrFail($id);
+        $lamaran->update([
+            'status' => 'diterima'
+        ]);
+
+        return response()->json([
+            'message' => 'Lamaran diterima'
+        ]);
+    }
+    public function tolak($id)
+    {
+        $lamaran = Lamaran::findOrFail($id);
+        $lamaran->update([
+            'status' => 'ditolak'
+        ]);
+
+        return response()->json([
+            'message' => 'Lamaran ditolak'
+        ]);
     }
 
     public function getCvPelamar()
