@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Cv;
 use App\Models\Pelamar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 class CVController extends Controller
 {
@@ -19,8 +21,15 @@ class CVController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Pelamar $pelamar)
+    public function create()
     {
+        $pelamarId = session('pelamar_id');
+
+    if (!$pelamarId) {
+        return redirect('/login')->withErrors('Silakan login dulu');
+    }
+
+    $pelamar = Pelamar::findOrFail($pelamarId);
         
         return view('cv.tambahCv', compact('pelamar'));
     }
@@ -29,12 +38,15 @@ class CVController extends Controller
      * Store a newly created resource in storage.
      */
 
-
     public function store(Request $request)
     {
-        
+        $pelamarId = session('pelamar_id');
+
+        if (!$pelamarId) {
+            return redirect('/login');
+        }
+
         $request->validate([
-            'pelamar_id'   => 'required|integer',
             'umur'         => 'required|integer',
             'kontak'       => 'required',
             'title'        => 'required',
@@ -53,13 +65,12 @@ class CVController extends Controller
             DB::beginTransaction();
 
             $cv = Cv::create([
-                'pelamar_id'   => $request->pelamar_id,
+                'pelamar_id'   => $pelamarId,
                 'umur'         => $request->umur,
                 'tentang_saya' => $request->tentang_saya,
                 'kontak'       => $request->kontak,
                 'title'        => $request->title,
                 'subtitle'     => $request->subtitle,
-
                 'universitas'  => $request->universitas,
                 'jurusan'      => $request->jurusan,
                 'pendidikan'   => $request->pendidikan,
@@ -67,19 +78,13 @@ class CVController extends Controller
 
             foreach ($request->skill ?? [] as $item) {
                 if (!empty($item['skill']) && !empty($item['kemampuan'])) {
-                    $cv->skills()->create([
-                        'skill'     => $item['skill'],
-                        'kemampuan' => $item['kemampuan'],
-                    ]);
+                    $cv->skills()->create($item);
                 }
             }
 
             foreach ($request->pengalaman ?? [] as $item) {
                 if (!empty($item['pengalaman']) && !empty($item['durasi'])) {
-                    $cv->pengalamans()->create([
-                        'pengalaman' => $item['pengalaman'],
-                        'durasi'     => $item['durasi'],
-                    ]);
+                    $cv->pengalamans()->create($item);
                 }
             }
 
@@ -89,9 +94,10 @@ class CVController extends Controller
 
         } catch (\Throwable $e) {
             DB::rollBack();
-            dd($e->getMessage()); // hapus setelah debug
+            dd($e->getMessage());
         }
     }
+
 
 
 

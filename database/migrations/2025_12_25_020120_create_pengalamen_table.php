@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('pengalamen', function (Blueprint $table) {
             $table->id();
             $table->foreignId('cv_id')->constrained('cvs')->onDelete('cascade');
-            $table->string('skill');
+            $table->string('pengalaman');
             $table->string('durasi');
             $table->timestamps();
         });

@@ -86,8 +86,6 @@ Route::get('/karyawanPerusahaan', [PerusahaanController::class, 'kategoriKaryawa
 
 // CV
 Route::resource('/cv', CVController::class);
-Route::get('/pelamar/{pelamar}/cv/create', [CVController::class, 'create'])->name('cv.create');
-Route::post('/pelamar/{pelamar}/cv', [CVController::class, 'store'])->name('cv.store');
 
 // Perusahaan
 Route::get('/home-perusahaan', [LowonganController::class, 'index']);

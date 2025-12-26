@@ -58,7 +58,7 @@
     </div>
 
     <a class="absolute bottom-10 right-10 p-5 bg-blue-400 rounded-xl font-bold text-white cursor-pointer"
-        href="{{ route('cv.create', $pelamar->id) }}">
+        href="{{ route('cv.create') }}">
             Tambah CV
     </a>
 
