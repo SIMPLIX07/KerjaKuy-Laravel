@@ -69,9 +69,9 @@
 
                 <div class="card-desc">
                     @if ($wawancara->status === 'proses')
-                        Jadwal wawancara telah ditentukan
+                    Jadwal wawancara telah ditentukan
                     @elseif ($wawancara->status === 'selesai')
-                        Wawancara telah selesai
+                    Wawancara telah selesai
                     @endif
                 </div>
 
@@ -79,6 +79,18 @@
                     {{ \Carbon\Carbon::parse($wawancara->tanggal)->format('d M Y') }}
                     • {{ $wawancara->jam_mulai }} - {{ $wawancara->jam_selesai }}
                 </div>
+                <button
+                    class="detail-btn"
+                    data-posisi="{{ $wawancara->lowongan->posisi_pekerjaan }}"
+                    data-perusahaan="{{ $wawancara->lowongan->perusahaan->nama_perusahaan }}"
+                    data-tanggal="{{ \Carbon\Carbon::parse($wawancara->tanggal)->format('d M Y') }}"
+                    data-jam="{{ $wawancara->jam_mulai }} - {{ $wawancara->jam_selesai }}"
+                    data-status="{{ $wawancara->status }}"
+                    data-link="{{ $wawancara->link_meet }}"
+                    data-pesan="{{ $wawancara->pesan }}">
+                    Detail
+                </button>
+
             </div>
             @empty
             <div class="empty-wrapper">
@@ -94,6 +106,24 @@
     </div>
 
     <script src="/assets/wawancaraPelamar/wawancaraPelamar.js"></script>
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-card">
+            <h3 id="modalPosisi"></h3>
+            <p><strong>Perusahaan:</strong> <span id="modalPerusahaan"></span></p>
+            <p><strong>Status:</strong> <span id="modalStatus"></span></p>
+            <p><strong>Tanggal:</strong> <span id="modalTanggal"></span></p>
+            <p><strong>Jam:</strong> <span id="modalJam"></span></p>
+            <p><strong>Pesan:</strong></p>
+            <p id="modalPesan"></p>
+
+            <a id="modalLink" href="#" target="_blank" class="modal-link">
+                Buka Link Meeting
+            </a>
+
+            <button class="modal-close" id="closeModal">Tutup</button>
+        </div>
+    </div>
+
 </body>
 
 </html>
