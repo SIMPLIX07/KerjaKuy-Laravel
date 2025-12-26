@@ -15,7 +15,8 @@ class CVController extends Controller
      */
     public function index()
     {
-        return view('indexCv');
+        $cvs = Cv::with('pelamar')->get();
+        return view('indexCv', compact('cvs'));
     }
 
     /**
@@ -98,11 +99,6 @@ class CVController extends Controller
         }
     }
 
-
-
-
-
-
     /**
      * Display the specified resource.
      */
@@ -114,46 +110,126 @@ class CVController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Cv $cVS)
+    public function edit($id)
     {
-        //
+        $cv = Cv::with(['skills', 'pengalamans'])->findOrFail($id);
+        return view('cv/editCv', compact('cv'));
     }
 
-    public function update(Request $request, Cv $cv)
+
+    public function update(Request $request, $id)
     {
-        DB::transaction(function () use ($request, $cv) {
+        $pelamarId = session('pelamar_id');
 
-            $cv->update($request->only([
-                'umur',
-                'tentang_saya',
-                'kontak',
-                'title',
-                'subtitle',
-                'universitas',
-                'jurusan',
-                'pendidikan'
-            ]));
+        if (!$pelamarId) {
+            return redirect('/login');
+        }
 
+        $request->validate([
+            'umur'         => 'required|integer',
+            'kontak'       => 'required',
+            'title'        => 'required',
+            'subtitle'     => 'required',
+            'tentang_saya' => 'required',
+
+            'universitas'  => 'required',
+            'jurusan'      => 'required',
+            'pendidikan'   => 'required',
+
+            'skill'        => 'array|max:3',
+            'pengalaman'   => 'array|max:3',
+        ]);
+
+        try {
+            DB::beginTransaction();
+
+            // ambil CV lama (pastikan milik pelamar yang login)
+            $cv = Cv::where('id', $id)
+                    ->where('pelamar_id', $pelamarId)
+                    ->firstOrFail();
+
+            // update data utama CV
+            $cv->update([
+                'umur'         => $request->umur,
+                'tentang_saya' => $request->tentang_saya,
+                'kontak'       => $request->kontak,
+                'title'        => $request->title,
+                'subtitle'     => $request->subtitle,
+                'universitas'  => $request->universitas,
+                'jurusan'      => $request->jurusan,
+                'pendidikan'   => $request->pendidikan,
+            ]);
+
+            // hapus skill lama
             $cv->skills()->delete();
+
+            // simpan skill baru
+            foreach ($request->skill ?? [] as $item) {
+                if (!empty($item['skill']) && !empty($item['kemampuan'])) {
+                    $cv->skills()->create([
+                        'skill'     => $item['skill'],
+                        'kemampuan' => $item['kemampuan'],
+                    ]);
+                }
+            }
+
+            // hapus pengalaman lama
             $cv->pengalamans()->delete();
 
-            foreach ($request->skill ?? [] as $item) {
-                $cv->skills()->create($item);
-            }
-
+            // simpan pengalaman baru
             foreach ($request->pengalaman ?? [] as $item) {
-                $cv->pengalamans()->create($item);
+                if (!empty($item['pengalaman']) && !empty($item['durasi'])) {
+                    $cv->pengalamans()->create([
+                        'pengalaman' => $item['pengalaman'],
+                        'durasi'     => $item['durasi'],
+                    ]);
+                }
             }
-        });
 
-        return back()->with('success', 'CV berhasil diperbarui');
+            DB::commit();
+
+            return redirect('/cv')->with('success', 'CV berhasil diperbarui');
+
+        } catch (\Throwable $e) {
+            DB::rollBack();
+            dd($e->getMessage()); // hapus setelah debug
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cv $cVS)
+    public function destroy($id)
     {
-        //
+        $pelamarId = session('pelamar_id');
+
+        if (!$pelamarId) {
+            return redirect('/login');
+        }
+
+        try {
+            DB::beginTransaction();
+
+            $cv = Cv::where('id', $id)
+                    ->where('pelamar_id', $pelamarId)
+                    ->firstOrFail();
+
+            $cv->skills()->delete();
+            $cv->pengalamans()->delete();
+
+            $cv->delete();
+
+            DB::commit();
+
+            return redirect('/cv')->with('success', 'CV berhasil dihapus');
+
+        } catch (\Throwable $e) {
+            DB::rollBack();
+
+            return redirect('/cv')->withErrors([
+                'error' => 'Gagal menghapus CV'
+            ]);
+        }
     }
 }
