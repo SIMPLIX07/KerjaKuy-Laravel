@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Pelamar;
 use App\Models\Keahlian;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 
 class PelamarController extends Controller
 {
@@ -44,7 +45,7 @@ class PelamarController extends Controller
             }
         }
 
-        // Auto login session
+        // login session
         session([
             'pelamar_id'       => $pelamar->id,
             'pelamar_username' => $pelamar->username,
@@ -54,23 +55,35 @@ class PelamarController extends Controller
         return redirect('/home-pelamar')->with('success', 'Registrasi berhasil!');
     }
 
-    // LOGIN
     public function login(Request $request)
     {
-        $pelamar = Pelamar::where('username', $request->username)->first();
 
-        if (!$pelamar) {
-            return back()->withErrors(['username' => 'Username tidak ditemukan']);
-        }
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required'
+        ]);
 
-        if (!Hash::check($request->password, $pelamar->password)) {
-            return back()->withErrors(['password' => 'Password salah']);
+        try {
+            $response = Http::post('http://localhost:3001/login-pelamar', [
+                'username' => $request->username,
+                'password' => $request->password,
+            ]);
+        } catch (\Exception $e) {
+            return back()->withErrors([
+                'login' => 'Server login sedang tidak tersedia'
+            ]);
         }
+        if ($response->failed()) {
+            return back()->withErrors([
+                'login' => $response->json()['message'] ?? 'Login gagal'
+            ]);
+        }
+        $data = $response->json();
 
         session([
-            'pelamar_id'       => $pelamar->id,
-            'pelamar_username' => $pelamar->username,
-            'pelamar_nama'     => $pelamar->nama_lengkap,
+            'pelamar_id'       => $data['id'],
+            'pelamar_username' => $data['username'],
+            'pelamar_nama'     => $data['nama'],
         ]);
 
         return redirect('/home-pelamar');
