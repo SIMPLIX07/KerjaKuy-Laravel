@@ -73,6 +73,18 @@ document.querySelector('.search-button').addEventListener('click', function () {
     });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+    const activeTab = document.querySelector('.tab-btn.tab-active');
+    const status = activeTab.dataset.tab;
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        card.style.display =
+            card.dataset.status === status ? 'block' : 'none';
+    });
+});
+
+
 document.addEventListener("DOMContentLoaded", function () {
 
     const tabs = document.querySelectorAll(".tab-btn");

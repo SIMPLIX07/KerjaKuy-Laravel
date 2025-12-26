@@ -58,10 +58,8 @@
                 </div>
 
                 <div class="card-desc">
-                    @if ($lamaran->status === 'proses')
+                    @if ($lamaran->status === 'diproses')
                     Lamaran kamu sedang diproses
-                    @elseif ($lamaran->status === 'wawancara')
-                    Kamu dipanggil untuk tahap wawancara
                     @elseif ($lamaran->status === 'diterima')
                     Selamat! Kamu diterima 🎉
                     @else
