@@ -6,6 +6,7 @@ use App\Models\Wawancara;
 use App\Models\Lamaran;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class WawancaraController extends Controller
 {
@@ -39,7 +40,7 @@ class WawancaraController extends Controller
 
         $wawancarans = Wawancara::with(['lowongan', 'pelamar'])
             ->where('perusahaan_id', $perusahaanId)
-            ->whereIn('status', ['proses', 'selesai']) 
+            ->whereIn('status', ['proses', 'selesai'])
             ->orderBy('tanggal', 'asc')
             ->get();
 
@@ -72,15 +73,24 @@ class WawancaraController extends Controller
 
     public function tolak($id)
     {
-        $wawancara = Wawancara::findOrFail($id);
+        DB::transaction(function () use ($id) {
 
-        $wawancara->update(['status' => 'selesai']);
+            $wawancara = Wawancara::findOrFail($id);
 
-        Lamaran::where('pelamar_id', $wawancara->pelamar_id)
-            ->where('lowongan_id', $wawancara->lowongan_id)
-            ->update(['status' => 'ditolak']);
+            $wawancara->update([
+                'status' => 'selesai'
+            ]);
 
-        return response()->json(['message' => 'Pelamar ditolak']);
+            Lamaran::where('pelamar_id', $wawancara->pelamar_id)
+                ->where('lowongan_id', $wawancara->lowongan_id)
+                ->update([
+                    'status' => 'ditolak'
+                ]);
+        });
+
+        return response()->json([
+            'message' => 'Pelamar ditolak'
+        ]);
     }
 
 

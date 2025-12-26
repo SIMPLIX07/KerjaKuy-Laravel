@@ -8,6 +8,7 @@ use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\LamaranController;
 use App\Http\Controllers\CVController;
 use App\Http\Controllers\WawancaraController;
+use App\Http\Controllers\KaryawanController;
 
 
 Route::get('/', function () {
@@ -110,6 +111,16 @@ Route::get('/perusahaan/wawancara', [WawancaraController::class, 'indexPerusahaa
 Route::post(
     '/perusahaan/wawancara/{id}/terima',
     [WawancaraController::class, 'terima']
+);
+
+Route::post(
+    '/perusahaan/wawancara/{id}/tolak',
+    [WawancaraController::class, 'tolak']
+);
+
+Route::post(
+    '/perusahaan/wawancara/{id}/terima',
+    [KaryawanController::class, 'storeFromWawancara']
 );
 
 Route::post(

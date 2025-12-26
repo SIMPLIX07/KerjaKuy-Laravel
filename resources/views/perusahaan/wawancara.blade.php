@@ -2,6 +2,7 @@
 <html lang="id">
 
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KerjaKuy - Wawancara</title>
@@ -127,7 +128,7 @@
             <p><strong>Pesan:</strong></p>
             <p id="modalPesan"></p>
 
-            <div class="modal-actions">
+            <div class="modal-actions" id="modalActions">
                 <button class="btn-accept" id="btnTerima">Terima</button>
                 <button class="btn-reject" id="btnTolak">Tolak</button>
             </div>
