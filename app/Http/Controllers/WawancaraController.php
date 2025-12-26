@@ -27,6 +27,24 @@ class WawancaraController extends Controller
         return view('wawancaraPelamar.wawancara', compact('wawancarans'));
     }
 
+    public function indexPerusahaan()
+    {
+        $perusahaanId = session('perusahaan_id');
+
+        if (!$perusahaanId) {
+            return redirect('/login/perusahaan');
+        }
+
+        $wawancarans = Wawancara::with(['lowongan', 'pelamar'])
+            ->where('perusahaan_id', $perusahaanId)
+            ->whereIn('status', ['akan-datang', 'diproses'])
+            ->orderBy('tanggal', 'asc')
+            ->get();
+
+        return view('perusahaan.wawancara', compact('wawancarans'));
+    }
+
+
     /**
      * Show the form for creating a new resource.
      */

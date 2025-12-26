@@ -105,3 +105,6 @@ Route::get('/lowongan-perusahaan', function () {
 
 Route::get('/wawancara', [WawancaraController::class, 'index'])
     ->name('pelamar.wawancara');
+
+    Route::get('/perusahaan/wawancara', [WawancaraController::class, 'indexPerusahaan'])
+    ->name('perusahaan.wawancara');

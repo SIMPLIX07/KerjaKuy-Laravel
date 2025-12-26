@@ -21,6 +21,7 @@
             <div class="cstm-nav-menu">
                 <a href="/home-perusahaan" class="cstm-nav-link active">Lowongan Anda</a>
                 <a href="/karyawanPerusahaan" class="cstm-nav-link">Karyawan</a>
+                <a href="/perusahaan/wawancara" class="cstm-nav-link active">Wawancara</a>
             </div>
 
             <div class="cstm-nav-user">
