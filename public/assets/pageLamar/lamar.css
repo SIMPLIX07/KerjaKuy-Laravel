@@ -224,6 +224,7 @@ nav .left img{
     padding: 20px;
     width: 350px;
     border-radius: 10px;
+    z-index: 10000;
 }
 
 .modal-action {
@@ -231,6 +232,7 @@ nav .left img{
     display: flex;
     justify-content: flex-end;
     gap: 10px;
+    z-index: 10001;
 }
 
 .modal-content select {

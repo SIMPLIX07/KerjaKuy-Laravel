@@ -4,17 +4,10 @@
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
-        window.PELAMAR_ID = {
-            {
-                session('pelamar_id')
-            }
-        };
-        window.LOWONGAN_ID = {
-            {
-                $lowongan - > id
-            }
-        };
-    </script>
+    window.PELAMAR_ID = {{ session('pelamar_id') }};
+    window.LOWONGAN_ID = {{ $lowongan->id }};
+</script>
+
 
 
     <meta charset="UTF-8">
