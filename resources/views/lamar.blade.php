@@ -3,10 +3,18 @@
 
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-<script>
-    window.PELAMAR_ID = {{ session('pelamar_id') }};
-    window.LOWONGAN_ID = {{ $lowongan->id }};
-</script>
+    <script>
+        window.PELAMAR_ID = {
+            {
+                session('pelamar_id')
+            }
+        };
+        window.LOWONGAN_ID = {
+            {
+                $lowongan - > id
+            }
+        };
+    </script>
 
 
     <meta charset="UTF-8">
@@ -36,9 +44,12 @@
             </div>
         </div>
     </nav>
+
     <div class="content">
         <div class="cardTop">
-            <div class="back" style="background-image: url('{{ asset('storage/'.$lowongan->gambar) }}')">
+            <div class="back"
+                style="background-image: url('{{ asset('storage/lowongan/'.$lowongan->gambar) }}')">
+
                 <div class="seluruh">
                     <img src="{{ asset('storage/' . $lowongan->perusahaan->foto_profil) }}" alt="">
                     <div class="profile">
@@ -100,20 +111,20 @@
     </div>
 
     <div id="modalCv" class="modal">
-    <div class="modal-content large">
+        <div class="modal-content large">
 
-        <h3>Pilih CV</h3>
+            <h3>Pilih CV</h3>
 
-        <div id="cvList" class="cv-list">
+            <div id="cvList" class="cv-list">
+            </div>
+
+            <div class="modal-action">
+                <button id="btnKirimLamaran" disabled>Kirim Lamaran</button>
+                <button id="btnTutup">Batal</button>
+            </div>
+
         </div>
-
-        <div class="modal-action">
-            <button id="btnKirimLamaran" disabled>Kirim Lamaran</button>
-            <button id="btnTutup">Batal</button>
-        </div>
-
     </div>
-</div>
 
 </body>
 <div id="successModal" class="popup-overlay">
