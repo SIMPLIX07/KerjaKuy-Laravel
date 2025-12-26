@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CVS;
+use App\Models\Cv;
 use App\Models\Pelamar;
 use Illuminate\Http\Request;
 
@@ -21,7 +21,7 @@ class CVController extends Controller
      */
     public function create(Pelamar $pelamar)
     {
-        dd($pelamar);
+        
         return view('cv.tambahCv', compact('pelamar'));
     }
 
@@ -32,7 +32,7 @@ class CVController extends Controller
 
     public function store(Request $request)
     {
-        dd($request->all());
+        
         $request->validate([
             'pelamar_id'   => 'required|integer',
             'umur'         => 'required|integer',
@@ -100,7 +100,7 @@ class CVController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(CVS $cVS)
+    public function show(Cv $cVS)
     {
         //
     }
@@ -108,7 +108,7 @@ class CVController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CVS $cVS)
+    public function edit(Cv $cVS)
     {
         //
     }
@@ -146,7 +146,7 @@ class CVController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CVS $cVS)
+    public function destroy(Cv $cVS)
     {
         //
     }

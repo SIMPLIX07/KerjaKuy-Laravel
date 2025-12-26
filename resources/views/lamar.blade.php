@@ -116,6 +116,14 @@
 </div>
 
 </body>
+<div id="successModal" class="popup-overlay">
+    <div class="popup-box">
+        <h3>Lamaran Berhasil 🎉</h3>
+        <p>Lamaran kamu berhasil dikirim. Silakan menunggu proses selanjutnya.</p>
+        <button id="btnOk">Lihat Lamaran</button>
+    </div>
+</div>
+
 <script src="/assets/pageLamar/lamar.js"></script>
 
 </html>

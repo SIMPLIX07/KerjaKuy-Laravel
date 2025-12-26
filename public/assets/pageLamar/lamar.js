@@ -75,9 +75,20 @@ document.addEventListener("DOMContentLoaded", () => {
         const result = await response.json();
 
         if (response.ok) {
-            alert("Lamaran berhasil dikirim!");
-            window.location.href = "/lamaran-anda";
-        } else {
+            const modalCv = document.getElementById("modalCv");
+            const successModal = document.getElementById("successModal");
+            const btnOk = document.getElementById("btnOk");
+            modalCv.style.display = "none";
+            selectedCvId = null;
+            btnKirim.disabled = true;
+            successModal.style.display = "flex";
+            btnOk.onclick = () => {
+                window.location.href = "/lamaran-anda";
+            };
+        }
+
+
+        else {
             alert(result.message || "Gagal mengirim lamaran");
         }
     });
