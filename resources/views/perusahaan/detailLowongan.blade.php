@@ -50,7 +50,8 @@
 
             <div class="meta-bar">
                 <div class="meta-items">
-                    <div><i class="fas fa-money-bill-wave"></i> IDR {{ number_format($lowongan->gaji, 0, ',', '.') }}
+                    <div><i class="fas fa-money-bill-wave"></i> IDR {{ number_format((int) $lowongan->gaji, 0, ',', '.') }}
+
                     </div>
                     <div><i class="far fa-clock"></i> {{ $lowongan->jenis_pekerjaan }}</div>
                     <div><i class="fas fa-map-marker-alt"></i> {{ $lowongan->kabupaten }}, {{ $lowongan->provinsi }}

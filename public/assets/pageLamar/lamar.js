@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
         modal.style.display = "flex";
         btnKirim.disabled = true;
         cvList.innerHTML = "Memuat CV...";
+        console.log("PELAMAR_ID:", window.PELAMAR_ID);
+
 
         const res = await fetch("/pelamar/cv");
         const data = await res.json();

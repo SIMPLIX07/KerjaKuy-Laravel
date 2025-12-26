@@ -4,9 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CV extends Model
+class Cv extends Model
 {
+    protected $table = 'cvs';
     protected $fillable = [
+        
         'pelamar_id',
         'umur',
         'tentang_saya',
