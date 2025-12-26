@@ -40,15 +40,21 @@
     </nav>
 
     <div class="search-bar-container">
-        <div class="">
-            <input type="text" placeholder="Cari pekerjaan" class="search-input" />
+        <form action="{{ route('home') }}" method="GET" class="flex gap-2">
+            <input
+                type="text"
+                name="q"
+                value="{{ request('q') }}"
+                placeholder="Cari pekerjaan"
+                class="search-input"
+            />
 
-            <input type="text" placeholder="Pilih Bidang" class="search-input" />
-            <input type="text" placeholder="Cari Lokasi" class="search-input" />
-
-            <button class="search-button">Cari</button>
-        </div>
+            <button type="submit" class="search-button">
+                Cari
+            </button>
+        </form>
     </div>
+
 
 
     <img src="" alt="">

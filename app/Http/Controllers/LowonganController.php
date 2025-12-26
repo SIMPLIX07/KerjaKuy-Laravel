@@ -187,11 +187,22 @@ class LowonganController extends Controller
         return redirect()->route('perusahaan.lowongan.detail', $lowongan->id)->with('success', 'Lowongan berhasil diperbarui');
     }
 
-    public function listPelamar()
+    public function listPelamar(Request $request)
     {
-        $lowongans = Lowongan::with('perusahaan')
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $query = Lowongan::with('perusahaan')
+            ->orderBy('created_at', 'desc');
+
+        if ($request->filled('q')) {
+            $search = $request->q;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('posisi_pekerjaan', 'like', "%{$search}%")
+                ->orWhere('kategori_pekerjaan', 'like', "%{$search}%");
+                
+            });
+        }
+
+        $lowongans = $query->get();
 
         return view('home', compact('lowongans'));
     }

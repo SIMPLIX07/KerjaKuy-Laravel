@@ -36,7 +36,7 @@ Route::get('/register/perusahaan', function () {
     return view('signPerusahaan');
 });
 
-Route::get('/home-pelamar', [LowonganController::class, 'listPelamar']);
+Route::get('/home-pelamar', [LowonganController::class, 'listPelamar'])->name('home');
 
 
 // DAFTAR

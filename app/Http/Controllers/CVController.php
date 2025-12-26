@@ -15,9 +15,20 @@ class CVController extends Controller
      */
     public function index()
     {
-        $cvs = Cv::with('pelamar')->get();
+        $pelamarId = session('pelamar_id');
+
+        if (!$pelamarId) {
+            return redirect('/login');
+        }
+
+        $cvs = Cv::with('pelamar')
+            ->where('pelamar_id', $pelamarId)
+            ->latest()
+            ->get();
+
         return view('indexCv', compact('cvs'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -26,11 +37,11 @@ class CVController extends Controller
     {
         $pelamarId = session('pelamar_id');
 
-    if (!$pelamarId) {
-        return redirect('/login')->withErrors('Silakan login dulu');
-    }
+        if (!$pelamarId) {
+            return redirect('/login')->withErrors('Silakan login dulu');
+        }
 
-    $pelamar = Pelamar::findOrFail($pelamarId);
+        $pelamar = Pelamar::findOrFail($pelamarId);
         
         return view('cv.tambahCv', compact('pelamar'));
     }
