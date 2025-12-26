@@ -19,7 +19,7 @@ class WawancaraController extends Controller
         }
 
         $wawancarans = Wawancara::with(['lowongan.perusahaan'])
-            ->where('user_id', $pelamarId)
+            ->where('pelamar_id', $pelamarId)
             ->whereIn('status', ['akan-datang', 'diproses'])
             ->orderBy('tanggal', 'asc')
             ->get();
