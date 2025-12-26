@@ -21,7 +21,6 @@ class LowonganController extends Controller
             ->get();
 
         return view('homePerusahaan', compact('lowongans'));
-
     }
 
     public function detail($id)
@@ -100,7 +99,9 @@ class LowonganController extends Controller
         }
 
 
-        $lowongan = Lowongan::with(['perusahaan', 'lamarans.user'])->findOrFail($id);
+        $lowongan = Lowongan::with(['perusahaan', 'lamarans.pelamar'])
+            ->findOrFail($id);
+
 
         return view('perusahaan.detailLowongan', compact('lowongan'));
     }
@@ -109,9 +110,9 @@ class LowonganController extends Controller
     {
         $lowongan = Lowongan::findOrFail($id);
         if ($lowongan->gambar) {
-        Storage::delete('public/lowongan/' . $lowongan->gambar);
+            Storage::delete('public/lowongan/' . $lowongan->gambar);
         }
-        
+
         $lowongan->delete();
 
         return redirect('/home-perusahaan')->with('success', 'Lowongan berhasil dihapus');
@@ -168,20 +169,20 @@ class LowonganController extends Controller
             if ($lowongan->gambar) {
                 Storage::disk('public')->delete('lowongan/' . $lowongan->gambar);
             }
-            
+
             $file = $request->file('gambar');
             $namaGambar = time() . '.' . $file->getClientOriginalExtension();
-            
+
             // Simpan ke disk public
             $file->storeAs('lowongan', $namaGambar, 'public');
-            
+
             // Masukkan nama file ke array data untuk diupdate
             $data['gambar'] = $namaGambar;
         }
 
         $lowongan->update($data);
 
-       return redirect()->route('perusahaan.lowongan.detail', $lowongan->id)->with('success', 'Lowongan berhasil diperbarui');
+        return redirect()->route('perusahaan.lowongan.detail', $lowongan->id)->with('success', 'Lowongan berhasil diperbarui');
     }
 
     public function listPelamar()

@@ -106,11 +106,11 @@
                             @forelse($lowongan->lamarans as $lamaran)
                                 <tr>
                                     <td>
-                                        <img src="{{ $lamaran->user->foto ? asset('storage/' . $lamaran->user->foto) : '/assets/default-user.png' }}"
+                                        <img src="{{ $lamaran->pelamar->foto ? asset('storage/' . $lamaran->pelamar->foto) : '/assets/default-pelamar.png' }}"
                                             class="pelamar-avatar">
-                                        {{ $lamaran->user->name }}
+                                        {{ $lamaran->pelamar->name }}
                                     </td>
-                                    <td>{{ $lamaran->user->email }}</td>
+                                    <td>{{ $lamaran->pelamar->email }}</td>
                                     <td>
                                         <a href="{{ asset('storage/' . $lamaran->cv) }}"
                                             class="text-decoration-none text-success" target="_blank">
