@@ -4,121 +4,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
-
+    <title>Pengaturan Akun Pelamar</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/assets/menuSettings/setting.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 
 <body>
-    <div class="leftBar">
-        <div class="header">
-            <div class="fotoSetting">
-                <img src="/assets/menuSettings/assets/defaultProfile.png" alt="">
-            </div>
-            <h2>Settings</h2>
-        </div>
+    <div class="d-flex" style="min-height: 100vh;">
 
-        <hr>
-
-        <div class="barContent">
-            <div class="general">
-                <div class="profil">
-                    <div class="iconProfil">
-                        <img src="/assets/menuSettings/assets/user.png" alt="">
-                    </div>
-                    <label>Profil</label>
-                </div>
-            </div>
-
-            <a href="/cv">
-                <div class="general">
-                    <div class="profil">
-                        <div class="iconProfil">
-                            <img src="/assets/menuSettings/assets/user.png" alt="">
-                        </div>
-                        <label>CV</label>
-                    </div>
-                </div>
-            </a>
-
-
-            <div class="System">
-                <div class="LogOut">
-                    <div class="iconLogOut">
-                        <img src="/assets/menuSettings/assets/logout.png" alt="">
-                    </div>
-                    <label>Log Out</label>
-                </div>
-            </div>
-
-            <div class="back">
-                <a href="/home-pelamar">
-                    <img src="/assets/menuSettings/assets/back.png" alt="">
+        {{-- Sisi Kiri: Sidebar Pengaturan --}}
+        <div class="cstm-sidebar p-4 text-white">
+            <h4 class="mb-4">Pengaturan</h4>
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="nav-link cstm-nav-link active" href="{{ route('pelamar.settings') }}" role="tab">
+                    <i class="fas fa-user-circle me-2"></i> Akun
+                </a>
+                <a class="nav-link cstm-nav-link" href="{{ route('cv.index') }}" role="tab">
+                    <i class="fas fa-file-alt me-2"></i> CV
+                </a>
+                <a class="nav-link cstm-nav-link" href="#" role="tab">
+                    <i class="fas fa-shield-alt me-2"></i> Keamanan
                 </a>
             </div>
         </div>
+
+        {{-- Sisi Kanan: Konten Akun --}}
+        <div class="cstm-content flex-grow-1 p-5 bg-white">
+            <h2 class="mb-4">Akun</h2>
+            <hr class="mt-0 mb-5 cstm-divider">
+
+            {{-- Bagian Profil dan Tombol Edit --}}
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="d-flex align-items-center">
+                    <div class="cstm-avatar-circle me-3">
+                        <img src="{{ $pelamar->foto_profil ? asset('storage/profil/'.$pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}" 
+                             alt="Profile" class="w-100 h-100 rounded-circle" style="object-fit: cover;">
+                    </div>
+                    <label class="form-label fw-bold m-0">Foto Profil</label>
+                </div>
+
+                {{-- Tombol Edit (Ikon Pensil) --}}
+                <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#editDataModal">
+                    <img src="/assets/settingPerusahaan/img/edit black.png" alt="Edit" class="cstm-edit-icon">
+                </button>
+            </div>
+
+            <hr class="mt-5 mb-5 cstm-divider">
+
+            {{-- Bagian Display Data (Read-only) --}}
+            <div class="mb-3 cstm-field-group">
+                <label class="form-label">Nama Lengkap</label>
+                <input type="text" class="form-control cstm-display-input" readonly value="{{ $pelamar->nama_lengkap }}">
+            </div>
+
+            <div class="mb-3 cstm-field-group">
+                <label class="form-label">Keahlian</label>
+                <input type="text" class="form-control cstm-display-input" readonly value="{{ $keahlianString }}">
+            </div>
+
+            <div class="mb-3 cstm-field-group">
+                <label class="form-label">Username</label>
+                <input type="text" class="form-control cstm-display-input" readonly value="{{ $pelamar->username }}">
+            </div>
+
+            <div class="mb-3 cstm-field-group">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control cstm-display-input" readonly value="{{ $pelamar->email }}">
+            </div>
+
+            <div class="mb-4 cstm-field-group">
+                <label class="form-label">No. Telpon</label>
+                <input type="text" class="form-control cstm-display-input" readonly value="{{ $pelamar->no_telp ?? '-' }}">
+            </div>
+
+            {{-- Tombol Keluar (Logout) --}}
+            <form action="/logout" method="POST" class="d-inline">
+                @csrf
+                <button type="submit" class="btn btn-link text-danger p-0 cstm-link-keluar">
+                    <i class="fas fa-sign-out-alt me-2"></i> Keluar
+                </button>
+            </form>
+        </div>
     </div>
 
-    <div class="rightBar">
-        <h2>Akun</h2>
-        <hr>
-
-        <div class="profilPicture">
-            <div class="left">
-                <div class="pic">
-                    <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="">
+    {{-- MODAL EDIT DATA PELAMAR --}}
+    <div class="modal fade" id="editDataModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered cstm-wide-modal">
+            <div class="modal-content">
+                <div class="modal-header border-0 px-5 pt-5 pb-0 mb-4">
+                    <h5 class="modal-title fw-bold">Edit Data Profil</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <label>Foto Profil</label>
-                <label>JPG, PNG, SVG</label>
-            </div>
+                <form action="{{ route('pelamar.update') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body pt-0 px-5">
+                        {{-- Upload Foto --}}
+                        <div class="mb-4 text-center">
+                            <div class="cstm-avatar-circle mx-auto mb-2" onclick="document.getElementById('inputFoto').click()" style="cursor: pointer;">
+                                <img id="preview" src="{{ $pelamar->foto_profil ? asset('storage/profil/'.$pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}" 
+                                     class="w-100 h-100 rounded-circle" style="object-fit: cover;">
+                            </div>
+                            <small class="text-muted">Klik lingkaran untuk ganti foto</small>
+                            <input type="file" name="foto_profil" id="inputFoto" class="d-none" onchange="previewImg()">
+                        </div>
 
-            <div class="right">
-                <button>Ganti Foto Profil</button>
-            </div>
-        </div>
-
-        <div class="namaLengkap">
-            <label>Nama Lengkap</label>
-            <div class="inputNama">
-                <input type="text">
-                <div class="editPic">
-                    <img src="https://cdn-icons-png.flaticon.com/512/84/84380.png">
-                </div>
-            </div>
-        </div>
-
-        <div class="keahlian">
-            <label>Keahlian</label>
-            <div class="inputKeahlian">
-                <input type="text">
-                <div class="editPic">
-                    <img src="https://cdn-icons-png.flaticon.com/512/84/84380.png">
-                </div>
-            </div>
-        </div>
-
-        <div class="username">
-            <label>Username</label>
-            <div class="inputUsername">
-                <input type="text">
-                <div class="editPic">
-                    <img src="https://cdn-icons-png.flaticon.com/512/84/84380.png">
-                </div>
-            </div>
-        </div>
-
-        <div class="password">
-            <label>Password</label>
-            <div class="inputPassword">
-                <input type="password">
-                <div class="editPic">
-                    <img src="https://cdn-icons-png.flaticon.com/512/84/84380.png">
-                </div>
+                        <div class="mb-4">
+                            <label class="form-label">Nama Lengkap</label>
+                            <input type="text" class="form-control" name="nama_lengkap" value="{{ $pelamar->nama_lengkap }}">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Keahlian (Pisahkan dengan koma)</label>
+                            <input type="text" class="form-control" name="keahlian" value="{{ $keahlianString }}">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-control" name="username" value="{{ $pelamar->username }}">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" name="email" value="{{ $pelamar->email }}">
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">No. Telpon</label>
+                            <input type="text" class="form-control" name="no_telp" value="{{ $pelamar->no_telp }}">
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0 px-5 pb-5 pt-0 justify-content-end">
+                        <button type="button" class="btn cstm-btn-batal" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn cstm-btn-simpan-teal">Simpan</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <script src="/assets/menuSettings/setting.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function previewImg() {
+            const foto = document.querySelector('#inputFoto');
+            const preview = document.querySelector('#preview');
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(foto.files[0]);
+            fileReader.onload = (e) => { preview.src = e.target.result; }
+        }
+    </script>
 </body>
-
 </html>

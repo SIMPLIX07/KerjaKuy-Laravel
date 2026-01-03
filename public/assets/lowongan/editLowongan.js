@@ -7,7 +7,6 @@ function previewImage() {
         const reader = new FileReader();
 
         reader.onload = function(e) {
-            // Mengubah src gambar preview menjadi data URL file yang baru dipilih
             preview.src = e.target.result;
         }
 

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KerjaKuy</title>
 
+    
+    <link rel="stylesheet" href="/assets/HomePelamar/style.css" />
     <link rel="stylesheet" href="/assets/homePerusahaan/homePerusahaan.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
@@ -21,7 +23,7 @@
             <div class="cstm-nav-menu">
                 <a href="/home-perusahaan" class="cstm-nav-link active">Lowongan Anda</a>
                 <a href="/karyawanPerusahaan" class="cstm-nav-link">Karyawan</a>
-                <a href="/perusahaan/wawancara" class="cstm-nav-link active">Wawancara</a>
+                <a href="/perusahaan/wawancara" class="cstm-nav-link">Wawancara</a>
             </div>
 
             <div class="cstm-nav-user">
@@ -34,8 +36,8 @@
     </nav>
 
     <div class="search-bar-container">
-        <div>
-            <input type="text" placeholder="Cari kategori pekerjaan" class="search-input" />
+        <div class="search-form-wrapper">
+            <input type="text" placeholder="Cari kategori pekerjaan" class="search-input">
             <button class="search-button">Cari</button>
         </div>
     </div>

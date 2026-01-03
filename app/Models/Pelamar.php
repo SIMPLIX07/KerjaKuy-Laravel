@@ -13,13 +13,14 @@ class Pelamar extends Model
         'nama_lengkap',
         'username',
         'email',
+        'no_telp',
         'password',
         'foto_profil'
     ];
 
     public function keahlians()
     {
-        return $this->belongsToMany(Keahlian::class, 'pelamar_keahlian');
+        return $this->hasMany(Keahlian::class, 'pelamar_id');
     }
     public function lamarans()
     {

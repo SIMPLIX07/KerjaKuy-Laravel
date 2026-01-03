@@ -1,3 +1,4 @@
+
 .cards-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -21,19 +22,14 @@
     width: 100%;
 }
 
-
-
-
-/* Nama Posisi: Bold dan Lebih Besar */
 .posisi-pekerjaan {
     font-size: 1.4rem;
     font-weight: 800;
     color: #000000;
     margin-bottom: 2px;
-    font-family: 'Segoe UI';
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-/* Nama Perusahaan: Kecil & Hitam */
 .nama-perusahaan {
     font-size: 18px;
     font-weight: 400;
@@ -43,7 +39,7 @@
 
 /* Pesan: Polos tanpa background/garis */
 .pesan-teks {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     font-size: 18px;
     color: #333333;
     font-style: normal;
@@ -52,17 +48,17 @@
 }
 
 .link-label {
-    font-size: 0.9rem;
+    font-size: 16px;
     color: #000000;
     margin-bottom: 2px;
+    margin-bottom: 20px;
 }
 
 .link-url {
     word-break: break-all; 
     color: #007bff;
     text-decoration: none;
-    font-size: 0.95rem;
-    margin-bottom: 20px;
+    font-size: 16px;
 }
 
 /* Jadwal Info dengan Ikon Gambar */

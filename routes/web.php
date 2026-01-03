@@ -52,15 +52,20 @@ Route::get('/kelola', function () {
     return view('Kelola');
 });
 
-Route::get('/pelamar/setting', function () {
-    return view('setting');
-})->name('pelamar.settings');
+
 
 // Pelamar
 Route::post('/register/pelamar', [PelamarController::class, 'store'])->name('register.pelamar');
 Route::post('/login/pelamar', [PelamarController::class, 'login'])->name('login.pelamar');
 Route::get('/pelamar/cv', [LamaranController::class, 'getCvPelamar']);
 Route::post('/lamaran/insert', [LamaranController::class, 'insertLamaran']);
+
+// Setting Pelamar
+Route::get('/pelamar/setting', [PelamarController::class, 'settings'])->name('pelamar.settings');
+Route::post('/pelamar/setting/update', [PelamarController::class, 'updateProfil'])->name('pelamar.update');
+Route::get('/pelamar/keamanan', function () {
+    return "Halaman Keamanan (Belum Dibuat)"; 
+})->name('pelamar.keamanan');
 
 // Lowongan
 Route::prefix('lowongan')->group(function () {

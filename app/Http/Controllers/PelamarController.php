@@ -7,6 +7,7 @@ use App\Models\Pelamar;
 use App\Models\Keahlian;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
 
 class PelamarController extends Controller
 {
@@ -45,7 +46,7 @@ class PelamarController extends Controller
             }
         }
 
-        // login session
+        // login sessions
         session([
             'pelamar_id'       => $pelamar->id,
             'pelamar_username' => $pelamar->username,
@@ -87,5 +88,71 @@ class PelamarController extends Controller
         ]);
 
         return redirect('/home-pelamar');
+    }
+
+    //setting
+    public function settings()
+    {
+        // Mengambil data pelamar berdasarkan session login
+        $pelamar = Pelamar::with('keahlians')->find(session('pelamar_id'));
+        
+        if (!$pelamar) {
+            return redirect('/login/pelamar');
+        }
+
+        // Mengubah array keahlian menjadi string (contoh: "Laravel, PHP, CSS")
+        $keahlianString = $pelamar->keahlians->pluck('nama_keahlian')->implode(', ');
+
+        return view('setting', compact('pelamar', 'keahlianString'));
+    }
+
+    public function updateProfil(Request $request)
+    {
+        $pelamar = Pelamar::findOrFail(session('pelamar_id'));
+
+        $request->validate([
+            'nama_lengkap' => 'required',
+            'username'     => 'required|unique:pelamars,username,' . $pelamar->id,
+            'email'        => 'required|email|unique:pelamars,email,' . $pelamar->id,
+            'no_telp'      => 'nullable|numeric',
+            'foto_profil'  => 'nullable|image|mimes:jpg,png,jpeg|max:2048'
+        ]);
+
+        // Handle Upload Foto Profil
+        if ($request->hasFile('foto_profil')) {
+            // Hapus foto lama jika ada
+            if ($pelamar->foto_profil) {
+                Storage::delete('public/profil/' . $pelamar->foto_profil);
+            }
+            
+            $file = $request->file('foto_profil');
+            $namaFile = time() . '_' . $pelamar->username . '.' . $file->getClientOriginalExtension();
+            $file->storeAs('public/profil', $namaFile);
+            $pelamar->foto_profil = $namaFile;
+        }
+
+        // Update Data Utama
+        $pelamar->update([
+            'nama_lengkap' => $request->nama_lengkap,
+            'username'     => $request->username,
+            'email'        => $request->email,
+            'no_telp'      => $request->no_telp,
+        ]);
+
+        // Update Keahlian
+        if ($request->keahlian) {
+            Keahlian::where('pelamar_id', $pelamar->id)->delete();
+            $skills = array_map('trim', explode(',', $request->keahlian));
+            foreach ($skills as $skill) {
+                if (!empty($skill)) {
+                    Keahlian::create([
+                        'pelamar_id' => $pelamar->id,
+                        'nama_keahlian' => $skill,
+                    ]);
+                }
+            }
+        }
+
+        return back()->with('success', 'Profil berhasil diperbarui!');
     }
 }

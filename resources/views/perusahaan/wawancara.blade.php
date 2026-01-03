@@ -7,46 +7,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KerjaKuy - Wawancara</title>
 
+    <link rel="stylesheet" href="/assets/HomePelamar/style.css" />
     <link rel="stylesheet" href="/assets/wawancaraPerusahaan/wawancara.css">
     <link rel="stylesheet" href="/assets/LamaranAnda/Lamaran.css">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 
 </head>
 
 <body>
-    <div class="header">
-
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-logo">
-                    <img src="/assets/LamaranAnda/asset/KerjaKuy.png" alt="Kerjakuy Logo" class="logo-img">
-                    <span class="brand-text">KerjaKuy</span>
-                </div>
-
-                <div class="nav-menu">
-                    <a href="/home-perusahaan" class="nav-link">Lowongan Anda</a>
-                    <a href="/karyawanPerusahaan" class="nav-link">Karyawan</a>
-                    <a href="/perusahaan/wawancara" class="nav-link active">Wawancara</a>
-                </div>
-
-                <div class="nav-user">
-                    <span class="user-margin">
-                        <a class="nav-user" href="{{ route('perusahaan.settings') }}">
-                            {{ session('perusahaan_nama') }}
-                        </a>
-                    </span>
-                </div>
+    <nav class="cstm-navbar">
+        <div class="cstm-nav-container">
+            <div class="nav-logo">
+                <img src="/assets/HomePelamar/asset/KerjaKuy.png" class="logo-img" />
+                <a href="/" class="brand-text">KerjaKuy</a>
             </div>
-        </nav>
 
-        <div class="search-bar-container">
-            <div class="search-form-wrapper">
-                <input type="text" placeholder="Cari jadwal wawancara" class="search-input">
-                <button class="search-button">Cari</button>
+            <div class="cstm-nav-menu">
+                <a href="/home-perusahaan" class="cstm-nav-link">Lowongan Anda</a>
+                <a href="/karyawanPerusahaan" class="cstm-nav-link">Karyawan</a>
+                <a href="/perusahaan/wawancara" class="cstm-nav-link active">Wawancara</a>
+            </div>
+
+            <div class="cstm-nav-user">
+                <a href="{{ route('perusahaan.settings') }}" class="cstm-user-margin"
+                    style="color:white; text-decoration:none;">
+                    {{ session('perusahaan_nama') }}
+                </a>
             </div>
         </div>
+    </nav>
 
+    <div class="search-bar-container">
+        <div class="search-form-wrapper">
+            <input type="text" placeholder="Cari jadwal wawancara" class="search-input">
+            <button class="search-button">Cari</button>
+        </div>
     </div>
 
     <div class="main-grid">
@@ -65,10 +61,8 @@
 
             @forelse ($wawancarans as $wawancara)
 
-                <div class="wp-card card-wawancara-item"
-                    data-nama="{{ $wawancara->pelamar->nama_lengkap }}"
-                    data-id="{{ $wawancara->id }}"
-                    data-posisi="{{ $wawancara->lowongan->posisi_pekerjaan }}"
+                <div class="wp-card card-wawancara-item" data-nama="{{ $wawancara->pelamar->nama_lengkap }}"
+                    data-id="{{ $wawancara->id }}" data-posisi="{{ $wawancara->lowongan->posisi_pekerjaan }}"
                     data-tanggal="{{ \Carbon\Carbon::parse($wawancara->tanggal)->format('d M Y') }}"
                     data-jam="{{ $wawancara->jam_mulai }} - {{ $wawancara->jam_selesai }}"
                     data-pesan="{{ $wawancara->pesan ?? 'Tidak ada pesan khusus.' }}"
@@ -80,7 +74,8 @@
 
                     <div class="wp-card-company">
                         {{ $wawancara->pelamar->nama }}
-                        </div> <div class="wp-card-desc">
+                    </div>
+                    <div class="wp-card-desc">
                         @if ($wawancara->status === 'proses')
                             Wawancara dengan:
                             <strong>{{ $wawancara->pelamar->nama_lengkap }}</strong>
@@ -92,7 +87,7 @@
                     <div class="wp-link-label">
                         Link:
                         <a href="{{ $wawancara->link_meet }}" target="_blank" class="wp-link-url">
-                          {{ $wawancara->link_meet }}
+                            {{ $wawancara->link_meet }}
                         </a>
                     </div>
 
@@ -103,7 +98,7 @@
 
                 </div>
             @empty
-                        <div class="empty-wrapper">
+                <div class="empty-wrapper">
                     <div class="empty-card">
                         <h3>Belum ada wawancara</h3>
                         <p>Belum ada jadwal wawancara untuk lowongan kamu.</p>
@@ -111,7 +106,7 @@
                 </div>
             @endforelse
 
-    </div>
+        </div>
 
 
     </div>

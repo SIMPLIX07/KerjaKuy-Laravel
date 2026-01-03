@@ -47,7 +47,6 @@ class WawancaraController extends Controller
         return view('perusahaan.wawancara', compact('wawancarans'));
     }
 
-
     public function terima($id)
     {
         $wawancara = Wawancara::with('lowongan')->findOrFail($id);

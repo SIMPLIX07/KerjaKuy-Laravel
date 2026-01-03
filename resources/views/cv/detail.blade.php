@@ -8,7 +8,6 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* CSS tambahan untuk membuat tampilan statis tetap rapi */
         .display-box {
             @apply w-full border border-[#1FACA2] rounded-lg px-3 py-2 bg-gray-50 text-gray-800 min-h-[42px] flex items-center;
         }

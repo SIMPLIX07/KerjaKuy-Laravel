@@ -5,32 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KerjaKuy</title>
+    <link rel="stylesheet" href="/assets/HomePelamar/style.css" />
     <link rel="stylesheet" href="/assets/LamaranAnda/Lamaran.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
+    <nav class="cstm-navbar">
+        <div class="cstm-nav-container">
             <div class="nav-logo">
-                <img src="/assets/LamaranAnda/asset/KerjaKuy.png" alt="Kerjakuy Logo" class="logo-img">
-                <span class="brand-text">KerjaKuy</span>
+                <img src="/assets/HomePelamar/asset/KerjaKuy.png" alt="Logo" class="logo-img" />
+                <a href="/" class="brand-text" style="text-decoration:none;">KerjaKuy</a>
             </div>
 
-            <div class="nav-menu">
-                <a href="/home-pelamar" class="nav-link">Lowongan Kerja</a>
-                <a href="/lamaran-anda" class="nav-link active">Lamaran Anda</a>
-                <a href="/wawancara" class="nav-link active">Wawancara</a>
+            <div class="cstm-nav-menu">
+                <a href="/home-pelamar" class="cstm-nav-link">Lowongan Kerja</a>
+                <a href="/lamaran-anda" class="cstm-nav-link active">Lamaran anda</a>
+                <a href="/wawancara" class="cstm-nav-link">Wawancara</a>
             </div>
 
-            <div class="nav-user">
-                <span class="user-margin"><a class="nav-user" href="/setting">{{ session('pelamar_nama') }}</a></span>
+            <div class="cstm-nav-user">
+                <a href="{{ route('pelamar.settings') }}" style="color:white; text-decoration:none;">
+                    {{ session('pelamar_nama') }}
+                </a>
             </div>
         </div>
     </nav>
 
-    <div class="search-bar-container" style="grid-column: span 12;">
-        <div class="search-form-wrapper"> <input type="text" placeholder="Cari pekerjaan yang dilamar"
-                class="search-input">
+    <div class="search-bar-container">
+        <div class="search-form-wrapper">
+            <input type="text" placeholder="Cari pekerjaan yang dilamar" class="search-input">
             <button class="search-button">Cari</button>
         </div>
     </div>
