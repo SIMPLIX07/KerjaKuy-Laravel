@@ -65,8 +65,6 @@
 .cstm-link-keluar:hover {
     color: #b02a37 !important;
 }
-
-/* Sidebar: teks hitam saat hover, background tetap putih */
 .cstm-sidebar .nav-link:hover,
 .cstm-sidebar .nav-link:focus {
     color: #000000 !important;
