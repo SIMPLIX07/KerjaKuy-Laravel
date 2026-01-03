@@ -8,6 +8,8 @@ use App\Models\Keahlian;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+
 
 class PelamarController extends Controller
 {
@@ -56,6 +58,40 @@ class PelamarController extends Controller
         return redirect('/home-pelamar')->with('success', 'Registrasi berhasil!');
     }
 
+    public function updatePassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'password_lama' => 'required',
+            'password_baru' => 'required|min:8|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput()
+                ->with('openPasswordModal', true);
+        }
+
+        $pelamar = Pelamar::find(session('pelamar_id'));
+
+        if (!$pelamar) {
+            return redirect('/login/pelamar');
+        }
+
+        if (!Hash::check($request->password_lama, $pelamar->password)) {
+            return back()
+                ->withErrors(['password_lama' => 'Password lama salah'])
+                ->with('openPasswordModal', true);
+        }
+
+        $pelamar->password = Hash::make($request->password_baru);
+        $pelamar->save();
+
+        return back()->with('success_password', 'Password berhasil diperbarui');
+    }
+
+
+
     public function login(Request $request)
     {
 
@@ -95,7 +131,7 @@ class PelamarController extends Controller
     {
         // Mengambil data pelamar berdasarkan session login
         $pelamar = Pelamar::with('keahlians')->find(session('pelamar_id'));
-        
+
         if (!$pelamar) {
             return redirect('/login/pelamar');
         }
@@ -124,7 +160,7 @@ class PelamarController extends Controller
             if ($pelamar->foto_profil) {
                 Storage::delete('public/profil/' . $pelamar->foto_profil);
             }
-            
+
             $file = $request->file('foto_profil');
             $namaFile = time() . '_' . $pelamar->username . '.' . $file->getClientOriginalExtension();
             $file->storeAs('public/profil', $namaFile);

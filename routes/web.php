@@ -129,3 +129,7 @@ Route::get(
     '/perusahaan/karyawan/by-kategori/{kategori}',
     [KaryawanController::class, 'ajaxByKategori']
 );
+
+Route::post('/pelamar/update-password', 
+    [PelamarController::class, 'updatePassword']
+)->name('pelamar.updatePassword');

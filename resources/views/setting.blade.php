@@ -23,14 +23,24 @@
                 <a class="nav-link cstm-nav-link" href="{{ route('cv.index') }}" role="tab">
                     <i class="fas fa-file-alt me-2"></i> CV
                 </a>
-                <a class="nav-link cstm-nav-link" href="#" role="tab">
+                <a class="nav-link cstm-nav-link"
+                    href="#"
+                    data-bs-toggle="modal"
+                    data-bs-target="#ubahPasswordModal">
                     <i class="fas fa-shield-alt me-2"></i> Keamanan
                 </a>
+
             </div>
         </div>
 
         {{-- Sisi Kanan: Konten Akun --}}
         <div class="cstm-content flex-grow-1 p-5 bg-white">
+            @if (session('success_password'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success_password') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            @endif
             <h2 class="mb-4">Akun</h2>
             <hr class="mt-0 mb-5 cstm-divider">
 
@@ -38,8 +48,8 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div class="d-flex align-items-center">
                     <div class="cstm-avatar-circle me-3">
-                        <img src="{{ $pelamar->foto_profil ? asset('storage/profil/'.$pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}" 
-                             alt="Profile" class="w-100 h-100 rounded-circle" style="object-fit: cover;">
+                        <img src="{{ $pelamar->foto_profil ? asset('storage/profil/'.$pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}"
+                            alt="Profile" class="w-100 h-100 rounded-circle" style="object-fit: cover;">
                     </div>
                     <label class="form-label fw-bold m-0">Foto Profil</label>
                 </div>
@@ -102,8 +112,8 @@
                         {{-- Upload Foto --}}
                         <div class="mb-4 text-center">
                             <div class="cstm-avatar-circle mx-auto mb-2" onclick="document.getElementById('inputFoto').click()" style="cursor: pointer;">
-                                <img id="preview" src="{{ $pelamar->foto_profil ? asset('storage/profil/'.$pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}" 
-                                     class="w-100 h-100 rounded-circle" style="object-fit: cover;">
+                                <img id="preview" src="{{ $pelamar->foto_profil ? asset('storage/profil/'.$pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}"
+                                    class="w-100 h-100 rounded-circle" style="object-fit: cover;">
                             </div>
                             <small class="text-muted">Klik lingkaran untuk ganti foto</small>
                             <input type="file" name="foto_profil" id="inputFoto" class="d-none" onchange="previewImg()">
@@ -146,8 +156,92 @@
             const preview = document.querySelector('#preview');
             const fileReader = new FileReader();
             fileReader.readAsDataURL(foto.files[0]);
-            fileReader.onload = (e) => { preview.src = e.target.result; }
+            fileReader.onload = (e) => {
+                preview.src = e.target.result;
+            }
         }
     </script>
+    {{-- MODAL UBAH PASSWORD --}}
+    <div class="modal fade" id="ubahPasswordModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold">Ubah Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <form action="{{ route('pelamar.updatePassword') }}" method="POST">
+                    @csrf
+
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label class="form-label">Password Lama</label>
+                            <input type="password"
+                                name="password_lama"
+                                class="form-control @error('password_lama') is-invalid @enderror"
+                                required>
+
+                            @error('password_lama')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label class="form-label">Password Baru</label>
+                            <input type="password"
+                                name="password_baru"
+                                class="form-control @error('password_baru') is-invalid @enderror"
+                                required>
+
+                            @error('password_baru')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label class="form-label">Konfirmasi Password Baru</label>
+                            <input type="password"
+                                name="password_baru_confirmation"
+                                class="form-control"
+                                required>
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer border-0">
+                        <button type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal">
+                            Batal
+                        </button>
+                        <button type="submit"
+                            class="btn btn-danger">
+                            Simpan Password
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+    @if ($errors->any() && session('openPasswordModal'))
+    <script>
+        const modal = new bootstrap.Modal(
+            document.getElementById('ubahPasswordModal')
+        );
+        modal.show();
+    </script>
+    @endif
+
 </body>
+
 </html>
