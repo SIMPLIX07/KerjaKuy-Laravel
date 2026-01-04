@@ -161,10 +161,11 @@ class PelamarController extends Controller
                 Storage::delete('public/profil/' . $pelamar->foto_profil);
             }
 
-            $file = $request->file('foto_profil');
-            $namaFile = time() . '_' . $pelamar->username . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/profil', $namaFile);
-            $pelamar->foto_profil = $namaFile;
+            $fotoProfilPath = null;
+            $fotoProfilPath = $request->file('foto_profil')->store(
+                'pelamar/profil',
+                'public'
+            );
         }
 
         // Update Data Utama
@@ -172,6 +173,7 @@ class PelamarController extends Controller
             'nama_lengkap' => $request->nama_lengkap,
             'username'     => $request->username,
             'email'        => $request->email,
+            'foto_profil' => $fotoProfilPath,
             'no_telp'      => $request->no_telp,
         ]);
 
