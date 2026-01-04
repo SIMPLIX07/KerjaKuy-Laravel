@@ -98,7 +98,9 @@ Route::get('/home-perusahaan', [LowonganController::class, 'index']);
 Route::post('/login/perusahaan', [PerusahaanController::class, 'login'])->name('login.perusahaan');
 Route::post('/register/perusahaan', [PerusahaanController::class, 'register'])->name('register.perusahaan');
 Route::get('/perusahaan/pengaturan', [PerusahaanController::class, 'showPengaturanAkun'])->name('perusahaan.settings');
+Route::post('/perusahaan/pengaturan/update-foto', [PerusahaanController::class, 'updateFotoProfil'])->name('perusahaan.settings.updateFoto');
 Route::post('/perusahaan/pengaturan', [PerusahaanController::class, 'updatePengaturanAkun'])->name('perusahaan.settings.update');
+Route::post('/perusahaan/pengaturan/update-password', [PerusahaanController::class, 'updatePassword'])->name('perusahaan.settings.updatePassword');
 Route::post('/perusahaan/logout', [PerusahaanController::class, 'logout'])->name('perusahaan.logout');
 Route::post('/lamaran/store', [LamaranController::class, 'insertLamaran']);
 

@@ -23,9 +23,7 @@
                 <a class="nav-link cstm-nav-link" href="{{ route('cv.index') }}" role="tab">
                     <i class="fas fa-file-alt me-2"></i> CV
                 </a>
-                <a class="nav-link cstm-nav-link"
-                    href="#"
-                    data-bs-toggle="modal"
+                <a class="nav-link cstm-nav-link" href="#" data-bs-toggle="modal"
                     data-bs-target="#ubahPasswordModal">
                     <i class="fas fa-shield-alt me-2"></i> Keamanan
                 </a>
@@ -36,10 +34,10 @@
         {{-- Sisi Kanan: Konten Akun --}}
         <div class="cstm-content flex-grow-1 p-5 bg-white">
             @if (session('success_password'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success_password') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            </div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success_password') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
             @endif
             <h2 class="mb-4">Akun</h2>
             <hr class="mt-0 mb-5 cstm-divider">
@@ -48,7 +46,7 @@
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div class="d-flex align-items-center">
                     <div class="cstm-avatar-circle me-3">
-                        <img src="{{ $pelamar->foto_profil ? asset('storage/profil/'.$pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}"
+                        <img src="{{ $pelamar->foto_profil ? asset('storage/' . $pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}"
                             alt="Profile" class="w-100 h-100 rounded-circle" style="object-fit: cover;">
                     </div>
                     <label class="form-label fw-bold m-0">Foto Profil</label>
@@ -65,7 +63,8 @@
             {{-- Bagian Display Data (Read-only) --}}
             <div class="mb-3 cstm-field-group">
                 <label class="form-label">Nama Lengkap</label>
-                <input type="text" class="form-control cstm-display-input" readonly value="{{ $pelamar->nama_lengkap }}">
+                <input type="text" class="form-control cstm-display-input" readonly
+                    value="{{ $pelamar->nama_lengkap }}">
             </div>
 
             <div class="mb-3 cstm-field-group">
@@ -85,14 +84,15 @@
 
             <div class="mb-4 cstm-field-group">
                 <label class="form-label">No. Telpon</label>
-                <input type="text" class="form-control cstm-display-input" readonly value="{{ $pelamar->no_telp ?? '-' }}">
+                <input type="text" class="form-control cstm-display-input" readonly
+                    value="{{ $pelamar->no_telp ?? '-' }}">
             </div>
 
             {{-- Tombol Keluar (Logout) --}}
             <form action="{{ route('pelamar.logout') }}" method="POST" class="d-inline">
                 @csrf
                 <button type="submit" class="btn btn-link text-danger p-0 cstm-link-keluar">
-                    <i class="fas fa-sign-out-alt me-2"></i> Log Out
+                    <i class="fas fa-sign-out-alt me-2"></i> Keluar
                 </button>
             </form>
         </div>
@@ -111,33 +111,40 @@
                     <div class="modal-body pt-0 px-5">
                         {{-- Upload Foto --}}
                         <div class="mb-4 text-center">
-                            <div class="cstm-avatar-circle mx-auto mb-2" onclick="document.getElementById('inputFoto').click()" style="cursor: pointer;">
-                                <img id="preview" src="{{ $pelamar->foto_profil ? asset('storage/profil/'.$pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}"
-                                    class="w-100 h-100 rounded-circle" style="object-fit: cover;">
+                            <div class="cstm-avatar-circle mx-auto mb-2"
+                                onclick="document.getElementById('inputFoto').click()" style="cursor: pointer;">
+                                <img src="{{ $pelamar->foto_profil ? asset('storage/' . $pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}"
+                                    alt="Profile" class="w-100 h-100 rounded-circle" style="object-fit: cover;">
                             </div>
                             <small class="text-muted">Klik lingkaran untuk ganti foto</small>
-                            <input type="file" name="foto_profil" id="inputFoto" class="d-none" onchange="previewImg()">
+                            <input type="file" name="foto_profil" id="inputFoto" class="d-none"
+                                onchange="previewImg()">
                         </div>
 
                         <div class="mb-4">
                             <label class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control" name="nama_lengkap" value="{{ $pelamar->nama_lengkap }}">
+                            <input type="text" class="form-control" name="nama_lengkap"
+                                value="{{ $pelamar->nama_lengkap }}">
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Keahlian (Pisahkan dengan koma)</label>
-                            <input type="text" class="form-control" name="keahlian" value="{{ $keahlianString }}">
+                            <input type="text" class="form-control" name="keahlian"
+                                value="{{ $keahlianString }}">
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Username</label>
-                            <input type="text" class="form-control" name="username" value="{{ $pelamar->username }}">
+                            <input type="text" class="form-control" name="username"
+                                value="{{ $pelamar->username }}">
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Email</label>
-                            <input type="email" class="form-control" name="email" value="{{ $pelamar->email }}">
+                            <input type="email" class="form-control" name="email"
+                                value="{{ $pelamar->email }}">
                         </div>
                         <div class="mb-4">
                             <label class="form-label">No. Telpon</label>
-                            <input type="text" class="form-control" name="no_telp" value="{{ $pelamar->no_telp }}">
+                            <input type="text" class="form-control" name="no_telp"
+                                value="{{ $pelamar->no_telp }}">
                         </div>
                     </div>
                     <div class="modal-footer border-0 px-5 pb-5 pt-0 justify-content-end">
@@ -178,52 +185,42 @@
 
                         <div class="mb-3">
                             <label class="form-label">Password Lama</label>
-                            <input type="password"
-                                name="password_lama"
-                                class="form-control @error('password_lama') is-invalid @enderror"
-                                required>
+                            <input type="password" name="password_lama"
+                                class="form-control @error('password_lama') is-invalid @enderror" required>
 
                             @error('password_lama')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
 
 
                         <div class="mb-3">
                             <label class="form-label">Password Baru</label>
-                            <input type="password"
-                                name="password_baru"
-                                class="form-control @error('password_baru') is-invalid @enderror"
-                                required>
+                            <input type="password" name="password_baru"
+                                class="form-control @error('password_baru') is-invalid @enderror" required>
 
                             @error('password_baru')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
                             @enderror
                         </div>
 
 
                         <div class="mb-3">
                             <label class="form-label">Konfirmasi Password Baru</label>
-                            <input type="password"
-                                name="password_baru_confirmation"
-                                class="form-control"
-                                required>
+                            <input type="password" name="password_baru_confirmation" class="form-control" required>
                         </div>
 
                     </div>
 
                     <div class="modal-footer border-0">
-                        <button type="button"
-                            class="btn btn-secondary"
-                            data-bs-dismiss="modal">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                             Batal
                         </button>
-                        <button type="submit"
-                            class="btn btn-danger">
+                        <button type="submit" class="btn btn-danger">
                             Simpan Password
                         </button>
                     </div>
@@ -234,12 +231,12 @@
         </div>
     </div>
     @if ($errors->any() && session('openPasswordModal'))
-    <script>
-        const modal = new bootstrap.Modal(
-            document.getElementById('ubahPasswordModal')
-        );
-        modal.show();
-    </script>
+        <script>
+            const modal = new bootstrap.Modal(
+                document.getElementById('ubahPasswordModal')
+            );
+            modal.show();
+        </script>
     @endif
 
 </body>

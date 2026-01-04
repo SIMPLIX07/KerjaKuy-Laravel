@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Perusahaan;
-use App\Models\Karyawan; // perlu ditambahkan
+use App\Models\Karyawan; 
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class PerusahaanController extends Controller
 {
@@ -36,7 +37,7 @@ class PerusahaanController extends Controller
         $request->validate([
             'nama_perusahaan' => 'required',
             'email'           => 'required|email|unique:perusahaans,email',
-            'password'        => 'required|min:3',
+            'password'        => 'required|min:6',
             'telepon'        => 'required|string|max:15',
             'npwp'            => 'required|string|max:20|unique:perusahaans,npwp',
             'sertifikat'      => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
@@ -154,8 +155,57 @@ class PerusahaanController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/login/perusahaan')->with('success', 'Anda telah berhasil keluar.');
+        return redirect('/')->with('success', 'Anda telah berhasil keluar.');
     }
 
+    public function updateFotoProfil(Request $request)
+    {
+        $request->validate([
+            'foto_profil' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $perusahaanId = session('perusahaan_id');
+        $perusahaan = Perusahaan::find($perusahaanId);
+
+        if ($request->hasFile('foto_profil')) {
+            // Hapus foto lama jika ada di storage agar tidak menumpuk
+            if ($perusahaan->foto_profil && Storage::disk('public')->exists($perusahaan->foto_profil)) {
+                Storage::disk('public')->delete($perusahaan->foto_profil);
+            }
+
+            // Simpan foto baru ke folder: storage/app/public/perusahaan/profil
+            $path = $request->file('foto_profil')->store('perusahaan/profil', 'public');
+            
+            // Simpan path ke database
+            $perusahaan->update([
+                'foto_profil' => $path
+            ]);
+
+            return back()->with('success', 'Foto profil berhasil diperbarui!');
+        }
+
+        return back()->with('error', 'Gagal mengunggah foto.');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'password_lama' => 'required',
+            'password_baru' => 'required|min:6|confirmed',
+        ]);
+
+        $perusahaan = Perusahaan::find(session('perusahaan_id'));
+
+        // Cek apakah password lama cocok
+        if (!Hash::check($request->password_lama, $perusahaan->password)) {
+            return back()->withErrors(['password_lama' => 'Password lama tidak sesuai']);
+        }
+
+        // Update password baru
+        $perusahaan->password = Hash::make($request->password_baru);
+        $perusahaan->save();
+
+        return back()->with('success', 'Password berhasil diperbarui!');
+    }
     
 }
