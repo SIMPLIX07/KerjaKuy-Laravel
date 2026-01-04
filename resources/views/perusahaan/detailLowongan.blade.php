@@ -108,8 +108,8 @@
                             @forelse($lowongan->lamarans->where('status', 'diproses') as $lamaran)
                                 <tr>
                                     <td>
-                                        <img src="{{ $lamaran->pelamar->foto ? asset('storage/' . $lamaran->pelamar->foto) : '/assets/default-pelamar.png' }}"
-                                            class="pelamar-avatar">
+                                        <img src="{{ $lamaran->pelamar->foto_profil ? asset('storage/' . $lamaran->pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}" 
+                                        class="pelamar-avatar" >
                                         {{ $lamaran->pelamar->name }}
 
                                     </td>
