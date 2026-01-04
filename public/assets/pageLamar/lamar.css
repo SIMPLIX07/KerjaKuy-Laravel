@@ -1,332 +1,182 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
 }
 
-nav .navbar{
-    color: #ffff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: linear-gradient(to  left, #1FACA2, #000E3A);
-    border-radius: 40px;
+body {
+    background-color: #f8f9fa;
+}
+
+/* --- Tampilan Detail (Miring Perusahaan) --- */
+.detail-wrapper {
+    max-width: 1100px;
+    margin: 0 auto 30px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.banner-container {
+    width: 100%;
+    height: 200px;
     position: relative;
-    padding: 20px;
-    padding-bottom: 20px;
-    padding-top: 50px;
-    top: -35px;
+    background: #ddd;
 }
 
-.navbar .left{
+.banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 30px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-left: 50px;
+    z-index: 2;
 }
 
-.navbar .left label{
-    font-size: 24px;
-    font-weight: bold;
+.company-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid white;
+    background: white;
+    object-fit: cover;
 }
 
-.navbar .left label{
-    margin-left: 10px;
-}
-
-.navbar .middle ul {
-  display: flex;           
-  justify-content: center;
-  align-items: center;     
-  gap: 50px;              
-  list-style: none;       
-  margin: 0;
-  padding: 0;
-}
-
-.navbar .middle ul li#lowongan{
-    border-bottom: 2px solid white;
-    padding-bottom: 10px;
-}
-
-.navbar .middle ul li#lamaran{
-    color: rgb(206, 202, 202);
-}
-
-.navbar .right{
-    margin-right: 50px;
-}
-
-ul li{
-    display: inline;
-}
-
-a{
-    color: grey;
-    text-decoration: none;
-}
-
-nav .left img{
-    height: 53px;
-    width: 37px;
-}
-
-
-
-.back{
-    margin-top: 20px;
-    border-radius: 10px;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 130px;
-    width: 900px;
-}
-
-.cardTop {
-    display: flex;
-    justify-content: center;
-    position: relative;
-    z-index: 1; 
-}
-
-.back img{
-    width: 40px;
-    height: 40px;
-}
-
-.profile{
-    display: flex;
-    flex-direction: column;
-    color: white;
+.company-info-header {
     margin-left: 15px;
 }
 
-.profile #perusahaan{
-    font-size: 24px;
-    font-weight: bold;
-}
-.profile #posisi{
-    font-size: 18px;
-}
-
-.seluruh{
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    bottom: -30px;
-    left: -300px;
-    padding-bottom: 20px;
+.company-info-header h4 {
+    margin: 0;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
-.cardDown{
-    flex-direction: column;
-    background-color: #ffff;
-    border: solid 1px grey;
-    margin: 10px auto;
-    margin-top: 10px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    height: 500px;
-    width: 900px;
-    position: relative;
-    z-index: 2; 
-    top: -25px;
+.company-info-header p {
+    margin: 0;
+    color: #f0f0f0;
+    font-size: 0.95rem;
+    text-shadow: 0px 1px 3px rgba(0, 0, 0, 0.4);
 }
 
-.tengah{
+.meta-bar {
+    padding: 30px 40px 10px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+}
+
+.meta-items {
+    display: flex;
+    flex-direction: column;
     gap: 8px;
-}
-.top{
-    font-size: 14px;
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-    margin-top: 10px;
+    color: #666;
+    font-size: 0.95rem;
 }
 
-.top img{
-    height: 25px;
-    width: 25px;
+.meta-items i {
+    width: 20px;
+    color: #28AE9D;
+    margin-right: 5px;
 }
 
-.list {
-    margin-top: 8px;
-    list-style-type: disc;   
-    padding-left: 20px;       
+/* --- Content --- */
+.content-section {
+    padding: 20px 40px;
 }
 
-.list li {
-    display: list-item;       
-    margin-bottom: 8px;       
+.content-section h5 {
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #333;
 }
 
-.middle{
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-    margin-top: 10px;
-    margin-right: 20px;
+.text-muted-custom {
+    color: #555;
+    line-height: 1.6;
 }
 
-.middle h2{
-    font-size: 24px;
-    margin-top: 10px;
-}
-.bottom{
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-    margin-top: 10px;
-}
-
-.bottom h2{
-    font-size: 24px;
-    margin-top: 10px;
-}
-
+/* --- Button Lamar (Punya teman) --- */
 .button {
-    margin-right: 20px;
-    margin-top: 15px;
-    align-self: flex-end;
-    padding: 10px 20px;
+    padding: 12px 25px;
     border: none;
     background-color: #1FACA2;
     color: white;
     border-radius: 8px;
+    font-weight: 600;
     cursor: pointer;
+    transition: 0.3s;
 }
 
-.right a{
-    color: white;
-}
+.button:hover { background-color: #168d85; }
 
 .modal {
-    display: none;
+    display: none; /* Akan diubah jadi 'flex' oleh JS */
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
     justify-content: center;
     align-items: center;
-    z-index: 900;
-}
-
-.modal-content {
-    background: white;
     padding: 20px;
-    width: 350px;
-    border-radius: 10px;
-    z-index: 10000;
 }
 
-.modal-action {
-    margin-top: 15px;
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    z-index: 10001;
-}
-
-.modal-content select {
-    width: 100%;
-    padding: 8px;
-    margin: 10px 0 15px;
-    border-radius: 6px;
-    border: 1px solid #ccc;
-}
-
-.modal-action button {
-    padding: 8px 14px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-#btnKirimLamaran {
-    background: #1FACA2;
-    color: white;
-}
-
-#btnTutup {
-    background: #ccc;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    z-index: 9999;
-
-}
-
-/* ukuran modal BESAR */
 .modal-content.large {
-    width: 700px;
-    max-height: 80vh;
     background: white;
-    border-radius: 14px;
-    padding: 25px;
+    width: 100%;
+    max-width: 800px;
+    border-radius: 15px;
+    padding: 30px;
+    max-height: 90vh;
     overflow-y: auto;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3); 
+    position: relative;
 }
 
 .cv-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 15px;
-    margin-top: 20px;
+    margin: 20px 0;
 }
 
-/* kartu CV */
 .cv-card {
-    border: 2px solid #ddd;
-    border-radius: 10px;
+    border: 2px solid #eee;
     padding: 15px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: 0.2s ease;
+    transition: 0.2s;
 }
 
 .cv-card:hover {
     border-color: #1FACA2;
-    background: #f2fffd;
 }
 
 .cv-card.active {
     border-color: #1FACA2;
-    background: #e9fffb;
-}
-
-.cv-title {
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-.cv-date {
-    font-size: 12px;
-    color: #666;
+    background-color: #f0fdfa;
 }
 
 .modal-action {
-    margin-top: 25px;
     display: flex;
     justify-content: flex-end;
-    gap: 12px;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 #btnKirimLamaran {
     background: #1FACA2;
     color: white;
     border: none;
-    padding: 10px 18px;
+    padding: 10px 20px;
     border-radius: 8px;
     cursor: pointer;
 }
@@ -337,53 +187,39 @@ nav .left img{
 }
 
 #btnTutup {
-    background: #ddd;
+    background: #ef4444;
+    color: white;
     border: none;
-    padding: 10px 16px;
+    padding: 10px 20px;
     border-radius: 8px;
 }
 
+/* Popup Berhasil */
 .popup-overlay {
+    display: none; /* Akan diubah jadi 'flex' oleh JS */
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.5);
-    display: none;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 10000;
     justify-content: center;
     align-items: center;
-    z-index: 999;
 }
 
 .popup-box {
-    background: #fff;
-    padding: 24px 30px;
-    border-radius: 12px;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
     text-align: center;
-    width: 360px;
-    animation: scaleIn 0.3s ease;
+    max-width: 400px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-.popup-box h3 {
-    margin-bottom: 10px;
-}
-
-.popup-box p {
-    font-size: 14px;
-    margin-bottom: 20px;
-}
-
-.popup-box button {
-    background: #4f46e5;
+#btnOk {
+    background: #1FACA2;
     color: white;
     border: none;
-    padding: 10px 18px;
+    padding: 10px 25px;
     border-radius: 8px;
+    margin-top: 20px;
     cursor: pointer;
 }
-
-@keyframes scaleIn {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
-
-

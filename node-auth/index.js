@@ -5,8 +5,14 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type']
+}));
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // konek db
 const db = mysql.createConnection({
@@ -23,6 +29,27 @@ db.connect(err => {
     } else {
         console.log('MySQL Connected');
     }
+});
+
+// API Wawancara
+app.post('/log-wawancara', (req, res) => {
+    console.log("Ada request masuk ke /log-wawancara"); 
+    console.log("Body Data:", req.body);
+
+    const { perusahaan, pelamar, room } = req.body;
+
+    if (!perusahaan || !pelamar) {
+        console.log("Data tidak lengkap!");
+        return res.status(400).json({ message: 'Data incomplete' });
+    }
+
+    console.log(`===== NOTIFIKASI WAWANCARA =====`);
+    console.log(`Perusahaan : ${perusahaan}`);
+    console.log(`Pelamar    : ${pelamar}`);
+    console.log(`Link Room  : ${room}`);
+    console.log(`Waktu      : ${new Date().toLocaleTimeString()}`);
+
+    res.json({ status: 'success' });
 });
 
 // LOGIN API
@@ -66,6 +93,8 @@ app.post('/login-pelamar', (req, res) => {
     );
 });
 
-app.listen(process.env.PORT, () => {
-    console.log(`Node Auth running on port ${process.env.PORT}`);
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
+

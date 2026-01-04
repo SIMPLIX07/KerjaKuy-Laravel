@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Lamaran;
 use App\Models\Cv;
 use App\Models\Wawancara;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+
 
 class LamaranController extends Controller
 {
@@ -116,6 +119,28 @@ class LamaranController extends Controller
         ]);
 
         $lamaran->update(['status' => 'wawancara']);
+
+        try {
+            Log::info('MENGIRIM KE NODE.JS');
+
+            $response = Http::timeout(5)->post(
+                'http://127.0.0.1:3001/log-wawancara',
+                [
+                    'perusahaan' => $lamaran->lowongan->perusahaan->nama_perusahaan,
+                    'pelamar'    => $lamaran->pelamar->nama_lengkap,
+                    'room'       => $request->link_meet,
+                ]
+            );
+
+            Log::info('NODE RESPONSE', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+            ]);
+        } catch (\Exception $e) {
+            Log::error('GAGAL KIRIM KE NODE', [
+                'error' => $e->getMessage(),
+            ]);
+        }
 
         return back()->with('success', 'Undangan wawancara berhasil dikirim.');
     }

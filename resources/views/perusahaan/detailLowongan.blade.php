@@ -105,13 +105,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($lowongan->lamarans->whereIn('status', ['diproses', 'wawancara']) as $lamaran)
+                            @forelse($lowongan->lamarans->where('status', 'diproses') as $lamaran)
                                 <tr>
                                     <td>
                                         <img src="{{ $lamaran->pelamar->foto ? asset('storage/' . $lamaran->pelamar->foto) : '/assets/default-pelamar.png' }}"
                                             class="pelamar-avatar">
                                         {{ $lamaran->pelamar->name }}
-                                        
+
                                     </td>
                                     <td>{{ $lamaran->pelamar->email }}</td>
                                     <td>

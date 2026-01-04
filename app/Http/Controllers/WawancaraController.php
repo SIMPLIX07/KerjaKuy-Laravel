@@ -6,6 +6,8 @@ use App\Models\Wawancara;
 use App\Models\Lamaran;
 use App\Models\Karyawan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
 
 class WawancaraController extends Controller
@@ -90,6 +92,49 @@ class WawancaraController extends Controller
         return response()->json([
             'message' => 'Pelamar ditolak'
         ]);
+    }
+
+    public function wawancara(Request $request, $id)
+    {
+        // 1. Ambil data lamaran
+        $lamaran = Lamaran::with(['pelamar', 'lowongan.perusahaan'])->findOrFail($id);
+
+        // 2. Simpan data wawancara ke Database Laravel
+        $wawancara = Wawancara::create([
+            'pelamar_id'    => $lamaran->pelamar_id,
+            'perusahaan_id' => $lamaran->lowongan->perusahaan_id,
+            'lowongan_id'   => $lamaran->lowongan_id,
+            'status'        => 'proses',
+            'tanggal'       => $request->tanggal,
+            'jam_mulai'     => $request->jam_mulai,
+            'jam_selesai'   => $request->jam_selesai,
+            'link_meet'     => $request->link_meet,
+            'pesan'         => "Kami tertarik dengan CV kamu, ditunggu di wawancara nanti ya",
+        ]);
+
+        // 3. Update status lamaran
+        $lamaran->update(['status' => 'wawancara']);
+
+        try {
+
+            $response = Http::withHeaders([
+                    'Content-Type' => 'application/json',
+                ])
+                ->timeout(5)
+                ->post('http://127.0.0.1:3001/log-wawancara', [
+                    'perusahaan' => $lamaran->lowongan->perusahaan->nama_perusahaan,
+                    'pelamar'    => $lamaran->pelamar->nama_lengkap ?? $lamaran->pelamar->name,
+                    'room'       => $request->link_meet,
+                ]);
+
+        } catch (\Throwable $e) {
+            Log::error('GAGAL KIRIM KE NODE', [
+                'message' => $e->getMessage(),
+                'trace'   => $e->getTraceAsString(),
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Undangan wawancara berhasil dikirim!');
     }
 
 
