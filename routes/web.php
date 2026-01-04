@@ -140,3 +140,6 @@ Route::post(
 
 Route::post('/pelamar/logout', [PelamarController::class, 'logout'])
     ->name('pelamar.logout');
+
+Route::delete('/pelamar/hapus-akun', [PelamarController::class, 'destroy'])
+    ->name('pelamar.destroy');

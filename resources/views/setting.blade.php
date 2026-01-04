@@ -34,11 +34,15 @@
         {{-- Sisi Kanan: Konten Akun --}}
         <div class="cstm-content flex-grow-1 p-5 bg-white">
             @if (session('success_password'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success_password') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                </div>
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success_password') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
             @endif
+            <a href="/home-pelamar" class="btn btn-outline-secondary mb-3">
+                <i class="fas fa-arrow-left me-2"></i> Kembali ke Home
+            </a>
+
             <h2 class="mb-4">Akun</h2>
             <hr class="mt-0 mb-5 cstm-divider">
 
@@ -95,6 +99,16 @@
                     <i class="fas fa-sign-out-alt me-2"></i> Keluar
                 </button>
             </form>
+            <div class="mt-3">
+                <button type="button"
+                    class="btn btn-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#hapusAkunModal">
+                    <i class="fas fa-trash me-2"></i> Hapus Akun
+                </button>
+            </div>
+
+
         </div>
     </div>
 
@@ -189,9 +203,9 @@
                                 class="form-control @error('password_lama') is-invalid @enderror" required>
 
                             @error('password_lama')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
                             @enderror
                         </div>
 
@@ -202,9 +216,9 @@
                                 class="form-control @error('password_baru') is-invalid @enderror" required>
 
                             @error('password_baru')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
                             @enderror
                         </div>
 
@@ -231,13 +245,54 @@
         </div>
     </div>
     @if ($errors->any() && session('openPasswordModal'))
-        <script>
-            const modal = new bootstrap.Modal(
-                document.getElementById('ubahPasswordModal')
-            );
-            modal.show();
-        </script>
+    <script>
+        const modal = new bootstrap.Modal(
+            document.getElementById('ubahPasswordModal')
+        );
+        modal.show();
+    </script>
     @endif
+
+    <div class="modal fade" id="hapusAkunModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger">
+                        Konfirmasi Hapus Akun
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>
+                        Apakah Anda yakin ingin menghapus akun ini?
+                    </p>
+                    <p class="text-danger fw-bold">
+                        Tindakan ini tidak dapat dibatalkan.
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                        Batal
+                    </button>
+
+                    <form action="{{ route('pelamar.destroy') }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+
+                        <button type="submit" class="btn btn-danger">
+                            Ya, Hapus Akun
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 </body>
 

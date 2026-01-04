@@ -200,4 +200,21 @@ class PelamarController extends Controller
         session()->flush();
         return redirect('/');
     }
+
+    public function destroy()
+    {
+        $pelamarId = session('pelamar_id');
+
+        if (!$pelamarId) {
+            return redirect('/login/pelamar');
+        }
+        Keahlian::where('pelamar_id', $pelamarId)->delete();
+        $pelamar = Pelamar::find($pelamarId);
+        if ($pelamar && $pelamar->foto_profil) {
+            Storage::disk('public')->delete($pelamar->foto_profil);
+        }
+        Pelamar::where('id', $pelamarId)->delete();
+        session()->flush();
+        return redirect('/')->with('success', 'Akun berhasil dihapus');
+    }
 }
