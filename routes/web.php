@@ -64,7 +64,7 @@ Route::post('/lamaran/insert', [LamaranController::class, 'insertLamaran']);
 Route::get('/pelamar/setting', [PelamarController::class, 'settings'])->name('pelamar.settings');
 Route::post('/pelamar/setting/update', [PelamarController::class, 'updateProfil'])->name('pelamar.update');
 Route::get('/pelamar/keamanan', function () {
-    return "Halaman Keamanan (Belum Dibuat)"; 
+    return "Halaman Keamanan (Belum Dibuat)";
 })->name('pelamar.keamanan');
 
 // Lowongan
@@ -130,6 +130,11 @@ Route::get(
     [KaryawanController::class, 'ajaxByKategori']
 );
 
-Route::post('/pelamar/update-password', 
+Route::post(
+    '/pelamar/update-password',
     [PelamarController::class, 'updatePassword']
 )->name('pelamar.updatePassword');
+
+
+Route::post('/pelamar/logout', [PelamarController::class, 'logout'])
+    ->name('pelamar.logout');

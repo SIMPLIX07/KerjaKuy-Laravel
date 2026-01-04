@@ -89,10 +89,10 @@
             </div>
 
             {{-- Tombol Keluar (Logout) --}}
-            <form action="/logout" method="POST" class="d-inline">
+            <form action="{{ route('pelamar.logout') }}" method="POST" class="d-inline">
                 @csrf
                 <button type="submit" class="btn btn-link text-danger p-0 cstm-link-keluar">
-                    <i class="fas fa-sign-out-alt me-2"></i> Keluar
+                    <i class="fas fa-sign-out-alt me-2"></i> Log Out
                 </button>
             </form>
         </div>
