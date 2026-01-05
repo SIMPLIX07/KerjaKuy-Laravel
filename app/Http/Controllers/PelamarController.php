@@ -130,14 +130,12 @@ class PelamarController extends Controller
     //setting
     public function settings()
     {
-        // Mengambil data pelamar berdasarkan session login
         $pelamar = Pelamar::with('keahlians')->find(session('pelamar_id'));
 
         if (!$pelamar) {
             return redirect('/login/pelamar');
         }
 
-        // Mengubah array keahlian menjadi string (contoh: "Laravel, PHP, CSS")
         $keahlianString = $pelamar->keahlians->pluck('nama_keahlian')->implode(', ');
 
         return view('setting', compact('pelamar', 'keahlianString'));
@@ -155,9 +153,7 @@ class PelamarController extends Controller
             'foto_profil'  => 'nullable|image|mimes:jpg,png,jpeg|max:2048'
         ]);
 
-        // Handle Upload Foto Profil
         if ($request->hasFile('foto_profil')) {
-            // Hapus foto lama jika ada
             if ($pelamar->foto_profil) {
                 Storage::delete('public/profil/' . $pelamar->foto_profil);
             }
@@ -169,7 +165,6 @@ class PelamarController extends Controller
             );
         }
 
-        // Update Data Utama
         $pelamar->update([
             'nama_lengkap' => $request->nama_lengkap,
             'username'     => $request->username,
@@ -178,7 +173,6 @@ class PelamarController extends Controller
             'no_telp'      => $request->no_telp,
         ]);
 
-        // Update Keahlian
         if ($request->keahlian) {
             Keahlian::where('pelamar_id', $pelamar->id)->delete();
             $skills = array_map('trim', explode(',', $request->keahlian));

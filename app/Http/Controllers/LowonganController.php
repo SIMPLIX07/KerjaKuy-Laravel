@@ -69,7 +69,6 @@ class LowonganController extends Controller
         if ($request->hasFile('gambar')) {
             $file = $request->file('gambar');
             $namaGambar = time() . '.' . $file->getClientOriginalExtension();
-            // Gunakan storeAs dengan disk 'public' agar konsisten
             $file->storeAs('lowongan', $namaGambar, 'public');
         }
 
@@ -175,10 +174,8 @@ class LowonganController extends Controller
             $file = $request->file('gambar');
             $namaGambar = time() . '.' . $file->getClientOriginalExtension();
 
-            // Simpan ke disk public
             $file->storeAs('lowongan', $namaGambar, 'public');
 
-            // Masukkan nama file ke array data untuk diupdate
             $data['gambar'] = $namaGambar;
         }
 

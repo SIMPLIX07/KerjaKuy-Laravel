@@ -173,10 +173,9 @@ class PerusahaanController extends Controller
                 Storage::disk('public')->delete($perusahaan->foto_profil);
             }
 
-            // Simpan foto baru ke folder: storage/app/public/perusahaan/profil
+            // Simpan foto baru ke folder
             $path = $request->file('foto_profil')->store('perusahaan/profil', 'public');
             
-            // Simpan path ke database
             $perusahaan->update([
                 'foto_profil' => $path
             ]);
