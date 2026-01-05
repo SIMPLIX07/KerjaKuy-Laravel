@@ -30,6 +30,12 @@
             </script>
         @endif
 
+        <div class="back-button-container">
+            <a href="/home-perusahaan" class="btn-back">
+                <i class="fas fa-arrow-left"></i> 
+            </a>
+        </div>
+
         <div class="detail-wrapper">
             <div class="banner-container">
                 @if($lowongan->gambar)
