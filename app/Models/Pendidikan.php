@@ -8,9 +8,9 @@ class Pendidikan extends Model
 {
     protected $fillable = [
         'cv_id',
+        'tingkat',
         'universitas',
         'jurusan',
-        'pendidikan'
     ];
 
     public function cv()
@@ -18,3 +18,4 @@ class Pendidikan extends Model
         return $this->belongsTo(Cv::class);
     }
 }
+

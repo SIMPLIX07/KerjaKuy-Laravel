@@ -86,11 +86,9 @@
 
                 <!-- Gambar -->
                 <h4>Tampilan Latar</h4>
-
-                <input type="file" name="gambar">
-
+                <input type="file" name="gambar" id="input-gambar" accept="image/*">
                 <div class="preview">
-                    <img src="/assets/sample-preview.png" alt="Preview">
+                    <img id="preview-gambar" src="#" alt="Preview Gambar" style="display: none;">
                 </div>
 
                 <button type="submit" class="btn-submit">Buat</button>
@@ -98,6 +96,7 @@
         </div>
     </div>
 
+    <script src="{{ asset('assets/lowongan/tambahLowongan.js') }}"></script>
 </body>
 
 </html>

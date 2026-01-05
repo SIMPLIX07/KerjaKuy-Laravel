@@ -15,9 +15,6 @@ class Cv extends Model
         'kontak',
         'title',
         'subtitle',
-        'universitas',
-        'jurusan',
-        'pendidikan'
     ];
 
     public function pelamar()

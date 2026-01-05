@@ -53,30 +53,40 @@
                 </div>
             </div>
 
-            <div class="border-t pt-6">
-                <h2 class="text-lg font-semibold mb-4 text-[#1FACA2]">
-                    Pendidikan
-                </h2>
+            @if ($cv->pendidikans->count() > 0)
+                <div class="border-t pt-6">
+                    <h2 class="text-lg font-semibold mb-4 text-[#1FACA2]">
+                        Pendidikan
+                    </h2>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block mb-1 font-medium text-gray-700">Universitas</label>
-                        <div class="display-box">{{ $cv->universitas }}</div>
-                    </div>
+                    @foreach ($cv->pendidikans as $pendidikan)
+                        <div class="mb-4 p-4 border border-[#1FACA2] rounded-lg bg-gray-50">
+                            <div class="mb-2">
+                                <span class="text-sm text-gray-600">Jenjang</span>
+                                <div class="display-box font-semibold">
+                                    {{ $pendidikan->tingkat }}
+                                </div>
+                            </div>
 
-                    <div>
-                        <label class="block mb-1 font-medium text-gray-700">Jurusan</label>
-                        <div class="display-box">{{ $cv->jurusan }}</div>
-                    </div>
+                            <div class="mb-2">
+                                <span class="text-sm text-gray-600">Institusi</span>
+                                <div class="display-box">
+                                    {{ $pendidikan->universitas }}
+                                </div>
+                            </div>
+
+                            <div>
+                                <span class="text-sm text-gray-600">Jurusan</span>
+                                <div class="display-box">
+                                    {{ $pendidikan->jurusan }}
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
+            @endif
 
-                <div class="mt-4">
-                    <label class="block mb-1 font-medium text-gray-700">Jenjang Pendidikan</label>
-                    <div class="display-box">{{ $cv->pendidikan }}</div>
-                </div>
-            </div>
-
-            @if($cv->skills->count() > 0)
+            @if ($cv->skills->count() > 0)
                 <div class="border-t pt-6">
                     <h2 class="text-lg font-semibold mb-4 text-[#1FACA2]">
                         Skill
@@ -91,7 +101,7 @@
                 </div>
             @endif
 
-            @if($cv->pengalamans->count() > 0)
+            @if ($cv->pengalamans->count() > 0)
                 <div class="border-t pt-6">
                     <h2 class="text-lg font-semibold mb-4 text-[#1FACA2]">
                         Pengalaman

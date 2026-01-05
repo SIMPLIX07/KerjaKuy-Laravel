@@ -67,33 +67,31 @@
 
             <!-- Pendidikan -->
             <div class="border-t pt-6">
-                <h2 class="text-lg font-semibold mb-4 text-[#1FACA2]">
-                    Pendidikan
-                </h2>
+                <h2 class="text-lg font-semibold mb-4 text-[#1FACA2]">Pendidikan</h2>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block mb-1 font-medium text-gray-700">Universitas</label>
-                        <input type="text" name="universitas" required
-                            class="w-full border border-[#1FACA2] rounded-lg px-3 py-2
-                       focus:outline-none focus:ring-2 focus:ring-[#1FACA2]">
+                @for ($i = 0; $i < 3; $i++)
+                    <div class="mb-4 p-4 border rounded-lg">
+                        <div class="mb-2">
+                            <label class="block text-sm">Jenjang</label>
+                            <input type="text" name="pendidikan[{{ $i }}][tingkat]"
+                                placeholder="SMA / D3 / S1" class="w-full border rounded px-3 py-2">
+                        </div>
+
+                        <div class="mb-2">
+                            <label class="block text-sm">Institusi</label>
+                            <input type="text" name="pendidikan[{{ $i }}][universitas]"
+                                placeholder="Nama Sekolah / Kampus" class="w-full border rounded px-3 py-2">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm">Jurusan</label>
+                            <input type="text" name="pendidikan[{{ $i }}][jurusan]" placeholder="Jurusan"
+                                class="w-full border rounded px-3 py-2">
+                        </div>
                     </div>
-
-                    <div>
-                        <label class="block mb-1 font-medium text-gray-700">Jurusan</label>
-                        <input type="text" name="jurusan" required
-                            class="w-full border border-[#1FACA2] rounded-lg px-3 py-2
-                       focus:outline-none focus:ring-2 focus:ring-[#1FACA2]">
-                    </div>
-                </div>
-
-                <div class="mt-4">
-                    <label class="block mb-1 font-medium text-gray-700">Jenjang Pendidikan</label>
-                    <input type="text" name="pendidikan" required placeholder="Contoh: S1, D3, SMA"
-                        class="w-full border border-[#1FACA2] rounded-lg px-3 py-2
-                   focus:outline-none focus:ring-2 focus:ring-[#1FACA2]">
-                </div>
+                @endfor
             </div>
+
 
             <!-- Skill -->
             <div class="border-t pt-6">

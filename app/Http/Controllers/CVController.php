@@ -21,13 +21,18 @@ class CVController extends Controller
             return redirect('/login');
         }
 
-        $cvs = Cv::with('pelamar')
+        $cvs = Cv::with([
+                'pendidikans',
+                'skills',
+                'pengalamans'
+            ])
             ->where('pelamar_id', $pelamarId)
             ->latest()
             ->get();
 
         return view('indexCv', compact('cvs'));
     }
+
 
 
     /**
@@ -58,6 +63,7 @@ class CVController extends Controller
             return redirect('/login');
         }
 
+
         $request->validate([
             'umur'         => 'required|integer',
             'kontak'       => 'required',
@@ -65,9 +71,10 @@ class CVController extends Controller
             'subtitle'     => 'required',
             'tentang_saya' => 'required',
 
-            'universitas'  => 'required',
-            'jurusan'      => 'required',
-            'pendidikan'   => 'required',
+            'pendidikan' => 'required|array|min:1',
+            'pendidikan.*.tingkat' => 'nullable',
+            'pendidikan.*.universitas' => 'nullable',
+            'pendidikan.*.jurusan' => 'nullable',
 
             'skill'        => 'array|max:3',
             'pengalaman'   => 'array|max:3',
@@ -83,10 +90,17 @@ class CVController extends Controller
                 'kontak'       => $request->kontak,
                 'title'        => $request->title,
                 'subtitle'     => $request->subtitle,
-                'universitas'  => $request->universitas,
-                'jurusan'      => $request->jurusan,
-                'pendidikan'   => $request->pendidikan,
             ]);
+
+            foreach ($request->pendidikan as $item) {
+                if (!empty($item['universitas']) && !empty($item['jurusan'])) {
+                    $cv->pendidikans()->create([
+                        'tingkat' => $item['tingkat'],
+                        'universitas' => $item['universitas'],
+                        'jurusan' => $item['jurusan'],
+                    ]);
+                }
+            }
 
             foreach ($request->skill ?? [] as $item) {
                 if (!empty($item['skill']) && !empty($item['kemampuan'])) {
@@ -115,8 +129,8 @@ class CVController extends Controller
      */
     public function show($id)
     {
-        // Mengambil CV berdasarkan ID beserta relasi skill dan pengalaman
-        $cv = Cv::with(['pelamar', 'skills', 'pengalamans'])->findOrFail($id);
+        $cv = Cv::with(['pelamar', 'pendidikans', 'skills', 'pengalamans'])
+        ->findOrFail($id);
         return view('cv.detail', compact('cv'));
     }
 
@@ -125,7 +139,7 @@ class CVController extends Controller
      */
     public function edit($id)
     {
-        $cv = Cv::with(['skills', 'pengalamans'])->findOrFail($id);
+        $cv = Cv::with(['pendidikans', 'skills', 'pengalamans']) ->findOrFail($id);
         return view('cv/editCv', compact('cv'));
     }
 
@@ -145,9 +159,11 @@ class CVController extends Controller
             'subtitle'     => 'required',
             'tentang_saya' => 'required',
 
-            'universitas'  => 'required',
-            'jurusan'      => 'required',
-            'pendidikan'   => 'required',
+            'pendidikan' => 'required|array|min:1',
+            'pendidikan.*.tingkat' => 'nullable',
+            'pendidikan.*.universitas' => 'nullable',
+            'pendidikan.*.jurusan' => 'nullable',
+
 
             'skill'        => 'array|max:3',
             'pengalaman'   => 'array|max:3',
@@ -156,27 +172,32 @@ class CVController extends Controller
         try {
             DB::beginTransaction();
 
-            // ambil CV lama (pastikan milik pelamar yang login)
             $cv = Cv::where('id', $id)
                     ->where('pelamar_id', $pelamarId)
                     ->firstOrFail();
 
-            // update data utama CV
             $cv->update([
                 'umur'         => $request->umur,
                 'tentang_saya' => $request->tentang_saya,
                 'kontak'       => $request->kontak,
                 'title'        => $request->title,
                 'subtitle'     => $request->subtitle,
-                'universitas'  => $request->universitas,
-                'jurusan'      => $request->jurusan,
-                'pendidikan'   => $request->pendidikan,
             ]);
 
-            // hapus skill lama
+            $cv->pendidikans()->delete();
+
+            foreach ($request->pendidikan as $item) {
+                if (!empty($item['universitas']) && !empty($item['jurusan'])) {
+                    $cv->pendidikans()->create([
+                        'tingkat' => $item['tingkat'],
+                        'universitas' => $item['universitas'],
+                        'jurusan' => $item['jurusan'],
+                    ]);
+                }
+            }
+
             $cv->skills()->delete();
 
-            // simpan skill baru
             foreach ($request->skill ?? [] as $item) {
                 if (!empty($item['skill']) && !empty($item['kemampuan'])) {
                     $cv->skills()->create([
@@ -186,10 +207,8 @@ class CVController extends Controller
                 }
             }
 
-            // hapus pengalaman lama
             $cv->pengalamans()->delete();
 
-            // simpan pengalaman baru
             foreach ($request->pengalaman ?? [] as $item) {
                 if (!empty($item['pengalaman']) && !empty($item['durasi'])) {
                     $cv->pengalamans()->create([
@@ -205,7 +224,7 @@ class CVController extends Controller
 
         } catch (\Throwable $e) {
             DB::rollBack();
-            dd($e->getMessage()); // hapus setelah debug
+            dd($e->getMessage());
         }
     }
 

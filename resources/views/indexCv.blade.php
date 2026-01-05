@@ -18,6 +18,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="d-flex" style="min-height: 100vh;">
 
@@ -40,11 +41,12 @@
         {{-- Sisi Kanan: Konten CV --}}
         <div class="flex-grow-1 p-5 bg-white">
             <div class="w-full mx-auto">
-                
+
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="mb-4">Daftar CV</h2>
 
-                    <a href="{{ route('cv.create') }}" class="px-5 py-2 rounded-lg text-white font-semibold no-underline"
+                    <a href="{{ route('cv.create') }}"
+                        class="px-5 py-2 rounded-lg text-white font-semibold no-underline"
                         style="background-color:#1FACA2">
                         + Tambah CV
                     </a>
@@ -83,28 +85,87 @@
 
                     <div x-show="showDetail" x-cloak x-transition
                         class="fixed inset-0 bg-black/50 flex items-center justify-center z-[1050]">
+
                         <div class="bg-white w-full max-w-2xl rounded-xl p-6 shadow-2xl" @click.outside="closeAll()">
+
+                            <!-- Header -->
                             <h2 class="text-2xl font-bold text-[#1FACA2]" x-text="cv.title"></h2>
-                            <p class="text-gray-600 mb-4" x-text="cv.subtitle"></p>
+                            <p class="text-gray-600" x-text="cv.subtitle"></p>
 
-                            <div class="grid grid-cols-2 gap-4 text-sm border-t pt-4">
-                                <p><b>Umur:</b> <span x-text="cv.umur"></span></p>
-                                <p><b>Kontak:</b> <span x-text="cv.kontak"></span></p>
-                                <p><b>Universitas:</b> <span x-text="cv.universitas"></span></p>
-                                <p><b>Jurusan:</b> <span x-text="cv.jurusan"></span></p>
-                                <p><b>Pendidikan:</b> <span x-text="cv.pendidikan"></span></p>
+                            <!-- Info Utama -->
+                            <div class="flex flex-col gap-2 text-sm mt-4 border-t pt-4">
+                                <p><b>Umur:</b> <span x-text="cv.umur ?? '-'"></span></p>
+                                <p><b>Kontak:</b> <span x-text="cv.kontak ?? '-'"></span></p>
+                                <p class="col-span-2">
+                                    <b>Tentang Saya:</b>
+                                    <span x-text="cv.tentang_saya ?? '-'"></span>
+                                </p>
                             </div>
 
+                            <!-- Pendidikan -->
                             <div class="mt-4 border-t pt-4">
-                                <h3 class="font-semibold text-[#1FACA2]">Pengalaman</h3>
-                                <ul class="list-disc ml-6 mt-2">
-                                    <template x-for="p in cv.pengalamans">
-                                        <li x-text="`${p.pengalaman} - ${p.durasi}`" class="text-gray-700"></li>
-                                    </template>
-                                </ul>
+                                <h3 class="font-semibold text-[#1FACA2] mb-2">🎓 Pendidikan</h3>
+
+                                <template x-if="cv.pendidikans?.length">
+                                    <ul class="list-disc ml-6 space-y-1">
+                                        <template x-for="p in cv.pendidikans" :key="p.id">
+                                            <li>
+                                                <span x-text="p.universitas"></span> —
+                                                <span x-text="p.jurusan"></span>
+                                                (<span x-text="p.tingkat"></span>)
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </template>
+
+                                <template x-if="!cv.pendidikans?.length">
+                                    <p class="text-gray-400">Belum ada pendidikan</p>
+                                </template>
                             </div>
 
-                            <button @click="closeAll()" class="mt-6 w-full bg-[#1FACA2] text-white py-2 rounded-lg font-bold">
+                            <!-- Pengalaman -->
+                            <div class="mt-4 border-t pt-4">
+                                <h3 class="font-semibold text-[#1FACA2] mb-2">💼 Pengalaman</h3>
+
+                                <template x-if="cv.pengalamans?.length">
+                                    <ul class="list-disc ml-6 space-y-1">
+                                        <template x-for="p in cv.pengalamans" :key="p.id">
+                                            <li>
+                                                <span x-text="p.posisi"></span> -
+                                                <span x-text="p.perusahaan"></span>
+                                                (<span x-text="p.durasi"></span>)
+                                            </li>
+                                        </template>
+                                    </ul>
+                                </template>
+
+                                <template x-if="!cv.pengalamans?.length">
+                                    <p class="text-gray-400">Belum ada pengalaman</p>
+                                </template>
+                            </div>
+
+                            <!-- Skill -->
+                            <div class="mt-4 border-t py-4">
+                                <h3 class="font-semibold text-[#1FACA2] mb-2">🛠 Skill</h3>
+
+                                <template x-if="cv.skills?.length">
+                                    <div class="flex flex-wrap gap-2">
+                                        <template x-for="s in cv.skills" :key="s.id">
+                                            <span class="px-3 py-1 bg-[#1FACA2]/10 text-[#1FACA2] rounded-full text-sm"
+                                                x-text="s.skill">
+                                            </span>
+                                        </template>
+                                    </div>
+                                </template>
+
+                                <template x-if="!cv.skills?.length">
+                                    <p class="text-gray-400">Belum ada skill</p>
+                                </template>
+                            </div>
+
+                            <!-- Close -->
+                            <button @click="closeAll()"
+                                class="mt-6 w-full bg-[#1FACA2] text-white py-2 rounded-lg font-bold">
                                 Tutup
                             </button>
                         </div>
@@ -112,7 +173,8 @@
 
                     <div x-show="showDelete" x-cloak x-transition
                         class="fixed inset-0 bg-black/50 flex items-center justify-center z-[1050]">
-                        <div class="bg-white w-full max-w-md rounded-xl p-6 text-center shadow-2xl" @click.outside="closeAll()">
+                        <div class="bg-white w-full max-w-md rounded-xl p-6 text-center shadow-2xl"
+                            @click.outside="closeAll()">
                             <h2 class="text-xl font-bold text-red-600">Hapus CV?</h2>
                             <p class="my-4 text-gray-600">Data CV ini akan dihapus permanen.</p>
                             <div class="flex gap-4">
@@ -143,9 +205,10 @@
                 cv: {},
                 deleteId: null,
                 openDetail(data) {
-                    this.cv = data;
-                    this.showDetail = true;
-                },
+            console.log(data); 
+            this.cv = data;
+            this.showDetail = true;
+        },
                 openDelete(id) {
                     this.deleteId = id;
                     this.showDelete = true;
@@ -156,8 +219,10 @@
                     this.cv = {};
                     this.deleteId = null;
                 }
+                
             }
         }
+        
     </script>
 </body>
 
