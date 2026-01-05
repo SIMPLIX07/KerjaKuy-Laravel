@@ -69,7 +69,6 @@ class LowonganController extends Controller
         if ($request->hasFile('gambar')) {
             $file = $request->file('gambar');
             $namaGambar = time() . '.' . $file->getClientOriginalExtension();
-            // Gunakan storeAs dengan disk 'public' agar konsisten
             $file->storeAs('lowongan', $namaGambar, 'public');
         }
 
