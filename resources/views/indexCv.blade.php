@@ -46,8 +46,8 @@
                     <h2 class="mb-4">Daftar CV</h2>
 
                     <a href="{{ route('cv.create') }}"
-                        class="px-5 py-2 rounded-lg text-white font-semibold no-underline"
-                        style="background-color:#1FACA2">
+                        class="px-5 py-2 rounded-lg text-white font-semibold !no-underline"
+                        style="background-color:#1FACA2 ">
                         + Tambah CV
                     </a>
                 </div>
@@ -70,12 +70,12 @@
 
                                 <div class="flex gap-3 my-auto" @click.stop>
                                     <a href="{{ route('cv.edit', $cv->id) }}"
-                                        class="bg-[#1FACA2] px-4 py-2 rounded-md text-white font-semibold no-underline">
+                                        class="bg-[#1FACA2] px-4 py-2 rounded-md text-white font-semibold !no-underline">
                                         Edit
                                     </a>
 
                                     <button @click="openDelete({{ $cv->id }})"
-                                        class="bg-red-500 px-4 py-2 rounded-md text-white font-semibold">
+                                        class="bg-red-500 px-4 py-2 !rounded-md text-white font-semibold">
                                         Delete
                                     </button>
                                 </div>
