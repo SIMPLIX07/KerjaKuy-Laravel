@@ -93,6 +93,50 @@ app.post('/login-pelamar', (req, res) => {
     );
 });
 
+// GET LOWONGAN
+app.get('/lowongan', (req, res) => {
+    const { kategori, lokasi } = req.query;
+
+    let sql = `
+        SELECT 
+            l.id,
+            l.posisi_pekerjaan,
+            l.kategori_pekerjaan,
+            l.lokasi,
+            l.gaji,
+            p.nama_perusahaan
+        FROM lowongans l
+        JOIN perusahaans p ON l.perusahaan_id = p.id
+        WHERE 1=1
+    `;
+
+    const params = [];
+
+    if (kategori) {
+        sql += ' AND l.kategori_pekerjaan = ?';
+        params.push(kategori);
+    }
+
+    if (lokasi) {
+        sql += ' AND l.lokasi = ?';
+        params.push(lokasi);
+    }
+
+    db.query(sql, params, (err, results) => {
+        if (err) {
+            console.error('DB ERROR:', err);
+            return res.status(500).json({ message: 'Database error' });
+        }
+
+        res.json({
+            status: 'success',
+            total: results.length,
+            data: results
+        });
+    });
+});
+
+
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
