@@ -2,6 +2,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const tabs = document.querySelectorAll('.tab-btn');
     const cards = document.querySelectorAll('.wp-card'); 
+    const searchInput = document.querySelector('.search-input'); 
+    const searchBtn = document.querySelector('.search-button');
+
+    function applyFilters() {
+        const activeTab = document.querySelector('.tab-btn.tab-active').dataset.tab;
+        const searchText = searchInput.value.toLowerCase();
+
+        cards.forEach(card => {
+            const statusMatch = card.dataset.status === activeTab;
+            const posisiMatch = card.dataset.posisi.toLowerCase().includes(searchText);
+            const namaMatch = card.dataset.nama.toLowerCase().includes(searchText); // Bonus: bisa cari nama pelamar juga
+
+            // Tampilkan kartu HANYA jika status tab cocok DAN (posisi atau nama cocok)
+            if (statusMatch && (posisiMatch || namaMatch)) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    // Event saat mengetik di kolom pencarian (Real-time)
+    searchInput.addEventListener('input', applyFilters);
+
+    // Event saat tombol cari diklik
+    searchBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        applyFilters();
+    });
+
+    // Logika Tab yang sudah ada, tinggal panggil applyFilters()
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('tab-active'));
+            tab.classList.add('tab-active');
+            applyFilters(); // Panggil fungsi filter gabungan
+        });
+    });
+
+    // Inisialisasi awal
+    applyFilters();
 
     function filterCards(status) {
         cards.forEach(card => {

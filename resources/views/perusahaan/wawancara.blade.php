@@ -80,16 +80,18 @@
                             Wawancara dengan:
                             <strong>{{ $wawancara->pelamar->nama_lengkap }}</strong>
                         @elseif ($wawancara->status === 'selesai')
-                            Wawancara telah selesai
+                            Wawancara dengan <strong>{{ $wawancara->pelamar->nama_lengkap }}</strong> telah selesai
                         @endif
                     </div>
 
-                    <div class="wp-link-label">
-                        Link:
-                        <a href="{{ $wawancara->link_meet }}" target="_blank" class="wp-link-url">
-                            {{ $wawancara->link_meet }}
-                        </a>
-                    </div>
+                    @if ($wawancara->status === 'proses')
+                        <div class="wp-link-label">
+                            Link:
+                            <a href="{{ $wawancara->link_meet }}" target="_blank" class="wp-link-url">
+                                {{ $wawancara->link_meet }}
+                            </a>
+                        </div>
+                    @endif
 
                     <div class="wp-card-date">
                         {{ \Carbon\Carbon::parse($wawancara->tanggal)->format('d M Y') }}
