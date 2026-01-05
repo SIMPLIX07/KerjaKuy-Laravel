@@ -96,18 +96,12 @@ class PerusahaanController extends Controller
     {
         $perusahaanId = session('perusahaan_id');
 
-        // --- LOGIKA OTENTIKASI MANUAL ---
         if (!$perusahaanId) {
-            // Jika tidak ada ID di session, redirect ke halaman login
             return redirect('/login/perusahaan')->with('error', 'Anda harus login untuk mengakses pengaturan.');
         }
-        // ---------------------------------
-
-        // Cari data perusahaan
         $perusahaan = Perusahaan::find($perusahaanId);
 
         if (!$perusahaan) {
-            // Ini terjadi jika ID ada tapi data tidak ditemukan di DB
             return redirect('/login/perusahaan');
         }
 
@@ -123,7 +117,6 @@ class PerusahaanController extends Controller
 
         $perusahaan = Perusahaan::find($perusahaanId);
 
-        // Validasi data perusahaan
         $request->validate([
             'nama_perusahaan' => 'required|string|max:255',
             'email'           => 'required|email|max:255|unique:perusahaans,email,' . $perusahaanId,
@@ -131,7 +124,6 @@ class PerusahaanController extends Controller
             'lokasi'          => 'nullable|string|max:255',
         ]);
 
-        // Update data di database
         $perusahaan->update([
             'nama_perusahaan' => $request->nama_perusahaan,
             'email'           => $request->email,
@@ -139,13 +131,11 @@ class PerusahaanController extends Controller
             'alamat'          => $request->lokasi,
         ]);
 
-        // Update session agar nama dan email di navigasi tetap terbaru
         session([
             'perusahaan_nama'  => $perusahaan->nama_perusahaan,
             'perusahaan_email' => $perusahaan->email
         ]);
 
-        // Redirect kembali ke halaman pengaturan dengan notifikasi success
         return redirect()->route('perusahaan.settings')->with('success', 'Pengaturan akun berhasil diperbarui!');
     }
 
@@ -168,15 +158,12 @@ class PerusahaanController extends Controller
         $perusahaan = Perusahaan::find($perusahaanId);
 
         if ($request->hasFile('foto_profil')) {
-            // Hapus foto lama jika ada di storage agar tidak menumpuk
             if ($perusahaan->foto_profil && Storage::disk('public')->exists($perusahaan->foto_profil)) {
                 Storage::disk('public')->delete($perusahaan->foto_profil);
             }
 
-            // Simpan foto baru ke folder: storage/app/public/perusahaan/profil
             $path = $request->file('foto_profil')->store('perusahaan/profil', 'public');
             
-            // Simpan path ke database
             $perusahaan->update([
                 'foto_profil' => $path
             ]);
@@ -196,12 +183,10 @@ class PerusahaanController extends Controller
 
         $perusahaan = Perusahaan::find(session('perusahaan_id'));
 
-        // Cek apakah password lama cocok
         if (!Hash::check($request->password_lama, $perusahaan->password)) {
             return back()->withErrors(['password_lama' => 'Password lama tidak sesuai']);
         }
 
-        // Update password baru
         $perusahaan->password = Hash::make($request->password_baru);
         $perusahaan->save();
 

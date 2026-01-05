@@ -262,4 +262,18 @@ body .nav-logo a {
     justify-content: center;
     text-decoration: none;
     margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-plus span {
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 0;         
+    margin-bottom: 4px;
+}
+
+.btn-plus:hover {
+    background-color: #3a8f84;
+    color: white;
+    transform: scale(1.1);
 }

@@ -81,7 +81,6 @@ Route::prefix('lowongan')->group(function () {
     // Detail untuk sisi PELAMAR 
     Route::get('/{id}', [LowonganController::class, 'detail'])->name('lowongan.detail');
 
-    // Wawancara (Ini untuk tahap mengundang wawancara)
     Route::post('/lamaran/{id}/tolak', [LamaranController::class, 'tolak'])->name('lamaran.tolak');
     Route::post('/lamaran/{id}/jadwal-wawancara', [LamaranController::class, 'jadwalWawancara'])->name('lamaran.wawancara');
 });

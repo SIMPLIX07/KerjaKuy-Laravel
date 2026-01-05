@@ -46,8 +46,8 @@
                     <h2 class="mb-4">Daftar CV</h2>
 
                     <a href="{{ route('cv.create') }}"
-                        class="px-5 py-2 rounded-lg text-white font-semibold no-underline"
-                        style="background-color:#1FACA2">
+                        class="px-5 py-2 rounded-lg text-white font-semibold !no-underline"
+                        style="background-color:#1FACA2 ">
                         + Tambah CV
                     </a>
                 </div>
@@ -70,12 +70,12 @@
 
                                 <div class="flex gap-3 my-auto" @click.stop>
                                     <a href="{{ route('cv.edit', $cv->id) }}"
-                                        class="bg-[#1FACA2] px-4 py-2 rounded-md text-white font-semibold no-underline">
+                                        class="bg-[#1FACA2] px-4 py-2 rounded-md text-white font-semibold !no-underline">
                                         Edit
                                     </a>
 
                                     <button @click="openDelete({{ $cv->id }})"
-                                        class="bg-red-500 px-4 py-2 rounded-md text-white font-semibold">
+                                        class="bg-red-500 px-4 py-2 !rounded-md text-white font-semibold">
                                         Delete
                                     </button>
                                 </div>
@@ -104,7 +104,7 @@
 
                             <!-- Pendidikan -->
                             <div class="mt-4 border-t pt-4">
-                                <h3 class="font-semibold text-[#1FACA2] mb-2">🎓 Pendidikan</h3>
+                                <h3 class="font-semibold text-[#1FACA2] mb-2">Pendidikan</h3>
 
                                 <template x-if="cv.pendidikans?.length">
                                     <ul class="list-disc ml-6 space-y-1">
@@ -125,7 +125,7 @@
 
                             <!-- Pengalaman -->
                             <div class="mt-4 border-t pt-4">
-                                <h3 class="font-semibold text-[#1FACA2] mb-2">💼 Pengalaman</h3>
+                                <h3 class="font-semibold text-[#1FACA2] mb-2">Pengalaman</h3>
 
                                 <template x-if="cv.pengalamans?.length">
                                     <ul class="list-disc ml-6 space-y-1">
@@ -146,7 +146,7 @@
 
                             <!-- Skill -->
                             <div class="mt-4 border-t py-4">
-                                <h3 class="font-semibold text-[#1FACA2] mb-2">🛠 Skill</h3>
+                                <h3 class="font-semibold text-[#1FACA2] mb-2">Skill</h3>
 
                                 <template x-if="cv.skills?.length">
                                     <div class="flex flex-wrap gap-2">

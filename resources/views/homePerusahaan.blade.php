@@ -36,21 +36,27 @@
     </nav>
 
     <div class="search-bar-container">
-        <div class="search-form-wrapper">
-            <input type="text" placeholder="Cari kategori pekerjaan" class="search-input">
-            <button class="search-button">Cari</button>
-        </div>
-    </div>
+    {{-- Tambahkan Form di sini --}}
+    <form action="/home-perusahaan" method="GET" class="search-form-wrapper">
+        <input type="text" 
+               name="q" 
+               placeholder="Cari posisi lowongan" 
+               class="search-input" 
+               value="{{ request('q') }}"> {{-- Agar teks pencarian tidak hilang setelah diklik --}}
+        
+        <button type="submit" class="search-button">Cari</button>
+    </form>
+</div>
 
     @if ($lowongans->isEmpty())
-    <!-- JIKA BELUM ADA LOWONGAN -->
+    <!-- kondisi tidak ada lowongan -->
     <div class="tambah-lowongan-wrapper">
         <a href="/lowongan/tambah" class="btn-tambah-lowongan">
             Tambah Lowongan
         </a>
     </div>
     @else
-    <!-- JIKA ADA LOWONGAN -->
+    <!-- kondisi ada lowongan -->
     <div class="lowongan-container">
         @foreach ($lowongans as $lowongan)
         <a href="{{ route('perusahaan.lowongan.detail', $lowongan->id) }}" style="text-decoration: none; color: inherit;">
@@ -76,12 +82,23 @@
         </a>
         @endforeach
 
-        <!-- BUTTON TAMBAH (+) -->
-        <a href="/lowongan/tambah" class="btn-plus">+</a>
+        @if(!request('q'))
+            <a href="/lowongan/tambah" class="btn-plus"><span>+</span></a>
+        @endif
     </div>
     @endif
 
 
+    <script>
+        const searchInput = document.querySelector('.search-input');
+        const searchForm = document.querySelector('.search-form-wrapper');
+
+        searchInput.addEventListener('input', function() {
+            if (this.value === '') {
+                searchForm.submit(); 
+            }
+        });
+    </script>
 
 
 

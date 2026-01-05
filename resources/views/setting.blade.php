@@ -13,7 +13,7 @@
 <body>
     <div class="d-flex" style="min-height: 100vh;">
 
-        {{-- Sisi Kiri: Sidebar Pengaturan --}}
+        {{-- Sidebar  --}}
         <div class="cstm-sidebar p-4 text-white">
             <h4 class="mb-4">Pengaturan</h4>
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -31,7 +31,6 @@
             </div>
         </div>
 
-        {{-- Sisi Kanan: Konten Akun --}}
         <div class="cstm-content flex-grow-1 p-5 bg-white">
             @if (session('success_password'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -92,7 +91,6 @@
                     value="{{ $pelamar->no_telp ?? '-' }}">
             </div>
 
-            {{-- Tombol Keluar (Logout) --}}
             <form action="{{ route('pelamar.logout') }}" method="POST" class="d-inline">
                 @csrf
                 <button type="submit" class="btn btn-link text-danger p-0 cstm-link-keluar">
@@ -182,7 +180,7 @@
             }
         }
     </script>
-    {{-- MODAL UBAH PASSWORD --}}
+    {{-- UBAH PASSWORD --}}
     <div class="modal fade" id="ubahPasswordModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">

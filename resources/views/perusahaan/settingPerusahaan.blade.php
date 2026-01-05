@@ -13,7 +13,6 @@
 <body>
     <div class="d-flex" style="min-height: 100vh;">
 
-        {{-- Sidebar --}}
         <div class="cstm-sidebar p-4 text-white">
             <h4 class="mb-4">Pengaturan</h4>
             <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -23,7 +22,7 @@
                 </a>
                 <a class="nav-link cstm-nav-link" 
                     href="#" 
-                    id="nav-keamanan" {{-- Tambahkan ID ini --}}
+                    id="nav-keamanan" 
                     data-bs-toggle="modal" 
                     data-bs-target="#ubahPasswordModalPerusahaan">
                     <i class="fas fa-shield-alt me-2"></i> Keamanan
@@ -51,22 +50,18 @@
                                 @enderror
                             </div>
 
-                            {{-- Password Baru --}}
                             <div class="mb-3">
                                 <label class="form-label">Password Baru</label>
                                 <input type="password" name="password_baru" 
-                                    class="form-control @error('password_baru') is-invalid @enderror" 
-                                    required minlength="6"> {{-- Tambahkan minlength --}}
+                                    class="form-control @error('password_baru') is-invalid @enderror" required>
                                 @error('password_baru')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            {{-- Konfirmasi Password --}}
                             <div class="mb-3">
                                 <label class="form-label">Konfirmasi Password Baru</label>
-                                <input type="password" name="password_baru_confirmation" 
-                                    class="form-control" required minlength="6"> {{-- Tambahkan minlength --}}
+                                <input type="password" name="password_baru_confirmation" class="form-control" required>
                             </div>
                         </div>
 
@@ -79,17 +74,18 @@
             </div>
         </div>
 
-        {{-- Konten Akun --}}
         <div class="cstm-content flex-grow-1 p-5 bg-white">
+            <a href="/home-perusahaan" class="btn btn-outline-secondary mb-3">
+                <i class="fas fa-arrow-left me-2"></i> Kembali ke Home
+            </a>
             <h2 class="mb-4">Akun</h2>
 
             <hr class="mt-0 mb-5 cstm-divider">
 
-            {{-- Bagian Profil dan Tombol Edit --}}
             <div class="d-flex justify-content-between align-items-center mb-4">
 
                 <div class="d-flex align-items-center">
-                    {{-- Form khusus update foto profil --}}
+
                     <form id="formUpdateFoto" action="{{ route('perusahaan.settings.updateFoto') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="position-relative" style="cursor: pointer;" onclick="document.getElementById('inputFotoProfil').click();" title="Klik untuk ganti foto">
@@ -104,14 +100,12 @@
                                 </div>
                             @endif
                         </div>
-                        
-                        {{-- Input file tersembunyi --}}
+
                         <input type="file" name="foto_profil" id="inputFotoProfil" hidden accept="image/*" onchange="submitFoto();">
                     </form>
                     <label class="form-label fw-bold m-0">Foto Profil</label>
                 </div>
 
-                {{-- Tombol Edit Data (Membuka Modal) --}}
                 <button id="btnEditProfile" type="button" class="btn btn-link p-0 border-0 shadow-none">
                     <img src="/assets/settingPerusahaan/img/edit black.png" alt="Edit" class="cstm-edit-icon">
                 </button>
@@ -119,7 +113,6 @@
 
             <hr class="mt-5 mb-5 cstm-divider">
 
-            {{-- Bagian Display Data --}}
             <form>
 
                 {{-- NAMA PERUSAHAAN --}}
@@ -175,7 +168,7 @@
 
     <div class="modal fade" id="editDataModal" tabindex="-1" aria-labelledby="editDataModalLabel" aria-hidden="true"
          data-success-message="{{ session('success') }}"
-         data-has-errors="{{ $errors->any() ? 'true' : 'false' }}">
+         data-has-errors="{{ ($errors->has('nama_perusahaan') || $errors->has('email') || $errors->has('telepon') || $errors->has('lokasi')) ? 'true' : 'false' }}">
 
         <div class="modal-dialog modal-dialog-centered cstm-wide-modal"> 
             <div class="modal-content">
@@ -268,6 +261,7 @@
 
         modalPassword.addEventListener('hide.bs.modal', function () {
             navKeamanan.classList.remove('active');
+
             if (navAkun) navAkun.classList.add('active');
         });
     });

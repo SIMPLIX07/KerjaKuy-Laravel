@@ -9,16 +9,26 @@ use Illuminate\Support\Facades\Storage;
 
 class LowonganController extends Controller
 {
-    public function index()
+    public function index(Request $request) // Tambahkan Request $request
     {
         if (!session('perusahaan_id')) {
             return redirect('/login/perusahaan');
         }
 
+        // Ambil keyword dari input 'q'
+        $search = $request->query('q');
+
         $lowongans = Lowongan::withCount(['lamarans' => function ($query) {
-            $query->where('status', 'diproses');
-        }])
+                $query->where('status', 'diproses');
+            }])
             ->where('perusahaan_id', session('perusahaan_id'))
+            // Logika Pencarian: mencari di posisi_pekerjaan atau kategori_pekerjaan
+            ->when($search, function ($query, $search) {
+                return $query->where(function ($q) use ($search) {
+                    $q->where('posisi_pekerjaan', 'like', "%{$search}%")
+                    ->orWhere('kategori_pekerjaan', 'like', "%{$search}%");
+                });
+            })
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -174,10 +184,8 @@ class LowonganController extends Controller
             $file = $request->file('gambar');
             $namaGambar = time() . '.' . $file->getClientOriginalExtension();
 
-            // Simpan ke disk public
             $file->storeAs('lowongan', $namaGambar, 'public');
 
-            // Masukkan nama file ke array data untuk diupdate
             $data['gambar'] = $namaGambar;
         }
 

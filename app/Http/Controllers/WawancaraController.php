@@ -96,10 +96,8 @@ class WawancaraController extends Controller
 
     public function wawancara(Request $request, $id)
     {
-        // 1. Ambil data lamaran
         $lamaran = Lamaran::with(['pelamar', 'lowongan.perusahaan'])->findOrFail($id);
 
-        // 2. Simpan data wawancara ke Database Laravel
         $wawancara = Wawancara::create([
             'pelamar_id'    => $lamaran->pelamar_id,
             'perusahaan_id' => $lamaran->lowongan->perusahaan_id,
@@ -112,7 +110,6 @@ class WawancaraController extends Controller
             'pesan'         => "Kami tertarik dengan CV kamu, ditunggu di wawancara nanti ya",
         ]);
 
-        // 3. Update status lamaran
         $lamaran->update(['status' => 'wawancara']);
 
         try {
