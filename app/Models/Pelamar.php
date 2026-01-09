@@ -13,7 +13,25 @@ class Pelamar extends Model
         'nama_lengkap',
         'username',
         'email',
+        'no_telp',
         'password',
         'foto_profil'
     ];
+
+    public function keahlians()
+    {
+        return $this->hasMany(Keahlian::class, 'pelamar_id');
+    }
+    public function lamarans()
+    {
+        return $this->hasMany(Lamaran::class, 'pelamar_id');
+    }
+    public function cv()
+    {
+        return $this->hasMany(Cv::class);
+    }
+    public function wawancaras()
+    {
+        return $this->hasMany(Wawancara::class);
+    }
 }

@@ -42,6 +42,10 @@ body {
     font-size: 30px;
 }
 
+body .nav-logo a {
+    text-decoration: none;
+}
+
 .cstm-nav-menu {
     display: flex;
     align-items: center;
@@ -68,7 +72,7 @@ body {
 }
 
 .cstm-nav-link:hover {
-    color: rgb(164, 229, 14);
+    color: rgb(210, 210, 210);
 }
 
 .cstm-nav-user {
@@ -97,12 +101,13 @@ body {
     border-radius: 30px;
     overflow: hidden;
     width: 60%;
-    max-width: 600px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    max-width: 1000px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .search-input {
     flex: 1;
+    width: 500px;
     border: none;
     outline: none;
     margin: 0 5px 0 5px;
@@ -127,7 +132,7 @@ body {
     background-color: #109485;
 }
 
-.btn-lamar{
+.btn-lamar {
     background-color: #16b3a3;
     position: absolute;
     bottom: 15px;
@@ -140,21 +145,51 @@ body {
     transition: background-color 0.3s;
 }
 
-.card-job{
+.card-job {
     height: 300px;
     padding: 20px;
     border-radius: 20px;
     border-style: solid;
     border-color: rgb(186, 185, 185);
+    text-decoration: none;
+    color: inherit;
 }
 
-.card-company{
+.card-company {
     display: flex;
     flex-direction: row;
     gap: 20px;
 }
 
-.card-company img{
+.avatar {
     width: 60px;
     height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #fff;
+    flex-shrink: 0;
+}
+
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+.user-link:hover {
+    color: #1FACA2;
+    cursor: pointer;
+}
+
+.job-link {
+    text-decoration: none !important;
+    color: inherit !important;
+    display: block;
+}
+
+.job-link:hover {
+    color: inherit !important;
+    text-decoration: none !important;
 }

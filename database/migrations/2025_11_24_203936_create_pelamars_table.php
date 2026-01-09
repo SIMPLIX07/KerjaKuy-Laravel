@@ -16,6 +16,7 @@ public function up(): void
         $table->string('nama_lengkap');
         $table->string('username')->unique();
         $table->string('email')->unique();
+        $table->string('no_telp')->nullable();
         $table->string('password');
         $table->string('foto_profil')->nullable();
         $table->timestamps();

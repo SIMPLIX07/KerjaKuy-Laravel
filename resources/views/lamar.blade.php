@@ -1,79 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <script>
+        window.PELAMAR_ID = {{ session('pelamar_id') }};
+        window.LOWONGAN_ID = {{ $lowongan->id }};
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/assets/pageLamar/lamar.css">
+    <title>Lamar - {{ $lowongan->posisi_pekerjaan }}</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('assets/pageLamar/lamar.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
 </head>
 
 <body>
-    <nav>
-        <div class="navbar">
-            <div class="left">
-                <img src="/assets/pageLamar/asset/logo.png" alt="KerjaKuyLogo">
-                <label for="">KerjaKuy</label>
-            </div>
-            <div class="middle">
-                <ul>
-                    <li id="lowongan">Lowongan Kerja</li>
-                    <li id="lamaran"><a href="../LamaranAnda/Lamaran.html">Lamaran Anda</a></li>
-                </ul>
-            </div>
-            <div class="right">
-                <Label>{{ session('pelamar_nama') }}</Label>
-            </div>
-        </div>
-    </nav>
-    <div class="content">
-        <div class="cardTop">
-            <div class="back">
-                <div class="seluruh">
-                    <img src="/assets/pageLamar/asset/logoPerusahaan.png" alt="">
-                    <div class="profile">
-                        <label for="" id="perusahaan">PT. Grab Indonesia</label>
-                        <label for="" id="posisi">Project Supervisor</label>
+    <div class="container mt-4">
+        <div class="detail-wrapper">
+            <div class="banner-container">
+                @if($lowongan->gambar)
+                    <img src="{{ asset('storage/lowongan/' . $lowongan->gambar) }}" class="banner-img">
+                @else
+                    <img src="/assets/default-banner.jpg" class="banner-img">
+                @endif
+
+                <div class="profile-overlay">
+                    <img src="{{ $lowongan->perusahaan->foto_profil ? asset('storage/' . $lowongan->perusahaan->foto_profil) : '/assets/default-logo.png' }}"
+                        class="company-logo">
+                    <div class="company-info-header">
+                        <h4>{{ $lowongan->perusahaan->nama_perusahaan }}</h4>
+                        <p>{{ $lowongan->posisi_pekerjaan }}</p>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="cardDown">
-            <div class="top">
-                <div class="tengah">
-                    <img src="/assets/pageLamar/asset/gaji.png" alt="">
-                    <label for=""> IDR 5.000.000 - 10.000.000</label>
+
+            <div class="meta-bar">
+                <div class="meta-items">
+                    <div><i class="fas fa-money-bill-wave"></i> IDR {{ number_format((int) $lowongan->gaji, 0, ',', '.') }}</div>
+                    <div><i class="far fa-clock"></i> {{ $lowongan->jenis_pekerjaan }}</div>
+                    <div><i class="fas fa-map-marker-alt"></i> {{ $lowongan->kabupaten }}, {{ $lowongan->provinsi }}</div>
                 </div>
-                <div class="tengah">
-                    <img src="/assets/pageLamar/asset/waktu.png" alt="">
-                    <label for=""> Penuh Waktu</label>
-                </div>
-                <div class="tengah">
-                    <img src="/assets/pageLamar/asset/lokasi.png" alt="">
-                    <label for=""> Jakarta Pusat, Jakarta Raya</label>
+                <div class="action-btns">
+                    <button type="button" class="button">Lamar Sekarang</button>
                 </div>
             </div>
-            <div class="middle">
-                <h2>Deskripsi Pekerjaan</h2>
-                <ul class="list" >
-                    <li>Bertanggung jawab untuk menjemput dan mengantarkan penumpang atau barang ke tujuan dengan aman, cepat, dan nyaman sesuai pesanan yang diterima melalui aplikasi Grab.</li>
-                    <li>Melakukan komunikasi yang sopan dan ramah dengan pelanggan untuk memberikan pengalaman perjalanan yang menyenangkan.</li>
-                    <li>Mengoperasikan aplikasi Grab secara efektif untuk menerima order, menentukan rute perjalanan, dan melakukan konfirmasi penyelesaian pesanan.</li>
-                </ul>
+
+            <div class="content-section">
+                <h5>Deskripsi Singkat</h5>
+                <p>• {{ $lowongan->deskripsi_singkat }}</p>
             </div>
-            <div class="bottom">
-                <h2>Syarat</h2>
-                <ul class="list" >
-                    <li>Memiliki SIM C (untuk pengemudi motor) atau SIM A (untuk pengemudi mobil) yang masih berlaku.</li>
-                    <li>Memiliki kendaraan pribadi dalam kondisi baik dan memenuhi standar kelayakan Grab.</li>
-                    <li>Memiliki smartphone Android/iOS yang kompatibel dengan aplikasi Grab.</li>
-                </ul>
+
+            <div class="content-section">
+                <h5>Deskripsi Pekerjaan</h5>
+                <div class="text-muted-custom">
+                    {!! nl2br(e($lowongan->deskripsi_pekerjaan)) !!}
+                </div>
             </div>
-            <button class="button">Lamar</button>
+
+            <div class="content-section mb-4">
+                <h5>Syarat</h5>
+                <div class="text-muted-custom">
+                    {!! nl2br(e($lowongan->syarat)) !!}
+                </div>
+            </div>
         </div>
     </div>
+
+    <div id="modalCv" class="modal">
+        <div class="modal-content large">
+            <h3>Pilih CV</h3>
+            <div id="cvList" class="cv-list"></div>
+            <div class="modal-action">
+                <button id="btnKirimLamaran" disabled>Kirim Lamaran</button>
+                <button id="btnTutup">Batal</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="successModal" class="popup-overlay">
+        <div class="popup-box">
+            <h3>Lamaran Berhasil 🎉</h3>
+            <p>Lamaran kamu berhasil dikirim. Silakan menunggu proses selanjutnya.</p>
+            <button id="btnOk">Lihat Lamaran</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/pageLamar/lamar.js"></script>
 </body>
-<script src="/assets/pageLamar/lamar.js"></script>
 </html>

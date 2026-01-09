@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('password');
             $table->string('alamat')->nullable();
             $table->string('telepon')->nullable();
+            $table->string('npwp', 20)->unique()->nullable();
+            $table->string('sertifikat')->nullable();
+
             $table->timestamps();
         });
     }
