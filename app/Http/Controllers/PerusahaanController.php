@@ -23,6 +23,15 @@ class PerusahaanController extends Controller
             return back()->withErrors(['email' => 'Email atau password salah']);
         }
 
+        // Cek status verifikasi
+        if ($perusahaan->status_verifikasi !== 'verified') {
+            if ($perusahaan->status_verifikasi === 'pending') {
+                return back()->withErrors(['email' => 'Akun Anda masih menunggu verifikasi dari admin. Silakan tunggu konfirmasi via email.']);
+            } else if ($perusahaan->status_verifikasi === 'rejected') {
+                return back()->withErrors(['email' => 'Akun Anda ditolak. Alasan: ' . $perusahaan->alasan_penolakan]);
+            }
+        }
+
         session([
             'perusahaan_id'   => $perusahaan->id,
             'perusahaan_nama' => $perusahaan->nama_perusahaan,
@@ -70,15 +79,11 @@ class PerusahaanController extends Controller
             'npwp'            => $request->npwp,
             'sertifikat' => $sertifikatPath,
             'foto_profil' => $fotoProfilPath,
+            'status_verifikasi' => 'pending', // Set status ke pending
         ]);
 
-        session([
-            'perusahaan_id'   => $perusahaan->id,
-            'perusahaan_nama' => $perusahaan->nama_perusahaan,
-            'perusahaan_email' => $perusahaan->email,
-        ]);
-
-        return redirect('/home-perusahaan')->with('success', 'Registrasi perusahaan berhasil');
+        // Jangan langsung login, tapi tampilkan pesan bahwa registrasi berhasil dan tunggu verifikasi
+        return redirect('/login/perusahaan')->with('info', 'Registrasi berhasil! Tunggu verifikasi dari admin sebelum login. Kami akan mengirimkan email konfirmasi.');
     }
 
     public function kategoriKaryawan()

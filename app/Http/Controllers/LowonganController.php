@@ -109,10 +109,8 @@ class LowonganController extends Controller
             return redirect('/login/perusahaan');
         }
 
-
         $lowongan = Lowongan::with(['perusahaan', 'lamarans.pelamar'])
             ->findOrFail($id);
-
 
         return view('perusahaan.detailLowongan', compact('lowongan'));
     }

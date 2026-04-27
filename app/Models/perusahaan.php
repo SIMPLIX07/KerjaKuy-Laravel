@@ -15,6 +15,10 @@ class Perusahaan extends Model
         'npwp',
         'sertifikat',
         'foto_profil',
+        'status_verifikasi',
+        'alasan_penolakan',
+        'verified_by',
+        'verified_at',
     ];
 
     public function lowongans()

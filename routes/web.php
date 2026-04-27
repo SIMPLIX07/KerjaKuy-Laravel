@@ -9,6 +9,7 @@ use App\Http\Controllers\LamaranController;
 use App\Http\Controllers\CVController;
 use App\Http\Controllers\WawancaraController;
 use App\Http\Controllers\KaryawanController;
+use App\Http\Controllers\AdminController;
 
 
 Route::get('/', function () {
@@ -142,3 +143,20 @@ Route::post('/pelamar/logout', [PelamarController::class, 'logout'])
 
 Route::delete('/pelamar/hapus-akun', [PelamarController::class, 'destroy'])
     ->name('pelamar.destroy');
+
+// ============ ADMIN ROUTES ============
+Route::prefix('admin')->group(function () {
+    // Login Admin
+    Route::get('/login', [AdminController::class, 'showLoginForm'])->name('admin.login');
+    Route::post('/login', [AdminController::class, 'login'])->name('admin.login.post');
+    
+    // Admin middleware - routes yang memerlukan login admin
+    Route::middleware('admin')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+        Route::get('/daftar-perusahaan', [AdminController::class, 'daftarPerusahaan'])->name('admin.daftarPerusahaan');
+        Route::get('/detail-perusahaan/{id}', [AdminController::class, 'detailPerusahaan'])->name('admin.detailPerusahaan');
+        Route::post('/verifikasi-perusahaan/{id}', [AdminController::class, 'verifikasiPerusahaan'])->name('admin.verifikasiPerusahaan');
+        Route::get('/history-verifikasi', [AdminController::class, 'historyVerifikasi'])->name('admin.historyVerifikasi');
+        Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
+    });
+});
