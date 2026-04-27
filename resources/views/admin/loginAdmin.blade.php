@@ -13,7 +13,7 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2bd1c9 0%, #1f9d8f 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -67,14 +67,14 @@
         
         .form-group input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+            border-color: #1f9d8f;
+            box-shadow: 0 0 5px rgba(31, 157, 143, 0.3);
         }
         
         .btn-login {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2bd1c9 0%, #1f9d8f 100%);
             color: white;
             border: none;
             border-radius: 5px;
@@ -110,7 +110,7 @@
 <body>
     <div class="login-container">
         <div class="login-header">
-            <h1>🔐 Admin Login</h1>
+            <h1>Admin Login</h1>
             <p>Panel Administrasi KerjaKuy</p>
         </div>
         

@@ -17,7 +17,7 @@
         }
         
         .navbar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2bd1c9 0%, #1f9d8f 100%);
             color: white;
             padding: 20px;
             display: flex;
@@ -72,7 +72,7 @@
         .back-link {
             display: inline-block;
             margin-bottom: 20px;
-            color: #667eea;
+            color: #1f9d8f;
             text-decoration: none;
             font-weight: 500;
         }
@@ -89,7 +89,7 @@
         }
         
         .detail-header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2bd1c9 0%, #1f9d8f 100%);
             color: white;
             padding: 30px;
             text-align: center;
@@ -117,7 +117,7 @@
             color: #333;
             font-size: 18px;
             margin-bottom: 15px;
-            border-bottom: 2px solid #667eea;
+            border-bottom: 2px solid #1f9d8f;
             padding-bottom: 10px;
         }
         
@@ -148,7 +148,7 @@
         }
         
         .file-link {
-            color: #667eea;
+            color: #1f9d8f;
             text-decoration: none;
             font-weight: 600;
         }
@@ -167,7 +167,7 @@
             color: #333;
             font-size: 18px;
             margin-bottom: 15px;
-            border-bottom: 2px solid #667eea;
+            border-bottom: 2px solid #1f9d8f;
             padding-bottom: 10px;
         }
         
@@ -195,8 +195,8 @@
         
         .form-group textarea:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+            border-color: #1f9d8f;
+            box-shadow: 0 0 5px rgba(31, 157, 143, 0.3);
         }
         
         .button-group {
@@ -315,7 +315,7 @@
             <div class="detail-body">
                 <!-- Info Dasar -->
                 <div class="detail-section">
-                    <h3>📋 Informasi Dasar</h3>
+                    <h3>Informasi Dasar</h3>
                     <div class="info-grid">
                         <div class="info-item">
                             <span class="info-label">Nama Perusahaan</span>
@@ -369,7 +369,7 @@
                 
                 <!-- Status Verifikasi -->
                 <div class="detail-section">
-                    <h3>✅ Status Verifikasi</h3>
+                    <h3>Status Verifikasi</h3>
                     <div class="info-grid">
                         <div class="info-item">
                             <span class="info-label">Status Saat Ini</span>
