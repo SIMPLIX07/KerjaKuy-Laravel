@@ -112,8 +112,8 @@
         .filter-group input:focus,
         .filter-group select:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 5px rgba(102, 126, 234, 0.3);
+            border-color: #1f9d8f;
+            box-shadow: 0 0 5px rgba(31, 157, 143, 0.3);
         }
         
         .filter-buttons {
@@ -137,7 +137,7 @@
         }
         
         .btn-filter {
-            background-color: #667eea;
+            background-color: #1f9d8f;
             color: white;
         }
         
@@ -235,17 +235,17 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             text-decoration: none;
-            color: #66e1ea;
+            color: #1f9d8f;
             transition: background 0.3s;
         }
         
         .pagination a:hover {
-            background-color: #667eea;
+            background-color: #1f9d8f;
             color: white;
         }
         
         .pagination .active {
-            background-color: #667eea;
+            background-color: #1f9d8f;
             color: white;
         }
         
@@ -273,7 +273,7 @@
     
     <!-- Content -->
     <div class="container">
-        <h2>📋 Daftar Semua Perusahaan</h2>
+        <h2>Daftar Semua Perusahaan</h2>
         
         <!-- Filter Section -->
         <div class="filter-section">

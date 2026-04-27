@@ -217,17 +217,17 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             text-decoration: none;
-            color: #667eea;
+            color: #1f9d8f;
             transition: background 0.3s;
         }
         
         .pagination a:hover {
-            background-color: #667eea;
+            background-color: #1f9d8f;
             color: white;
         }
         
         .pagination .active {
-            background-color: #667eea;
+            background-color: #1f9d8f;
             color: white;
         }
     </style>
@@ -261,7 +261,7 @@
             </div>
         @endif
         
-        <h2>📊 Dashboard Admin</h2>
+        <h2>Dashboard Admin</h2>
         
         <!-- Stats Grid -->
         <div class="stats-grid">

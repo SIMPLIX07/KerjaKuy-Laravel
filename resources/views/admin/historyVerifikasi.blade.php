@@ -17,7 +17,7 @@
         }
         
         .navbar {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2bd1c9 0%, #1f9d8f 100%);
             color: white;
             padding: 20px;
             display: flex;
@@ -137,17 +137,17 @@
             border: 1px solid #ddd;
             border-radius: 5px;
             text-decoration: none;
-            color: #667eea;
+            color: #1f9d8f;
             transition: background 0.3s;
         }
         
         .pagination a:hover {
-            background-color: #667eea;
+            background-color: #1f9d8f;
             color: white;
         }
         
         .pagination .active {
-            background-color: #667eea;
+            background-color: #1f9d8f;
             color: white;
         }
         
@@ -181,7 +181,7 @@
     
     <!-- Content -->
     <div class="container">
-        <h2>📜 History Verifikasi Perusahaan</h2>
+        <h2>History Verifikasi Perusahaan</h2>
         
         @if ($history->count() > 0)
             <div class="table-container">
@@ -197,9 +197,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($history as $index => $p)
+                        @forelse ($history as $p)
                             <tr>
-                                <td>{{ ($history->currentPage() - 1) * 20 + $index + 1 }}</td>
+                                <td>{{ ($history->currentPage() - 1) * $history->perPage() + $loop->iteration }}</td>
                                 <td><strong>{{ $p->nama_perusahaan }}</strong></td>
                                 <td>{{ $p->email }}</td>
                                 <td>
