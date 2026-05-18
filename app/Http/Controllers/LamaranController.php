@@ -86,6 +86,25 @@ class LamaranController extends Controller
         return view('Lamaran', compact('lamarans'));
     }
 
+    public function historyPerusahaan(Request $request)
+    {
+        $perusahaanId = session('perusahaan_id');
+
+        if (!$perusahaanId) {
+            return redirect('/login/perusahaan');
+        }
+
+        $lamarans = Lamaran::with(['pelamar', 'lowongan', 'cv'])
+            ->whereHas('lowongan', function ($q) use ($perusahaanId) {
+                $q->where('perusahaan_id', $perusahaanId);
+            })
+            ->whereIn('status', ['diterima', 'ditolak'])
+            ->latest('updated_at')
+            ->get();
+
+        return view('perusahaan.historyLamaran', compact('lamarans'));
+    }
+
     public function tolakLamaran($id)
 {
     $lamaran = Lamaran::findOrFail($id);

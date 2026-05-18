@@ -7,6 +7,7 @@ use App\Http\Controllers\PerusahaanController;
 use App\Http\Controllers\LowonganController;
 use App\Http\Controllers\LamaranController;
 use App\Http\Controllers\CVController;
+use App\Http\Controllers\PortofolioController;
 use App\Http\Controllers\WawancaraController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\AdminController;
@@ -93,6 +94,14 @@ Route::get('/karyawanPerusahaan', [PerusahaanController::class, 'kategoriKaryawa
 Route::resource('/cv', CVController::class);
 Route::get('/cv/detail/{id}', [CVController::class, 'show'])->name('cv.show');
 
+// Portofolio
+Route::resource('/portofolio', PortofolioController::class)->only([
+    'index',
+    'create',
+    'store',
+    'destroy'
+]);
+
 // Perusahaan
 Route::get('/home-perusahaan', [LowonganController::class, 'index']);
 Route::post('/login/perusahaan', [PerusahaanController::class, 'login'])->name('login.perusahaan');
@@ -116,6 +125,10 @@ Route::get('/wawancara', [WawancaraController::class, 'index'])
 //wawancara perusahaan
 Route::get('/perusahaan/wawancara', [WawancaraController::class, 'indexPerusahaan'])
     ->name('perusahaan.wawancara');
+
+// History lamaran perusahaan
+Route::get('/perusahaan/history', [LamaranController::class, 'historyPerusahaan'])
+    ->name('perusahaan.history');
 
 Route::post(
     '/perusahaan/wawancara/{id}/terima',

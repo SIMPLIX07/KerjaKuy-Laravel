@@ -27,6 +27,7 @@
                 <a href="/home-perusahaan" class="cstm-nav-link">Lowongan Anda</a>
                 <a href="/karyawanPerusahaan" class="cstm-nav-link">Karyawan</a>
                 <a href="/perusahaan/wawancara" class="cstm-nav-link active">Wawancara</a>
+                <a href="{{ route('perusahaan.history') }}" class="cstm-nav-link">History</a>
             </div>
 
             <div class="cstm-nav-user">

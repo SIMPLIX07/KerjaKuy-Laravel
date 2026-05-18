@@ -2,7 +2,12 @@ const express = require('express');
 const mysql = require('mysql2');
 const bcrypt = require('bcryptjs');
 const cors = require('cors');
-require('dotenv').config();
+const path = require('path');
+const dotenv = require('dotenv');
+
+// Prefer local env (node-auth/.env), but also support Laravel root .env
+dotenv.config({ path: path.resolve(__dirname, '.env') });
+dotenv.config({ path: path.resolve(__dirname, '..', '.env') });
 
 const app = express();
 app.use(cors({
@@ -16,15 +21,17 @@ app.use(express.urlencoded({ extended: true }));
 
 // konek db
 const db = mysql.createConnection({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT
+    host: process.env.DB_HOST || '127.0.0.1',
+    // Support both node-auth naming (DB_USER/DB_PASS/DB_NAME)
+    // and Laravel naming (DB_USERNAME/DB_PASSWORD/DB_DATABASE)
+    user: process.env.DB_USER || process.env.DB_USERNAME,
+    password: process.env.DB_PASS || process.env.DB_PASSWORD,
+    database: process.env.DB_NAME || process.env.DB_DATABASE,
+    port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 3306
 });
 
 db.connect(err => {
-    if (err) {vis
+    if (err) {
         console.error('DB Error:', err);
     } else {
         console.log('MySQL Connected');

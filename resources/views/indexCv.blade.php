@@ -32,6 +32,9 @@
                 <a class="nav-link cstm-nav-link active" href="{{ route('cv.index') }}" role="tab">
                     <i class="fas fa-file-alt me-2"></i> CV
                 </a>
+                <a class="nav-link cstm-nav-link" href="{{ route('portofolio.index') }}" role="tab">
+                    <i class="fas fa-briefcase me-2"></i> Portofolio
+                </a>
                 <a class="nav-link cstm-nav-link" href="#" role="tab">
                     <i class="fas fa-shield-alt me-2"></i> Keamanan
                 </a>
