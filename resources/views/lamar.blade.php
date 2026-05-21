@@ -4,14 +4,22 @@
 <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <script>
-        window.PELAMAR_ID = {{ session('pelamar_id') }};
-        window.LOWONGAN_ID = {{ $lowongan->id }};
+        window.PELAMAR_ID = {
+            {
+                session('pelamar_id')
+            }
+        };
+        window.LOWONGAN_ID = {
+            {
+                $lowongan - > id
+            }
+        };
     </script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lamar - {{ $lowongan->posisi_pekerjaan }}</title>
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ asset('assets/pageLamar/lamar.css') }}">
@@ -23,14 +31,17 @@
         <div class="detail-wrapper">
             <div class="banner-container">
                 @if($lowongan->gambar)
-                    <img src="{{ asset('storage/lowongan/' . $lowongan->gambar) }}" class="banner-img">
-                @else
-                    <img src="/assets/default-banner.jpg" class="banner-img">
+                <img src="{{ asset('storage/lowongan/' . $lowongan->gambar) }}" class="banner-img">
                 @endif
 
                 <div class="profile-overlay">
-                    <img src="{{ $lowongan->perusahaan->foto_profil ? asset('storage/' . $lowongan->perusahaan->foto_profil) : '/assets/default-logo.png' }}"
-                        class="company-logo">
+                    @if($lowongan->perusahaan->foto_profil)
+                    <img src="{{ asset('storage/' . $lowongan->perusahaan->foto_profil) }}" class="company-logo">
+                    @else
+                    <div class="company-logo d-flex align-items-center justify-content-center text-muted">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    @endif
                     <div class="company-info-header">
                         <h4>{{ $lowongan->perusahaan->nama_perusahaan }}</h4>
                         <p>{{ $lowongan->posisi_pekerjaan }}</p>
@@ -92,4 +103,5 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/assets/pageLamar/lamar.js"></script>
 </body>
+
 </html>

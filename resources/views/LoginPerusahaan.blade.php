@@ -47,5 +47,27 @@
             <button type="submit" id="next">Lanjut</button>
         </form>
     </div>
+
+    @if(session('info'))
+        <div class="modal-overlay" id="verification-modal" role="dialog" aria-modal="true" aria-labelledby="verification-title">
+            <div class="modal-card">
+                <button type="button" class="modal-close" id="verification-close" aria-label="Tutup">
+                    &times;
+                </button>
+                <h3 id="verification-title">Menunggu Verifikasi</h3>
+                <p>Akun Anda sedang di verifikasi, silahkan menunggu.</p>
+            </div>
+        </div>
+
+        <script>
+            (function () {
+                var closeBtn = document.getElementById('verification-close');
+                if (!closeBtn) return;
+                closeBtn.addEventListener('click', function () {
+                    window.location.href = "{{ url('/') }}";
+                });
+            })();
+        </script>
+    @endif
 </body>
 </html>
