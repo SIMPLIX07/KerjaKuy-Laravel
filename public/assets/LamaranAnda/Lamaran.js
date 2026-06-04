@@ -63,19 +63,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchButton = document.querySelector('.search-button');
 
     function filterAll() {
-        const activeStatus = document.querySelector('.tab-btn.tab-active').dataset.tab;
+        const activeTab = document.querySelector('.tab-btn.tab-active');
+        const activeStatus = activeTab ? activeTab.dataset.tab : 'semua';
         const searchText = searchInput.value.toLowerCase();
 
         cards.forEach(card => {
-            const statusCocok = card.dataset.status === activeStatus;
+            const statusCocok = activeStatus === 'semua' || card.dataset.status === activeStatus;
             
             // Ambil teks untuk pencarian
-            const title = card.querySelector('.card-title').textContent.toLowerCase();
-            const company = card.querySelector('.card-company').textContent.toLowerCase();
+            const title = card.querySelector('.card-title')?.textContent.toLowerCase() || '';
+            const company = card.querySelector('.card-company')?.textContent.toLowerCase() || '';
             const searchCocok = title.includes(searchText) || company.includes(searchText);
 
             if (statusCocok && searchCocok) {
-                card.style.display = 'block';
+                card.style.display = '';
             } else {
                 card.style.display = 'none';
             }
@@ -90,9 +91,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    searchButton.addEventListener('click', filterAll);
+    if (searchButton) {
+        searchButton.addEventListener('click', filterAll);
+    }
 
-    searchInput.addEventListener('keyup', filterAll);
+    if (searchInput) {
+        searchInput.addEventListener('keyup', filterAll);
+    }
 
     filterAll();
 });

@@ -1,93 +1,367 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KerjaKuy</title>
+    <title>KerjaKuy - Temukan Karir Impian Anda</title>
 
-    <link rel="stylesheet" href="/assets/HomePelamar/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-fixed": "#00201d",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-surface": "#2d3133",
+                        "on-primary-fixed-variant": "#2f495f",
+                        "surface-container-highest": "#e0e3e5",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f1f4f6",
+                        "on-primary-container": "#7b95ae",
+                        "tertiary-container": "#00312d",
+                        "primary-fixed": "#cde5ff",
+                        surface: "#f7fafc",
+                        "primary-fixed-dim": "#afc9e4",
+                        "on-secondary-fixed-variant": "#00504e",
+                        "on-surface": "#181c1e",
+                        "on-secondary-fixed": "#00201f",
+                        "secondary-container": "#91f0ed",
+                        primary: "#00182a",
+                        outline: "#73777d",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#001d31",
+                        "surface-variant": "#e0e3e5",
+                        "on-secondary": "#ffffff",
+                        "tertiary-fixed-dim": "#5adace",
+                        "on-secondary-container": "#006e6d",
+                        "surface-tint": "#476178",
+                        "outline-variant": "#c3c7cd",
+                        "surface-container": "#ebeef0",
+                        "surface-bright": "#f7fafc",
+                        "on-tertiary-fixed-variant": "#00504a",
+                        "inverse-primary": "#afc9e4",
+                        "inverse-on-surface": "#eef1f3",
+                        background: "#f7fafc",
+                        "surface-dim": "#d7dadc",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-fixed": "#79f7ea",
+                        "on-tertiary-container": "#00a499",
+                        "on-error": "#ffffff",
+                        "on-surface-variant": "#43474c",
+                        secondary: "#006a68",
+                        "on-background": "#181c1e",
+                        "surface-container-high": "#e5e9eb",
+                        "on-error-container": "#93000a",
+                        tertiary: "#001a18",
+                        "secondary-fixed-dim": "#77d6d3",
+                        "secondary-fixed": "#94f2f0",
+                        "primary-container": "#112d42",
+                        error: "#ba1a1a",
+                    },
+                    borderRadius: {
+                        DEFAULT: "0.25rem",
+                        lg: "0.5rem",
+                        xl: "0.75rem",
+                        full: "9999px",
+                    },
+                    spacing: {
+                        xs: "8px",
+                        sm: "16px",
+                        base: "4px",
+                        "margin-desktop": "48px",
+                        lg: "40px",
+                        gutter: "24px",
+                        md: "24px",
+                        "margin-mobile": "16px",
+                        xl: "64px",
+                    },
+                    fontFamily: {
+                        "headline-xl": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "label-sm": ["Inter"],
+                    },
+                    fontSize: {
+                        "headline-xl": ["40px", {
+                            lineHeight: "48px",
+                            letterSpacing: "-0.02em",
+                            fontWeight: "700"
+                        }],
+                        "body-lg": ["18px", {
+                            lineHeight: "28px",
+                            fontWeight: "400"
+                        }],
+                        "label-md": ["14px", {
+                            lineHeight: "16px",
+                            letterSpacing: "0.05em",
+                            fontWeight: "600"
+                        }],
+                        "body-sm": ["14px", {
+                            lineHeight: "20px",
+                            fontWeight: "400"
+                        }],
+                        "headline-lg": ["32px", {
+                            lineHeight: "40px",
+                            letterSpacing: "-0.01em",
+                            fontWeight: "700"
+                        }],
+                        "body-md": ["16px", {
+                            lineHeight: "24px",
+                            fontWeight: "400"
+                        }],
+                        "headline-md": ["24px", {
+                            lineHeight: "32px",
+                            fontWeight: "600"
+                        }],
+                        "headline-lg-mobile": ["24px", {
+                            lineHeight: "32px",
+                            fontWeight: "700"
+                        }],
+                        "label-sm": ["12px", {
+                            lineHeight: "14px",
+                            fontWeight: "500"
+                        }],
+                    },
+                },
+            },
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #f7fafc;
+            color: #181c1e;
+        }
+
+        .pattern-dots {
+            background-image: radial-gradient(#c3c7cd 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .job-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+
+        .job-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 24, 42, 0.1), 0 8px 10px -6px rgba(0, 24, 42, 0.1);
+            border-color: #006a68;
+        }
+
+        .job-card-fixed {
+            min-height: 320px;
+        }
+
+        .job-title-clamp {
+            display: -webkit-box;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            min-height: 64px;
+        }
+
+        .job-company-clamp {
+            min-height: 24px;
+        }
+
+        .btn-primary {
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 15px rgba(0, 106, 104, 0.4);
+        }
+
+        .search-input:focus-within {
+            box-shadow: 0 0 0 2px rgba(0, 106, 104, 0.2);
+            border-color: #006a68;
+        }
+    </style>
 </head>
 
-<body>
-    <nav class="cstm-navbar">
-        <div class="cstm-nav-container">
-            <div class="nav-logo">
-                <img src="/assets/HomePelamar/asset/KerjaKuy.png" alt="Kerjakuy Logo" class="logo-img" />
-                <a href="/" class="brand-text">KerjaKuy</a>
-
-            </div>
-
-            <div class="cstm-nav-menu">
-                <a href="#" class="cstm-nav-link active">Lowongan Kerja</a>
-                <a href="/lamaran-anda" class="cstm-nav-link">Lamaran anda</a>
-                <a href="/wawancara" class="cstm-nav-link">Wawancara</a>
-            </div>
-
-            <div class="cstm-nav-user">
-                <a href="{{ route('pelamar.settings') }}" class="cstm-user-margin"
-                    style="color:white; text-decoration:none;">
-                    {{ session('pelamar_nama') }}
-                </a>
-
-
-            </div>
-
-        </div>
-    </nav>
-
-    <div class="search-bar-container">
-        <form action="{{ route('home') }}" method="GET" class="flex gap-2">
-            <input
-                type="text"
-                name="q"
-                value="{{ request('q') }}"
-                placeholder="Cari pekerjaan"
-                class="search-input"
-            />
-
-            <button type="submit" class="search-button">
-                Cari
-            </button>
-        </form>
+<body class="font-body-md text-body-md antialiased relative min-h-screen flex flex-col">
+    <!-- Ambient Background Shapes -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-[-1]">
+        <div class="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] rounded-full bg-primary-fixed opacity-30 blur-3xl mix-blend-multiply"></div>
+        <div class="absolute bottom-[-10%] left-[-5%] w-[50%] h-[50%] rounded-full bg-secondary-fixed opacity-20 blur-3xl mix-blend-multiply"></div>
+        <div class="absolute inset-0 pattern-dots opacity-30 [mask-image:linear-gradient(to_bottom,transparent,black,transparent)]"></div>
     </div>
 
+    <!-- TopNavBar -->
+    <header class="bg-surface-container-lowest text-primary sticky top-0 z-50 shadow-sm">
+        <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto h-16">
+            <a href="{{ route('home') }}" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaKuy</a>
 
+            <nav class="hidden md:flex gap-8 items-center">
+                <a class="text-primary border-b-2 border-primary pb-1 font-bold text-label-md font-label-md active:scale-95 transition-transform duration-150" href="{{ route('home') }}">Lowongan Kerja</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ url('/lamaran-anda') }}">Lamaran Anda</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ route('pelamar.wawancara') }}">Wawancara</a>
+            </nav>
 
-    <img src="" alt="">
+            <div class="flex items-center gap-4">
+                <a href="{{ route('pelamar.settings') }}" class="p-2 rounded-full hover:bg-surface-container-low transition-colors text-primary" aria-label="Pengaturan akun">
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+                </a>
+            </div>
+        </div>
+    </header>
 
-    <div class="container my-5 d-flex flex-wrap justify-content-center gap-4">
-        @foreach ($lowongans as $lowongan)
-        <a href="{{ route('lowongan.detail', $lowongan->id) }}" class="job-link">
-            <div div class="shadow-sm h-100 position-relative" style="width: 25rem">
-                <div class="card-job">
-                    <div class="card-company">
-                        <div class="avatar">
-                            <img src="{{ asset('storage/' . $lowongan->perusahaan->foto_profil) }}" alt="">
-                        </div>
-                        <div>
-                            <h5 class="">{{ $lowongan->posisi_pekerjaan }}</h5>
-                            <p class="">
-                                {{ $lowongan->perusahaan->nama_perusahaan }}
-                            </p>
-                        </div>
+    <main class="flex-grow w-full">
+        <!-- Hero Section -->
+        <section class="relative bg-gradient-to-br from-primary-container via-primary to-secondary overflow-hidden py-24 px-margin-mobile md:px-margin-desktop flex items-center justify-center">
+            <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                <div class="absolute -top-24 -right-24 w-96 h-96 bg-secondary-container rounded-full mix-blend-overlay filter blur-3xl opacity-50"></div>
+                <div class="absolute top-1/2 -left-24 w-72 h-72 bg-tertiary-container rounded-full mix-blend-overlay filter blur-3xl opacity-50"></div>
+            </div>
+
+            <div class="relative z-10 w-full max-w-7xl flex flex-col items-center text-center">
+                <h1 class="text-headline-xl font-headline-xl text-on-primary mb-6 max-w-3xl leading-tight">Temukan Karir Impian Anda</h1>
+                <p class="text-body-lg font-body-lg text-primary-fixed-dim mb-12 max-w-2xl">Akselerasi masa depan Anda dengan ribuan lowongan pekerjaan terbaik dari perusahaan terkemuka di Indonesia.</p>
+
+                <!-- Search Bar -->
+                <form action="{{ route('home') }}" method="GET" class="w-full max-w-4xl bg-surface-container-lowest rounded-xl shadow-lg p-2 flex flex-col md:flex-row gap-2 items-center">
+                    <div class="flex-1 w-full flex items-center bg-surface-container-low rounded-lg px-4 py-3 search-input transition-colors group">
+                        <span class="material-symbols-outlined text-outline group-focus-within:text-secondary mr-3" style="font-variation-settings: 'FILL' 0;">search</span>
+                        <input class="w-full bg-transparent border-none focus:ring-0 text-on-surface text-body-md font-body-md placeholder-outline p-0" placeholder="Posisi, kata kunci, atau perusahaan" type="text" name="q" value="{{ request('q') }}" />
                     </div>
-                    <p class="">
-                        {{ $lowongan->deskripsi_singkat }}
-                    </p>
-                    <p class="">
-                        {{ $lowongan->alamat_lengkap }}
-                    </p>
 
-                    <span class="btn-lamar btn-sm">Lamar</span>
+                    <div class="hidden md:block w-px h-8 bg-outline-variant"></div>
+
+                    <div class="w-full md:w-64 flex items-center bg-surface-container-low rounded-lg px-4 py-3 search-input transition-colors group">
+                        <span class="material-symbols-outlined text-outline group-focus-within:text-secondary mr-3" style="font-variation-settings: 'FILL' 0;">location_on</span>
+                        <select class="w-full bg-transparent border-none focus:ring-0 text-on-surface text-body-md font-body-md p-0 cursor-pointer appearance-none" aria-label="Lokasi">
+                            <option value="">Semua Lokasi</option>
+                            <option value="jakarta">Jakarta</option>
+                            <option value="bandung">Bandung</option>
+                            <option value="surabaya">Surabaya</option>
+                        </select>
+                        <span class="material-symbols-outlined text-outline ml-2 pointer-events-none" style="font-variation-settings: 'FILL' 0;">expand_more</span>
+                    </div>
+
+                    <button type="submit" class="w-full md:w-auto bg-primary-container hover:bg-secondary text-on-primary text-label-md font-label-md py-4 px-8 rounded-lg flex items-center justify-center gap-2 btn-primary transition-colors">Cari Lowongan</button>
+                </form>
+
+                <div class="mt-8 flex flex-wrap justify-center gap-2 text-primary-fixed text-label-sm font-label-sm">
+                    <span class="opacity-70 mr-2 self-center">Pencarian Populer:</span>
+                    <span class="px-3 py-1 bg-white/10 rounded-full backdrop-blur-sm">Frontend Developer</span>
+                    <span class="px-3 py-1 bg-white/10 rounded-full backdrop-blur-sm">Data Analyst</span>
+                    <span class="px-3 py-1 bg-white/10 rounded-full backdrop-blur-sm">Product Manager</span>
                 </div>
             </div>
-        </a>
-        @endforeach
-    </div>
+        </section>
+
+        <!-- Job Listings Section -->
+        <section class="py-16 px-margin-mobile md:px-margin-desktop w-full max-w-7xl mx-auto">
+            <div class="flex justify-between items-end mb-8">
+                <div>
+                    <h2 class="text-headline-lg font-headline-lg text-on-surface mb-2">Rekomendasi Pekerjaan</h2>
+                    <p class="text-body-md font-body-md text-on-surface-variant">Berdasarkan profil dan pencarian Anda sebelumnya.</p>
+                </div>
+                <div class="hidden sm:flex gap-2">
+                    <button type="button" class="px-4 py-2 bg-surface-container-high text-on-surface rounded-lg text-label-md font-label-md hover:bg-surface-variant transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 0;">filter_list</span>
+                        Filter
+                    </button>
+                    <button type="button" class="px-4 py-2 bg-surface-container-high text-on-surface rounded-lg text-label-md font-label-md hover:bg-surface-variant transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 0;">sort</span>
+                        Terbaru
+                    </button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter">
+                @forelse ($lowongans as $lowongan)
+                @php
+                $lokasi = trim(($lowongan->kabupaten ?? '') . (empty($lowongan->provinsi) ? '' : ', ' . $lowongan->provinsi));
+                if ($lokasi === ',') { $lokasi = ''; }
+                @endphp
+
+                <a href="{{ route('lowongan.detail', $lowongan->id) }}" class="job-card job-card-fixed bg-surface-container-lowest rounded-xl p-5 border border-outline-variant shadow-[0_4px_20px_-2px_rgba(17,45,66,0.08)] flex flex-col h-full cursor-pointer relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-1 h-full bg-secondary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center overflow-hidden border border-outline-variant">
+                            @if (!empty($lowongan->perusahaan?->foto_profil))
+                            <img alt="Logo {{ $lowongan->perusahaan?->nama_perusahaan ?? 'Perusahaan' }}" class="w-full h-full object-cover" src="{{ asset('storage/' . $lowongan->perusahaan->foto_profil) }}" />
+                            @else
+                            <span class="material-symbols-outlined text-outline" style="font-variation-settings: 'FILL' 0;">apartment</span>
+                            @endif
+                        </div>
+
+                        <span class="text-outline hover:text-secondary transition-colors p-1 rounded-full hover:bg-surface-container-low" aria-hidden="true">
+                            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">bookmark_border</span>
+                        </span>
+                    </div>
+
+                    <div class="mb-4 flex-grow">
+                        <h3 class="job-title-clamp text-headline-md font-headline-md text-on-surface mb-1 group-hover:text-primary transition-colors">{{ $lowongan->posisi_pekerjaan }}</h3>
+                        <p class="job-company-clamp text-body-sm font-body-sm text-on-surface-variant font-medium">{{ $lowongan->perusahaan?->nama_perusahaan ?? '-' }}</p>
+                    </div>
+
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="px-2.5 py-1 bg-surface-container text-on-surface text-label-sm font-label-sm rounded-md flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 0;">location_on</span>
+                            {{ $lokasi !== '' ? $lokasi : $lowongan->alamat_lengkap }}
+                        </span>
+
+                        @if (!empty($lowongan->jenis_pekerjaan))
+                        <span class="px-2.5 py-1 bg-primary-fixed text-on-primary-fixed text-label-sm font-label-sm rounded-md">{{ $lowongan->jenis_pekerjaan }}</span>
+                        @endif
+
+                        @if (!empty($lowongan->gaji))
+                        <span class="px-2.5 py-1 bg-secondary-container text-on-secondary-container text-label-sm font-label-sm rounded-md">{{ $lowongan->gaji }}</span>
+                        @endif
+                    </div>
+
+                    <div class="mt-auto pt-4 border-t border-outline-variant flex items-center justify-between">
+                        <span class="text-label-sm font-label-sm text-outline">Diposting {{ optional($lowongan->created_at)->diffForHumans() ?? 'Baru diposting' }}</span>
+                        <span class="bg-primary group-hover:bg-secondary text-on-primary text-label-sm font-label-sm px-4 py-2 rounded-lg btn-primary">Lamar</span>
+                    </div>
+                </a>
+                @empty
+                <div class="col-span-full bg-surface-container-lowest border border-outline-variant rounded-xl p-8 text-center">
+                    <h3 class="text-headline-md font-headline-md text-on-surface">Tidak ada lowongan ditemukan</h3>
+                    <p class="mt-2 text-body-md font-body-md text-on-surface-variant">Coba ubah kata kunci pencarian Anda.</p>
+                </div>
+                @endforelse
+            </div>
+
+            <div class="mt-12 flex justify-center">
+                <a href="{{ route('home') }}" class="px-6 py-3 border-2 border-primary text-primary rounded-lg text-label-md font-label-md hover:bg-primary-fixed hover:text-on-primary-fixed transition-colors flex items-center gap-2">
+                    Lihat Lebih Banyak Lowongan
+                    <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-inverse-surface text-inverse-primary w-full px-margin-mobile md:px-margin-desktop py-12 border-t border-outline-variant">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-headline-md font-headline-md font-bold text-inverse-on-surface">KerjaKuy</div>
+            <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2">
+                <a class="text-inverse-on-surface hover:text-secondary-fixed text-label-sm font-label-sm transition-colors duration-200" href="#">Kebijakan Privasi</a>
+                <a class="text-inverse-on-surface hover:text-secondary-fixed text-label-sm font-label-sm transition-colors duration-200" href="#">Syarat &amp; Ketentuan</a>
+                <a class="text-inverse-on-surface hover:text-secondary-fixed text-label-sm font-label-sm transition-colors duration-200" href="#">Bantuan</a>
+                <a class="text-inverse-on-surface hover:text-secondary-fixed text-label-sm font-label-sm transition-colors duration-200" href="#">Karir</a>
+            </nav>
+            <div class="text-body-sm font-body-sm text-inverse-on-surface text-center md:text-right">© 2024 KerjaKuy. Hubungi Kami untuk percepatan karir Anda.</div>
+        </div>
+    </footer>
 </body>
 
 </html>

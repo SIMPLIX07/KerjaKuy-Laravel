@@ -1,17 +1,29 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const btnLamar = document.querySelector(".button");
+    const btnLamars = document.querySelectorAll(".button");
     const modal = document.getElementById("modalCv");
     const btnTutup = document.getElementById("btnTutup");
     const cvList = document.getElementById("cvList");
     const btnKirim = document.getElementById("btnKirimLamaran");
+    const pelamarId = document.querySelector('meta[name="pelamar-id"]')?.content;
+    const lowonganId = document.querySelector('meta[name="lowongan-id"]')?.content;
 
     let selectedCvId = null;
 
-    btnLamar.addEventListener("click", async () => {
+    if (!pelamarId || !lowonganId || !btnLamars.length) {
+        console.error("Missing pelamar-id or lowongan-id meta tag");
+        btnLamars.forEach(btn => {
+            btn.disabled = true;
+            btn.textContent = "Gagal memuat lamaran";
+        });
+        return;
+    }
+
+    btnLamars.forEach(btnLamar => {
+        btnLamar.addEventListener("click", async () => {
         modal.style.display = "flex";
         btnKirim.disabled = true;
         cvList.innerHTML = "Memuat CV...";
-        console.log("PELAMAR_ID:", window.PELAMAR_ID);
+        console.log("PELAMAR_ID:", pelamarId);
 
 
         const res = await fetch("/pelamar/cv");
@@ -49,12 +61,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
             cvList.appendChild(div);
         });
+        });
     });
 
-    btnTutup.addEventListener("click", () => {
-        modal.style.display = "none";
-        selectedCvId = null;
-    });
+    if (btnTutup) {
+        btnTutup.addEventListener("click", () => {
+            modal.style.display = "none";
+            selectedCvId = null;
+        });
+    }
 
     btnKirim.addEventListener("click", async () => {
         if (!selectedCvId) return;
@@ -66,8 +81,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').content
             },
             body: JSON.stringify({
-                pelamar_id: window.PELAMAR_ID,
-                lowongan_id: window.LOWONGAN_ID,
+                pelamar_id: pelamarId,
+                lowongan_id: lowonganId,
                 cv_id: selectedCvId
             })
         });
