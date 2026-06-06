@@ -20,4 +20,9 @@ class Karyawan extends Model
     {
         return $this->belongsTo(Pelamar::class, 'id_pelamar');
     }
+
+    public function lowongan()
+    {
+        return $this->belongsTo(Lowongan::class, 'id_lowongan');
+    }
 }

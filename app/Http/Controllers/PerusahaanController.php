@@ -88,13 +88,19 @@ class PerusahaanController extends Controller
 
     public function kategoriKaryawan()
     {
-        $kategori = Karyawan::where('id_perusahaan', session('perusahaan_id'))
+        $perusahaanId = session('perusahaan_id');
+
+        $kategori = Karyawan::where('id_perusahaan', $perusahaanId)
             ->select('kategori_pekerjaan')
             ->selectRaw('COUNT(*) as jumlah')
             ->groupBy('kategori_pekerjaan')
             ->get();
 
-        return view('karyawanPerusahaan', compact('kategori'));
+        $karyawans = Karyawan::where('id_perusahaan', $perusahaanId)
+            ->with(['pelamar', 'lowongan'])
+            ->get();
+
+        return view('karyawanPerusahaan', compact('kategori', 'karyawans'));
     }
 
     public function showPengaturanAkun()
