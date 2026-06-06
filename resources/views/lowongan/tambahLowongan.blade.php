@@ -58,6 +58,23 @@
                 <label>Syarat</label>
                 <textarea name="syarat"></textarea>
 
+                <!-- Syarat & Kualifikasi -->
+                <h4>Syarat & Kualifikasi</h4>
+
+                <div class="grid-2">
+                    <div>
+                        <label>Minimal Pendidikan</label>
+                        <input type="text" name="pendidikan" placeholder="Contoh: Minimal S1 Teknik Informatika / Ilmu Komputer" value="{{ old('pendidikan') }}">
+                    </div>
+                    <div>
+                        <label>Minimal Pengalaman</label>
+                        <input type="text" name="pengalaman" placeholder="Contoh: Minimal 1 tahun di posisi terkait" value="{{ old('pengalaman') }}">
+                    </div>
+                </div>
+
+                <label>Keahlian Teknis Utama (Pisahkan dengan koma)</label>
+                <input type="text" name="keahlian_teknis" placeholder="Contoh: PHP (Laravel), Node.js (Express), PostgreSQL" value="{{ old('keahlian_teknis') }}">
+
                 <!-- Lokasi -->
                 <h4>Lokasi Pekerjaan</h4>
 

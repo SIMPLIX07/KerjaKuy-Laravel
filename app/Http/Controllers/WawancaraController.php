@@ -29,6 +29,13 @@ class WawancaraController extends Controller
             ->orderBy('tanggal', 'asc')
             ->get();
 
+        foreach ($wawancarans as $wawancara) {
+            $lamaran = \App\Models\Lamaran::where('pelamar_id', $pelamarId)
+                ->where('lowongan_id', $wawancara->lowongan_id)
+                ->first();
+            $wawancara->lamaran_status = $lamaran ? $lamaran->status : 'wawancara';
+        }
+
         return view('wawancaraPelamar.wawancara', compact('wawancarans'));
     }
 

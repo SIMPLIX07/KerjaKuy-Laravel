@@ -220,7 +220,7 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter w-full max-w-7xl cards-container">
-            @forelse ($lamarans as $lamaran)
+            @foreach ($lamarans as $lamaran)
             @php
             $uiStatus = $lamaran->status === 'wawancara' ? 'diproses' : $lamaran->status;
             $company = $lamaran->lowongan->perusahaan->nama_perusahaan ?? 'Perusahaan';
@@ -268,23 +268,24 @@
                     </div>
                 </div>
             </article>
-            @empty
-            <div class="col-span-full w-full flex items-center justify-center py-10">
+            @endforeach
+
+            <!-- Empty State Container -->
+            <div id="empty-state" class="col-span-full w-full flex items-center justify-center py-10 hidden">
                 <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-8 md:p-10 text-center max-w-xl w-full">
                     <div class="w-16 h-16 rounded-full bg-primary-fixed mx-auto mb-4 flex items-center justify-center text-primary">
                         <span class="material-symbols-outlined">work</span>
                     </div>
-                    <h3 class="text-headline-md font-headline-md text-on-surface">Belum ada lamaran</h3>
-                    <p class="mt-3 text-body-md text-on-surface-variant">
+                    <h3 class="text-headline-md font-headline-md text-on-surface" id="empty-state-title">Belum ada lamaran</h3>
+                    <p class="mt-3 text-body-md text-on-surface-variant" id="empty-state-text">
                         Kamu belum mengirim lamaran ke lowongan mana pun.<br>
                         Silakan cari lowongan dan mulai melamar.
                     </p>
-                    <a href="{{ route('home') }}" class="inline-flex mt-6 px-6 py-3 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-secondary transition-colors">
+                    <a href="{{ route('home') }}" id="empty-state-button" class="inline-flex mt-6 px-6 py-3 rounded-lg bg-primary text-on-primary font-label-md text-label-md hover:bg-secondary transition-colors">
                         Cari Lowongan
                     </a>
                 </div>
             </div>
-            @endforelse
         </div>
     </main>
 

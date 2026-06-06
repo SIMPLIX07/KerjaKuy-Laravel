@@ -65,7 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function filterAll() {
         const activeTab = document.querySelector('.tab-btn.tab-active');
         const activeStatus = activeTab ? activeTab.dataset.tab : 'semua';
-        const searchText = searchInput.value.toLowerCase();
+        const searchText = searchInput ? searchInput.value.toLowerCase() : '';
+        let visibleCount = 0;
 
         cards.forEach(card => {
             const statusCocok = activeStatus === 'semua' || card.dataset.status === activeStatus;
@@ -77,16 +78,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (statusCocok && searchCocok) {
                 card.style.display = '';
+                visibleCount++;
             } else {
                 card.style.display = 'none';
             }
         });
+
+        // Dynamic Empty State Management
+        const emptyState = document.getElementById('empty-state');
+        const emptyStateTitle = document.getElementById('empty-state-title');
+        const emptyStateText = document.getElementById('empty-state-text');
+        const emptyStateButton = document.getElementById('empty-state-button');
+
+        if (emptyState) {
+            if (visibleCount === 0) {
+                emptyState.classList.remove('hidden');
+                if (cards.length === 0) {
+                    if (emptyStateTitle) emptyStateTitle.textContent = "Belum ada lamaran";
+                    if (emptyStateText) emptyStateText.innerHTML = "Kamu belum mengirim lamaran ke lowongan mana pun.<br>Silakan cari lowongan dan mulai melamar.";
+                    if (emptyStateButton) emptyStateButton.classList.remove('hidden');
+                } else {
+                    const statusName = activeTab ? activeTab.textContent.trim() : activeStatus;
+                    if (emptyStateTitle) emptyStateTitle.textContent = "Tidak ada hasil";
+                    if (emptyStateText) {
+                        if (searchText) {
+                            emptyStateText.innerHTML = `Tidak ditemukan lamaran dengan kata kunci "${searchInput.value}" dan status "${statusName}".`;
+                        } else {
+                            emptyStateText.innerHTML = `Kamu tidak memiliki lamaran dengan status "${statusName}".`;
+                        }
+                    }
+                    if (emptyStateButton) emptyStateButton.classList.add('hidden');
+                }
+            } else {
+                emptyState.classList.add('hidden');
+            }
+        }
     }
 
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            tabs.forEach(t => t.classList.remove('tab-active'));
-            tab.classList.add('tab-active');
+            tabs.forEach(t => {
+                t.classList.remove('tab-active', 'bg-primary-container', 'text-on-primary');
+                t.classList.add('text-on-surface-variant', 'hover:bg-surface-container');
+            });
+            tab.classList.add('tab-active', 'bg-primary-container', 'text-on-primary');
+            tab.classList.remove('text-on-surface-variant', 'hover:bg-surface-container');
             filterAll();
         });
     });

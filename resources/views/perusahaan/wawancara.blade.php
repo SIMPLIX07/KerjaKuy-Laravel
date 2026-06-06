@@ -165,7 +165,7 @@
     <!-- Filter & Content Section -->
     <main class="flex-grow max-w-7xl mx-auto px-margin-desktop -mt-10 relative z-20 pb-xl w-full">
         <!-- Filter Tabs -->
-        <div class="glass-card rounded-xl p-2 flex gap-2 w-fit mx-auto mb-lg shadow-md">
+        <div id="filterTabs" class="glass-card rounded-xl p-2 flex gap-2 w-fit mx-auto mb-lg shadow-md">
             <button class="px-8 py-3 rounded-lg font-label-md text-label-md bg-secondary text-on-secondary shadow-sm transition-all" data-tab="semua">Semua</button>
             <button class="px-8 py-3 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-all" data-tab="proses">Akan Datang</button>
             <button class="px-8 py-3 rounded-lg font-label-md text-label-md text-on-surface-variant hover:bg-surface-container transition-all" data-tab="selesai">Selesai</button>
@@ -343,14 +343,14 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const tabs = document.querySelectorAll('.glass-card button');
+            const tabs = document.querySelectorAll('#filterTabs button');
             const cards = document.querySelectorAll('.card-wawancara');
             const searchInput = document.getElementById('searchInput');
             let wawancaraId = null;
 
             // Tab / Instant search filtering logic
             const filterAll = () => {
-                const activeTab = document.querySelector('.glass-card button.bg-secondary');
+                const activeTab = document.querySelector('#filterTabs button.bg-secondary');
                 const activeStatus = activeTab ? activeTab.dataset.tab : 'semua';
                 const query = searchInput.value.toLowerCase().trim();
 

@@ -22,6 +22,9 @@ class Lowongan extends Model
         'tanggal_mulai',
         'tanggal_berakhir',
         'gambar',
+        'pendidikan',
+        'pengalaman',
+        'keahlian_teknis',
     ];
     public function lamarans()
     {

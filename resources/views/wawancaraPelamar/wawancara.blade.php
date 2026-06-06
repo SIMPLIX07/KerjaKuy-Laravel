@@ -200,14 +200,14 @@
 
             <div class="relative w-full max-w-2xl mx-auto">
                 <span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline">search</span>
-                <input class="w-full pl-[56px] pr-md py-[16px] rounded-full border-0 focus:ring-2 focus:ring-secondary text-on-surface shadow-md font-body-md text-body-md outline-none bg-surface-container-lowest" placeholder="Cari nama perusahaan atau posisi..." type="text" />
+                <input class="search-input w-full pl-[56px] pr-md py-[16px] rounded-full border-0 focus:ring-2 focus:ring-secondary text-on-surface shadow-md font-body-md text-body-md outline-none bg-surface-container-lowest" placeholder="Cari nama perusahaan atau posisi..." type="text" />
             </div>
         </div>
     </section>
 
     <main class="flex-grow flex flex-col items-center px-margin-mobile md:px-margin-desktop py-xl max-w-7xl mx-auto w-full">
         <div class="bg-surface-container-lowest p-xs rounded-full shadow-sm mb-xl inline-flex border border-surface-variant flex-wrap justify-center gap-2">
-            <button class="tab-btn tab-active px-lg py-sm rounded-full font-label-md text-label-md" data-tab="semua">Semua</button>
+            <button class="tab-btn tab-active px-lg py-sm rounded-full font-label-md text-label-md bg-primary-container text-on-primary" data-tab="semua">Semua</button>
             <button class="tab-btn px-lg py-sm rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container" data-tab="proses">Akan Datang</button>
             <button class="tab-btn px-lg py-sm rounded-full font-label-md text-label-md text-on-surface-variant hover:bg-surface-container" data-tab="selesai">Selesai</button>
         </div>
@@ -238,7 +238,7 @@
                         </div>
                     </div>
 
-                    <span class="px-3 py-1 bg-secondary-container text-on-secondary-container text-label-sm rounded-full font-bold">
+                    <span class="px-3 py-1 {{ $uiStatus === 'proses' ? 'bg-secondary-container text-on-secondary-container' : 'bg-surface-container-high text-on-surface-variant' }} text-label-sm rounded-full font-bold">
                         {{ $statusLabel }}
                     </span>
                 </div>
@@ -260,14 +260,28 @@
                     </div>
 
                     <div class="flex justify-between items-center pt-2 gap-3 flex-wrap">
+                        @if ($uiStatus === 'proses')
                         <a href="{{ $wawancara->link_meet }}" target="_blank" class="text-label-sm font-label-sm text-secondary hover:underline">
                             {{ $wawancara->link_meet }}
                         </a>
+                        @else
+                        <span class="text-label-sm font-label-sm text-on-surface-variant italic">Wawancara telah selesai</span>
+                        @endif
 
-                        <a href="{{ $wawancara->link_meet }}" target="_blank"
-                            class="w-full md:w-auto py-2.5 px-4 border border-primary text-primary hover:bg-primary-container/10 rounded-lg text-label-md transition-colors">
+                        <button type="button"
+                            class="detail-btn w-full md:w-auto py-2.5 px-4 border border-primary text-primary hover:bg-primary-container/10 rounded-lg text-label-md transition-colors"
+                            data-id="{{ $wawancara->id }}"
+                            data-posisi="{{ $wawancara->lowongan->posisi_pekerjaan }}"
+                            data-perusahaan="{{ $company }}"
+                            data-tanggal="{{ \Carbon\Carbon::parse($wawancara->tanggal)->format('d M Y') }}"
+                            data-jam="{{ $wawancara->jam_mulai }} - {{ $wawancara->jam_selesai }}"
+                            data-pesan="{{ $wawancara->pesan ?? 'Tidak ada pesan khusus.' }}"
+                            data-link="{{ $wawancara->link_meet }}"
+                            data-status="{{ $uiStatus }}"
+                            data-lamaran-status="{{ $wawancara->lamaran_status }}"
+                            data-logo="{{ !empty($wawancara->lowongan->perusahaan?->foto_profil) ? asset('storage/' . $wawancara->lowongan->perusahaan->foto_profil) : '' }}">
                             Lihat Detail
-                        </a>
+                        </button>
                     </div>
                 </div>
             </article>
@@ -290,6 +304,60 @@
             @endforelse
         </div>
     </main>
+
+    <!-- Detail Modal -->
+    <div class="fixed inset-0 z-50 items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm hidden animate-fade-in animate-duration-200" id="detailModal">
+        <div class="glass-card p-6 rounded-xl shadow-xl w-full max-w-lg mx-margin-mobile md:mx-0 max-h-[90vh] overflow-y-auto relative flex flex-col bg-white">
+            <!-- Close Button -->
+            <button class="absolute top-4 right-4 p-2 rounded-full hover:bg-surface-container transition-colors text-outline hover:text-on-surface" id="closeModal">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+            
+            <!-- Modal Content -->
+            <div class="flex flex-col items-center text-center mt-6">
+                <div class="w-16 h-16 rounded-xl bg-surface-container flex items-center justify-center overflow-hidden border border-outline-variant mb-4" id="modalLogoWrapper">
+                    <span class="material-symbols-outlined text-primary-container text-3xl" id="modalDefaultLogo">account_circle</span>
+                    <img id="modalLogo" alt="" class="w-full h-full object-cover hidden" src="">
+                </div>
+                <h3 class="font-headline-md text-2xl font-bold text-on-surface mb-1" id="modalPosisi"></h3>
+                <p class="font-label-md text-secondary font-semibold mb-2" id="modalPerusahaan"></p>
+                <span id="modalStatus" class="px-3 py-1 rounded-full text-xs font-semibold mb-6 inline-block"></span>
+                
+                <!-- Message Box -->
+                <div class="w-full bg-surface-container-low p-4 rounded-xl text-left mb-6 border border-outline-variant">
+                    <span class="font-label-sm text-on-surface-muted block mb-1">Pesan / Undangan</span>
+                    <p class="font-body-sm text-on-surface leading-relaxed whitespace-pre-line" id="modalPesan"></p>
+                </div>
+
+                <!-- Details Grid -->
+                <div class="w-full text-left space-y-3 border-t border-outline-variant pt-4 mb-6">
+                    <div class="flex justify-between py-2 border-b border-surface-container-low">
+                        <span class="font-label-sm text-on-surface-muted">Tanggal</span>
+                        <span class="font-body-sm font-semibold text-on-surface" id="modalTanggal"></span>
+                    </div>
+                    <div class="flex justify-between py-2 border-b border-surface-container-low">
+                        <span class="font-label-sm text-on-surface-muted">Waktu</span>
+                        <span class="font-body-sm font-semibold text-on-surface" id="modalJam"></span>
+                    </div>
+                    <div class="flex justify-between py-2 items-center" id="modalLinkContainer">
+                        <span class="font-label-sm text-on-surface-muted">Link Pertemuan</span>
+                        <a id="modalLink" href="" target="_blank" class="px-4 py-2 bg-secondary text-white font-semibold rounded-lg font-label-md text-xs hover:opacity-90 active:scale-95 transition-all text-center">
+                            Gabung Pertemuan
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hasil / Status Seleksi Section -->
+                <div id="modalHasilSelection" class="w-full mt-4 p-5 rounded-2xl border hidden">
+                    <div class="flex items-center gap-3 justify-center mb-2">
+                        <span id="modalHasilIcon" class="material-symbols-outlined text-[32px]"></span>
+                        <h4 id="modalHasilTitle" class="font-headline font-bold text-lg"></h4>
+                    </div>
+                    <p id="modalHasilDesc" class="text-body-sm"></p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <footer class="bg-surface-container-highest border-t border-outline-variant mt-auto">
         <div class="w-full px-margin-mobile md:px-margin-desktop py-lg flex flex-col md:flex-row justify-between items-center gap-md max-w-7xl mx-auto">

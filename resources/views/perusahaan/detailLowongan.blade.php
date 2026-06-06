@@ -230,20 +230,24 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div class="bg-surface rounded-lg p-4 border border-surface-variant">
                         <p class="text-[12px] leading-4 text-on-surface-variant mb-1 uppercase tracking-wider">Pendidikan</p>
-                        <p class="text-[16px] leading-6 text-on-surface font-semibold">Minimal S1 Teknik Informatika / Ilmu Komputer</p>
+                        <p class="text-[16px] leading-6 text-on-surface font-semibold">{{ $lowongan->pendidikan ?? '-' }}</p>
                     </div>
                     <div class="bg-surface rounded-lg p-4 border border-surface-variant">
                         <p class="text-[12px] leading-4 text-on-surface-variant mb-1 uppercase tracking-wider">Pengalaman</p>
-                        <p class="text-[16px] leading-6 text-on-surface font-semibold">Minimal 1 tahun di posisi terkait</p>
+                        <p class="text-[16px] leading-6 text-on-surface font-semibold">{{ $lowongan->pengalaman ?? '-' }}</p>
                     </div>
                     <div class="bg-surface rounded-lg p-4 border border-surface-variant sm:col-span-2">
                         <p class="text-[12px] leading-4 text-on-surface-variant mb-2 uppercase tracking-wider">Keahlian Teknis Utama</p>
                         <div class="flex flex-wrap gap-2">
-                            <span class="px-3 py-1 bg-[#E6FFFA] text-[#006e6d] rounded-full text-[12px] font-semibold border border-[#91f0ed]">Node.js (Express)</span>
-                            <span class="px-3 py-1 bg-[#E6FFFA] text-[#006e6d] rounded-full text-[12px] font-semibold border border-[#91f0ed]">PHP (Laravel)</span>
-                            <span class="px-3 py-1 bg-[#E6FFFA] text-[#006e6d] rounded-full text-[12px] font-semibold border border-[#91f0ed]">PostgreSQL</span>
-                            <span class="px-3 py-1 bg-[#E6FFFA] text-[#006e6d] rounded-full text-[12px] font-semibold border border-[#91f0ed]">Redis</span>
-                            <span class="px-3 py-1 bg-[#E6FFFA] text-[#006e6d] rounded-full text-[12px] font-semibold border border-[#91f0ed]">Git / CI/CD</span>
+                            @if(!empty($lowongan->keahlian_teknis))
+                                @foreach(explode(',', $lowongan->keahlian_teknis) as $skill)
+                                    @if(trim($skill) !== '')
+                                        <span class="px-3 py-1 bg-[#E6FFFA] text-[#006e6d] rounded-full text-[12px] font-semibold border border-[#91f0ed]">{{ trim($skill) }}</span>
+                                    @endif
+                                @endforeach
+                            @else
+                                <span class="text-on-surface-variant text-[14px]">-</span>
+                            @endif
                         </div>
                     </div>
                 </div>

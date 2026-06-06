@@ -72,6 +72,9 @@ class LowonganController extends Controller
             'tanggal_mulai'     => 'required|date',
             'tanggal_akhir'     => 'required|date|after_or_equal:tanggal_mulai',
             'gambar'            => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'pendidikan'        => 'required',
+            'pengalaman'        => 'required',
+            'keahlian_teknis'   => 'required',
         ]);
 
         $namaGambar = null;
@@ -98,6 +101,9 @@ class LowonganController extends Controller
             'tanggal_mulai'        => $request->tanggal_mulai,
             'tanggal_berakhir'     => $request->tanggal_akhir,
             'gambar'               => $namaGambar,
+            'pendidikan'           => $request->pendidikan,
+            'pengalaman'           => $request->pengalaman,
+            'keahlian_teknis'      => $request->keahlian_teknis,
         ]);
 
         return redirect('/home-perusahaan')->with('success', 'Lowongan berhasil dibuat');
@@ -156,6 +162,9 @@ class LowonganController extends Controller
             'tanggal_mulai'     => 'required|date',
             'tanggal_akhir'     => 'required|date|after_or_equal:tanggal_mulai',
             'gambar'            => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'pendidikan'        => 'required',
+            'pengalaman'        => 'required',
+            'keahlian_teknis'   => 'required',
         ]);
 
         $data = [
@@ -172,6 +181,9 @@ class LowonganController extends Controller
             'alamat_lengkap'       => $request->alamat,
             'tanggal_mulai'        => $request->tanggal_mulai,
             'tanggal_berakhir'     => $request->tanggal_akhir,
+            'pendidikan'           => $request->pendidikan,
+            'pengalaman'           => $request->pengalaman,
+            'keahlian_teknis'      => $request->keahlian_teknis,
         ];
 
         if ($request->hasFile('gambar')) {

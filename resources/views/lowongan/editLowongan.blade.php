@@ -13,6 +13,16 @@
         <div class="form-container">
             <h2>Edit Lowongan</h2>
 
+            @if ($errors->any())
+            <div style="background:#ffecec; color:#b00000; padding:15px; border-radius:8px; margin-bottom:20px;">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
             <form action="{{ route('lowongan.update', $lowongan->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -44,6 +54,23 @@
 
                 <label>Syarat</label>
                 <textarea name="syarat">{{ $lowongan->syarat }}</textarea>
+
+                <!-- Syarat & Kualifikasi -->
+                <h4>Syarat & Kualifikasi</h4>
+
+                <div class="grid-2">
+                    <div>
+                        <label>Minimal Pendidikan</label>
+                        <input type="text" name="pendidikan" placeholder="Contoh: Minimal S1 Teknik Informatika / Ilmu Komputer" value="{{ old('pendidikan', $lowongan->pendidikan) }}">
+                    </div>
+                    <div>
+                        <label>Minimal Pengalaman</label>
+                        <input type="text" name="pengalaman" placeholder="Contoh: Minimal 1 tahun di posisi terkait" value="{{ old('pengalaman', $lowongan->pengalaman) }}">
+                    </div>
+                </div>
+
+                <label>Keahlian Teknis Utama (Pisahkan dengan koma)</label>
+                <input type="text" name="keahlian_teknis" placeholder="Contoh: PHP (Laravel), Node.js (Express), PostgreSQL" value="{{ old('keahlian_teknis', $lowongan->keahlian_teknis) }}">
 
                 <h4>Lokasi Pekerjaan</h4>
                 <div class="grid-3">
