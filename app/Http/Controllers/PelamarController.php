@@ -153,12 +153,13 @@ class PelamarController extends Controller
             'foto_profil'  => 'nullable|image|mimes:jpg,png,jpeg|max:2048'
         ]);
 
+        $fotoProfilPath = $pelamar->foto_profil;
+
         if ($request->hasFile('foto_profil')) {
             if ($pelamar->foto_profil) {
                 Storage::delete('public/profil/' . $pelamar->foto_profil);
             }
 
-            $fotoProfilPath = null;
             $fotoProfilPath = $request->file('foto_profil')->store(
                 'pelamar/profil',
                 'public'

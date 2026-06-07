@@ -57,12 +57,12 @@ class AdminController extends Controller
         $query = Perusahaan::query();
 
         // Filter berdasarkan status
-        if ($request->has('status') && $request->status !== '') {
+        if ($request->filled('status')) {
             $query->where('status_verifikasi', $request->status);
         }
 
         // Search berdasarkan nama atau email
-        if ($request->has('search') && $request->search !== '') {
+        if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
                 $q->where('nama_perusahaan', 'like', "%$search%")

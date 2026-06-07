@@ -173,3 +173,4 @@ Route::prefix('admin')->group(function () {
         Route::post('/logout', [AdminController::class, 'logout'])->name('admin.logout');
     });
 });
+

@@ -21,6 +21,10 @@ class Perusahaan extends Model
         'verified_at',
     ];
 
+    protected $casts = [
+        'verified_at' => 'datetime',
+    ];
+
     public function lowongans()
     {
         return $this->hasMany(Lowongan::class, 'perusahaan_id');
