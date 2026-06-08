@@ -29,7 +29,7 @@ class CvTest extends TestCase
     }
 
     /**
-     * Test index page shows CVs for logged in user.
+     * Menguji halaman utama CV menampilkan daftar CV untuk pengguna yang masuk.
      */
     public function test_cv_index_page()
     {
@@ -55,7 +55,7 @@ class CvTest extends TestCase
     }
 
     /**
-     * Test create page view.
+     * Menguji halaman pembuatan CV baru dapat dimuat.
      */
     public function test_create_cv_page()
     {
@@ -71,7 +71,7 @@ class CvTest extends TestCase
     }
 
     /**
-     * Test store CV successfully.
+     * Menguji berhasil menyimpan CV baru beserta relasi pendidikan, skill, dan pengalaman.
      */
     public function test_store_cv_success()
     {
@@ -136,7 +136,7 @@ class CvTest extends TestCase
     }
 
     /**
-     * Test store CV validation failure.
+     * Menguji kegagalan validasi saat menyimpan CV dengan data kosong.
      */
     public function test_store_cv_validation_fails()
     {
@@ -148,7 +148,7 @@ class CvTest extends TestCase
     }
 
     /**
-     * Test show detail CV.
+     * Menguji halaman detail CV dapat diakses dan menampilkan data CV.
      */
     public function test_show_detail_cv()
     {
@@ -169,7 +169,7 @@ class CvTest extends TestCase
     }
 
     /**
-     * Test edit page.
+     * Menguji halaman edit CV dapat dimuat.
      */
     public function test_edit_cv_page()
     {
@@ -190,7 +190,7 @@ class CvTest extends TestCase
     }
 
     /**
-     * Test update CV deletes old related relations and stores new.
+     * Menguji pembaruan data CV berhasil menghapus relasi lama dan menyimpan data relasi baru.
      */
     public function test_update_cv_success()
     {
@@ -270,7 +270,7 @@ class CvTest extends TestCase
     }
 
     /**
-     * Test delete CV removes relations.
+     * Menguji penghapusan CV berhasil menghapus data CV beserta relasi terkait.
      */
     public function test_delete_cv_success()
     {

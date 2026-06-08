@@ -21,6 +21,7 @@ class PelamarController extends Controller
             'nama_lengkap' => 'required',
             'username'     => 'required|unique:pelamars,username',
             'email'        => 'required|email|unique:pelamars,email',
+            'no_telp'      => 'nullable|numeric',
             'password'     => 'required|min:3',
             'conf'         => 'required|same:password',
             'keahlian'     => 'nullable'
@@ -33,6 +34,7 @@ class PelamarController extends Controller
             'nama_lengkap' => $request->nama_lengkap,
             'username'     => $request->username,
             'email'        => $request->email,
+            'no_telp'      => $request->no_telp,
             'password'     => Hash::make($request->password),
             'foto_profil'  => null
         ]);

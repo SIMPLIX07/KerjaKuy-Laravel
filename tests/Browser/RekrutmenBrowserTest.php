@@ -13,12 +13,7 @@ use App\Models\Karyawan;
 
 class RekrutmenBrowserTest extends DuskTestCase
 {
-    /**
-     * Test the full recruitment integration flow:
-     * 1. Pelamar sends job application (No 10).
-     * 2. Perusahaan schedules interview (No 11).
-     * 3. Perusahaan accepts (hires) applicant as employee (No 12).
-     */
+
     public function test_job_application_interview_and_hiring_flow(): void
     {
         $uniqueId = time();
@@ -73,7 +68,7 @@ class RekrutmenBrowserTest extends DuskTestCase
         ]);
 
         $this->browse(function (Browser $browser) use ($pelamar, $perusahaan, $lowongan) {
-            // STEP 1: Pelamar melamar lowongan (No 10)
+            // STEP 1: Pelamar melamar lowongan 
             $browser->visit('/login/pelamar')
                 ->type('username', $pelamar->username)
                 ->type('password', 'password123')
@@ -102,7 +97,7 @@ class RekrutmenBrowserTest extends DuskTestCase
                 ->press('Keluar')
                 ->waitForLocation('/');
 
-            // STEP 2: Perusahaan menjadwalkan wawancara (No 11)
+            // STEP 2: Perusahaan menjadwalkan wawancara 
             $browser->visit('/login/perusahaan')
                 ->type('email', $perusahaan->email)
                 ->type('password', 'password123')
@@ -147,7 +142,7 @@ class RekrutmenBrowserTest extends DuskTestCase
                 ->press('Keluar')
                 ->waitForLocation('/');
 
-            // STEP 4: Perusahaan menerima pelamar sebagai Karyawan (No 12)
+            // STEP 4: Perusahaan menerima pelamar sebagai Karyawan 
             $browser->visit('/login/perusahaan')
                 ->type('email', $perusahaan->email)
                 ->type('password', 'password123')

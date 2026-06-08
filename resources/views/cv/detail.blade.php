@@ -1,123 +1,305 @@
 <!DOCTYPE html>
-<html lang="id">
-
+<html class="light" lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KerjaKuy - Detail CV</title>
-
-    <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Profil {{ $cv->pelamar->nama_lengkap }} - KerjaKuy</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-primary": "#afc9e4",
+                    "on-tertiary-container": "#00a499",
+                    "on-primary": "#ffffff",
+                    "secondary-fixed": "#94f2f0",
+                    "primary-fixed": "#cde5ff",
+                    "on-secondary-container": "#006e6d",
+                    "on-tertiary-fixed": "#00201d",
+                    "inverse-surface": "#2d3133",
+                    "surface-bright": "#f7fafc",
+                    "background": "#f7fafc",
+                    "on-surface-variant": "#43474c",
+                    "outline-variant": "#c3c7cd",
+                    "on-primary-container": "#7b95ae",
+                    "on-primary-fixed-variant": "#2f495f",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#001a18",
+                    "on-secondary-fixed": "#00201f",
+                    "surface-container": "#ebeef0",
+                    "error-container": "#ffdad6",
+                    "surface-container-high": "#e5e9eb",
+                    "primary-container": "#112d42",
+                    "on-secondary-fixed-variant": "#00504e",
+                    "on-surface": "#181c1e",
+                    "error": "#ba1a1a",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-container": "#91f0ed",
+                    "on-tertiary-fixed-variant": "#00504a",
+                    "on-background": "#181c1e",
+                    "surface-container-low": "#f1f4f6",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-error-container": "#93000a",
+                    "tertiary-fixed-dim": "#5adace",
+                    "surface-tint": "#476178",
+                    "tertiary-fixed": "#79f7ea",
+                    "on-tertiary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#e0e3e5",
+                    "primary-fixed-dim": "#afc9e4",
+                    "inverse-on-surface": "#eef1f3",
+                    "secondary-fixed-dim": "#77d6d3",
+                    "secondary": "#006a68",
+                    "primary": "#00182a",
+                    "on-primary-fixed": "#001d31",
+                    "surface-dim": "#d7dadc",
+                    "outline": "#73777d",
+                    "tertiary-container": "#00312d",
+                    "surface": "#f7fafc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "4px",
+                    "sm": "16px",
+                    "lg": "40px",
+                    "gutter": "24px",
+                    "margin-mobile": "16px",
+                    "md": "24px",
+                    "margin-desktop": "48px",
+                    "xs": "8px",
+                    "xl": "64px"
+            },
+            "fontFamily": {
+                    "headline-md": ["Manrope"],
+                    "headline-lg": ["Manrope"],
+                    "headline-xl": ["Manrope"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg-mobile": ["Manrope"],
+                    "label-md": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "body-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "14px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
     <style>
-        .display-box {
-            @apply w-full border border-[#1FACA2] rounded-lg px-3 py-2 bg-gray-50 text-gray-800 min-h-[42px] flex items-center;
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #00182a 0%, #006a68 100%);
         }
     </style>
 </head>
+<body class="bg-background font-body-md text-on-background">
 
-<body class="bg-gray-100 min-h-screen pb-12">
-
-    <div class="max-w-3xl mx-auto mt-12 bg-white p-8 rounded-xl shadow-lg">
-
-        <h1 class="text-2xl font-bold mb-6 text-[#1FACA2]">
-            Resume: {{ $cv->pelamar->nama }}
-        </h1>
-
-        <div class="space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div>
-                    <label class="block mb-1 font-medium text-gray-700">Umur</label>
-                    <div class="display-box">{{ $cv->umur }} Tahun</div>
-                </div>
-
-                <div>
-                    <label class="block mb-1 font-medium text-gray-700">Kontak</label>
-                    <div class="display-box">{{ $cv->kontak }}</div>
-                </div>
-            </div>
-
-            <div>
-                <label class="block mb-1 font-medium text-gray-700">Title</label>
-                <div class="display-box font-bold text-[#1FACA2]">{{ $cv->title }}</div>
-            </div>
-
-            <div>
-                <label class="block mb-1 font-medium text-gray-700">Subtitle</label>
-                <div class="display-box">{{ $cv->subtitle }}</div>
-            </div>
-
-            <div>
-                <label class="block mb-1 font-medium text-gray-700">Tentang Saya</label>
-                <div
-                    class="w-full border border-[#1FACA2] rounded-lg px-3 py-2 bg-gray-50 text-gray-800 leading-relaxed">
-                    {{ $cv->tentang_saya }}
-                </div>
-            </div>
-
-            @if ($cv->pendidikans->count() > 0)
-                <div class="border-t pt-6">
-                    <h2 class="text-lg font-semibold mb-4 text-[#1FACA2]">
-                        Pendidikan
-                    </h2>
-
-                    @foreach ($cv->pendidikans as $pendidikan)
-                        <div class="mb-4 p-4 border border-[#1FACA2] rounded-lg bg-gray-50">
-                            <div class="mb-2">
-                                <span class="text-sm text-gray-600">Jenjang</span>
-                                <div class="display-box font-semibold">
-                                    {{ $pendidikan->tingkat }}
-                                </div>
-                            </div>
-
-                            <div class="mb-2">
-                                <span class="text-sm text-gray-600">Institusi</span>
-                                <div class="display-box">
-                                    {{ $pendidikan->universitas }}
-                                </div>
-                            </div>
-
-                            <div>
-                                <span class="text-sm text-gray-600">Jurusan</span>
-                                <div class="display-box">
-                                    {{ $pendidikan->jurusan }}
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
-
-            @if ($cv->skills->count() > 0)
-                <div class="border-t pt-6">
-                    <h2 class="text-lg font-semibold mb-4 text-[#1FACA2]">
-                        Skill
-                    </h2>
-
-                    @foreach ($cv->skills as $skill)
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
-                            <div class="display-box">{{ $skill->skill }}</div>
-                            <div class="display-box">Kemampuan: {{ $skill->kemampuan }}%</div>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
-
-            @if ($cv->pengalamans->count() > 0)
-                <div class="border-t pt-6">
-                    <h2 class="text-lg font-semibold mb-4 text-[#1FACA2]">
-                        Pengalaman
-                    </h2>
-
-                    @foreach ($cv->pengalamans as $pengalaman)
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
-                            <div class="display-box">{{ $pengalaman->pengalaman }}</div>
-                            <div class="display-box">Durasi: {{ $pengalaman->durasi }}</div>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
+<!-- TopNavBar -->
+<nav class="bg-surface-container-lowest text-primary docked full-width top-0 sticky z-50 shadow-sm h-16 flex items-center">
+    <div class="flex justify-between items-center w-full px-margin-desktop max-w-7xl mx-auto">
+        <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaKuy</a>
+        @if (session('perusahaan_id'))
+        <nav class="hidden md:flex gap-8 items-center">
+            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="/home-perusahaan">Lowongan Kerja</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="/karyawanPerusahaan">Karyawan</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="/perusahaan/wawancara">Wawancara</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ route('perusahaan.history') }}">History</a>
+        </nav>
+        @elseif (session('pelamar_id'))
+        <nav class="hidden md:flex gap-8 items-center">
+            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ route('home') }}">Lowongan Kerja</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ url('/lamaran-anda') }}">Lamaran Anda</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ route('pelamar.wawancara') }}">Wawancara</a>
+        </nav>
+        @endif
+        <div class="flex items-center gap-4">
+            <button onclick="window.history.back()" class="inline-flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors font-body-sm bg-surface-container-low px-4 py-2 rounded-lg font-bold">
+                <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                <span>Kembali</span>
+            </button>
         </div>
     </div>
+</nav>
 
+<main class="pb-xl">
+    <!-- Hero Section -->
+    <section class="hero-gradient relative py-xl px-gutter text-on-primary overflow-hidden">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-lg relative z-10">
+            <div class="relative group">
+                <div class="w-40 h-40 md:w-48 md:h-48 rounded-2xl overflow-hidden border-4 border-on-tertiary-container/30 shadow-xl">
+                    <img class="w-full h-full object-cover" alt="Foto Profil" src="{{ $cv->pelamar->foto_profil ? asset('storage/' . $cv->pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}">
+                </div>
+                <div class="absolute -bottom-2 -right-2 bg-on-tertiary-container p-base rounded-lg shadow-lg">
+                    <span class="material-symbols-outlined text-on-primary" style="font-variation-settings: &quot;FILL&quot; 1;">verified</span>
+                </div>
+            </div>
+            <div class="text-center md:text-left">
+                <h1 class="font-headline-xl text-headline-xl mb-base">{{ $cv->pelamar->nama_lengkap }}</h1>
+                <p class="font-headline-md text-headline-md text-secondary-fixed mb-sm">{{ $cv->title }}</p>
+                <div class="flex flex-wrap justify-center md:justify-start gap-sm mt-md">
+                    <span class="bg-white/10 backdrop-blur-md px-md py-base rounded-full border border-white/20 flex items-center gap-xs">
+                        <span class="material-symbols-outlined text-sm">location_on</span> Jakarta, Indonesia
+                    </span>
+                    <span class="bg-white/10 backdrop-blur-md px-md py-base rounded-full border border-white/20 flex items-center gap-xs">
+                        <span class="material-symbols-outlined text-sm">mail</span> {{ $cv->pelamar->email }}
+                    </span>
+                    <span class="bg-white/10 backdrop-blur-md px-md py-base rounded-full border border-white/20 flex items-center gap-xs">
+                        <span class="material-symbols-outlined text-sm">calendar_today</span> {{ $cv->umur }} Tahun
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Abstract background shape -->
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-on-tertiary-container/10 skew-x-12 transform translate-x-20"></div>
+    </section>
+
+    <!-- Main Content Area -->
+    <div class="max-w-6xl mx-auto px-gutter mt-[-40px] relative z-20">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-md">
+            <!-- Left Column (Bio, Education & Experience) -->
+            <div class="lg:col-span-2 space-y-md">
+                <!-- About Me Card -->
+                <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-sm mb-md">
+                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings: &quot;FILL&quot; 1;">person</span>
+                        <h2 class="font-headline-md text-headline-md text-primary">Tentang Saya</h2>
+                    </div>
+                    <p class="text-on-surface-variant font-body-md leading-relaxed whitespace-pre-line">
+                        {{ $cv->tentang_saya }}
+                    </p>
+                </div>
+
+                <!-- Experience Card -->
+                @if ($cv->pengalamans->count() > 0)
+                <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-sm mb-md">
+                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings: &quot;FILL&quot; 1;">work</span>
+                        <h2 class="font-headline-md text-headline-md text-primary">Pengalaman</h2>
+                    </div>
+                    <div class="space-y-md">
+                        @foreach ($cv->pengalamans as $pengalaman)
+                        <div class="flex gap-md p-md rounded-lg bg-surface-container-low border border-outline-variant/50">
+                            <div class="bg-primary-container p-sm rounded-xl flex items-center justify-center h-fit">
+                                <span class="material-symbols-outlined text-on-primary-container">business</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-start">
+                                    <h3 class="font-headline-md text-body-lg text-primary font-bold">{{ $pengalaman->pengalaman }}</h3>
+                                    <span class="bg-secondary-container text-on-secondary-container text-xs font-bold px-sm py-1 rounded-full">{{ $pengalaman->durasi }}</span>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+
+                <!-- Education Card -->
+                @if ($cv->pendidikans->count() > 0)
+                <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-sm mb-md">
+                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings: &quot;FILL&quot; 1;">school</span>
+                        <h2 class="font-headline-md text-headline-md text-primary">Pendidikan</h2>
+                    </div>
+                    <div class="space-y-md">
+                        @foreach ($cv->pendidikans as $pendidikan)
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-md p-md rounded-lg border-2 border-dashed border-outline-variant">
+                            <div>
+                                <p class="text-xs uppercase tracking-wider text-outline mb-1 font-bold">Jenjang</p>
+                                <p class="font-headline-md text-body-lg text-primary">{{ $pendidikan->tingkat }}</p>
+                            </div>
+                            <div>
+                                <p class="text-xs uppercase tracking-wider text-outline mb-1 font-bold">Institusi</p>
+                                <p class="font-headline-md text-body-lg text-primary">{{ $pendidikan->universitas }}</p>
+                            </div>
+                            <div class="md:col-span-2">
+                                <p class="text-xs uppercase tracking-wider text-outline mb-1 font-bold">Jurusan</p>
+                                <p class="font-headline-md text-body-lg text-primary">{{ $pendidikan->jurusan }}</p>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+            </div>
+
+            <!-- Right Column (Skills & Quick Info) -->
+            <div class="space-y-md">
+                <!-- Skills Card -->
+                @if ($cv->skills->count() > 0)
+                <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-sm mb-md">
+                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings: &quot;FILL&quot; 1;">bolt</span>
+                        <h2 class="font-headline-md text-headline-md text-primary">Kemampuan</h2>
+                    </div>
+                    <div class="space-y-md">
+                        @foreach ($cv->skills as $skill)
+                        <div>
+                            <div class="flex justify-between mb-xs">
+                                <span class="font-label-md text-primary">{{ $skill->skill }}</span>
+                                <span class="font-label-md text-secondary">{{ $skill->kemampuan }}%</span>
+                            </div>
+                            <div class="w-full bg-surface-container-high rounded-full h-2">
+                                <div class="bg-secondary h-2 rounded-full transition-all duration-1000" style="width: {{ $skill->kemampuan }}%"></div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+
+                <!-- CTA Card -->
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant dark:border-outline"><div class="max-w-6xl mx-auto px-gutter py-lg flex flex-col md:flex-row justify-between items-center gap-md">
+  <div class="flex flex-col items-center md:items-start">
+    <span class="font-headline-lg text-headline-lg font-bold text-secondary">KerjaKuy</span>
+    <p class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant mt-xs">© 2024 KerjaKuy. All rights reserved.</p>
+  </div>
+  <nav class="flex flex-wrap justify-center gap-md">
+    <a class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors" href="#">Tentang Kami</a>
+    <a class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors" href="#">Pusat Bantuan</a>
+    <a class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors" href="#">Kebijakan Privasi</a>
+    <a class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors" href="#">Syarat &amp; Ketentuan</a>
+  </nav>
+</div></footer>
+
+<script>
+    // Micro-interactions for skill bars on scroll
+    window.addEventListener('scroll', () => {
+        const skillBars = document.querySelectorAll('.bg-secondary.h-2');
+        skillBars.forEach(bar => {
+            const rect = bar.getBoundingClientRect();
+            if (rect.top < window.innerHeight) {
+                bar.style.width = bar.dataset.width || bar.style.width;
+            }
+        });
+    });
+</script>
 </body>
-
 </html>

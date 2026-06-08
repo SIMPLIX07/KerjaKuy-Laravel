@@ -25,7 +25,7 @@ class LamaranTest extends TestCase
     {
         parent::setUp();
 
-        // 1. Create a Pelamar
+        // 1. Buat Pelamar
         $this->pelamar = Pelamar::create([
             'nama_lengkap' => 'Budi Santoso',
             'username' => 'budis',
@@ -33,7 +33,7 @@ class LamaranTest extends TestCase
             'password' => bcrypt('password123'),
         ]);
 
-        // 2. Create a Perusahaan
+        // 2. Buat Perusahaan
         $this->perusahaan = Perusahaan::create([
             'nama_perusahaan' => 'PT Teknologi Indonesia',
             'email' => 'tech@indonesia.com',
@@ -44,7 +44,7 @@ class LamaranTest extends TestCase
             'status_verifikasi' => 'verified',
         ]);
 
-        // 3. Create a Lowongan
+        // 3. Buat Lowongan
         $this->lowongan = Lowongan::create([
             'perusahaan_id' => $this->perusahaan->id,
             'kategori_pekerjaan' => 'Teknologi',
@@ -62,7 +62,7 @@ class LamaranTest extends TestCase
             'tanggal_berakhir' => '2026-07-01',
         ]);
 
-        // 4. Create a Cv
+        // 4. Buat Cv
         $this->cv = Cv::create([
             'pelamar_id' => $this->pelamar->id,
             'umur' => 22,
@@ -74,7 +74,7 @@ class LamaranTest extends TestCase
     }
 
     /**
-     * Test insert lamaran successfully.
+     * Menguji pengiriman lamaran baru berhasil.
      */
     public function test_insert_lamaran_success()
     {
@@ -98,7 +98,40 @@ class LamaranTest extends TestCase
     }
 
     /**
-     * Test duplicate job application fails.
+     * Menguji pengiriman lamaran dengan portofolio berhasil.
+     */
+    public function test_insert_lamaran_with_portofolio_success()
+    {
+        $portofolio = \App\Models\Portofolio::create([
+            'pelamar_id' => $this->pelamar->id,
+            'judul' => 'Portofolio Keren',
+            'kategori' => 'IT',
+            'deskripsi' => 'Deskripsi portofolio',
+        ]);
+
+        $response = $this->post('/lamaran/insert', [
+            'pelamar_id' => $this->pelamar->id,
+            'lowongan_id' => $this->lowongan->id,
+            'cv_id' => $this->cv->id,
+            'portofolio_id' => $portofolio->id,
+        ]);
+
+        $response->assertStatus(201);
+        $response->assertJson([
+            'message' => 'Lamaran berhasil dikirim',
+        ]);
+
+        $this->assertDatabaseHas('lamarans', [
+            'pelamar_id' => $this->pelamar->id,
+            'lowongan_id' => $this->lowongan->id,
+            'cv_id' => $this->cv->id,
+            'portofolio_id' => $portofolio->id,
+            'status' => 'diproses',
+        ]);
+    }
+
+    /**
+     * Menguji pengiriman lamaran yang sama (duplikat) gagal.
      */
     public function test_insert_lamaran_duplicate_fails()
     {
@@ -123,7 +156,7 @@ class LamaranTest extends TestCase
     }
 
     /**
-     * Test validation fails when missing fields.
+     * Menguji kegagalan validasi ketika ada kolom yang kosong.
      */
     public function test_insert_lamaran_validation_fails()
     {
@@ -136,7 +169,7 @@ class LamaranTest extends TestCase
     }
 
     /**
-     * Test getting CV of a logged-in pelamar.
+     * Menguji pengambilan data CV dari pelamar yang sedang login berhasil.
      */
     public function test_get_cv_pelamar_success()
     {
@@ -151,7 +184,7 @@ class LamaranTest extends TestCase
     }
 
     /**
-     * Test getting CV pelamar fails when unauthenticated.
+     * Menguji pengambilan data CV pelamar gagal ketika tidak terautentikasi.
      */
     public function test_get_cv_pelamar_unauthorized()
     {
@@ -161,7 +194,7 @@ class LamaranTest extends TestCase
     }
 
     /**
-     * Test pelamar can view their list of applications.
+     * Menguji pelamar dapat melihat daftar lamaran mereka.
      */
     public function test_pelamar_can_view_applications_list()
     {
@@ -181,7 +214,7 @@ class LamaranTest extends TestCase
     }
 
     /**
-     * Test history perusahaan redirects to login when guest.
+     * Menguji riwayat perusahaan dialihkan ke halaman login jika diakses sebagai tamu (guest).
      */
     public function test_history_perusahaan_redirects_when_not_logged_in()
     {
@@ -191,7 +224,7 @@ class LamaranTest extends TestCase
     }
 
     /**
-     * Test history perusahaan shows processed (diterima/ditolak) applications.
+     * Menguji riwayat perusahaan menampilkan lamaran yang sudah diproses (diterima/ditolak).
      */
     public function test_history_perusahaan_shows_processed_applications()
     {
@@ -224,7 +257,7 @@ class LamaranTest extends TestCase
     }
 
     /**
-     * Test reject (tolak) application.
+     * Menguji penolakan lamaran memperbarui status lamaran menjadi ditolak.
      */
     public function test_reject_lamaran_updates_status()
     {
@@ -244,11 +277,11 @@ class LamaranTest extends TestCase
     }
 
     /**
-     * Test schedule interview (jadwalWawancara).
+     * Menguji penjadwalan wawancara (jadwalWawancara).
      */
     public function test_schedule_interview_and_call_external_service()
     {
-        // Mock external http node service request
+        // Mock permintaan layanan eksternal http node
         Http::fake([
             'http://127.0.0.1:3001/log-wawancara' => Http::response(['status' => 'logged'], 200),
         ]);

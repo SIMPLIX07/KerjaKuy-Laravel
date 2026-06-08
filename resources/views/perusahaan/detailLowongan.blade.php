@@ -146,35 +146,45 @@
     <!-- Vacancy Header -->
     <header class="bg-gradient-to-br from-primary to-[#003B5C] text-on-primary px-4 md:px-12 py-10 relative overflow-hidden">
         <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-30 mix-blend-overlay"></div>
-        <div class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div class="flex flex-col md:flex-row items-start md:items-center gap-5">
-                <div class="w-24 h-24 bg-surface-container-lowest rounded-xl shadow-lg flex items-center justify-center p-2 shrink-0 overflow-hidden">
-                    @if (!empty($lowongan->perusahaan?->foto_profil))
-                    <img alt="{{ $lowongan->perusahaan->nama_perusahaan }}" class="w-full h-full object-contain" src="{{ asset('storage/' . $lowongan->perusahaan->foto_profil) }}">
-                    @else
-                    <span class="material-symbols-outlined text-primary text-[44px]">business_center</span>
-                    @endif
-                </div>
-                <div>
-                    <h1 class="font-headline text-[24px] md:text-[32px] leading-8 md:leading-10 font-bold text-on-primary">{{ $lowongan->posisi_pekerjaan }}</h1>
-                    <p class="text-[18px] leading-7 text-primary-fixed-dim">{{ $lowongan->perusahaan->nama_perusahaan }}</p>
-                </div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <!-- Back Button -->
+            <div class="mb-6">
+                <a href="/home-perusahaan" class="inline-flex items-center gap-2 text-primary-fixed-dim hover:text-on-primary transition-colors text-[14px] font-semibold bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg backdrop-blur-sm">
+                    <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                    <span>Kembali ke Lowongan</span>
+                </a>
             </div>
 
-            <!-- Actions buttons in hero -->
-            <div class="w-full md:w-auto mt-2 md:mt-0 flex gap-3 justify-start md:justify-end">
-                <a href="{{ route('lowongan.edit', $lowongan->id) }}" class="button action-button bg-secondary hover:bg-opacity-95 text-white font-semibold text-[14px] px-6 py-3 rounded-lg flex items-center gap-2 shadow-sm">
-                    <span class="material-symbols-outlined text-[20px]">edit</span>
-                    Edit Lowongan
-                </a>
-                <form action="{{ route('perusahaan.lowongan.delete', $lowongan->id) }}" method="POST" onsubmit="return confirm('Hapus lowongan ini?')">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="button action-button bg-error hover:bg-opacity-90 text-white font-semibold text-[14px] px-6 py-3 rounded-lg flex items-center gap-2 shadow-sm">
-                        <span class="material-symbols-outlined text-[20px]">delete</span>
-                        Hapus
-                    </button>
-                </form>
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-5">
+                    <div class="w-24 h-24 bg-surface-container-lowest rounded-xl shadow-lg flex items-center justify-center p-2 shrink-0 overflow-hidden">
+                        @if (!empty($lowongan->perusahaan?->foto_profil))
+                        <img alt="{{ $lowongan->perusahaan->nama_perusahaan }}" class="w-full h-full object-contain" src="{{ asset('storage/' . $lowongan->perusahaan->foto_profil) }}">
+                        @else
+                        <span class="material-symbols-outlined text-primary text-[44px]">business_center</span>
+                        @endif
+                    </div>
+                    <div>
+                        <h1 class="font-headline text-[24px] md:text-[32px] leading-8 md:leading-10 font-bold text-on-primary">{{ $lowongan->posisi_pekerjaan }}</h1>
+                        <p class="text-[18px] leading-7 text-primary-fixed-dim">{{ $lowongan->perusahaan->nama_perusahaan }}</p>
+                    </div>
+                </div>
+
+                <!-- Actions buttons in hero -->
+                <div class="w-full md:w-auto mt-2 md:mt-0 flex gap-3 justify-start md:justify-end">
+                    <a href="{{ route('lowongan.edit', $lowongan->id) }}" class="button action-button bg-secondary hover:bg-opacity-95 text-white font-semibold text-[14px] px-6 py-3 rounded-lg flex items-center gap-2 shadow-sm">
+                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                        Edit Lowongan
+                    </a>
+                    <form action="{{ route('perusahaan.lowongan.delete', $lowongan->id) }}" method="POST" onsubmit="return confirm('Hapus lowongan ini?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="button action-button bg-error hover:bg-opacity-90 text-white font-semibold text-[14px] px-6 py-3 rounded-lg flex items-center gap-2 shadow-sm">
+                            <span class="material-symbols-outlined text-[20px]">delete</span>
+                            Hapus
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
     </header>

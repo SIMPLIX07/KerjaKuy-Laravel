@@ -234,6 +234,9 @@
 
                 <!-- Search Bar -->
                 <form action="{{ route('home') }}" method="GET" class="w-full max-w-4xl bg-surface-container-lowest rounded-xl shadow-lg p-2 flex flex-col md:flex-row gap-2 items-center">
+                    @if(request()->filled('sort'))
+                        <input type="hidden" name="sort" value="{{ request('sort') }}" />
+                    @endif
                     <div class="flex-1 w-full flex items-center bg-surface-container-low rounded-lg px-4 py-3 search-input transition-colors group">
                         <span class="material-symbols-outlined text-outline group-focus-within:text-secondary mr-3" style="font-variation-settings: 'FILL' 0;">search</span>
                         <input class="w-full bg-transparent border-none focus:ring-0 text-on-surface text-body-md font-body-md placeholder-outline p-0" placeholder="Posisi, kata kunci, atau perusahaan" type="text" name="q" value="{{ request('q') }}" />
@@ -243,11 +246,11 @@
 
                     <div class="w-full md:w-64 flex items-center bg-surface-container-low rounded-lg px-4 py-3 search-input transition-colors group">
                         <span class="material-symbols-outlined text-outline group-focus-within:text-secondary mr-3" style="font-variation-settings: 'FILL' 0;">location_on</span>
-                        <select class="w-full bg-transparent border-none focus:ring-0 text-on-surface text-body-md font-body-md p-0 cursor-pointer appearance-none" aria-label="Lokasi">
+                        <select name="lokasi" class="w-full bg-transparent border-none focus:ring-0 text-on-surface text-body-md font-body-md p-0 cursor-pointer appearance-none" aria-label="Lokasi">
                             <option value="">Semua Lokasi</option>
-                            <option value="jakarta">Jakarta</option>
-                            <option value="bandung">Bandung</option>
-                            <option value="surabaya">Surabaya</option>
+                            @foreach($lokasiOptions as $locOption)
+                                <option value="{{ $locOption }}" {{ request('lokasi') == $locOption ? 'selected' : '' }}>{{ $locOption }}</option>
+                            @endforeach
                         </select>
                         <span class="material-symbols-outlined text-outline ml-2 pointer-events-none" style="font-variation-settings: 'FILL' 0;">expand_more</span>
                     </div>
@@ -276,10 +279,13 @@
                         <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 0;">filter_list</span>
                         Filter
                     </button>
-                    <button type="button" class="px-4 py-2 bg-surface-container-high text-on-surface rounded-lg text-label-md font-label-md hover:bg-surface-variant transition-colors flex items-center gap-2">
-                        <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 0;">sort</span>
+                    <a href="{{ request()->fullUrlWithQuery(['sort' => request('sort') === 'terlama' ? 'terbaru' : 'terlama']) }}" 
+                       class="px-4 py-2 {{ request('sort', 'terbaru') === 'terbaru' ? 'bg-secondary text-white' : 'bg-surface-container-high text-on-surface hover:bg-surface-variant' }} rounded-lg text-label-md font-label-md transition-colors flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 0;">
+                            {{ request('sort', 'terbaru') === 'terbaru' ? 'arrow_downward' : 'arrow_upward' }}
+                        </span>
                         Terbaru
-                    </button>
+                    </a>
                 </div>
             </div>
 
@@ -341,10 +347,7 @@
             </div>
 
             <div class="mt-12 flex justify-center">
-                <a href="{{ route('home') }}" class="px-6 py-3 border-2 border-primary text-primary rounded-lg text-label-md font-label-md hover:bg-primary-fixed hover:text-on-primary-fixed transition-colors flex items-center gap-2">
-                    Lihat Lebih Banyak Lowongan
-                    <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
-                </a>
+                {{ $lowongans->withQueryString()->links() }}
             </div>
         </section>
     </main>

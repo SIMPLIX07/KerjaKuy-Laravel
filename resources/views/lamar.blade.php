@@ -143,9 +143,15 @@
             </div>
 
             <div class="w-full md:w-auto mt-2 md:mt-0 flex justify-start md:justify-end">
+                @if ($sudahMelamar)
+                <button type="button" disabled class="w-full md:w-auto bg-gray-400 text-white font-semibold text-[14px] px-6 py-3 rounded-lg whitespace-nowrap shadow-sm cursor-not-allowed opacity-60">
+                    Sudah Dilamar
+                </button>
+                @else
                 <button type="button" class="button action-button w-full md:w-auto bg-[#319795] hover:bg-[#287e7c] text-on-primary font-semibold text-[14px] px-6 py-3 rounded-lg whitespace-nowrap shadow-sm">
                     Lamar Sekarang
                 </button>
+                @endif
             </div>
         </div>
     </header>
@@ -240,10 +246,17 @@
                         Batas akhir pendaftaran: <span class="font-semibold text-on-surface">{{ optional($lowongan->tanggal_berakhir)->format('d F Y') }}</span>
                     </p>
 
+                    @if ($sudahMelamar)
+                    <button type="button" disabled class="w-full bg-gray-400 text-white font-semibold text-[14px] px-6 py-3 rounded-lg mb-3 flex items-center justify-center gap-2 cursor-not-allowed opacity-60">
+                        <span class="material-symbols-outlined text-[20px]">task_alt</span>
+                        Sudah Dilamar
+                    </button>
+                    @else
                     <button type="button" class="button action-button w-full bg-[#319795] hover:bg-[#287e7c] text-on-primary font-semibold text-[14px] px-6 py-3 rounded-lg mb-3 flex items-center justify-center gap-2">
                         <span class="material-symbols-outlined text-[20px]">send</span>
                         Lamar Sekarang
                     </button>
+                    @endif
 
                     <button type="button" class="w-full border-2 border-outline-variant hover:border-secondary hover:text-secondary text-on-surface-variant font-semibold text-[14px] px-6 py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
                         <span class="material-symbols-outlined text-[20px]">bookmark</span>
@@ -289,23 +302,31 @@
     </footer>
 
     <div id="modalCv" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60]">
-        <div class="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <div class="w-full max-w-2xl bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col">
             <div class="px-6 py-5 border-b border-outline-variant flex items-center justify-between">
-                <h3 class="text-[24px] leading-8 font-headline font-bold text-on-surface">Pilih CV</h3>
+                <h3 class="text-[24px] leading-8 font-headline font-bold text-on-surface">Pilih CV &amp; Portofolio</h3>
                 <button id="btnTutup" type="button" class="p-2 rounded-full hover:bg-surface-container-low text-on-surface-variant" aria-label="Tutup modal">
                     <span class="material-symbols-outlined">close</span>
                 </button>
             </div>
 
-            <div class="p-6">
-                <div id="cvList" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+            <div class="p-6 space-y-6 max-h-[60vh] overflow-y-auto">
+                <div>
+                    <h4 class="text-[16px] font-bold text-on-surface mb-3">Pilih CV <span class="text-error">*</span></h4>
+                    <div id="cvList" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+                </div>
+
+                <div>
+                    <h4 class="text-[16px] font-bold text-on-surface mb-3">Pilih Portofolio (Opsional)</h4>
+                    <div id="portofolioList" class="grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
+                </div>
             </div>
 
             <div class="px-6 py-5 border-t border-outline-variant flex flex-col sm:flex-row gap-3 justify-end">
                 <button id="btnKirimLamaran" type="button" disabled class="action-button px-6 py-3 rounded-lg bg-primary text-on-primary font-semibold disabled:opacity-50 disabled:cursor-not-allowed">
                     Kirim Lamaran
                 </button>
-                <button id="btnTutup" type="button" class="px-6 py-3 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-low">
+                <button id="btnBatal" type="button" class="px-6 py-3 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-low">
                     Batal
                 </button>
             </div>

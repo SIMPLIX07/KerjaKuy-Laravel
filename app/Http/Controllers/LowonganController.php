@@ -39,7 +39,16 @@ class LowonganController extends Controller
     {
         $lowongan = Lowongan::with('perusahaan')->findOrFail($id);
 
-        return view('lamar', compact('lowongan'));
+        $pelamarId = session('pelamar_id');
+        $sudahMelamar = false;
+
+        if ($pelamarId) {
+            $sudahMelamar = \App\Models\Lamaran::where('pelamar_id', $pelamarId)
+                ->where('lowongan_id', $id)
+                ->exists();
+        }
+
+        return view('lamar', compact('lowongan', 'sudahMelamar'));
     }
 
     public function create()
@@ -206,21 +215,58 @@ class LowonganController extends Controller
 
     public function listPelamar(Request $request)
     {
-        $query = Lowongan::with('perusahaan')
-            ->orderBy('created_at', 'desc');
+        $query = Lowongan::with('perusahaan');
 
+        // Filter: Kata Kunci (Posisi, kategori, atau nama perusahaan)
         if ($request->filled('q')) {
             $search = $request->q;
-
             $query->where(function ($q) use ($search) {
                 $q->where('posisi_pekerjaan', 'like', "%{$search}%")
-                ->orWhere('kategori_pekerjaan', 'like', "%{$search}%");
-                
+                  ->orWhere('kategori_pekerjaan', 'like', "%{$search}%")
+                  ->orWhereHas('perusahaan', function ($qp) use ($search) {
+                      $qp->where('nama_perusahaan', 'like', "%{$search}%");
+                  });
             });
         }
 
-        $lowongans = $query->get();
+        // Filter: Lokasi
+        if ($request->filled('lokasi')) {
+            $lokasi = $request->lokasi;
+            $query->where(function ($q) use ($lokasi) {
+                $q->where('kabupaten', 'like', "%{$lokasi}%")
+                  ->orWhere('provinsi', 'like', "%{$lokasi}%")
+                  ->orWhere('alamat_lengkap', 'like', "%{$lokasi}%");
+            });
+        }
 
-        return view('home', compact('lowongans'));
+        // Sorting: Terbaru / Terlama
+        $sort = $request->query('sort', 'terbaru');
+        if ($sort === 'terlama') {
+            $query->orderBy('created_at', 'asc');
+        } else {
+            $query->orderBy('created_at', 'desc');
+        }
+
+        // Paginate: 12 items (3 rows on a 4-column desktop layout)
+        $lowongans = $query->paginate(12);
+
+        // Ambil opsi lokasi unik dari database + default kota populer
+        $defaultLokasi = ['Jakarta', 'Bandung', 'Surabaya', 'Medan', 'Semarang', 'Yogyakarta'];
+        $dbLokasi = Lowongan::whereNotNull('kabupaten')
+            ->where('kabupaten', '!=', '')
+            ->select('kabupaten')
+            ->distinct()
+            ->pluck('kabupaten')
+            ->toArray();
+
+        // Standardize formatting
+        $dbLokasi = array_map(function($val) {
+            return ucwords(strtolower(trim($val)));
+        }, $dbLokasi);
+
+        $lokasiOptions = array_unique(array_merge($defaultLokasi, $dbLokasi));
+        sort($lokasiOptions);
+
+        return view('home', compact('lowongans', 'lokasiOptions'));
     }
 }

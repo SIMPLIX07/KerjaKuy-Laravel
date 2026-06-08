@@ -149,20 +149,45 @@ body {
 }
 
 .cv-card {
-    border: 2px solid #eee;
+    border: 2px solid #e2e8f0;
+    background-color: #f3f4f6; /* Panel abu-abu di belakang */
     padding: 15px;
     border-radius: 10px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: all 0.2s ease;
 }
 
 .cv-card:hover {
-    border-color: #1FACA2;
+    border-color: #006a68;
+    background-color: #e5e7eb;
 }
 
 .cv-card.active {
-    border-color: #1FACA2;
-    background-color: #f0fdfa;
+    border-color: #006a68;
+    background-color: #006a68; /* Hijau tema web */
+    color: white;
+}
+
+.cv-title {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #181c1e;
+    transition: color 0.2s ease;
+}
+
+.cv-subtitle {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-top: 4px;
+    transition: color 0.2s ease;
+}
+
+.cv-card.active .cv-title {
+    color: #ffffff;
+}
+
+.cv-card.active .cv-subtitle {
+    color: rgba(255, 255, 255, 0.85);
 }
 
 .modal-action {

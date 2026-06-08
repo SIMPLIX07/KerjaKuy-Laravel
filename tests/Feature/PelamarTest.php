@@ -16,7 +16,7 @@ class PelamarTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Test store/registration pelamar with skills successfully.
+     * Menguji pendaftaran/registrasi pelamar baru beserta keahliannya berhasil.
      */
     public function test_register_pelamar_success()
     {
@@ -24,6 +24,7 @@ class PelamarTest extends TestCase
             'nama_lengkap' => 'Pelamar Baru',
             'username'     => 'pelamarbaru',
             'email'        => 'pelamar@baru.com',
+            'no_telp'      => '0812345678',
             'password'     => 'password123',
             'conf'         => 'password123',
             'keahlian'     => 'Laravel, PHP, VueJS'
@@ -38,6 +39,7 @@ class PelamarTest extends TestCase
             'nama_lengkap' => 'Pelamar Baru',
             'username'     => 'pelamarbaru',
             'email'        => 'pelamar@baru.com',
+            'no_telp'      => '0812345678',
         ]);
 
         $pelamar = Pelamar::where('username', 'pelamarbaru')->first();
@@ -59,7 +61,7 @@ class PelamarTest extends TestCase
     }
 
     /**
-     * Test registration validation failure.
+     * Menguji kegagalan validasi pendaftaran pelamar.
      */
     public function test_register_pelamar_validation_fails()
     {
@@ -76,7 +78,7 @@ class PelamarTest extends TestCase
     }
 
     /**
-     * Test login pelamar with valid credentials.
+     * Menguji login pelamar dengan kredensial yang valid berhasil.
      */
     public function test_login_pelamar_success()
     {
@@ -100,7 +102,7 @@ class PelamarTest extends TestCase
     }
 
     /**
-     * Test login pelamar fails when credentials are invalid on node server.
+     * Menguji login pelamar gagal jika kredensial tidak valid pada server Node.js.
      */
     public function test_login_pelamar_fails_when_wrong_credentials()
     {
@@ -120,7 +122,7 @@ class PelamarTest extends TestCase
     }
 
     /**
-     * Test login pelamar fails when Node.js server is down.
+     * Menguji login pelamar gagal jika server Node.js sedang offline.
      */
     public function test_login_pelamar_fails_when_server_offline()
     {
@@ -138,7 +140,7 @@ class PelamarTest extends TestCase
     }
 
     /**
-     * Test viewing setting page.
+     * Menguji tampilan halaman pengaturan akun pelamar berhasil dimuat.
      */
     public function test_view_settings_page_success()
     {
@@ -164,7 +166,7 @@ class PelamarTest extends TestCase
     }
 
     /**
-     * Test view settings redirect to login when guest.
+     * Menguji tampilan halaman pengaturan akun dialihkan ke halaman login jika diakses sebagai tamu (guest).
      */
     public function test_view_settings_page_redirect_when_guest()
     {
@@ -174,7 +176,7 @@ class PelamarTest extends TestCase
     }
 
     /**
-     * Test update profile with files and skills.
+     * Menguji pembaruan profil pelamar beserta unggahan foto profil dan pembaruan keahlian berhasil.
      */
     public function test_update_profile_success()
     {
@@ -233,7 +235,7 @@ class PelamarTest extends TestCase
     }
 
     /**
-     * Test update password success.
+     * Menguji pembaruan password pelamar berhasil.
      */
     public function test_update_password_success()
     {
@@ -259,7 +261,7 @@ class PelamarTest extends TestCase
     }
 
     /**
-     * Test update password fails with wrong old password.
+     * Menguji kegagalan pembaruan password jika password lama salah.
      */
     public function test_update_password_fails_with_wrong_old_password()
     {
@@ -285,7 +287,7 @@ class PelamarTest extends TestCase
     }
 
     /**
-     * Test logout pelamar.
+     * Menguji logout pelamar berhasil menghapus data session.
      */
     public function test_logout_pelamar()
     {
@@ -300,7 +302,7 @@ class PelamarTest extends TestCase
     }
 
     /**
-     * Test delete account (destroy).
+     * Menguji penghapusan akun pelamar berhasil beserta penghapusan keahlian dan file foto profil dari storage.
      */
     public function test_delete_account_success()
     {

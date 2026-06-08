@@ -11,6 +11,7 @@ class Lamaran extends Model
         'lowongan_id',
         'status',
         'cv_id',
+        'portofolio_id',
     ];
 
     public function pelamar()
@@ -26,5 +27,10 @@ class Lamaran extends Model
     public function cv()
     {
         return $this->belongsTo(Cv::class, 'cv_id');
+    }
+
+    public function portofolio()
+    {
+        return $this->belongsTo(Portofolio::class, 'portofolio_id');
     }
 }

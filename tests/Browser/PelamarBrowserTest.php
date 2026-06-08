@@ -24,6 +24,7 @@ class PelamarBrowserTest extends DuskTestCase
                 ->type('nama_lengkap', 'Dusk Seeker')
                 ->type('username', $username)
                 ->type('email', $email)
+                ->type('no_telp', '0812345678')
                 ->type('password', 'password123')
                 ->type('conf', 'password123')
                 ->type('keahlian', 'PHP, Dusk, testing')
@@ -63,6 +64,7 @@ class PelamarBrowserTest extends DuskTestCase
                 ->type('nama_lengkap', 'Dusk CV Seeker')
                 ->type('username', $username)
                 ->type('email', $email)
+                ->type('no_telp', '0812345678')
                 ->type('password', 'password123')
                 ->type('conf', 'password123')
                 ->type('keahlian', 'Laravel, Dusk')
@@ -88,7 +90,7 @@ class PelamarBrowserTest extends DuskTestCase
                 ->waitForLocation('/cv')
                 ->assertSee('Software Engineer')
                 
-                // 4. Akses halaman Portofolio (No 8)
+                // 4. Akses halaman Portofolio
                 ->visit('/portofolio')
                 ->waitForText('Daftar Portofolio')
                 ->clickLink('+ Tambah Portofolio')

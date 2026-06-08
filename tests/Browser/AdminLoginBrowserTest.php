@@ -10,9 +10,7 @@ use App\Models\Perusahaan;
 
 class AdminLoginBrowserTest extends DuskTestCase
 {
-    /**
-     * Test admin login flow visually in browser.
-     */
+ 
     public function test_admin_can_login_and_view_dashboard(): void
     {
         $adminEmail = config('admin.admin.email') ?? 'admin@kerjakuy.com';
@@ -32,7 +30,7 @@ class AdminLoginBrowserTest extends DuskTestCase
     }
 
     /**
-     * Test admin can search/filter and verify (approve) a pending company.
+     * Test admin filter dan verify perusahaan
      */
     public function test_admin_can_filter_and_verify_perusahaan(): void
     {
@@ -65,13 +63,13 @@ class AdminLoginBrowserTest extends DuskTestCase
                 ->clickLink('Daftar Perusahaan')
                 ->waitForLocation('/admin/daftar-perusahaan')
                 
-                // 3. Filter / Pencarian Perusahaan (No 4)
+                // 3. Filter / Pencarian Perusahaan
                 ->type('search', $companyName)
                 ->press('Cari')
                 ->waitForText($companyName)
                 ->assertSee($companyName)
                 
-                // 4. Lihat Detail & Verifikasi Perusahaan (No 3)
+                // 4. Lihat Detail & Verifikasi Perusahaan 
                 ->clickLink('Lihat Detail')
                 ->waitForLocation('/admin/detail-perusahaan/' . $perusahaan->id)
                 ->assertSee($companyName)

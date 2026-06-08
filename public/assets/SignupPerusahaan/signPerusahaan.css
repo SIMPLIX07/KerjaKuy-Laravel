@@ -12,7 +12,8 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 40px 0;
     background: linear-gradient(90deg, #00193f, #16b3a3);
 }
 
@@ -25,6 +26,7 @@ body {
     border-radius: 40px;
     background-color: #434343;
     padding: 40px;
+    margin: 20px 0;
 }
 
 .container .username label {
@@ -79,7 +81,11 @@ body {
 }
 
 .container .telepon, 
-.container .npwp {
+.container .npwp,
+.container .alamat,
+.container .sektor_industri,
+.container .deskripsi,
+.container .website {
     font-size: 12px;
     font-weight: bold;
     display: flex;
@@ -88,10 +94,32 @@ body {
 }
 
 .container .telepon input,
-.container .npwp input {
+.container .npwp input,
+.container .website input {
     border-radius: 7px;
     width: 350px;
     height: 40px;
+}
+
+.container textarea.form_input {
+    border-radius: 7px;
+    width: 350px;
+    height: 80px;
+    padding: 10px 20px;
+    resize: vertical;
+    border: none;
+    outline: none;
+}
+
+.container select.form_input {
+    border-radius: 7px;
+    width: 350px;
+    height: 40px;
+    padding: 0 20px;
+    border: none;
+    background-color: white;
+    color: black;
+    outline: none;
 }
 
 .container .uploadSertif {
@@ -145,6 +173,12 @@ body {
     height: 35px;
     border: none;
     border-radius: 7px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.container button:hover {
+    background-color: #1a948b;
 }
 
 .form_input {
@@ -155,6 +189,7 @@ body {
 .upload-btn {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     background-color: #4f46e5;
     color: white;
@@ -163,7 +198,9 @@ body {
     border-radius: 10px;
     cursor: pointer;
     font-size: 16px;
+    width: 350px;
     transition: background 0.3s;
+    margin-bottom: 10px;
 }
 
 .upload-btn:hover {

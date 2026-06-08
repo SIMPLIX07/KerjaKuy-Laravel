@@ -220,56 +220,64 @@
             $company = $wawancara->lowongan->perusahaan->nama_perusahaan ?? 'Perusahaan';
             @endphp
 
-            <article class="card-wawancara card-soft bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group" data-status="{{ $uiStatus }}">
+            <article class="card-wawancara card-soft bg-surface-container-lowest rounded-xl p-6 border border-outline-variant shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group flex flex-col justify-between" data-status="{{ $uiStatus }}">
                 <div class="absolute top-0 left-0 w-1 h-full {{ $uiStatus === 'proses' ? 'bg-secondary-fixed' : 'bg-surface-variant' }} opacity-0 group-hover:opacity-100 transition-opacity"></div>
 
-                <div class="flex items-start justify-between mb-4">
-                    <div class="flex gap-4">
-                        <div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center overflow-hidden border border-outline-variant">
-                            @if (!empty($wawancara->lowongan->perusahaan?->foto_profil))
-                            <img alt="Logo {{ $company }}" class="w-full h-full object-cover" src="{{ asset('storage/' . $wawancara->lowongan->perusahaan->foto_profil) }}">
+                <div class="flex flex-col justify-between h-full w-full">
+                    <div>
+                        <div class="flex items-start justify-between mb-4">
+                            <div class="flex gap-4">
+                                <div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center overflow-hidden border border-outline-variant flex-shrink-0">
+                                    @if (!empty($wawancara->lowongan->perusahaan?->foto_profil))
+                                    <img alt="Logo {{ $company }}" class="w-full h-full object-cover" src="{{ asset('storage/' . $wawancara->lowongan->perusahaan->foto_profil) }}">
+                                    @else
+                                    <span class="material-symbols-outlined text-primary-container text-headline-md">business_center</span>
+                                    @endif
+                                </div>
+                                <div>
+                                    <h3 class="posisi-pekerjaan text-headline-md font-headline-md text-on-surface mb-0.5">{{ $wawancara->lowongan->posisi_pekerjaan }}</h3>
+                                    <p class="nama-perusahaan text-body-sm font-medium text-on-surface-variant">{{ $company }}</p>
+                                </div>
+                            </div>
+
+                            <span class="px-3 py-1 {{ $uiStatus === 'proses' ? 'bg-secondary-container text-on-secondary-container' : 'bg-surface-container-high text-on-surface-variant' }} text-label-sm rounded-full font-bold flex-shrink-0">
+                                {{ $statusLabel }}
+                            </span>
+                        </div>
+
+                        <div class="space-y-4">
+                            <p class="pesan-teks text-body-md text-on-surface-variant leading-relaxed">
+                                {{ $wawancara->pesan ?? 'Kami tertarik dengan CV kamu, ditunggu di wawancara nanti ya' }}
+                            </p>
+
+                            <div class="space-y-xs mt-sm text-body-sm text-on-surface">
+                                <p class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px] text-outline">calendar_month</span>
+                                    {{ \Carbon\Carbon::parse($wawancara->tanggal)->format('d-m-Y') }}
+                                </p>
+                                <p class="flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px] text-outline">schedule</span>
+                                    {{ $wawancara->jam_mulai }} - {{ $wawancara->jam_selesai }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-4 border-t border-outline-variant/30 space-y-4">
+                        <div class="flex items-center text-body-sm h-6">
+                            @if ($uiStatus === 'proses')
+                            <span class="material-symbols-outlined text-[18px] text-secondary mr-2 flex-shrink-0">videocam</span>
+                            <a href="{{ $wawancara->link_meet }}" target="_blank" class="font-semibold text-secondary hover:underline truncate max-w-full" title="Klik untuk bergabung">
+                                {{ $wawancara->link_meet }}
+                            </a>
                             @else
-                            <span class="material-symbols-outlined text-primary-container text-headline-md">business_center</span>
+                            <span class="material-symbols-outlined text-[18px] text-outline mr-2 flex-shrink-0">check_circle</span>
+                            <span class="text-on-surface-variant italic">Wawancara telah selesai</span>
                             @endif
                         </div>
-                        <div>
-                            <h3 class="posisi-pekerjaan text-headline-md font-headline-md text-on-surface mb-0.5">{{ $wawancara->lowongan->posisi_pekerjaan }}</h3>
-                            <p class="nama-perusahaan text-body-sm font-medium text-on-surface-variant">{{ $company }}</p>
-                        </div>
-                    </div>
-
-                    <span class="px-3 py-1 {{ $uiStatus === 'proses' ? 'bg-secondary-container text-on-secondary-container' : 'bg-surface-container-high text-on-surface-variant' }} text-label-sm rounded-full font-bold">
-                        {{ $statusLabel }}
-                    </span>
-                </div>
-
-                <div class="space-y-4">
-                    <p class="pesan-teks text-body-md text-on-surface-variant leading-relaxed">
-                        {{ $wawancara->pesan ?? 'Kami tertarik dengan CV kamu, ditunggu di wawancara nanti ya' }}
-                    </p>
-
-                    <div class="space-y-xs mt-sm text-body-sm text-on-surface">
-                        <p class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-[18px] text-outline">calendar_month</span>
-                            {{ \Carbon\Carbon::parse($wawancara->tanggal)->format('d-m-Y') }}
-                        </p>
-                        <p class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-[18px] text-outline">schedule</span>
-                            {{ $wawancara->jam_mulai }} - {{ $wawancara->jam_selesai }}
-                        </p>
-                    </div>
-
-                    <div class="flex justify-between items-center pt-2 gap-3 flex-wrap">
-                        @if ($uiStatus === 'proses')
-                        <a href="{{ $wawancara->link_meet }}" target="_blank" class="text-label-sm font-label-sm text-secondary hover:underline">
-                            {{ $wawancara->link_meet }}
-                        </a>
-                        @else
-                        <span class="text-label-sm font-label-sm text-on-surface-variant italic">Wawancara telah selesai</span>
-                        @endif
 
                         <button type="button"
-                            class="detail-btn w-full md:w-auto py-2.5 px-4 border border-primary text-primary hover:bg-primary-container/10 rounded-lg text-label-md transition-colors"
+                            class="detail-btn w-full py-2.5 px-4 border border-secondary text-secondary hover:bg-secondary hover:text-white rounded-xl text-label-md font-bold transition-all active:scale-[0.98]"
                             data-id="{{ $wawancara->id }}"
                             data-posisi="{{ $wawancara->lowongan->posisi_pekerjaan }}"
                             data-perusahaan="{{ $company }}"

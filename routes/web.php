@@ -60,6 +60,7 @@ Route::get('/kelola', function () {
 Route::post('/register/pelamar', [PelamarController::class, 'store'])->name('register.pelamar');
 Route::post('/login/pelamar', [PelamarController::class, 'login'])->name('login.pelamar');
 Route::get('/pelamar/cv', [LamaranController::class, 'getCvPelamar']);
+Route::get('/pelamar/portofolio', [LamaranController::class, 'getPortofolioPelamar']);
 Route::post('/lamaran/insert', [LamaranController::class, 'insertLamaran']);
 
 // Setting Pelamar

@@ -47,10 +47,14 @@ class PerusahaanController extends Controller
             'nama_perusahaan' => 'required',
             'email'           => 'required|email|unique:perusahaans,email',
             'password'        => 'required|min:6',
-            'telepon'        => 'required|string|max:15',
+            'telepon'         => 'required|string|max:15',
             'npwp'            => 'required|string|max:20|unique:perusahaans,npwp',
             'sertifikat'      => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
-            'foto_profil' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'foto_profil'     => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'alamat'          => 'required|string|max:500',
+            'sektor_industri' => 'required|string|max:100',
+            'deskripsi'       => 'required|string|max:2000',
+            'website'         => 'nullable|string|max:255',
         ]);
 
         $sertifikatPath = null;
@@ -72,13 +76,17 @@ class PerusahaanController extends Controller
         }
 
         $perusahaan = Perusahaan::create([
-            'nama_perusahaan' => $request->nama_perusahaan,
-            'email'           => $request->email,
-            'password'        => Hash::make($request->password),
-            'telepon'         => $request->telepon,
-            'npwp'            => $request->npwp,
-            'sertifikat' => $sertifikatPath,
-            'foto_profil' => $fotoProfilPath,
+            'nama_perusahaan'   => $request->nama_perusahaan,
+            'email'             => $request->email,
+            'password'          => Hash::make($request->password),
+            'telepon'           => $request->telepon,
+            'npwp'              => $request->npwp,
+            'sertifikat'        => $sertifikatPath,
+            'foto_profil'       => $fotoProfilPath,
+            'alamat'            => $request->alamat,
+            'sektor_industri'   => $request->sektor_industri,
+            'deskripsi'         => $request->deskripsi,
+            'website'           => $request->website,
             'status_verifikasi' => 'pending', // Set status ke pending
         ]);
 
@@ -132,14 +140,35 @@ class PerusahaanController extends Controller
             'nama_perusahaan' => 'required|string|max:255',
             'email'           => 'required|email|max:255|unique:perusahaans,email,' . $perusahaanId,
             'telepon'         => 'required|string|max:15',
-            'lokasi'          => 'nullable|string|max:255',
+            'lokasi'          => 'nullable|string|max:500',
+            'sektor_industri' => 'required|string|max:100',
+            'deskripsi'       => 'required|string|max:2000',
+            'website'         => 'nullable|string|max:255',
+            'foto_profil'     => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
+
+        $fotoProfilPath = $perusahaan->foto_profil;
+
+        if ($request->hasFile('foto_profil')) {
+            if ($perusahaan->foto_profil && Storage::disk('public')->exists($perusahaan->foto_profil)) {
+                Storage::disk('public')->delete($perusahaan->foto_profil);
+            }
+
+            $fotoProfilPath = $request->file('foto_profil')->store(
+                'perusahaan/profil',
+                'public'
+            );
+        }
 
         $perusahaan->update([
             'nama_perusahaan' => $request->nama_perusahaan,
             'email'           => $request->email,
             'telepon'         => $request->telepon,
             'alamat'          => $request->lokasi,
+            'sektor_industri' => $request->sektor_industri,
+            'deskripsi'       => $request->deskripsi,
+            'website'         => $request->website,
+            'foto_profil'     => $fotoProfilPath,
         ]);
 
         session([
@@ -187,21 +216,31 @@ class PerusahaanController extends Controller
 
     public function updatePassword(Request $request)
     {
-        $request->validate([
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
             'password_lama' => 'required',
             'password_baru' => 'required|min:6|confirmed',
         ]);
 
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput()
+                ->with('openPasswordModal', true);
+        }
+
         $perusahaan = Perusahaan::find(session('perusahaan_id'));
 
         if (!Hash::check($request->password_lama, $perusahaan->password)) {
-            return back()->withErrors(['password_lama' => 'Password lama tidak sesuai']);
+            return back()
+                ->withErrors(['password_lama' => 'Password lama tidak sesuai'])
+                ->withInput()
+                ->with('openPasswordModal', true);
         }
 
         $perusahaan->password = Hash::make($request->password_baru);
         $perusahaan->save();
 
-        return back()->with('success', 'Password berhasil diperbarui!');
+        return back()->with('success_password', 'Password berhasil diperbarui!');
     }
     
 }

@@ -33,7 +33,7 @@ class LowonganTest extends TestCase
     }
 
     /**
-     * Test companies can view their job list and search.
+     * Menguji perusahaan dapat melihat daftar lowongan pekerjaan mereka dan mencari lowongan.
      */
     public function test_perusahaan_can_view_job_list_and_search()
     {
@@ -97,7 +97,7 @@ class LowonganTest extends TestCase
     }
 
     /**
-     * Test view tambah lowongan page.
+     * Menguji halaman tambah lowongan pekerjaan dapat dimuat.
      */
     public function test_view_tambah_lowongan_page()
     {
@@ -111,7 +111,7 @@ class LowonganTest extends TestCase
     }
 
     /**
-     * Test store lowongan success.
+     * Menguji penyimpanan lowongan baru berhasil beserta unggah gambar header lowongan.
      */
     public function test_store_lowongan_success()
     {
@@ -155,7 +155,7 @@ class LowonganTest extends TestCase
     }
 
     /**
-     * Test store lowongan validation failure.
+     * Menguji kegagalan validasi penyimpanan lowongan (misalnya tanggal akhir sebelum tanggal mulai).
      */
     public function test_store_lowongan_validation_fails()
     {
@@ -170,7 +170,7 @@ class LowonganTest extends TestCase
     }
 
     /**
-     * Test view detail lowongan.
+     * Menguji halaman detail lowongan pekerjaan dapat dimuat dengan baik untuk perusahaan maupun pelamar.
      */
     public function test_view_detail_lowongan_success()
     {
@@ -230,7 +230,7 @@ class LowonganTest extends TestCase
     }
 
     /**
-     * Test edit and update lowongan.
+     * Menguji halaman edit lowongan dapat dimuat dan pembaruan data lowongan beserta gambarnya berhasil.
      */
     public function test_edit_and_update_lowongan_success()
     {
@@ -257,13 +257,13 @@ class LowonganTest extends TestCase
             'gambar'              => $oldImageName,
         ]);
 
-        // Edit page
+        // Halaman edit
         $response = $this->withSession(['perusahaan_id' => $this->perusahaan->id])
             ->get('/lowongan/edit/' . $lowongan->id);
         $response->assertStatus(200);
         $response->assertViewIs('lowongan.editLowongan');
 
-        // Update
+        // Pembaruan
         $newFile = UploadedFile::fake()->create('new_header.png', 400, 'image/png');
 
         $response = $this->withSession(['perusahaan_id' => $this->perusahaan->id])
@@ -301,7 +301,7 @@ class LowonganTest extends TestCase
     }
 
     /**
-     * Test delete lowongan.
+     * Menguji penghapusan lowongan pekerjaan berhasil beserta penghapusan gambar terkait dari storage.
      */
     public function test_delete_lowongan_success()
     {
@@ -338,7 +338,7 @@ class LowonganTest extends TestCase
     }
 
     /**
-     * Test home search lowongan for job seeker.
+     * Menguji pelamar dapat melihat halaman utama lowongan dan mencari lowongan pekerjaan.
      */
     public function test_pelamar_can_view_job_seeker_home_and_search()
     {
@@ -370,4 +370,78 @@ class LowonganTest extends TestCase
         $response->assertStatus(200);
         $this->assertEquals(0, $response->viewData('lowongans')->count());
     }
+
+    /**
+     * Menguji filter lokasi, pengurutan, dan paginasi pada halaman pelamar.
+     */
+    public function test_pelamar_can_filter_location_sort_and_paginate()
+    {
+        // Buat 15 lowongan: 14 di Bandung, 1 di Jakarta
+        for ($i = 1; $i <= 14; $i++) {
+            $lowongan = new Lowongan([
+                'perusahaan_id'       => $this->perusahaan->id,
+                'kategori_pekerjaan'  => 'Teknologi',
+                'posisi_pekerjaan'    => 'Developer ' . $i,
+                'jenis_pekerjaan'     => 'Fulltime',
+                'gaji'                => '5000000',
+                'deskripsi_singkat'   => 'Job ' . $i,
+                'deskripsi_pekerjaan' => 'Desc ' . $i,
+                'syarat'              => 'Syarat ' . $i,
+                'provinsi'            => 'Jawa Barat',
+                'kabupaten'           => 'Bandung',
+                'kecamatan'           => 'Coblong',
+                'alamat_lengkap'      => 'Ganesha',
+                'tanggal_mulai'       => '2026-06-01',
+                'tanggal_berakhir'    => '2026-07-01',
+            ]);
+            $lowongan->created_at = now()->subDays(15 - $i);
+            $lowongan->save();
+        }
+
+        // Lowongan di Jakarta (Paling Baru)
+        $jakartaJob = new Lowongan([
+            'perusahaan_id'       => $this->perusahaan->id,
+            'kategori_pekerjaan'  => 'Pemasaran',
+            'posisi_pekerjaan'    => 'Sales Manager',
+            'jenis_pekerjaan'     => 'Fulltime',
+            'gaji'                => '8000000',
+            'deskripsi_singkat'   => 'Sales',
+            'deskripsi_pekerjaan' => 'Selling',
+            'syarat'              => 'Syarat sales',
+            'provinsi'            => 'DKI Jakarta',
+            'kabupaten'           => 'Jakarta Pusat',
+            'kecamatan'           => 'Gambir',
+            'alamat_lengkap'      => 'Monas',
+            'tanggal_mulai'       => '2026-06-01',
+            'tanggal_berakhir'    => '2026-07-01',
+        ]);
+        $jakartaJob->created_at = now();
+        $jakartaJob->save();
+
+        // 1. Uji Filter Lokasi (Jakarta Pusat)
+        $response = $this->get('/home-pelamar?lokasi=Jakarta');
+        $response->assertStatus(200);
+        $this->assertEquals(1, $response->viewData('lowongans')->total());
+        $this->assertEquals('Sales Manager', $response->viewData('lowongans')->first()->posisi_pekerjaan);
+
+        // 2. Uji Pagination (12 item per halaman)
+        $response = $this->get('/home-pelamar');
+        $response->assertStatus(200);
+        $response->assertViewHas('lokasiOptions');
+        // Total data lowongan ada 15 (14 Bandung + 1 Jakarta)
+        $this->assertEquals(15, $response->viewData('lowongans')->total());
+        // Satu halaman hanya menampilkan 12 data
+        $this->assertEquals(12, $response->viewData('lowongans')->count());
+
+        // 3. Uji Sorting Terbaru (default/terbaru)
+        // Item pertama halaman 1 (terbaru) harusnya lowongan Jakarta (Sales Manager)
+        $this->assertEquals('Sales Manager', $response->viewData('lowongans')->first()->posisi_pekerjaan);
+
+        // 4. Uji Sorting Terlama
+        $response = $this->get('/home-pelamar?sort=terlama');
+        $response->assertStatus(200);
+        // Item pertama halaman 1 (terlama) harusnya Developer 1
+        $this->assertEquals('Developer 1', $response->viewData('lowongans')->first()->posisi_pekerjaan);
+    }
 }
+

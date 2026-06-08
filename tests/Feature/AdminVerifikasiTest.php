@@ -11,7 +11,7 @@ class AdminVerifikasiTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Test admin login page can be rendered.
+     * Menguji halaman login admin dapat dimuat.
      */
     public function test_admin_login_page_can_be_rendered()
     {
@@ -22,7 +22,7 @@ class AdminVerifikasiTest extends TestCase
     }
 
     /**
-     * Test admin can login with valid credentials from config.
+     * Menguji admin dapat login dengan kredensial yang valid dari config.
      */
     public function test_admin_can_login_with_valid_credentials()
     {
@@ -40,7 +40,7 @@ class AdminVerifikasiTest extends TestCase
     }
 
     /**
-     * Test admin login fails with invalid credentials.
+     * Menguji login admin gagal jika kredensial tidak valid.
      */
     public function test_admin_cannot_login_with_invalid_credentials()
     {
@@ -55,7 +55,7 @@ class AdminVerifikasiTest extends TestCase
     }
 
     /**
-     * Test guest / unauthenticated user is redirected by AdminMiddleware.
+     * Menguji tamu / pengguna yang tidak terautentikasi dialihkan oleh AdminMiddleware.
      */
     public function test_unauthenticated_user_cannot_access_dashboard()
     {
@@ -66,7 +66,7 @@ class AdminVerifikasiTest extends TestCase
     }
 
     /**
-     * Test admin can access dashboard when authenticated.
+     * Menguji admin dapat mengakses dashboard ketika sudah terautentikasi.
      */
     public function test_admin_can_access_dashboard_when_authenticated()
     {
@@ -79,7 +79,7 @@ class AdminVerifikasiTest extends TestCase
     }
 
     /**
-     * Test admin can see pending companies on dashboard.
+     * Menguji admin dapat melihat daftar perusahaan berstatus pending di dashboard.
      */
     public function test_admin_can_see_pending_companies_on_dashboard()
     {
@@ -114,7 +114,7 @@ class AdminVerifikasiTest extends TestCase
     }
 
     /**
-     * Test admin can filter and search companies list.
+     * Menguji admin dapat memfilter dan mencari di daftar perusahaan.
      */
     public function test_admin_can_filter_and_search_companies()
     {
@@ -156,7 +156,7 @@ class AdminVerifikasiTest extends TestCase
     }
 
     /**
-     * Test view detail perusahaan page.
+     * Menguji tampilan halaman detail perusahaan.
      */
     public function test_admin_can_view_detail_perusahaan()
     {
@@ -179,7 +179,7 @@ class AdminVerifikasiTest extends TestCase
     }
 
     /**
-     * Test admin can approve a company.
+     * Menguji admin dapat menyetujui (approve) perusahaan.
      */
     public function test_admin_can_approve_company()
     {
@@ -209,7 +209,7 @@ class AdminVerifikasiTest extends TestCase
     }
 
     /**
-     * Test admin can reject a company with reasons.
+     * Menguji admin dapat menolak (reject) perusahaan beserta alasannya.
      */
     public function test_admin_can_reject_company_with_reason()
     {
@@ -240,7 +240,7 @@ class AdminVerifikasiTest extends TestCase
     }
 
     /**
-     * Test admin can view verification history.
+     * Menguji admin dapat melihat riwayat verifikasi.
      */
     public function test_admin_can_view_verification_history()
     {
@@ -264,7 +264,7 @@ class AdminVerifikasiTest extends TestCase
     }
 
     /**
-     * Test admin can logout.
+     * Menguji admin dapat melakukan logout.
      */
     public function test_admin_can_logout()
     {

@@ -77,15 +77,15 @@ class WawancaraTest extends TestCase
     }
 
     /**
-     * Test pelamar view interview list.
+     * Menguji pelamar dapat melihat daftar wawancara mereka.
      */
     public function test_pelamar_view_wawancara_list()
     {
-        // Redirect if guest
+        // Dialihkan jika diakses sebagai tamu (guest)
         $response = $this->get('/wawancara');
         $response->assertRedirect('/login/pelamar');
 
-        // Create interview
+        // Buat data wawancara
         Wawancara::create([
             'pelamar_id'    => $this->pelamar->id,
             'perusahaan_id' => $this->perusahaan->id,
@@ -110,11 +110,11 @@ class WawancaraTest extends TestCase
     }
 
     /**
-     * Test perusahaan view interview list.
+     * Menguji perusahaan dapat melihat daftar wawancara perusahaan.
      */
     public function test_perusahaan_view_wawancara_list()
     {
-        // Redirect if guest
+        // Dialihkan jika diakses sebagai tamu (guest)
         $response = $this->get('/perusahaan/wawancara');
         $response->assertRedirect('/login/perusahaan');
 
@@ -139,7 +139,7 @@ class WawancaraTest extends TestCase
     }
 
     /**
-     * Test accept candidate from interview: updates statuses & creates active employee.
+     * Menguji penerimaan kandidat dari wawancara: memperbarui status wawancara/lamaran dan membuat data karyawan aktif baru.
      */
     public function test_perusahaan_accept_wawancara_success()
     {
@@ -154,7 +154,7 @@ class WawancaraTest extends TestCase
             'link_meet'     => 'https://meet.google.com/abc-defg-hij',
         ]);
 
-        // Triggers KaryawanController@storeFromWawancara
+        // Memicu KaryawanController@storeFromWawancara
         $response = $this->withSession(['perusahaan_id' => $this->perusahaan->id])
             ->post('/perusahaan/wawancara/' . $wawancara->id . '/terima');
 
@@ -180,7 +180,7 @@ class WawancaraTest extends TestCase
     }
 
     /**
-     * Test reject candidate from interview: updates statuses.
+     * Menguji penolakan kandidat dari wawancara: memperbarui status wawancara/lamaran menjadi selesai/ditolak.
      */
     public function test_perusahaan_reject_wawancara_success()
     {
@@ -195,7 +195,7 @@ class WawancaraTest extends TestCase
             'link_meet'     => 'https://meet.google.com/abc-defg-hij',
         ]);
 
-        // Triggers WawancaraController@tolak
+        // Memicu WawancaraController@tolak
         $response = $this->withSession(['perusahaan_id' => $this->perusahaan->id])
             ->post('/perusahaan/wawancara/' . $wawancara->id . '/tolak');
 
@@ -216,7 +216,7 @@ class WawancaraTest extends TestCase
     }
 
     /**
-     * Test AJAX route retrieves employees by category.
+     * Menguji rute AJAX mendapatkan daftar karyawan berdasarkan kategori pekerjaan.
      */
     public function test_ajax_get_employees_by_category()
     {

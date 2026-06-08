@@ -26,7 +26,7 @@ class PortofolioTest extends TestCase
     }
 
     /**
-     * Test index page displays portfolio.
+     * Menguji halaman utama portofolio menampilkan daftar portofolio pengguna.
      */
     public function test_portofolio_index_page()
     {
@@ -55,7 +55,7 @@ class PortofolioTest extends TestCase
     }
 
     /**
-     * Test create portofolio page.
+     * Menguji halaman pembuatan portofolio baru dapat dimuat.
      */
     public function test_create_portofolio_page()
     {
@@ -71,7 +71,7 @@ class PortofolioTest extends TestCase
     }
 
     /**
-     * Test store portofolio successfully.
+     * Menguji penyimpanan portofolio baru berhasil.
      */
     public function test_store_portofolio_success()
     {
@@ -98,7 +98,7 @@ class PortofolioTest extends TestCase
     }
 
     /**
-     * Test store portofolio validation fails.
+     * Menguji kegagalan validasi penyimpanan portofolio (misalnya judul kosong dan tanggal selesai sebelum tanggal mulai).
      */
     public function test_store_portofolio_validation_fails()
     {
@@ -115,7 +115,7 @@ class PortofolioTest extends TestCase
     }
 
     /**
-     * Test delete portofolio.
+     * Menguji penghapusan portofolio berhasil.
      */
     public function test_delete_portofolio_success()
     {

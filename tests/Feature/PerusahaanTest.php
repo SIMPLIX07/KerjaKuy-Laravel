@@ -17,7 +17,7 @@ class PerusahaanTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * Test perusahaan registration success with files.
+     * Menguji pendaftaran perusahaan baru beserta unggahan file dokumen NPWP/sertifikat dan foto profil berhasil.
      */
     public function test_register_perusahaan_success()
     {
@@ -56,7 +56,7 @@ class PerusahaanTest extends TestCase
     }
 
     /**
-     * Test perusahaan registration validation failure.
+     * Menguji kegagalan validasi pendaftaran perusahaan.
      */
     public function test_register_perusahaan_validation_fails()
     {
@@ -67,7 +67,7 @@ class PerusahaanTest extends TestCase
     }
 
     /**
-     * Test login verified company.
+     * Menguji login berhasil untuk perusahaan yang sudah terverifikasi.
      */
     public function test_login_verified_perusahaan_success()
     {
@@ -92,7 +92,7 @@ class PerusahaanTest extends TestCase
     }
 
     /**
-     * Test login pending company fails.
+     * Menguji login gagal untuk perusahaan yang status verifikasinya masih pending.
      */
     public function test_login_pending_perusahaan_fails()
     {
@@ -118,7 +118,7 @@ class PerusahaanTest extends TestCase
     }
 
     /**
-     * Test login rejected company fails.
+     * Menguji login gagal untuk perusahaan yang status verifikasinya ditolak (rejected) beserta tampil alasannya.
      */
     public function test_login_rejected_perusahaan_fails()
     {
@@ -145,7 +145,7 @@ class PerusahaanTest extends TestCase
     }
 
     /**
-     * Test login with incorrect password.
+     * Menguji login perusahaan gagal jika menggunakan password yang salah.
      */
     public function test_login_wrong_password_fails()
     {
@@ -168,7 +168,7 @@ class PerusahaanTest extends TestCase
     }
 
     /**
-     * Test view pengaturan akun.
+     * Menguji tampilan halaman pengaturan akun perusahaan dapat dimuat.
      */
     public function test_view_pengaturan_akun_success()
     {
@@ -190,7 +190,7 @@ class PerusahaanTest extends TestCase
     }
 
     /**
-     * Test view pengaturan akun guest redirected.
+     * Menguji halaman pengaturan akun dialihkan ke login jika diakses oleh tamu (guest).
      */
     public function test_view_pengaturan_akun_guest_redirects()
     {
@@ -200,7 +200,7 @@ class PerusahaanTest extends TestCase
     }
 
     /**
-     * Test update pengaturan akun.
+     * Menguji pembaruan data pengaturan akun perusahaan berhasil.
      */
     public function test_update_pengaturan_akun_success()
     {
@@ -234,7 +234,7 @@ class PerusahaanTest extends TestCase
     }
 
     /**
-     * Test update foto profil.
+     * Menguji pembaruan foto profil perusahaan berhasil menghapus foto lama dan menyimpan foto baru.
      */
     public function test_update_foto_profil_success()
     {
@@ -270,7 +270,7 @@ class PerusahaanTest extends TestCase
     }
 
     /**
-     * Test update password perusahaan.
+     * Menguji pembaruan password perusahaan berhasil.
      */
     public function test_update_password_perusahaan_success()
     {
@@ -298,7 +298,7 @@ class PerusahaanTest extends TestCase
     }
 
     /**
-     * Test logout perusahaan.
+     * Menguji logout perusahaan berhasil menghapus data session.
      */
     public function test_logout_perusahaan_success()
     {
@@ -315,7 +315,7 @@ class PerusahaanTest extends TestCase
     }
 
     /**
-     * Test kategoriKaryawan dashboard.
+     * Menguji dashboard kategori karyawan aktif perusahaan dapat dimuat dengan jumlah kategori yang benar.
      */
     public function test_kategori_karyawan_success()
     {
