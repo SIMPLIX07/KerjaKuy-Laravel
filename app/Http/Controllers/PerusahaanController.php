@@ -33,9 +33,10 @@ class PerusahaanController extends Controller
         }
 
         session([
-            'perusahaan_id'   => $perusahaan->id,
-            'perusahaan_nama' => $perusahaan->nama_perusahaan,
-            'perusahaan_email' => $perusahaan->email
+            'perusahaan_id'    => $perusahaan->id,
+            'perusahaan_nama'  => $perusahaan->nama_perusahaan,
+            'perusahaan_email' => $perusahaan->email,
+            'perusahaan_foto'  => $perusahaan->foto_profil,
         ]);
 
         return redirect('/home-perusahaan');
@@ -173,7 +174,8 @@ class PerusahaanController extends Controller
 
         session([
             'perusahaan_nama'  => $perusahaan->nama_perusahaan,
-            'perusahaan_email' => $perusahaan->email
+            'perusahaan_email' => $perusahaan->email,
+            'perusahaan_foto'  => $fotoProfilPath,
         ]);
 
         return redirect()->route('perusahaan.settings')->with('success', 'Pengaturan akun berhasil diperbarui!');
@@ -181,7 +183,7 @@ class PerusahaanController extends Controller
 
     public function logout(Request $request)
     {
-        $request->session()->forget(['perusahaan_id', 'perusahaan_nama', 'perusahaan_email']);
+        $request->session()->forget(['perusahaan_id', 'perusahaan_nama', 'perusahaan_email', 'perusahaan_foto']);
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
@@ -207,6 +209,8 @@ class PerusahaanController extends Controller
             $perusahaan->update([
                 'foto_profil' => $path
             ]);
+
+            session(['perusahaan_foto' => $path]);
 
             return back()->with('success', 'Foto profil berhasil diperbarui!');
         }

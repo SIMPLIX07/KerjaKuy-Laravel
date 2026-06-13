@@ -21,7 +21,6 @@ class Lowongan extends Model
         'alamat_lengkap',
         'tanggal_mulai',
         'tanggal_berakhir',
-        'gambar',
         'pendidikan',
         'pengalaman',
         'keahlian_teknis',

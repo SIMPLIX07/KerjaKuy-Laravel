@@ -170,8 +170,12 @@
                 <button class="p-2 rounded-full hover:bg-surface-container-low dark:hover:bg-surface-container-low transition-colors text-primary dark:text-primary-fixed-dim">
                     <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
                 </button>
-                <a href="{{ route('perusahaan.settings') }}" class="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-surface-container-low dark:hover:bg-surface-container-low transition-colors text-primary dark:text-primary-fixed-dim text-label-md font-label-md">
-                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+                <a href="{{ route('perusahaan.settings') }}" class="flex items-center gap-2 px-2 py-1.5 rounded-full hover:bg-surface-container-low dark:hover:bg-surface-container-low transition-colors text-primary dark:text-primary-fixed-dim text-label-md font-label-md">
+                    @if(session('perusahaan_foto'))
+                        <img src="{{ asset('storage/' . session('perusahaan_foto')) }}" alt="Logo Perusahaan" class="w-8 h-8 rounded-full object-cover border border-outline-variant">
+                    @else
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+                    @endif
                     <span>{{ session('perusahaan_nama') }}</span>
                 </a>
             </div>

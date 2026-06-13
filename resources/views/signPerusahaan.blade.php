@@ -105,191 +105,201 @@
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f7fafc; color: #181c1e; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        .glass-effect { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        input:focus, textarea:focus, select:focus { outline: none; border-color: #006a68 !important; ring: 2px; ring-color: #006a68; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #319795;
+            border-color: #319795 !important;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid #E2E8F0;
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col">
-    <!-- TopNavBar (Suppressed for focused Transactional Page) -->
-    <header class="bg-primary shadow-md w-full sticky top-0 z-50">
-    </header>
-    
-    <main class="flex-grow flex flex-col md:flex-row min-h-screen">
-        <!-- Left Side: Visual & Marketing -->
-        <section class="w-full md:w-[45%] bg-gradient-to-br from-primary via-primary to-secondary relative overflow-hidden p-margin-desktop flex flex-col justify-center text-on-primary">
-            <!-- Decorative Elements -->
-            <div class="absolute top-0 right-0 w-96 h-96 bg-secondary/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
-            <div class="absolute bottom-0 left-0 w-64 h-64 bg-tertiary-container/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
-            
-            <div class="relative z-10 space-y-lg">
-                <div class="space-y-sm">
-                    <h1 class="font-headline-xl text-headline-xl text-white leading-tight">Rekrut Talenta Terbaik Sekarang</h1>
-                    <p class="font-body-lg text-body-lg text-primary-fixed max-w-md opacity-90">Bangun tim impian Anda dengan platform rekrutmen tercepat dan paling terintegrasi di Indonesia.</p>
-                </div>
+<body class="bg-background text-on-surface font-body-md selection:bg-secondary-container selection:text-on-secondary-container">
+    <main class="min-h-[calc(100vh-160px)] flex items-center justify-center py-xl px-margin-mobile md:px-margin-desktop">
+        <div class="w-full max-w-6xl grid grid-cols-1 md:grid-cols-12 rounded-[2rem] overflow-hidden shadow-2xl glass-card">
+            <!-- Left Side: Visual & Marketing (Illustrative Panel) -->
+            <div class="hidden md:flex md:col-span-5 bg-gradient-to-br from-[#00182a] via-[#112d42] to-[#006a68] p-xl flex-col justify-between text-on-primary relative overflow-hidden">
+                <!-- Decorative Elements -->
+                <div class="absolute top-0 right-0 w-96 h-96 bg-secondary/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-tertiary-container/30 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
                 
-                <div class="space-y-md">
-                    <div class="flex items-start gap-sm">
-                        <span class="material-symbols-outlined text-secondary-fixed p-xs bg-secondary/20 rounded-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
-                        <div>
-                            <h3 class="font-label-md text-label-md text-white font-bold">Akses 1jt+ Pelamar</h3>
-                            <p class="font-body-sm text-body-sm text-primary-fixed opacity-85">Temukan kandidat potensial dari berbagai latar belakang industri.</p>
+                <div class="relative z-10">
+                    <h1 class="font-headline-xl text-headline-xl text-white mb-md leading-tight">Rekrut Talenta Terbaik Sekarang</h1>
+                    <p class="font-body-lg text-body-lg text-primary-fixed max-w-md opacity-90 mb-xl">Bangun tim impian Anda dengan platform rekrutmen tercepat dan paling terintegrasi di Indonesia.</p>
+                    
+                    <div class="space-y-md">
+                        <div class="flex items-start gap-sm">
+                            <span class="material-symbols-outlined text-secondary-fixed p-xs bg-secondary/20 rounded-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            <div>
+                                <h3 class="font-label-md text-label-md text-white font-bold">Akses 1jt+ Pelamar</h3>
+                                <p class="font-body-sm text-body-sm text-primary-fixed opacity-85">Temukan kandidat potensial dari berbagai latar belakang industri.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex items-start gap-sm">
-                        <span class="material-symbols-outlined text-secondary-fixed p-xs bg-secondary/20 rounded-lg" style="font-variation-settings: 'FILL' 1;">sync_alt</span>
-                        <div>
-                            <h3 class="font-label-md text-label-md text-white font-bold">Sistem ATS Terintegrasi</h3>
-                            <p class="font-body-sm text-body-sm text-primary-fixed opacity-85">Kelola seluruh proses lamaran dalam satu dashboard efisien.</p>
+                        <div class="flex items-start gap-sm">
+                            <span class="material-symbols-outlined text-secondary-fixed p-xs bg-secondary/20 rounded-lg" style="font-variation-settings: 'FILL' 1;">sync_alt</span>
+                            <div>
+                                <h3 class="font-label-md text-label-md text-white font-bold">Sistem ATS Terintegrasi</h3>
+                                <p class="font-body-sm text-body-sm text-primary-fixed opacity-85">Kelola seluruh proses lamaran dalam satu dashboard efisien.</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="flex items-start gap-sm">
-                        <span class="material-symbols-outlined text-secondary-fixed p-xs bg-secondary/20 rounded-lg" style="font-variation-settings: 'FILL' 1;">analytics</span>
-                        <div>
-                            <h3 class="font-label-md text-label-md text-white font-bold">Analitik Real-time</h3>
-                            <p class="font-body-sm text-body-sm text-primary-fixed opacity-85">Dapatkan wawasan mendalam tentang performa lowongan kerja Anda.</p>
+                        <div class="flex items-start gap-sm">
+                            <span class="material-symbols-outlined text-secondary-fixed p-xs bg-secondary/20 rounded-lg" style="font-variation-settings: 'FILL' 1;">analytics</span>
+                            <div>
+                                <h3 class="font-label-md text-label-md text-white font-bold">Analitik Real-time</h3>
+                                <p class="font-body-sm text-body-sm text-primary-fixed opacity-85">Dapatkan wawasan mendalam tentang performa lowongan kerja Anda.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="rounded-xl overflow-hidden shadow-2xl mt-xl aspect-video relative group">
-                    <img alt="Modern Office Collaboration" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5vq7CoRxbtjeDTdyQvztHhgWhB1cfSJmSwP16aD9QG0RtZFZq6XUfsPPlvVFBH89Unsf_yWmsBUNbF0PgqV_Rd4eKd3ZaifAFeZT0GIeDHgCtoFY1t9I5gobqypA6PjGiGEMd46iJ9HNPpQK9fmJO6GnrzT0wEg-H3WY6g0Qb8oGrmAYnJ1qiV6-JT6miNV0o9oZbRIqGt4mUgwVzbfTxznTWBDEg7THbAKmpBWIhysyrnAInCDKJTi4YbNGMQfOdlEr1DSS3uG4">
-                    <div class="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent"></div>
+                <div class="relative z-10 mt-xl">
+                    <img alt="Modern Office Collaboration" class="rounded-xl shadow-lg border-2 border-white/20 object-cover aspect-video w-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5vq7CoRxbtjeDTdyQvztHhgWhB1cfSJmSwP16aD9QG0RtZFZq6XUfsPPlvVFBH89Unsf_yWmsBUNbF0PgqV_Rd4eKd3ZaifAFeZT0GIeDHgCtoFY1t9I5gobqypA6PjGiGEMd46iJ9HNPpQK9fmJO6GnrzT0wEg-H3WY6g0Qb8oGrmAYnJ1qiV6-JT6miNV0o9oZbRIqGt4mUgwVzbfTxznTWBDEg7THbAKmpBWIhysyrnAInCDKJTi4YbNGMQfOdlEr1DSS3uG4">
                 </div>
             </div>
-        </section>
-        
-        <!-- Right Side: Sign Up Form -->
-        <section class="w-full md:w-[55%] bg-surface flex items-center justify-center p-margin-mobile md:p-margin-desktop">
-            <div class="w-full max-w-2xl bg-white border border-outline-variant rounded-xl shadow-sm p-lg">
-                <div class="mb-lg">
-                    <h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Pendaftaran Perusahaan</h2>
-                    <p class="font-body-md text-body-md text-on-surface-variant">Lengkapi detail perusahaan Anda untuk mulai memasang lowongan.</p>
-                </div>
-                
-                <form action="{{ route('register.perusahaan') }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-md">
-                    @csrf
-                    
-                    <!-- Alerts -->
-                    @if ($errors->any())
-                        <div class="col-span-full p-4 rounded-lg bg-error-container text-on-error-container text-body-sm font-semibold border border-error/20 flex flex-col gap-1">
-                            @foreach ($errors->all() as $err)
-                                <div class="flex items-center gap-2">
-                                    <span class="material-symbols-outlined text-[16px] text-error">error</span>
-                                    <span>{{ $err }}</span>
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif
-
-                    @if(session('success'))
-                        <div class="col-span-full p-4 rounded-lg bg-secondary-container text-on-secondary-container text-body-sm font-semibold border border-secondary/20 flex items-center gap-2">
-                            <span class="material-symbols-outlined text-[16px]">task_alt</span>
-                            <span>{{ session('success') }}</span>
-                        </div>
-                    @endif
-
-                    <!-- Column 1 & 2 Inputs -->
-                    <div class="space-y-xs">
-                        <label class="font-label-md text-label-md text-on-surface-variant">Nama Perusahaan</label>
-                        <input name="nama_perusahaan" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md focus:ring-2 focus:ring-secondary/20 transition-all" placeholder="PT. Contoh Teknologi" type="text" value="{{ old('nama_perusahaan') }}" required>
+            
+            <!-- Right Side: Sign Up Form -->
+            <div class="md:col-span-7 p-md md:p-xl bg-white">
+                <div class="max-w-2xl mx-auto">
+                    <div class="mb-lg flex flex-col gap-1">
+                        <a href="/pilihRole" class="flex items-center gap-2 text-secondary hover:text-primary transition-colors font-semibold text-sm w-fit mb-2">
+                            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                            Kembali ke Pilih Peran
+                        </a>
+                        <h2 class="font-headline-lg text-headline-lg text-on-surface mb-xs">Pendaftaran Perusahaan</h2>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Lengkapi detail perusahaan Anda untuk mulai memasang lowongan.</p>
                     </div>
                     
-                    <div class="space-y-xs">
-                        <label class="font-label-md text-label-md text-on-surface-variant">Email Perusahaan</label>
-                        <input name="email" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md" placeholder="hrd@perusahaan.com" type="email" value="{{ old('email') }}" required>
-                    </div>
-                    
-                    <div class="space-y-xs relative">
-                        <label class="font-label-md text-label-md text-on-surface-variant">Password</label>
-                        <div class="relative">
-                            <input name="password" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md pr-12" id="password-input" placeholder="••••••••" type="password" required minlength="6">
-                            <button class="absolute right-md top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-secondary" onclick="togglePassword()" type="button">
-                                <span class="material-symbols-outlined" id="password-icon">visibility</span>
+                    <form action="{{ route('register.perusahaan') }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 md:grid-cols-2 gap-md">
+                        @csrf
+                        
+                        <!-- Alerts -->
+                        @if ($errors->any())
+                            <div class="col-span-full p-4 rounded-lg bg-error-container text-on-error-container text-body-sm font-semibold border border-error/20 flex flex-col gap-1">
+                                @foreach ($errors->all() as $err)
+                                    <div class="flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-[16px] text-error">error</span>
+                                        <span>{{ $err }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+
+                        @if(session('success'))
+                            <div class="col-span-full p-4 rounded-lg bg-secondary-container text-on-secondary-container text-body-sm font-semibold border border-secondary/20 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[16px]">task_alt</span>
+                                <span>{{ session('success') }}</span>
+                            </div>
+                        @endif
+
+                        <!-- Column 1 & 2 Inputs -->
+                        <div class="space-y-xs">
+                            <label class="font-label-md text-label-md text-on-surface-variant">Nama Perusahaan</label>
+                            <input name="nama_perusahaan" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md focus:ring-2 focus:ring-secondary/20 transition-all" placeholder="PT. Contoh Teknologi" type="text" value="{{ old('nama_perusahaan') }}" required>
+                        </div>
+                        
+                        <div class="space-y-xs">
+                            <label class="font-label-md text-label-md text-on-surface-variant">Email Perusahaan</label>
+                            <input name="email" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md" placeholder="hrd@perusahaan.com" type="email" value="{{ old('email') }}" required>
+                        </div>
+                        
+                        <div class="space-y-xs relative">
+                            <label class="font-label-md text-label-md text-on-surface-variant">Password</label>
+                            <div class="relative">
+                                <input name="password" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md pr-12" id="password-input" placeholder="••••••••" type="password" required minlength="6">
+                                <button class="absolute right-md top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-secondary" onclick="togglePassword()" type="button">
+                                    <span class="material-symbols-outlined" id="password-icon">visibility</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-xs">
+                            <label class="font-label-md text-label-md text-on-surface-variant">Nomor Telepon Perusahaan</label>
+                            <input name="telepon" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md" placeholder="+62 812 3456 789" type="tel" value="{{ old('telepon') }}" required>
+                        </div>
+                        
+                        <div class="space-y-xs">
+                            <label class="font-label-md text-label-md text-on-surface-variant">NPWP Perusahaan</label>
+                            <input name="npwp" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md" placeholder="00.000.000.0-000.000" type="text" value="{{ old('npwp') }}" required>
+                        </div>
+                        
+                        <div class="space-y-xs">
+                            <label class="font-label-md text-label-md text-on-surface-variant">Sektor Industri</label>
+                            <select name="sektor_industri" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md appearance-none bg-white" required>
+                                <option value="" disabled {{ old('sektor_industri') ? '' : 'selected' }}>Pilih Industri</option>
+                                <option value="Teknologi Informasi" {{ old('sektor_industri') == 'Teknologi Informasi' ? 'selected' : '' }}>Teknologi Informasi</option>
+                                <option value="Keuangan & Perbankan" {{ old('sektor_industri') == 'Keuangan & Perbankan' ? 'selected' : '' }}>Keuangan & Perbankan</option>
+                                <option value="Manufaktur & Logistik" {{ old('sektor_industri') == 'Manufaktur & Logistik' ? 'selected' : '' }}>Manufaktur & Logistik</option>
+                                <option value="Kesehatan & Farmasi" {{ old('sektor_industri') == 'Kesehatan & Farmasi' ? 'selected' : '' }}>Kesehatan & Farmasi</option>
+                                <option value="BUMN & Layanan Publik" {{ old('sektor_industri') == 'BUMN & Layanan Publik' ? 'selected' : '' }}>BUMN & Layanan Publik</option>
+                                <option value="Energi & Kelistrikan" {{ old('sektor_industri') == 'Energi & Kelistrikan' ? 'selected' : '' }}>Energi & Kelistrikan</option>
+                                <option value="Pendidikan" {{ old('sektor_industri') == 'Pendidikan' ? 'selected' : '' }}>Pendidikan</option>
+                                <option value="Lainnya" {{ old('sektor_industri') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+                            </select>
+                        </div>
+                        
+                        <div class="col-span-full space-y-xs">
+                            <label class="font-label-md text-label-md text-on-surface-variant">Alamat Lengkap Perusahaan</label>
+                            <textarea name="alamat" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md" placeholder="Jl. Sudirman No. 1, Jakarta Pusat" rows="2" required>{{ old('alamat') }}</textarea>
+                        </div>
+                        
+                        <div class="col-span-full space-y-xs">
+                            <label class="font-label-md text-label-md text-on-surface-variant">Deskripsi Singkat Perusahaan</label>
+                            <textarea name="deskripsi" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md" placeholder="Ceritakan visi dan misi perusahaan Anda..." rows="3" required>{{ old('deskripsi') }}</textarea>
+                        </div>
+                        
+                        <div class="col-span-full space-y-xs">
+                            <label class="font-label-md text-label-md text-on-surface-variant">Website / LinkedIn (Opsional)</label>
+                            <input name="website" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md" placeholder="https://www.perusahaan.com" type="text" value="{{ old('website') }}">
+                        </div>
+                        
+                        <!-- Upload Buttons -->
+                        <div class="col-span-full grid grid-cols-1 md:grid-cols-2 gap-sm pt-sm">
+                            <!-- Foto Profil (Opsional) -->
+                            <input type="file" name="foto_profil" id="foto-profil-input" hidden accept="image/*">
+                            <button class="flex items-center justify-center gap-xs px-md py-sm border-2 border-dashed border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container transition-all" type="button" onclick="triggerFotoProfil()">
+                                <span class="material-symbols-outlined" id="foto-profil-icon">add_a_photo</span>
+                                <span class="font-label-md text-label-md text-left truncate max-w-[180px]" id="foto-profil-label">Upload Foto Profil (Opsional)</span>
+                            </button>
+                            
+                            <!-- Sertifikat Perusahaan -->
+                            <input type="file" name="sertifikat" id="sertifikat-input" hidden accept="image/*,application/pdf" required>
+                            <button class="flex items-center justify-center gap-xs px-md py-sm border-2 border-dashed border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container transition-all" type="button" onclick="triggerSertifikat()">
+                                <span class="material-symbols-outlined" id="sertifikat-icon">verified_user</span>
+                                <span class="font-label-md text-label-md text-left truncate max-w-[180px]" id="sertifikat-label">Upload Sertifikat Perusahaan</span>
                             </button>
                         </div>
-                    </div>
-                    
-                    <div class="space-y-xs">
-                        <label class="font-label-md text-label-md text-on-surface-variant">Nomor Telepon Perusahaan</label>
-                        <input name="telepon" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md" placeholder="+62 812 3456 789" type="tel" value="{{ old('telepon') }}" required>
-                    </div>
-                    
-                    <div class="space-y-xs">
-                        <label class="font-label-md text-label-md text-on-surface-variant">NPWP Perusahaan</label>
-                        <input name="npwp" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md" placeholder="00.000.000.0-000.000" type="text" value="{{ old('npwp') }}" required>
-                    </div>
-                    
-                    <div class="space-y-xs">
-                        <label class="font-label-md text-label-md text-on-surface-variant">Sektor Industri</label>
-                        <select name="sektor_industri" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md appearance-none bg-white" required>
-                            <option value="" disabled {{ old('sektor_industri') ? '' : 'selected' }}>Pilih Industri</option>
-                            <option value="Teknologi Informasi" {{ old('sektor_industri') == 'Teknologi Informasi' ? 'selected' : '' }}>Teknologi Informasi</option>
-                            <option value="Keuangan & Perbankan" {{ old('sektor_industri') == 'Keuangan & Perbankan' ? 'selected' : '' }}>Keuangan & Perbankan</option>
-                            <option value="Manufaktur & Logistik" {{ old('sektor_industri') == 'Manufaktur & Logistik' ? 'selected' : '' }}>Manufaktur & Logistik</option>
-                            <option value="Kesehatan & Farmasi" {{ old('sektor_industri') == 'Kesehatan & Farmasi' ? 'selected' : '' }}>Kesehatan & Farmasi</option>
-                            <option value="BUMN & Layanan Publik" {{ old('sektor_industri') == 'BUMN & Layanan Publik' ? 'selected' : '' }}>BUMN & Layanan Publik</option>
-                            <option value="Energi & Kelistrikan" {{ old('sektor_industri') == 'Energi & Kelistrikan' ? 'selected' : '' }}>Energi & Kelistrikan</option>
-                            <option value="Pendidikan" {{ old('sektor_industri') == 'Pendidikan' ? 'selected' : '' }}>Pendidikan</option>
-                            <option value="Lainnya" {{ old('sektor_industri') == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
-                        </select>
-                    </div>
-                    
-                    <div class="col-span-full space-y-xs">
-                        <label class="font-label-md text-label-md text-on-surface-variant">Alamat Lengkap Perusahaan</label>
-                        <textarea name="alamat" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md" placeholder="Jl. Sudirman No. 1, Jakarta Pusat" rows="2" required>{{ old('alamat') }}</textarea>
-                    </div>
-                    
-                    <div class="col-span-full space-y-xs">
-                        <label class="font-label-md text-label-md text-on-surface-variant">Deskripsi Singkat Perusahaan</label>
-                        <textarea name="deskripsi" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md" placeholder="Ceritakan visi dan misi perusahaan Anda..." rows="3" required>{{ old('deskripsi') }}</textarea>
-                    </div>
-                    
-                    <div class="col-span-full space-y-xs">
-                        <label class="font-label-md text-label-md text-on-surface-variant">Website / LinkedIn (Opsional)</label>
-                        <input name="website" class="w-full px-md py-sm border border-outline rounded-lg font-body-md text-body-md" placeholder="https://www.perusahaan.com" type="text" value="{{ old('website') }}">
-                    </div>
-                    
-                    <!-- Upload Buttons -->
-                    <div class="col-span-full grid grid-cols-1 md:grid-cols-2 gap-sm pt-sm">
-                        <!-- Foto Profil (Opsional) -->
-                        <input type="file" name="foto_profil" id="foto-profil-input" hidden accept="image/*">
-                        <button class="flex items-center justify-center gap-xs px-md py-sm border-2 border-dashed border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container transition-all" type="button" onclick="triggerFotoProfil()">
-                            <span class="material-symbols-outlined" id="foto-profil-icon">add_a_photo</span>
-                            <span class="font-label-md text-label-md text-left truncate max-w-[180px]" id="foto-profil-label">Upload Foto Profil (Opsional)</span>
-                        </button>
                         
-                        <!-- Sertifikat Perusahaan -->
-                        <input type="file" name="sertifikat" id="sertifikat-input" hidden accept="image/*,application/pdf" required>
-                        <button class="flex items-center justify-center gap-xs px-md py-sm border-2 border-dashed border-outline-variant rounded-lg text-on-surface-variant hover:bg-surface-container transition-all" type="button" onclick="triggerSertifikat()">
-                            <span class="material-symbols-outlined" id="sertifikat-icon">verified_user</span>
-                            <span class="font-label-md text-label-md text-left truncate max-w-[180px]" id="sertifikat-label">Upload Sertifikat Perusahaan</span>
-                        </button>
-                    </div>
-                    
-                    <!-- Primary CTA -->
-                    <div class="col-span-full pt-md">
-                        <button class="w-full bg-secondary text-white py-md rounded-xl font-label-md text-label-md shadow-md hover:bg-secondary-container hover:text-on-secondary-container transition-all active:scale-95 duration-150" type="submit">
-                            Daftar Sekarang
-                        </button>
-                        <p class="text-center mt-md font-body-sm text-body-sm text-on-surface-variant">
-                            Sudah punya akun? <a class="text-secondary font-bold hover:underline" href="/login/perusahaan">Masuk</a>
-                        </p>
-                    </div>
-                </form>
+                        <!-- Primary CTA -->
+                        <div class="col-span-full pt-md">
+                            <button class="w-full bg-secondary text-white py-md rounded-xl font-label-md text-label-md shadow-md hover:bg-secondary-container hover:text-on-secondary-container transition-all active:scale-95 duration-150" type="submit">
+                                Daftar Sekarang
+                            </button>
+                            <p class="text-center mt-md font-body-sm text-body-sm text-on-surface-variant">
+                                Sudah punya akun? <a class="text-secondary font-bold hover:underline" href="/login/perusahaan">Masuk</a>
+                            </p>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </section>
+        </div>
     </main>
     
     <!-- Footer -->
-    <footer class="bg-surface-container-highest dark:bg-inverse-surface border-t border-outline-variant">
+    <footer class="w-full py-xl px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container-highest dark:bg-inverse-surface border-t border-outline-variant">
         <div class="w-full px-margin-desktop py-lg flex flex-col md:flex-row justify-between items-center gap-md max-w-7xl mx-auto">
             <div class="space-y-xs text-center md:text-left">
-                <div class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">KerjaKuy</div>
+                <span class="font-headline-md text-headline-md font-black text-primary dark:text-inverse-primary block">KerjaKuy</span>
                 <p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 KerjaKuy. Empowering your next career move.</p>
             </div>
-            <div class="flex flex-wrap justify-center gap-md">
+            <div class="flex gap-lg flex-wrap justify-center">
                 <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary hover:underline transition-all" href="#">Tentang Kami</a>
                 <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary hover:underline transition-all" href="#">Pusat Bantuan</a>
                 <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary hover:underline transition-all" href="#">Kebijakan Privasi</a>

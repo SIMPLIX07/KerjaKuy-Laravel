@@ -149,6 +149,10 @@
             <div class="flex justify-center md:justify-end">
                 <div class="glass-card w-full max-w-md p-md md:p-lg rounded-xl shadow-2xl">
                     <div class="text-center md:text-left mb-lg">
+                        <a href="/" class="inline-flex items-center gap-2 text-secondary hover:text-primary transition-colors font-semibold text-sm mb-4">
+                            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                            Kembali ke Beranda
+                        </a>
                         <h2 class="font-headline-lg text-headline-lg text-primary mb-xs">Masuk ke Akun Pelamar</h2>
                         <p class="font-body-sm text-body-sm text-on-surface-variant">Lanjutkan perjalanan karir Anda sekarang.</p>
                     </div>

@@ -115,6 +115,86 @@ class PortofolioTest extends TestCase
     }
 
     /**
+     * Menguji pemuatan halaman edit portofolio berhasil.
+     */
+    public function test_edit_portofolio_page()
+    {
+        $portofolio = Portofolio::create([
+            'pelamar_id' => $this->pelamar->id,
+            'judul'      => 'Portofolio Lama',
+        ]);
+
+        $response = $this->get("/portofolio/{$portofolio->id}/edit");
+        $response->assertRedirect('/login/pelamar');
+
+        $response = $this->withSession(['pelamar_id' => $this->pelamar->id])
+            ->get("/portofolio/{$portofolio->id}/edit");
+
+        $response->assertStatus(200);
+        $response->assertViewIs('portofolio.editPortofolio');
+        $response->assertViewHas('portofolio');
+    }
+
+    /**
+     * Menguji pembaruan data portofolio berhasil.
+     */
+    public function test_update_portofolio_success()
+    {
+        $portofolio = Portofolio::create([
+            'pelamar_id' => $this->pelamar->id,
+            'judul'      => 'Portofolio Lama',
+        ]);
+
+        $response = $this->withSession(['pelamar_id' => $this->pelamar->id])
+            ->put("/portofolio/{$portofolio->id}", [
+                'judul'           => 'Portofolio Baru',
+                'kategori'        => 'Updated Kategori',
+                'deskripsi'       => 'Updated Deskripsi',
+                'teknologi'       => 'PHP, Laravel',
+                'link_demo'       => 'https://new-demo.com',
+                'link_repo'       => 'https://github.com/new-repo',
+                'tanggal_mulai'   => '2026-03-01',
+                'tanggal_selesai' => '2026-06-01',
+            ]);
+
+        $response->assertRedirect('/portofolio');
+        $response->assertSessionHas('success', 'Portofolio berhasil diperbarui');
+
+        $this->assertDatabaseHas('portofolios', [
+            'id'              => $portofolio->id,
+            'judul'           => 'Portofolio Baru',
+            'kategori'        => 'Updated Kategori',
+            'deskripsi'       => 'Updated Deskripsi',
+            'teknologi'       => 'PHP, Laravel',
+            'link_demo'       => 'https://new-demo.com',
+            'link_repo'       => 'https://github.com/new-repo',
+            'tanggal_mulai'   => '2026-03-01',
+            'tanggal_selesai' => '2026-06-01',
+        ]);
+    }
+
+    /**
+     * Menguji kegagalan validasi pembaruan data portofolio.
+     */
+    public function test_update_portofolio_validation_fails()
+    {
+        $portofolio = Portofolio::create([
+            'pelamar_id' => $this->pelamar->id,
+            'judul'      => 'Portofolio Lama',
+        ]);
+
+        $response = $this->withSession(['pelamar_id' => $this->pelamar->id])
+            ->put("/portofolio/{$portofolio->id}", [
+                'judul'           => '', // Judul kosong (invalid)
+                'tanggal_mulai'   => '2026-06-01',
+                'tanggal_selesai' => '2026-03-01', // Selesai sebelum mulai (invalid)
+            ], ['Accept' => 'application/json']);
+
+        $response->assertStatus(422);
+        $response->assertJsonValidationErrors(['judul', 'tanggal_selesai']);
+    }
+
+    /**
      * Menguji penghapusan portofolio berhasil.
      */
     public function test_delete_portofolio_success()

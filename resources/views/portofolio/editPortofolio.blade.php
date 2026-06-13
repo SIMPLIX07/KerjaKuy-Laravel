@@ -1,30 +1,10 @@
-@php
-$pendidikanPlaceholders = [
-    0 => ['tingkat' => 'S1', 'universitas' => 'Universitas Indonesia', 'jurusan' => 'Teknik Informatika'],
-    1 => ['tingkat' => 'SMA', 'universitas' => 'SMA Negeri 1 Jakarta', 'jurusan' => 'IPA'],
-    2 => ['tingkat' => 'Sertifikasi', 'universitas' => 'Google Career Certificate', 'jurusan' => 'Data Analytics'],
-];
-
-$skillPlaceholders = [
-    0 => ['skill' => 'JavaScript', 'kemampuan' => '85'],
-    1 => ['skill' => 'UI/UX Design', 'kemampuan' => '90'],
-    2 => ['skill' => 'Project Management', 'kemampuan' => '75'],
-];
-
-$pengalamanPlaceholders = [
-    0 => ['pengalaman' => 'Software Engineer at TechCorp', 'durasi' => '2 Thn'],
-    1 => ['pengalaman' => 'Frontend Intern at StartupABC', 'durasi' => '6 Bln'],
-    2 => ['pengalaman' => 'Freelance Web Designer', 'durasi' => '1 Thn'],
-];
-@endphp
-
 <!DOCTYPE html>
 <html lang="id">
 
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Edit CV - KerjaKuy</title>
+    <title>Edit Portofolio - KerjaKuy</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -171,14 +151,14 @@ $pengalamanPlaceholders = [
                 <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-secondary-fixed blur-[80px] rounded-full"></div>
             </div>
             <div class="max-w-3xl mx-auto relative z-10">
-                <h1 class="font-headline-xl text-headline-xl mb-sm">Edit CV Anda</h1>
-                <p class="font-body-lg text-body-lg text-white/90">Perbarui data CV Anda agar tetap relevan dengan keahlian dan pengalaman terbaru Anda.</p>
+                <h1 class="font-headline-xl text-headline-xl mb-sm">Edit Portofolio Anda</h1>
+                <p class="font-body-lg text-body-lg text-white/90">Perbarui data portofolio Anda agar tetap relevan dengan karya dan proyek terbaru Anda.</p>
             </div>
         </section>
 
         <!-- Form Section -->
         <section class="max-w-5xl mx-auto -mt-16 px-margin-mobile md:px-0 relative z-20">
-            <form class="space-y-gutter" id="cv-form" action="{{ route('cv.update', $cv->id) }}" method="POST">
+            <form class="space-y-gutter" id="portofolio-form" action="{{ route('portofolio.update', $portofolio->id) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -204,127 +184,66 @@ $pengalamanPlaceholders = [
                     </div>
                 @endif
 
-                <!-- Data Pribadi -->
+                <!-- Data Utama Portofolio -->
                 <div class="bg-white p-md md:p-lg rounded-xl border border-outline-variant/30 form-card-shadow">
                     <div class="flex items-center gap-sm mb-lg">
-                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">person</span>
-                        <h2 class="font-headline-md text-headline-md text-primary">Data Pribadi</h2>
+                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">folder</span>
+                        <h2 class="font-headline-md text-headline-md text-primary">Informasi Portofolio</h2>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
                         <div class="space-y-base">
-                            <label class="font-label-md text-label-md text-outline">Judul (e.g. Senior Software Engineer)</label>
-                            <input class="w-full p-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all bg-white" placeholder="Masukkan posisi profesional Anda" type="text" name="title" required value="{{ old('title', $cv->title) }}">
+                            <label class="font-label-md text-label-md text-outline">Judul Portofolio</label>
+                            <input class="w-full p-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all bg-white" placeholder="Masukkan nama proyek atau portofolio" type="text" name="judul" required value="{{ old('judul', $portofolio->judul) }}">
                         </div>
                         <div class="space-y-base">
-                            <label class="font-label-md text-label-md text-outline">Umur</label>
-                            <input class="w-full p-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all bg-white" placeholder="25" type="number" name="umur" required value="{{ old('umur', $cv->umur) }}">
-                        </div>
-                        <div class="space-y-base">
-                            <label class="font-label-md text-label-md text-outline">Kontak (Nomor Telepon/Email)</label>
-                            <input class="w-full p-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all bg-white" placeholder="0812-3456-7890" type="text" name="kontak" required value="{{ old('kontak', $cv->kontak) }}">
-                        </div>
-                        <div class="space-y-base">
-                            <label class="font-label-md text-label-md text-outline">Sub-judul (Lokasi/Domisili)</label>
-                            <input class="w-full p-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all bg-white" placeholder="Jakarta, Indonesia" type="text" name="subtitle" required value="{{ old('subtitle', $cv->subtitle) }}">
+                            <label class="font-label-md text-label-md text-outline">Kategori (Opsional)</label>
+                            <input class="w-full p-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all bg-white" placeholder="Web / Mobile / UI/UX / dll" type="text" name="kategori" value="{{ old('kategori', $portofolio->kategori) }}">
                         </div>
                         <div class="space-y-base md:col-span-2">
-                            <label class="font-label-md text-label-md text-outline">Tentang Saya</label>
-                            <textarea class="w-full p-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all bg-white" placeholder="Ceritakan singkat tentang pengalaman dan minat profesional Anda..." rows="4" name="tentang_saya" required>{{ old('tentang_saya', $cv->tentang_saya) }}</textarea>
+                            <label class="font-label-md text-label-md text-outline">Teknologi/Tools (Opsional)</label>
+                            <input class="w-full p-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all bg-white" placeholder="Laravel, MySQL, Figma, ..." type="text" name="teknologi" value="{{ old('teknologi', $portofolio->teknologi) }}">
+                        </div>
+                        <div class="space-y-base md:col-span-2">
+                            <label class="font-label-md text-label-md text-outline">Deskripsi Project (Opsional)</label>
+                            <textarea class="w-full p-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all bg-white" placeholder="Ceritakan singkat tentang deskripsi proyek ini..." rows="4" name="deskripsi">{{ old('deskripsi', $portofolio->deskripsi) }}</textarea>
                         </div>
                     </div>
                 </div>
 
-                <!-- Pendidikan -->
+                <!-- Link & Tanggal -->
                 <div class="bg-white p-md md:p-lg rounded-xl border border-outline-variant/30 form-card-shadow">
                     <div class="flex items-center gap-sm mb-lg">
-                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">school</span>
-                        <h2 class="font-headline-md text-headline-md text-primary">Pendidikan</h2>
+                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">link</span>
+                        <h2 class="font-headline-md text-headline-md text-primary">Tautan & Waktu Pelaksanaan</h2>
                     </div>
-                    <div class="space-y-lg">
-                        @for ($i = 0; $i < 3; $i++)
-                            @php
-                                $p = $cv->pendidikans[$i] ?? null;
-                            @endphp
-                            <!-- Education Block {{ $i + 1 }} -->
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-md p-md bg-surface-container-low rounded-lg border border-dashed border-outline-variant">
-                                <div class="space-y-base">
-                                    <label class="font-label-md text-label-md text-outline">Jenjang</label>
-                                    <input class="w-full p-sm border border-outline-variant rounded-lg bg-white focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="{{ $pendidikanPlaceholders[$i]['tingkat'] }}" type="text" name="pendidikan[{{ $i }}][tingkat]" value="{{ old("pendidikan.{$i}.tingkat", $p->tingkat ?? '') }}">
-                                </div>
-                                <div class="space-y-base">
-                                    <label class="font-label-md text-label-md text-outline">Institusi</label>
-                                    <input class="w-full p-sm border border-outline-variant rounded-lg bg-white focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="{{ $pendidikanPlaceholders[$i]['universitas'] }}" type="text" name="pendidikan[{{ $i }}][universitas]" value="{{ old("pendidikan.{$i}.universitas", $p->universitas ?? '') }}">
-                                </div>
-                                <div class="space-y-base">
-                                    <label class="font-label-md text-label-md text-outline">Jurusan</label>
-                                    <input class="w-full p-sm border border-outline-variant rounded-lg bg-white focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="{{ $pendidikanPlaceholders[$i]['jurusan'] }}" type="text" name="pendidikan[{{ $i }}][jurusan]" value="{{ old("pendidikan.{$i}.jurusan", $p->jurusan ?? '') }}">
-                                </div>
-                            </div>
-                        @endfor
-                    </div>
-                </div>
-
-                <!-- Skill & Pengalaman Grid -->
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
-                    <!-- Skills -->
-                    <div class="bg-white p-md md:p-lg rounded-xl border border-outline-variant/30 form-card-shadow">
-                        <div class="flex items-center gap-sm mb-lg">
-                            <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">bolt</span>
-                            <h2 class="font-headline-md text-headline-md text-primary">Skill</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+                        <div class="space-y-base">
+                            <label class="font-label-md text-label-md text-outline">Link Demo (Opsional)</label>
+                            <input class="w-full p-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all bg-white" placeholder="https://..." type="text" name="link_demo" value="{{ old('link_demo', $portofolio->link_demo) }}">
                         </div>
-                        <div class="space-y-md">
-                            @for ($i = 0; $i < 3; $i++)
-                                @php
-                                    $s = $cv->skills[$i] ?? null;
-                                @endphp
-                                <div class="flex gap-md items-end">
-                                    <div class="flex-grow space-y-base">
-                                        <label class="font-label-md text-label-md text-outline">Nama Skill</label>
-                                        <input class="w-full p-sm border border-outline-variant rounded-lg bg-white focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="{{ $skillPlaceholders[$i]['skill'] }}" type="text" name="skill[{{ $i }}][skill]" value="{{ old("skill.{$i}.skill", $s->skill ?? '') }}">
-                                    </div>
-                                    <div class="w-24 space-y-base">
-                                        <label class="font-label-md text-label-md text-outline">Level (%)</label>
-                                        <input class="w-full p-sm border border-outline-variant rounded-lg bg-white focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="{{ $skillPlaceholders[$i]['kemampuan'] }}" type="number" min="1" max="100" name="skill[{{ $i }}][kemampuan]" value="{{ old("skill.{$i}.kemampuan", $s->kemampuan ?? '') }}">
-                                    </div>
-                                </div>
-                            @endfor
+                        <div class="space-y-base">
+                            <label class="font-label-md text-label-md text-outline">Link Repository (Opsional)</label>
+                            <input class="w-full p-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all bg-white" placeholder="https://github.com/..." type="text" name="link_repo" value="{{ old('link_repo', $portofolio->link_repo) }}">
                         </div>
-                    </div>
-
-                    <!-- Pengalaman -->
-                    <div class="bg-white p-md md:p-lg rounded-xl border border-outline-variant/30 form-card-shadow">
-                        <div class="flex items-center gap-sm mb-lg">
-                            <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">work</span>
-                            <h2 class="font-headline-md text-headline-md text-primary">Pengalaman</h2>
+                        <div class="space-y-base">
+                            <label class="font-label-md text-label-md text-outline">Tanggal Mulai (Opsional)</label>
+                            <input class="w-full p-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all bg-white" type="date" name="tanggal_mulai" value="{{ old('tanggal_mulai', $portofolio->tanggal_mulai) }}">
                         </div>
-                        <div class="space-y-md">
-                            @for ($i = 0; $i < 3; $i++)
-                                @php
-                                    $pe = $cv->pengalamans[$i] ?? null;
-                                @endphp
-                                <div class="flex gap-md items-end">
-                                    <div class="flex-grow space-y-base">
-                                        <label class="font-label-md text-label-md text-outline">Nama Pengalaman</label>
-                                        <input class="w-full p-sm border border-outline-variant rounded-lg bg-white focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="{{ $pengalamanPlaceholders[$i]['pengalaman'] }}" type="text" name="pengalaman[{{ $i }}][pengalaman]" value="{{ old("pengalaman.{$i}.pengalaman", $pe->pengalaman ?? '') }}">
-                                    </div>
-                                    <div class="w-32 space-y-base">
-                                        <label class="font-label-md text-label-md text-outline">Durasi</label>
-                                        <input class="w-full p-sm border border-outline-variant rounded-lg bg-white focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all" placeholder="{{ $pengalamanPlaceholders[$i]['durasi'] }}" type="text" name="pengalaman[{{ $i }}][durasi]" value="{{ old("pengalaman.{$i}.durasi", $pe->durasi ?? '') }}">
-                                    </div>
-                                </div>
-                            @endfor
+                        <div class="space-y-base">
+                            <label class="font-label-md text-label-md text-outline">Tanggal Selesai (Opsional)</label>
+                            <input class="w-full p-md border border-outline-variant rounded-lg focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all bg-white" type="date" name="tanggal_selesai" value="{{ old('tanggal_selesai', $portofolio->tanggal_selesai) }}">
                         </div>
                     </div>
                 </div>
 
                 <!-- Action CTA -->
                 <div class="pt-lg flex flex-col sm:flex-row justify-center md:justify-end gap-md">
-                    <a href="{{ route('cv.index') }}" class="group border border-outline text-outline hover:bg-surface-container hover:text-primary px-xl py-md rounded-xl font-headline-md text-headline-md transition-all active:scale-95 flex items-center justify-center gap-md">
+                    <a href="{{ route('portofolio.index') }}" class="group border border-outline text-outline hover:bg-surface-container hover:text-primary px-xl py-md rounded-xl font-headline-md text-headline-md transition-all active:scale-95 flex items-center justify-center gap-md">
                         <span class="material-symbols-outlined group-hover:-translate-x-1 transition-transform">arrow_back</span>
                         <span>Kembali</span>
                     </a>
                     <button class="group relative overflow-hidden bg-secondary hover:bg-on-secondary-container text-white px-xl py-md rounded-xl font-headline-md text-headline-md transition-all active:scale-95 shadow-lg flex items-center justify-center gap-md" type="submit">
-                        <span class="relative z-10">Update CV</span>
+                        <span class="relative z-10">Update Portofolio</span>
                         <span class="material-symbols-outlined relative z-10 group-hover:translate-x-1 transition-transform">send</span>
                         <div class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
                     </button>
@@ -361,7 +280,7 @@ $pengalamanPlaceholders = [
         });
 
         // Form submission effect
-        document.getElementById('cv-form').addEventListener('submit', (e) => {
+        document.getElementById('portofolio-form').addEventListener('submit', (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button[type="submit"]');
             const originalText = btn.innerHTML;

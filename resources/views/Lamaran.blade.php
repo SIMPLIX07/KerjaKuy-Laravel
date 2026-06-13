@@ -186,11 +186,17 @@
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ route('home') }}">Lowongan Kerja</a>
                 <a class="text-primary border-b-2 border-primary pb-1 font-bold text-label-md font-label-md" href="{{ url('/lamaran-anda') }}">Lamaran Anda</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ route('pelamar.wawancara') }}">Wawancara</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ route('pelamar.bookmark') }}">Bookmark</a>
             </nav>
 
             <div class="flex items-center gap-4">
-                <a href="{{ route('pelamar.settings') }}" class="p-2 rounded-full hover:bg-surface-container-low transition-colors text-primary" aria-label="Pengaturan akun">
-                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+                <a href="{{ route('pelamar.settings') }}" class="flex items-center gap-2 px-2 py-1.5 rounded-full hover:bg-surface-container-low transition-colors text-primary" aria-label="Pengaturan akun">
+                    @if(session('pelamar_foto'))
+                        <img src="{{ asset('storage/' . session('pelamar_foto')) }}" alt="Profil" class="w-8 h-8 rounded-full object-cover border border-outline-variant">
+                    @else
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+                    @endif
+                    <span class="hidden md:inline text-label-md font-label-md">{{ session('pelamar_nama') ?? 'Profil' }}</span>
                 </a>
             </div>
         </div>

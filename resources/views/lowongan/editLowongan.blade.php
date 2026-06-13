@@ -39,7 +39,12 @@
                     </div>
                     <div>
                         <label>Jenis Pekerjaan</label>
-                        <input type="text" name="jenis" value="{{ $lowongan->jenis_pekerjaan }}">
+                        <select name="jenis" required>
+                            <option value="">-- Pilih Jenis --</option>
+                            <option value="Full-time" {{ (old('jenis', $lowongan->jenis_pekerjaan) == 'Full-time' || old('jenis', $lowongan->jenis_pekerjaan) == 'Fulltime' || old('jenis', $lowongan->jenis_pekerjaan) == 'Full Time') ? 'selected' : '' }}>Full-time</option>
+                            <option value="Part-time" {{ (old('jenis', $lowongan->jenis_pekerjaan) == 'Part-time' || old('jenis', $lowongan->jenis_pekerjaan) == 'Parttime' || old('jenis', $lowongan->jenis_pekerjaan) == 'Part Time') ? 'selected' : '' }}>Part-time</option>
+                            <option value="Kontrak" {{ old('jenis', $lowongan->jenis_pekerjaan) == 'Kontrak' ? 'selected' : '' }}>Kontrak</option>
+                        </select>
                     </div>
                 </div>
 
@@ -94,23 +99,10 @@
                     </div>
                 </div>
 
-                <h4>Tampilan Latar</h4>
-                <input type="file" name="gambar" id="input-gambar" onchange="previewImage()">
-
-                <div class="preview">
-                    @if($lowongan->gambar)
-                        <img src="{{ asset('storage/lowongan/' . $lowongan->gambar) }}" id="preview-img" alt="Preview">
-                    @else
-                        <img src="/assets/sample-preview.png" id="preview-img" alt="Preview">
-                    @endif
-                </div>
-
                 <button type="submit" class="btn-submit">Selesai</button>
             </form>
         </div>
     </div>
-
-    <script src="{{ asset('assets/lowongan/editLowongan.js') }}"></script>
 
 </body>
 

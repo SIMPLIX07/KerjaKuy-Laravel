@@ -42,7 +42,12 @@
                     </div>
                     <div>
                         <label>Jenis Pekerjaan</label>
-                        <input type="text" name="jenis">
+                        <select name="jenis" required>
+                            <option value="">-- Pilih Jenis --</option>
+                            <option value="Full-time" {{ old('jenis') == 'Full-time' ? 'selected' : '' }}>Full-time</option>
+                            <option value="Part-time" {{ old('jenis') == 'Part-time' ? 'selected' : '' }}>Part-time</option>
+                            <option value="Kontrak" {{ old('jenis') == 'Kontrak' ? 'selected' : '' }}>Kontrak</option>
+                        </select>
                     </div>
                 </div>
 
@@ -101,19 +106,12 @@
                     </div>
                 </div>
 
-                <!-- Gambar -->
-                <h4>Tampilan Latar</h4>
-                <input type="file" name="gambar" id="input-gambar" accept="image/*">
-                <div class="preview">
-                    <img id="preview-gambar" src="#" alt="Preview Gambar" style="display: none;">
-                </div>
+
 
                 <button type="submit" class="btn-submit">Buat</button>
             </form>
         </div>
     </div>
-
-    <script src="{{ asset('assets/lowongan/tambahLowongan.js') }}"></script>
 </body>
 
 </html>

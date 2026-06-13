@@ -117,41 +117,57 @@
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ route('home') }}">Lowongan Kerja</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ url('/lamaran-anda') }}">Lamaran Anda</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ route('pelamar.wawancara') }}">Wawancara</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ route('pelamar.bookmark') }}">Bookmark</a>
             </nav>
 
-            <a href="{{ route('pelamar.settings') }}" class="p-2 rounded-full hover:bg-surface-container-low transition-colors text-primary" aria-label="Pengaturan akun">
-                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+            <a href="{{ route('pelamar.settings') }}" class="flex items-center gap-2 px-2 py-1.5 rounded-full hover:bg-surface-container-low transition-colors text-primary" aria-label="Pengaturan akun">
+                @if(session('pelamar_foto'))
+                    <img src="{{ asset('storage/' . session('pelamar_foto')) }}" alt="Profil" class="w-8 h-8 rounded-full object-cover border border-outline-variant">
+                @else
+                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+                @endif
+                <span class="hidden md:inline text-[14px] font-semibold">{{ session('pelamar_nama') ?? 'Profil' }}</span>
             </a>
         </div>
     </header>
 
     <header class="bg-gradient-to-br from-primary to-[#003B5C] text-on-primary px-4 md:px-12 py-10 relative overflow-hidden">
         <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-30 mix-blend-overlay"></div>
-        <div class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div class="flex flex-col md:flex-row items-start md:items-center gap-5">
-                <div class="w-24 h-24 bg-surface-container-lowest rounded-xl shadow-lg flex items-center justify-center p-2 shrink-0 overflow-hidden">
-                    @if (!empty($lowongan->perusahaan?->foto_profil))
-                    <img alt="{{ $lowongan->perusahaan->nama_perusahaan }}" class="w-full h-full object-contain" src="{{ asset('storage/' . $lowongan->perusahaan->foto_profil) }}">
-                    @else
-                    <span class="material-symbols-outlined text-primary text-[44px]">business_center</span>
-                    @endif
-                </div>
-                <div>
-                    <h1 class="font-headline text-[24px] md:text-[32px] leading-8 md:leading-10 font-bold text-on-primary">{{ $lowongan->posisi_pekerjaan }}</h1>
-                    <p class="text-[18px] leading-7 text-primary-fixed-dim">{{ $lowongan->perusahaan->nama_perusahaan }}</p>
-                </div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <!-- Back Button -->
+            <div class="mb-6">
+                <a href="{{ route('home') }}" class="inline-flex items-center gap-2 text-primary-fixed-dim hover:text-on-primary transition-colors text-[14px] font-semibold bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg backdrop-blur-sm">
+                    <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                    <span>Kembali ke Lowongan</span>
+                </a>
             </div>
 
-            <div class="w-full md:w-auto mt-2 md:mt-0 flex justify-start md:justify-end">
-                @if ($sudahMelamar)
-                <button type="button" disabled class="w-full md:w-auto bg-gray-400 text-white font-semibold text-[14px] px-6 py-3 rounded-lg whitespace-nowrap shadow-sm cursor-not-allowed opacity-60">
-                    Sudah Dilamar
-                </button>
-                @else
-                <button type="button" class="button action-button w-full md:w-auto bg-[#319795] hover:bg-[#287e7c] text-on-primary font-semibold text-[14px] px-6 py-3 rounded-lg whitespace-nowrap shadow-sm">
-                    Lamar Sekarang
-                </button>
-                @endif
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <div class="flex flex-col md:flex-row items-start md:items-center gap-5">
+                    <div class="w-24 h-24 bg-surface-container-lowest rounded-xl shadow-lg flex items-center justify-center p-2 shrink-0 overflow-hidden">
+                        @if (!empty($lowongan->perusahaan?->foto_profil))
+                        <img alt="{{ $lowongan->perusahaan->nama_perusahaan }}" class="w-full h-full object-contain" src="{{ asset('storage/' . $lowongan->perusahaan->foto_profil) }}">
+                        @else
+                        <span class="material-symbols-outlined text-primary text-[44px]">business_center</span>
+                        @endif
+                    </div>
+                    <div>
+                        <h1 class="font-headline text-[24px] md:text-[32px] leading-8 md:leading-10 font-bold text-on-primary">{{ $lowongan->posisi_pekerjaan }}</h1>
+                        <p class="text-[18px] leading-7 text-primary-fixed-dim">{{ $lowongan->perusahaan->nama_perusahaan }}</p>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-auto mt-2 md:mt-0 flex justify-start md:justify-end">
+                    @if ($sudahMelamar)
+                    <button type="button" disabled class="w-full md:w-auto bg-gray-400 text-white font-semibold text-[14px] px-6 py-3 rounded-lg whitespace-nowrap shadow-sm cursor-not-allowed opacity-60">
+                        Sudah Dilamar
+                    </button>
+                    @else
+                    <button type="button" class="button action-button w-full md:w-auto bg-[#319795] hover:bg-[#287e7c] text-on-primary font-semibold text-[14px] px-6 py-3 rounded-lg whitespace-nowrap shadow-sm">
+                        Lamar Sekarang
+                    </button>
+                    @endif
+                </div>
             </div>
         </div>
     </header>
@@ -243,7 +259,7 @@
             <div class="sticky top-[150px] space-y-6">
                 <div class="bg-surface-container-lowest border border-surface-variant rounded-xl p-6 text-center glass-panel">
                     <p class="text-[14px] leading-5 text-on-surface-variant mb-4">
-                        Batas akhir pendaftaran: <span class="font-semibold text-on-surface">{{ optional($lowongan->tanggal_berakhir)->format('d F Y') }}</span>
+                        Batas akhir pendaftaran: <span class="font-semibold text-on-surface">{{ $lowongan->tanggal_berakhir ? \Carbon\Carbon::parse($lowongan->tanggal_berakhir)->format('d F Y') : '-' }}</span>
                     </p>
 
                     @if ($sudahMelamar)
@@ -258,9 +274,16 @@
                     </button>
                     @endif
 
-                    <button type="button" class="w-full border-2 border-outline-variant hover:border-secondary hover:text-secondary text-on-surface-variant font-semibold text-[14px] px-6 py-3 rounded-lg transition-colors flex items-center justify-center gap-2">
-                        <span class="material-symbols-outlined text-[20px]">bookmark</span>
-                        Simpan Lowongan
+                    <button
+                        type="button"
+                        id="btnBookmarkDetail"
+                        data-id="{{ $lowongan->id }}"
+                        data-bookmarked="{{ $sudahBookmark ? 'true' : 'false' }}"
+                        class="w-full border-2 {{ $sudahBookmark ? 'border-yellow-500 text-yellow-600 bg-yellow-50/50' : 'border-outline-variant hover:border-secondary hover:text-secondary text-on-surface-variant' }} font-semibold text-[14px] px-6 py-3 rounded-lg transition-all flex items-center justify-center gap-2"
+                    >
+                        <span class="material-symbols-outlined text-[20px] transition-colors {{ $sudahBookmark ? 'text-yellow-500' : '' }}"
+                              style="font-variation-settings: '{{ $sudahBookmark ? "FILL' 1" : "FILL' 0" }}';">bookmark</span>
+                        <span id="textBookmarkDetail">{{ $sudahBookmark ? 'Tersimpan' : 'Simpan Lowongan' }}</span>
                     </button>
                 </div>
 
@@ -277,7 +300,9 @@
                         </div>
                         <div>
                             <p class="text-[16px] leading-6 font-semibold text-on-surface">{{ $lowongan->perusahaan->nama_perusahaan }}</p>
-                            <a class="text-[14px] leading-5 text-secondary hover:underline" href="{{ route('home') }}">Lihat profil perusahaan</a>
+                            @if(!empty($lowongan->perusahaan->website))
+                            <a class="text-[14px] leading-5 text-secondary hover:underline" href="{{ str_starts_with($lowongan->perusahaan->website, 'http://') || str_starts_with($lowongan->perusahaan->website, 'https://') ? $lowongan->perusahaan->website : 'https://' . $lowongan->perusahaan->website }}" target="_blank" rel="noopener noreferrer">Lihat profil perusahaan</a>
+                            @endif
                         </div>
                     </div>
 
@@ -345,6 +370,83 @@
     </div>
 
     <script src="/assets/pageLamar/lamar.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const btnBookmark = document.getElementById('btnBookmarkDetail');
+            if (btnBookmark) {
+                btnBookmark.addEventListener('click', function() {
+                    const isLoggedIn = {{ session('pelamar_id') ? 'true' : 'false' }};
+                    if (!isLoggedIn) {
+                        window.location.href = '/login/pelamar';
+                        return;
+                    }
+
+                    const lowonganId = this.dataset.id;
+                    const isBookmarked = this.dataset.bookmarked === 'true';
+                    const icon = this.querySelector('.material-symbols-outlined');
+                    const text = document.getElementById('textBookmarkDetail');
+
+                    // Optimistic UI update
+                    if (isBookmarked) {
+                        this.dataset.bookmarked = 'false';
+                        this.className = "w-full border-2 border-outline-variant hover:border-secondary hover:text-secondary text-on-surface-variant font-semibold text-[14px] px-6 py-3 rounded-lg transition-all flex items-center justify-center gap-2";
+                        icon.style.fontVariationSettings = "'FILL' 0";
+                        icon.classList.remove('text-yellow-500');
+                        text.textContent = 'Simpan Lowongan';
+                    } else {
+                        this.dataset.bookmarked = 'true';
+                        this.className = "w-full border-2 border-yellow-500 text-yellow-600 bg-yellow-50/50 font-semibold text-[14px] px-6 py-3 rounded-lg transition-all flex items-center justify-center gap-2";
+                        icon.style.fontVariationSettings = "'FILL' 1";
+                        icon.classList.add('text-yellow-500');
+                        text.textContent = 'Tersimpan';
+                    }
+
+                    fetch('{{ route('bookmark.toggle') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json',
+                        },
+                        body: JSON.stringify({ lowongan_id: lowonganId }),
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        // Sync state with server response
+                        const serverBookmarked = data.bookmarked;
+                        this.dataset.bookmarked = serverBookmarked ? 'true' : 'false';
+                        if (serverBookmarked) {
+                            this.className = "w-full border-2 border-yellow-500 text-yellow-600 bg-yellow-50/50 font-semibold text-[14px] px-6 py-3 rounded-lg transition-all flex items-center justify-center gap-2";
+                            icon.style.fontVariationSettings = "'FILL' 1";
+                            icon.classList.add('text-yellow-500');
+                            text.textContent = 'Tersimpan';
+                        } else {
+                            this.className = "w-full border-2 border-outline-variant hover:border-secondary hover:text-secondary text-on-surface-variant font-semibold text-[14px] px-6 py-3 rounded-lg transition-all flex items-center justify-center gap-2";
+                            icon.style.fontVariationSettings = "'FILL' 0";
+                            icon.classList.remove('text-yellow-500');
+                            text.textContent = 'Simpan Lowongan';
+                        }
+                    })
+                    .catch(() => {
+                        // Revert on error
+                        if (isBookmarked) {
+                            this.dataset.bookmarked = 'true';
+                            this.className = "w-full border-2 border-yellow-500 text-yellow-600 bg-yellow-50/50 font-semibold text-[14px] px-6 py-3 rounded-lg transition-all flex items-center justify-center gap-2";
+                            icon.style.fontVariationSettings = "'FILL' 1";
+                            icon.classList.add('text-yellow-500');
+                            text.textContent = 'Tersimpan';
+                        } else {
+                            this.dataset.bookmarked = 'false';
+                            this.className = "w-full border-2 border-outline-variant hover:border-secondary hover:text-secondary text-on-surface-variant font-semibold text-[14px] px-6 py-3 rounded-lg transition-all flex items-center justify-center gap-2";
+                            icon.style.fontVariationSettings = "'FILL' 0";
+                            icon.classList.remove('text-yellow-500');
+                            text.textContent = 'Simpan Lowongan';
+                        }
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>

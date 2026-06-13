@@ -210,11 +210,17 @@
                 <a class="text-primary border-b-2 border-primary pb-1 font-bold text-label-md font-label-md active:scale-95 transition-transform duration-150" href="{{ route('home') }}">Lowongan Kerja</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ url('/lamaran-anda') }}">Lamaran Anda</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ route('pelamar.wawancara') }}">Wawancara</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ route('pelamar.bookmark') }}">Bookmark</a>
             </nav>
 
             <div class="flex items-center gap-4">
-                <a href="{{ route('pelamar.settings') }}" class="p-2 rounded-full hover:bg-surface-container-low transition-colors text-primary" aria-label="Pengaturan akun">
-                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+                <a href="{{ route('pelamar.settings') }}" class="flex items-center gap-2 px-2 py-1.5 rounded-full hover:bg-surface-container-low transition-colors text-primary" aria-label="Pengaturan akun">
+                    @if(session('pelamar_foto'))
+                        <img src="{{ asset('storage/' . session('pelamar_foto')) }}" alt="Profil" class="w-8 h-8 rounded-full object-cover border border-outline-variant">
+                    @else
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+                    @endif
+                    <span class="hidden md:inline text-label-md font-label-md">{{ session('pelamar_nama') ?? 'Profil' }}</span>
                 </a>
             </div>
         </div>
@@ -236,6 +242,12 @@
                 <form action="{{ route('home') }}" method="GET" class="w-full max-w-4xl bg-surface-container-lowest rounded-xl shadow-lg p-2 flex flex-col md:flex-row gap-2 items-center">
                     @if(request()->filled('sort'))
                         <input type="hidden" name="sort" value="{{ request('sort') }}" />
+                    @endif
+                    @if(request()->filled('gaji_range'))
+                        <input type="hidden" name="gaji_range" value="{{ request('gaji_range') }}" />
+                    @endif
+                    @if(request()->filled('jenis_pekerjaan'))
+                        <input type="hidden" name="jenis_pekerjaan" value="{{ request('jenis_pekerjaan') }}" />
                     @endif
                     <div class="flex-1 w-full flex items-center bg-surface-container-low rounded-lg px-4 py-3 search-input transition-colors group">
                         <span class="material-symbols-outlined text-outline group-focus-within:text-secondary mr-3" style="font-variation-settings: 'FILL' 0;">search</span>
@@ -274,10 +286,13 @@
                     <h2 class="text-headline-lg font-headline-lg text-on-surface mb-2">Rekomendasi Pekerjaan</h2>
                     <p class="text-body-md font-body-md text-on-surface-variant">Berdasarkan profil dan pencarian Anda sebelumnya.</p>
                 </div>
-                <div class="hidden sm:flex gap-2">
-                    <button type="button" class="px-4 py-2 bg-surface-container-high text-on-surface rounded-lg text-label-md font-label-md hover:bg-surface-variant transition-colors flex items-center gap-2">
+                <div class="flex gap-2">
+                    <button type="button" id="btn-filter-toggle" class="px-4 py-2 bg-surface-container-high text-on-surface rounded-lg text-label-md font-label-md hover:bg-surface-variant transition-colors flex items-center gap-2 relative">
                         <span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 0;">filter_list</span>
                         Filter
+                        @if(request()->filled('gaji_range') || request()->filled('jenis_pekerjaan'))
+                            <span class="absolute -top-1 -right-1 w-3 h-3 bg-secondary rounded-full border-2 border-surface"></span>
+                        @endif
                     </button>
                     <a href="{{ request()->fullUrlWithQuery(['sort' => request('sort') === 'terlama' ? 'terbaru' : 'terlama']) }}" 
                        class="px-4 py-2 {{ request('sort', 'terbaru') === 'terbaru' ? 'bg-secondary text-white' : 'bg-surface-container-high text-on-surface hover:bg-surface-variant' }} rounded-lg text-label-md font-label-md transition-colors flex items-center gap-2">
@@ -287,6 +302,47 @@
                         Terbaru
                     </a>
                 </div>
+            </div>
+
+            <!-- Filter Panel (Collapsible) -->
+            <div id="filter-panel" class="{{ (request()->filled('gaji_range') || request()->filled('jenis_pekerjaan')) ? '' : 'hidden' }} mb-8 p-6 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-[0_4px_20px_-2px_rgba(17,45,66,0.08)]">
+                <form action="{{ route('home') }}" method="GET" class="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+                    <!-- Preserve search and sort query parameters -->
+                    <input type="hidden" name="q" value="{{ request('q') }}">
+                    <input type="hidden" name="lokasi" value="{{ request('lokasi') }}">
+                    <input type="hidden" name="sort" value="{{ request('sort') }}">
+
+                    <div>
+                        <label class="block text-label-sm font-semibold text-on-surface mb-2">Rentang Gaji</label>
+                        <select name="gaji_range" class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-2.5 text-on-surface text-body-md focus:border-secondary focus:ring-secondary cursor-pointer">
+                            <option value="">Semua Gaji</option>
+                            <option value="under_5m" {{ request('gaji_range') === 'under_5m' ? 'selected' : '' }}>< Rp 5.000.000</option>
+                            <option value="5m_10m" {{ request('gaji_range') === '5m_10m' ? 'selected' : '' }}>Rp 5.000.000 - Rp 10.000.000</option>
+                            <option value="10m_15m" {{ request('gaji_range') === '10m_15m' ? 'selected' : '' }}>Rp 10.000.000 - Rp 15.000.000</option>
+                            <option value="above_15m" {{ request('gaji_range') === 'above_15m' ? 'selected' : '' }}>> Rp 15.000.000</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-label-sm font-semibold text-on-surface mb-2">Jenis Pekerjaan</label>
+                        <select name="jenis_pekerjaan" class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-2.5 text-on-surface text-body-md focus:border-secondary focus:ring-secondary cursor-pointer">
+                            <option value="">Semua Jenis</option>
+                            <option value="Full-time" {{ request('jenis_pekerjaan') === 'Full-time' ? 'selected' : '' }}>Full-time</option>
+                            <option value="Part-time" {{ request('jenis_pekerjaan') === 'Part-time' ? 'selected' : '' }}>Part-time</option>
+                        </select>
+                    </div>
+
+                    <div class="flex gap-2">
+                        <button type="submit" class="flex-1 bg-secondary text-white hover:bg-opacity-90 py-2.5 px-4 rounded-lg text-label-md font-label-md flex items-center justify-center gap-2 transition-colors">
+                            Terapkan Filter
+                        </button>
+                        @if(request()->filled('gaji_range') || request()->filled('jenis_pekerjaan'))
+                            <a href="{{ route('home', request()->only(['q', 'lokasi', 'sort'])) }}" class="bg-surface-container-high text-on-surface hover:bg-surface-variant py-2.5 px-4 rounded-lg text-label-md font-label-md flex items-center justify-center transition-colors">
+                                Reset
+                            </a>
+                        @endif
+                    </div>
+                </form>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-gutter">
@@ -308,9 +364,17 @@
                             @endif
                         </div>
 
-                        <span class="text-outline hover:text-secondary transition-colors p-1 rounded-full hover:bg-surface-container-low" aria-hidden="true">
-                            <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">bookmark_border</span>
-                        </span>
+                        <button
+                            type="button"
+                            class="bookmark-btn p-1 rounded-full hover:bg-surface-container-low transition-colors focus:outline-none"
+                            data-id="{{ $lowongan->id }}"
+                            data-bookmarked="{{ in_array($lowongan->id, $bookmarkedIds ?? []) ? 'true' : 'false' }}"
+                            onclick="event.preventDefault(); toggleBookmark(this)"
+                            aria-label="Bookmark lowongan"
+                        >
+                            <span class="material-symbols-outlined transition-colors {{ in_array($lowongan->id, $bookmarkedIds ?? []) ? 'text-yellow-400' : 'text-outline hover:text-secondary' }}"
+                                  style="font-variation-settings: '{{ in_array($lowongan->id, $bookmarkedIds ?? []) ? "FILL' 1" : "FILL' 0" }};">bookmark</span>
+                        </button>
                     </div>
 
                     <div class="mb-4 flex-grow">
@@ -366,5 +430,79 @@
         </div>
     </footer>
 </body>
+
+<script>
+    const BOOKMARK_TOGGLE_URL = '{{ route('bookmark.toggle') }}';
+    const CSRF_TOKEN = '{{ csrf_token() }}';
+    const IS_LOGGED_IN = {{ session('pelamar_id') ? 'true' : 'false' }};
+
+    function toggleBookmark(btn) {
+        if (!IS_LOGGED_IN) {
+            window.location.href = '/login/pelamar';
+            return;
+        }
+
+        const lowonganId = btn.dataset.id;
+        const isBookmarked = btn.dataset.bookmarked === 'true';
+        const icon = btn.querySelector('.material-symbols-outlined');
+
+        // Optimistic UI update
+        if (isBookmarked) {
+            btn.dataset.bookmarked = 'false';
+            icon.style.fontVariationSettings = "'FILL' 0";
+            icon.classList.remove('text-yellow-400');
+            icon.classList.add('text-outline');
+        } else {
+            btn.dataset.bookmarked = 'true';
+            icon.style.fontVariationSettings = "'FILL' 1";
+            icon.classList.remove('text-outline');
+            icon.classList.add('text-yellow-400');
+        }
+
+        fetch(BOOKMARK_TOGGLE_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': CSRF_TOKEN,
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({ lowongan_id: lowonganId }),
+        })
+        .then(res => res.json())
+        .then(data => {
+            // Sync state with server response
+            const serverBookmarked = data.bookmarked;
+            btn.dataset.bookmarked = serverBookmarked ? 'true' : 'false';
+            if (serverBookmarked) {
+                icon.style.fontVariationSettings = "'FILL' 1";
+                icon.classList.remove('text-outline');
+                icon.classList.add('text-yellow-400');
+            } else {
+                icon.style.fontVariationSettings = "'FILL' 0";
+                icon.classList.remove('text-yellow-400');
+                icon.classList.add('text-outline');
+            }
+        })
+        .catch(() => {
+            // Revert on error
+            if (isBookmarked) {
+                btn.dataset.bookmarked = 'true';
+                icon.style.fontVariationSettings = "'FILL' 1";
+                icon.classList.remove('text-outline');
+                icon.classList.add('text-yellow-400');
+            } else {
+                btn.dataset.bookmarked = 'false';
+                icon.style.fontVariationSettings = "'FILL' 0";
+                icon.classList.remove('text-yellow-400');
+                icon.classList.add('text-outline');
+            }
+        });
+    }
+
+    document.getElementById('btn-filter-toggle').addEventListener('click', function() {
+        const panel = document.getElementById('filter-panel');
+        panel.classList.toggle('hidden');
+    });
+</script>
 
 </html>

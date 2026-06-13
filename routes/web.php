@@ -11,6 +11,7 @@ use App\Http\Controllers\PortofolioController;
 use App\Http\Controllers\WawancaraController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BookmarkController;
 
 
 Route::get('/', function () {
@@ -96,12 +97,7 @@ Route::resource('/cv', CVController::class);
 Route::get('/cv/detail/{id}', [CVController::class, 'show'])->name('cv.show');
 
 // Portofolio
-Route::resource('/portofolio', PortofolioController::class)->only([
-    'index',
-    'create',
-    'store',
-    'destroy'
-]);
+Route::resource('/portofolio', PortofolioController::class);
 
 // Perusahaan
 Route::get('/home-perusahaan', [LowonganController::class, 'index']);
@@ -154,6 +150,10 @@ Route::post(
 
 Route::post('/pelamar/logout', [PelamarController::class, 'logout'])
     ->name('pelamar.logout');
+
+// Bookmark
+Route::get('/bookmark', [BookmarkController::class, 'index'])->name('pelamar.bookmark');
+Route::post('/bookmark/toggle', [BookmarkController::class, 'toggle'])->name('bookmark.toggle');
 
 Route::delete('/pelamar/hapus-akun', [PelamarController::class, 'destroy'])
     ->name('pelamar.destroy');

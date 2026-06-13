@@ -115,36 +115,66 @@
         }
     </style>
 </head>
-<body class="bg-background text-on-background font-body-md">
+<body class="bg-background text-on-background font-body-md overflow-x-hidden">
+<!-- Mobile Sidebar Backdrop -->
+<div id="sidebar-backdrop" class="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm hidden md:hidden transition-opacity duration-300 opacity-0"></div>
+
 <!-- TopNavBar -->
-<nav class="bg-surface-container-lowest text-primary docked full-width top-0 sticky z-50 shadow-sm h-16 flex items-center">
-    <div class="flex justify-between items-center w-full px-margin-desktop max-w-7xl mx-auto">
-        <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaKuy</a>
-        <nav class="hidden md:flex gap-8 items-center">
-            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md hover:bg-surface-container-low transition-all duration-200" href="/home-perusahaan">Lowongan Kerja</a>
-            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md hover:bg-surface-container-low transition-all duration-200" href="/karyawanPerusahaan">Karyawan</a>
-            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md hover:bg-surface-container-low transition-all duration-200" href="/perusahaan/wawancara">Wawancara</a>
-            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md hover:bg-surface-container-low transition-all duration-200" href="{{ route('perusahaan.history') }}">History</a>
-        </nav>
-        <div class="flex items-center gap-4">
-            <button class="p-2 rounded-full hover:bg-surface-container-low transition-colors text-primary">
-                <span class="material-symbols-outlined">notifications</span>
-            </button>
-            <a href="{{ route('perusahaan.settings') }}" class="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-surface-container-low transition-colors text-primary text-label-md font-label-md">
-                <span class="material-symbols-outlined">account_circle</span>
-                <span>{{ session('perusahaan_nama') ?? 'Perusahaan' }}</span>
+<header class="sticky top-0 z-50 bg-surface-container-lowest shadow-sm h-20 flex items-center">
+    <div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop w-full">
+        <div class="flex items-center gap-md md:gap-xl">
+            <!-- Hamburger button for mobile setting sidebar -->
+            <button id="mobile-menu-btn" class="md:hidden material-symbols-outlined text-on-surface-variant hover:bg-surface-container p-2 rounded-full transition-all">menu</button>
+            <a href="/home-perusahaan" class="text-headline-md font-headline-md font-bold text-on-surface">KerjaKuy</a>
+            <nav class="hidden md:flex items-center gap-lg">
+                <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="/home-perusahaan">Lowongan Kerja</a>
+                <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="/karyawanPerusahaan">Karyawan</a>
+                <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="/perusahaan/wawancara">Wawancara</a>
+                <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="{{ route('perusahaan.history') }}">History</a>
+            </nav>
+        </div>
+        <div class="flex items-center gap-md">
+            <button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container p-2 rounded-full transition-all">notifications</button>
+            <a href="{{ route('perusahaan.settings') }}" class="h-10 w-10 rounded-full border border-outline-variant overflow-hidden cursor-pointer hover:ring-2 hover:ring-secondary/20 transition-all flex items-center justify-center bg-secondary">
+                @if($perusahaan->foto_profil)
+                    <img alt="Logo Perusahaan" class="w-full h-full object-cover" src="{{ asset('storage/' . $perusahaan->foto_profil) }}"/>
+                @else
+                    <span class="material-symbols-outlined text-white text-[24px]">apartment</span>
+                @endif
             </a>
         </div>
     </div>
-</nav>
+</header>
 
-<main class="w-full flex min-h-[calc(100vh-64px)]">
+<main class="w-full flex min-h-[calc(100vh-80px)] relative">
     <!-- Sidebar Navigation -->
-    <aside class="w-72 bg-primary-container dark:bg-on-primary-fixed flex flex-col pt-lg pb-xl shrink-0">
-        <div class="px-md mb-lg">
+    <aside class="fixed inset-y-0 left-0 z-40 w-72 bg-primary-container dark:bg-on-primary-fixed flex flex-col pt-lg pb-xl transform -translate-x-full transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:transform-none shrink-0">
+        <div class="px-md mb-lg flex items-center justify-between">
             <h2 class="text-headline-md font-headline-md text-white px-base">Pengaturan</h2>
+            <button id="close-sidebar-btn" class="md:hidden material-symbols-outlined text-white hover:bg-white/10 p-2 rounded-full transition-all">close</button>
         </div>
         <nav class="flex-1 space-y-base px-sm">
+            <!-- Mobile Main Nav Links -->
+            <div class="md:hidden border-b border-white/10 pb-sm mb-sm px-sm space-y-base">
+                <p class="text-white/40 text-label-sm px-md mb-xs font-bold uppercase tracking-wider">Navigasi</p>
+                <a class="flex items-center gap-sm px-md py-sm rounded-lg text-on-primary-container hover:bg-white/5 transition-all" href="/home-perusahaan">
+                    <span class="material-symbols-outlined">work</span>
+                    <span class="font-label-md text-label-md">Lowongan Kerja</span>
+                </a>
+                <a class="flex items-center gap-sm px-md py-sm rounded-lg text-on-primary-container hover:bg-white/5 transition-all" href="/karyawanPerusahaan">
+                    <span class="material-symbols-outlined">badge</span>
+                    <span class="font-label-md text-label-md">Karyawan</span>
+                </a>
+                <a class="flex items-center gap-sm px-md py-sm rounded-lg text-on-primary-container hover:bg-white/5 transition-all" href="/perusahaan/wawancara">
+                    <span class="material-symbols-outlined">forum</span>
+                    <span class="font-label-md text-label-md">Wawancara</span>
+                </a>
+                <a class="flex items-center gap-sm px-md py-sm rounded-lg text-on-primary-container hover:bg-white/5 transition-all" href="{{ route('perusahaan.history') }}">
+                    <span class="material-symbols-outlined">history</span>
+                    <span class="font-label-md text-label-md">History</span>
+                </a>
+            </div>
+
             <!-- Akun (Active) -->
             <a class="flex items-center gap-sm px-md py-sm rounded-lg bg-secondary text-white font-bold transition-all active:scale-95" href="{{ route('perusahaan.settings') }}">
                 <span class="material-symbols-outlined">person</span>
@@ -169,7 +199,7 @@
     </aside>
 
     <!-- Main Content Area -->
-    <section class="flex-1 bg-surface py-xl px-margin-desktop overflow-y-auto">
+    <section class="flex-1 bg-surface py-lg px-margin-mobile md:py-xl md:px-margin-desktop overflow-y-auto">
         <div class="max-w-3xl">
             <header class="mb-lg border-b border-outline-variant/30 pb-md">
                 <a href="/home-perusahaan" class="inline-flex items-center gap-2 text-on-surface-variant hover:text-primary mb-md transition-colors font-body-sm">
@@ -212,8 +242,8 @@
             <form action="{{ route('perusahaan.settings.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <!-- Profile Photo Section -->
-                <div class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-md shadow-sm mb-lg flex items-center gap-lg">
-                    <div class="relative group">
+                <div class="bg-surface-container-lowest border border-outline-variant/20 rounded-xl p-md shadow-sm mb-lg flex flex-col sm:flex-row items-center text-center sm:text-left gap-md sm:gap-lg">
+                    <div class="relative group flex-shrink-0">
                         <div class="w-24 h-24 rounded-full overflow-hidden border-4 border-white shadow-md cursor-pointer" onclick="document.getElementById('inputFoto').click()">
                             @if($perusahaan->foto_profil)
                                 <img id="profile-preview" alt="Profile Photo" class="w-full h-full object-cover" src="{{ asset('storage/' . $perusahaan->foto_profil) }}?t={{ time() }}"/>
@@ -300,9 +330,9 @@
                     </div>
                 </div>
 
-                <div class="mt-xl flex justify-end gap-md">
-                    <a href="{{ route('perusahaan.settings') }}" class="flex items-center justify-center px-lg h-12 rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container transition-all">Batalkan</a>
-                    <button type="submit" class="px-lg h-12 bg-secondary text-white rounded-lg font-label-md shadow-md hover:opacity-90 transition-all active:scale-95">Simpan Perubahan</button>
+                <div class="mt-xl flex flex-col-reverse sm:flex-row justify-end gap-sm sm:gap-md">
+                    <a href="{{ route('perusahaan.settings') }}" class="flex items-center justify-center w-full sm:w-auto px-lg h-12 rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container transition-all">Batalkan</a>
+                    <button type="submit" class="w-full sm:w-auto px-lg h-12 bg-secondary text-white rounded-lg font-label-md shadow-md hover:opacity-90 transition-all active:scale-95">Simpan Perubahan</button>
                 </div>
             </form>
         </div>
@@ -311,7 +341,7 @@
 
 <!-- Footer -->
 <footer class="bg-primary dark:bg-tertiary-container border-t border-outline-variant/20">
-    <div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop py-lg w-full">
+    <div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop py-lg w-full">
         <span class="text-headline-sm font-headline-sm text-white mb-md md:mb-0">KerjaKuy</span>
         <div class="flex flex-wrap justify-center gap-md mb-md md:mb-0">
             <a class="font-label-md text-label-md text-surface-variant hover:text-white transition-colors hover:underline" href="#">Tentang Kami</a>
@@ -442,6 +472,42 @@
             passwordModal.classList.remove('flex');
         }
     });
+
+    // Mobile Sidebar Drawer Toggle Logic
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+    const sidebar = document.querySelector('aside');
+    const backdrop = document.getElementById('sidebar-backdrop');
+
+    function openSidebar() {
+        if (sidebar && backdrop) {
+            sidebar.classList.remove('-translate-x-full');
+            backdrop.classList.remove('hidden');
+            setTimeout(() => {
+                backdrop.classList.remove('opacity-0');
+            }, 10);
+        }
+    }
+
+    function closeSidebar() {
+        if (sidebar && backdrop) {
+            sidebar.classList.add('-translate-x-full');
+            backdrop.classList.add('opacity-0');
+            setTimeout(() => {
+                backdrop.classList.add('hidden');
+            }, 300);
+        }
+    }
+
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', openSidebar);
+    }
+    if (closeSidebarBtn) {
+        closeSidebarBtn.addEventListener('click', closeSidebar);
+    }
+    if (backdrop) {
+        backdrop.addEventListener('click', closeSidebar);
+    }
 </script>
 </body>
 </html>

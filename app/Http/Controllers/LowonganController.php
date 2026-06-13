@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Lowongan;
 use App\Models\Perusahaan;
+use App\Models\Bookmark;
 use Illuminate\Support\Facades\Storage;
 
 class LowonganController extends Controller
@@ -41,14 +42,18 @@ class LowonganController extends Controller
 
         $pelamarId = session('pelamar_id');
         $sudahMelamar = false;
+        $sudahBookmark = false;
 
         if ($pelamarId) {
             $sudahMelamar = \App\Models\Lamaran::where('pelamar_id', $pelamarId)
                 ->where('lowongan_id', $id)
                 ->exists();
+            $sudahBookmark = \App\Models\Bookmark::where('pelamar_id', $pelamarId)
+                ->where('lowongan_id', $id)
+                ->exists();
         }
 
-        return view('lamar', compact('lowongan', 'sudahMelamar'));
+        return view('lamar', compact('lowongan', 'sudahMelamar', 'sudahBookmark'));
     }
 
     public function create()
@@ -80,19 +85,10 @@ class LowonganController extends Controller
             'alamat'            => 'required',
             'tanggal_mulai'     => 'required|date',
             'tanggal_akhir'     => 'required|date|after_or_equal:tanggal_mulai',
-            'gambar'            => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'pendidikan'        => 'required',
             'pengalaman'        => 'required',
             'keahlian_teknis'   => 'required',
         ]);
-
-        $namaGambar = null;
-
-        if ($request->hasFile('gambar')) {
-            $file = $request->file('gambar');
-            $namaGambar = time() . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('lowongan', $namaGambar, 'public');
-        }
 
         Lowongan::create([
             'perusahaan_id'        => session('perusahaan_id'),
@@ -109,7 +105,6 @@ class LowonganController extends Controller
             'alamat_lengkap'       => $request->alamat,
             'tanggal_mulai'        => $request->tanggal_mulai,
             'tanggal_berakhir'     => $request->tanggal_akhir,
-            'gambar'               => $namaGambar,
             'pendidikan'           => $request->pendidikan,
             'pengalaman'           => $request->pengalaman,
             'keahlian_teknis'      => $request->keahlian_teknis,
@@ -133,10 +128,6 @@ class LowonganController extends Controller
     public function destroy($id)
     {
         $lowongan = Lowongan::findOrFail($id);
-        if ($lowongan->gambar) {
-            Storage::delete('public/lowongan/' . $lowongan->gambar);
-        }
-
         $lowongan->delete();
 
         return redirect('/home-perusahaan')->with('success', 'Lowongan berhasil dihapus');
@@ -170,7 +161,6 @@ class LowonganController extends Controller
             'alamat'            => 'required',
             'tanggal_mulai'     => 'required|date',
             'tanggal_akhir'     => 'required|date|after_or_equal:tanggal_mulai',
-            'gambar'            => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'pendidikan'        => 'required',
             'pengalaman'        => 'required',
             'keahlian_teknis'   => 'required',
@@ -194,19 +184,6 @@ class LowonganController extends Controller
             'pengalaman'           => $request->pengalaman,
             'keahlian_teknis'      => $request->keahlian_teknis,
         ];
-
-        if ($request->hasFile('gambar')) {
-            if ($lowongan->gambar) {
-                Storage::disk('public')->delete('lowongan/' . $lowongan->gambar);
-            }
-
-            $file = $request->file('gambar');
-            $namaGambar = time() . '.' . $file->getClientOriginalExtension();
-
-            $file->storeAs('lowongan', $namaGambar, 'public');
-
-            $data['gambar'] = $namaGambar;
-        }
 
         $lowongan->update($data);
 
@@ -239,6 +216,53 @@ class LowonganController extends Controller
             });
         }
 
+        // Filter: Rentang Gaji
+        if ($request->filled('gaji_range')) {
+            $range = $request->gaji_range;
+            
+            if (\DB::connection()->getDriverName() === 'sqlite') {
+                $pdo = \DB::connection()->getPdo();
+                $pdo->sqliteCreateFunction('SUBSTRING_INDEX', function ($string, $delim, $count) {
+                    if ($string === null) return null;
+                    $parts = explode($delim, $string);
+                    if ($count > 0) {
+                        return implode($delim, array_slice($parts, 0, $count));
+                    } else {
+                        return implode($delim, array_slice($parts, $count));
+                    }
+                });
+            }
+
+            $cleanSql = "CAST(SUBSTRING_INDEX(REPLACE(REPLACE(REPLACE(gaji, 'Rp', ''), '.', ''), ' ', ''), '-', 1) AS UNSIGNED)";
+            $cleanSqlMax = "CAST(SUBSTRING_INDEX(REPLACE(REPLACE(REPLACE(gaji, 'Rp', ''), '.', ''), ' ', ''), '-', -1) AS UNSIGNED)";
+
+            if ($range === 'under_5m') {
+                $query->whereRaw("$cleanSql < 5000000");
+            } elseif ($range === '5m_10m') {
+                $query->whereRaw("$cleanSql <= 10000000 AND $cleanSqlMax >= 5000000");
+            } elseif ($range === '10m_15m') {
+                $query->whereRaw("$cleanSql <= 15000000 AND $cleanSqlMax >= 10000000");
+            } elseif ($range === 'above_15m') {
+                $query->whereRaw("$cleanSqlMax > 15000000");
+            }
+        }
+
+        // Filter: Jenis Pekerjaan
+        if ($request->filled('jenis_pekerjaan')) {
+            $jenis = $request->jenis_pekerjaan;
+            if ($jenis === 'Full-time') {
+                $query->where(function ($q) {
+                    $q->where('jenis_pekerjaan', 'like', 'Full%');
+                });
+            } elseif ($jenis === 'Part-time') {
+                $query->where(function ($q) {
+                    $q->where('jenis_pekerjaan', 'like', 'Part%');
+                });
+            } else {
+                $query->where('jenis_pekerjaan', 'like', "%{$jenis}%");
+            }
+        }
+
         // Sorting: Terbaru / Terlama
         $sort = $request->query('sort', 'terbaru');
         if ($sort === 'terlama') {
@@ -267,6 +291,15 @@ class LowonganController extends Controller
         $lokasiOptions = array_unique(array_merge($defaultLokasi, $dbLokasi));
         sort($lokasiOptions);
 
-        return view('home', compact('lowongans', 'lokasiOptions'));
+        // Ambil ID lowongan yang sudah di-bookmark oleh pelamar yang sedang login
+        $bookmarkedIds = [];
+        $pelamarId = session('pelamar_id');
+        if ($pelamarId) {
+            $bookmarkedIds = Bookmark::where('pelamar_id', $pelamarId)
+                ->pluck('lowongan_id')
+                ->toArray();
+        }
+
+        return view('home', compact('lowongans', 'lokasiOptions', 'bookmarkedIds'));
     }
 }

@@ -56,6 +56,7 @@ class PelamarController extends Controller
             'pelamar_id'       => $pelamar->id,
             'pelamar_username' => $pelamar->username,
             'pelamar_nama'     => $pelamar->nama_lengkap,
+            'pelamar_foto'     => $pelamar->foto_profil,
         ]);
 
         return redirect('/home-pelamar')->with('success', 'Registrasi berhasil!');
@@ -120,10 +121,14 @@ class PelamarController extends Controller
         }
         $data = $response->json();
 
+        // Fetch full pelamar data to get foto_profil
+        $pelamarData = Pelamar::find($data['id']);
+
         session([
             'pelamar_id'       => $data['id'],
             'pelamar_username' => $data['username'],
             'pelamar_nama'     => $data['nama'],
+            'pelamar_foto'     => $pelamarData ? $pelamarData->foto_profil : null,
         ]);
 
         return redirect('/home-pelamar');
@@ -188,6 +193,12 @@ class PelamarController extends Controller
                 }
             }
         }
+
+        session([
+            'pelamar_nama'     => $pelamar->nama_lengkap,
+            'pelamar_username' => $pelamar->username,
+            'pelamar_foto'     => $fotoProfilPath,
+        ]);
 
         return back()->with('success', 'Profil berhasil diperbarui!');
     }

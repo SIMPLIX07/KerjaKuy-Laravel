@@ -151,8 +151,13 @@ $pengalamanPlaceholders = [
                 </nav>
             </div>
             <div class="flex items-center gap-md">
-                <a href="{{ route('pelamar.settings') }}" class="p-2 rounded-full hover:bg-white/10 transition-colors text-white" aria-label="Pengaturan akun">
-                    <span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+                <a href="{{ route('pelamar.settings') }}" class="flex items-center gap-2 px-2 py-1.5 rounded-full hover:bg-white/10 transition-colors text-white" aria-label="Pengaturan akun">
+                    @if(session('pelamar_foto'))
+                        <img src="{{ asset('storage/' . session('pelamar_foto')) }}" alt="Profil" class="w-8 h-8 rounded-full object-cover border-2 border-white/50">
+                    @else
+                        <span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+                    @endif
+                    <span class="hidden md:inline text-white text-[14px] font-semibold">{{ session('pelamar_nama') ?? 'Profil' }}</span>
                 </a>
             </div>
         </div>

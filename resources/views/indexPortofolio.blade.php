@@ -223,6 +223,11 @@
                             </div>
 
                             <div class="flex items-center gap-sm" @click.stop>
+                                <a href="{{ route('portofolio.edit', $p->id) }}"
+                                    class="flex items-center justify-center px-5 h-10 bg-secondary text-white rounded-lg font-label-md shadow-md hover:opacity-90 transition-all active:scale-95 text-sm !no-underline">
+                                    Edit
+                                </a>
+
                                 <form action="{{ route('portofolio.destroy', $p->id) }}" method="POST" class="inline">
                                     @csrf
                                     @method('DELETE')

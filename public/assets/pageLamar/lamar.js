@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let selectedCvId = null;
     let selectedPortofolioId = null;
 
-    if (!pelamarId || !lowonganId || !btnLamars.length) {
-        console.error("Missing pelamar-id or lowongan-id meta tag");
+    if (!lowonganId || !btnLamars.length) {
+        console.error("Missing lowongan-id meta tag or lamar buttons");
         btnLamars.forEach(btn => {
             btn.disabled = true;
             btn.textContent = "Gagal memuat lamaran";
@@ -41,6 +41,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     btnLamars.forEach(btnLamar => {
         btnLamar.addEventListener("click", async () => {
+            if (!pelamarId) {
+                window.location.href = "/login/pelamar";
+                return;
+            }
             modal.style.display = "flex";
             btnKirim.disabled = true;
             cvList.innerHTML = "Memuat CV...";

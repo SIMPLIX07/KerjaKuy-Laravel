@@ -48,7 +48,52 @@ class AdminController extends Controller
 
         $totalPerusahaan = Perusahaan::count();
 
-        return view('admin.dashboard', compact('pendingPerusahaan', 'verifiedPerusahaan', 'rejectedPerusahaan', 'totalPerusahaan'));
+        // Hitung growth rate pendaftaran perusahaan (7 hari terakhir vs 7 hari sebelumnya)
+        $recentRegistrations = Perusahaan::where('created_at', '>=', now()->subDays(7))->count();
+        $previousRegistrations = Perusahaan::where('created_at', '>=', now()->subDays(14))
+            ->where('created_at', '<', now()->subDays(7))
+            ->count();
+
+        if ($previousRegistrations > 0) {
+            $growthRate = round((($recentRegistrations - $previousRegistrations) / $previousRegistrations) * 100);
+            $growthFormatted = ($growthRate >= 0 ? '+' : '') . $growthRate . '%';
+        } else {
+            $growthFormatted = $recentRegistrations > 0 ? '+' . ($recentRegistrations * 100) . '%' : '+0%';
+        }
+
+        // Ambil data trend registrasi selama 7 hari terakhir
+        $trends = [];
+        $dayMap = [
+            'Mon' => 'Sen',
+            'Tue' => 'Sel',
+            'Wed' => 'Rab',
+            'Thu' => 'Kam',
+            'Fri' => 'Jum',
+            'Sat' => 'Sab',
+            'Sun' => 'Min'
+        ];
+        for ($i = 6; $i >= 0; $i--) {
+            $date = now()->subDays($i);
+            $count = Perusahaan::whereDate('created_at', $date->toDateString())->count();
+            $dayEnglish = $date->format('D');
+            $trends[] = [
+                'day' => $dayMap[$dayEnglish] ?? $dayEnglish,
+                'count' => $count,
+                'date_label' => $date->format('d M')
+            ];
+        }
+
+        $maxTrendCount = max(array_column($trends, 'count'));
+
+        return view('admin.dashboard', compact(
+            'pendingPerusahaan',
+            'verifiedPerusahaan',
+            'rejectedPerusahaan',
+            'totalPerusahaan',
+            'growthFormatted',
+            'trends',
+            'maxTrendCount'
+        ));
     }
 
     // List Semua Perusahaan dengan Filter
@@ -72,7 +117,17 @@ class AdminController extends Controller
 
         $perusahaan = $query->latest()->paginate(15);
 
-        return view('admin.daftarPerusahaan', compact('perusahaan'));
+        // Hitung statistik secara dinamis
+        $totalPerusahaan = Perusahaan::count();
+        $verifiedPerusahaan = Perusahaan::where('status_verifikasi', 'verified')->count();
+        $pendingPerusahaanCount = Perusahaan::where('status_verifikasi', 'pending')->count();
+
+        return view('admin.daftarPerusahaan', compact(
+            'perusahaan',
+            'totalPerusahaan',
+            'verifiedPerusahaan',
+            'pendingPerusahaanCount'
+        ));
     }
 
     // Detail Perusahaan untuk Verifikasi
@@ -118,10 +173,23 @@ class AdminController extends Controller
     }
 
     // Halaman History Verifikasi
-    public function historyVerifikasi()
+    public function historyVerifikasi(Request $request)
     {
-        $history = Perusahaan::where('status_verifikasi', '!=', 'pending')
-            ->latest('verified_at')
+        $query = Perusahaan::where('status_verifikasi', '!=', 'pending');
+
+        if ($request->filled('status')) {
+            $query->where('status_verifikasi', $request->status);
+        }
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_perusahaan', 'like', "%$search%")
+                  ->orWhere('email', 'like', "%$search%");
+            });
+        }
+
+        $history = $query->latest('verified_at')
             ->paginate(20);
 
         return view('admin.historyVerifikasi', compact('history'));

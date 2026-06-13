@@ -111,13 +111,10 @@ class LowonganTest extends TestCase
     }
 
     /**
-     * Menguji penyimpanan lowongan baru berhasil beserta unggah gambar header lowongan.
+     * Menguji penyimpanan lowongan baru berhasil.
      */
     public function test_store_lowongan_success()
     {
-        Storage::fake('public');
-        $file = UploadedFile::fake()->create('header.jpg', 300, 'image/jpeg');
-
         $response = $this->withSession(['perusahaan_id' => $this->perusahaan->id])
             ->post('/lowongan/tambah', [
                 'kategori'          => 'Teknologi',
@@ -133,7 +130,6 @@ class LowonganTest extends TestCase
                 'alamat'            => 'Merdeka Barat No. 15',
                 'tanggal_mulai'     => '2026-06-10',
                 'tanggal_akhir'     => '2026-07-10',
-                'gambar'            => $file,
                 'pendidikan'        => 'D3/S1',
                 'pengalaman'        => 'Minimal 1 Tahun',
                 'keahlian_teknis'   => 'React, CSS, Git',
@@ -148,10 +144,6 @@ class LowonganTest extends TestCase
             'kategori_pekerjaan' => 'Teknologi',
             'gaji'               => '8000000',
         ]);
-
-        $lowongan = Lowongan::where('posisi_pekerjaan', 'Frontend Developer')->first();
-        $this->assertNotNull($lowongan->gambar);
-        Storage::disk('public')->assertExists('lowongan/' . $lowongan->gambar);
     }
 
     /**
@@ -230,15 +222,10 @@ class LowonganTest extends TestCase
     }
 
     /**
-     * Menguji halaman edit lowongan dapat dimuat dan pembaruan data lowongan beserta gambarnya berhasil.
+     * Menguji halaman edit lowongan dapat dimuat dan pembaruan data lowongan berhasil.
      */
     public function test_edit_and_update_lowongan_success()
     {
-        Storage::fake('public');
-
-        $oldImageName = '1234567.jpg';
-        Storage::disk('public')->put('lowongan/' . $oldImageName, 'content');
-
         $lowongan = Lowongan::create([
             'perusahaan_id'       => $this->perusahaan->id,
             'kategori_pekerjaan'  => 'Teknologi',
@@ -254,7 +241,6 @@ class LowonganTest extends TestCase
             'alamat_lengkap'      => 'Ganesha',
             'tanggal_mulai'       => '2026-06-01',
             'tanggal_berakhir'    => '2026-07-01',
-            'gambar'              => $oldImageName,
         ]);
 
         // Halaman edit
@@ -264,8 +250,6 @@ class LowonganTest extends TestCase
         $response->assertViewIs('lowongan.editLowongan');
 
         // Pembaruan
-        $newFile = UploadedFile::fake()->create('new_header.png', 400, 'image/png');
-
         $response = $this->withSession(['perusahaan_id' => $this->perusahaan->id])
             ->put('/lowongan/update/' . $lowongan->id, [
                 'kategori'          => 'Teknologi Modern',
@@ -281,7 +265,6 @@ class LowonganTest extends TestCase
                 'alamat'            => 'Ganesha Baru',
                 'tanggal_mulai'     => '2026-06-01',
                 'tanggal_akhir'     => '2026-07-01',
-                'gambar'            => $newFile,
                 'pendidikan'        => 'S1',
                 'pengalaman'        => '3 tahun',
                 'keahlian_teknis'   => 'Vue, Vuex',
@@ -294,21 +277,13 @@ class LowonganTest extends TestCase
         $this->assertEquals('Vue Senior Dev', $lowongan->posisi_pekerjaan);
         $this->assertEquals('Teknologi Modern', $lowongan->kategori_pekerjaan);
         $this->assertEquals('Ganesha Baru', $lowongan->alamat_lengkap);
-
-        // Pastikan gambar lama dihapus dan gambar baru disimpan
-        Storage::disk('public')->assertMissing('lowongan/' . $oldImageName);
-        Storage::disk('public')->assertExists('lowongan/' . $lowongan->gambar);
     }
 
     /**
-     * Menguji penghapusan lowongan pekerjaan berhasil beserta penghapusan gambar terkait dari storage.
+     * Menguji penghapusan lowongan pekerjaan berhasil.
      */
     public function test_delete_lowongan_success()
     {
-        Storage::fake();
-        $imageName = 'header.png';
-        Storage::put('public/lowongan/' . $imageName, 'content');
-
         $lowongan = Lowongan::create([
             'perusahaan_id'       => $this->perusahaan->id,
             'kategori_pekerjaan'  => 'Teknologi',
@@ -324,7 +299,6 @@ class LowonganTest extends TestCase
             'alamat_lengkap'      => 'Ganesha',
             'tanggal_mulai'       => '2026-06-01',
             'tanggal_berakhir'    => '2026-07-01',
-            'gambar'              => $imageName,
         ]);
 
         $response = $this->withSession(['perusahaan_id' => $this->perusahaan->id])
@@ -334,7 +308,6 @@ class LowonganTest extends TestCase
         $response->assertSessionHas('success', 'Lowongan berhasil dihapus');
 
         $this->assertDatabaseMissing('lowongans', ['id' => $lowongan->id]);
-        Storage::assertMissing('public/lowongan/' . $imageName);
     }
 
     /**
@@ -442,6 +415,96 @@ class LowonganTest extends TestCase
         $response->assertStatus(200);
         // Item pertama halaman 1 (terlama) harusnya Developer 1
         $this->assertEquals('Developer 1', $response->viewData('lowongans')->first()->posisi_pekerjaan);
+    }
+
+    /**
+     * Menguji filter rentang gaji dan jenis pekerjaan pada halaman pelamar.
+     */
+    public function test_pelamar_can_filter_salary_range_and_job_type()
+    {
+        // Lowongan 1: Gaji 3jt, Full-time
+        Lowongan::create([
+            'perusahaan_id'       => $this->perusahaan->id,
+            'kategori_pekerjaan'  => 'Teknologi',
+            'posisi_pekerjaan'    => 'Junior Dev',
+            'jenis_pekerjaan'     => 'Full-time',
+            'gaji'                => 'Rp 3.000.000',
+            'deskripsi_singkat'   => 'Job 1',
+            'deskripsi_pekerjaan' => 'Desc 1',
+            'syarat'              => 'Syarat 1',
+            'provinsi'            => 'Jawa Barat',
+            'kabupaten'           => 'Bandung',
+            'kecamatan'           => 'Coblong',
+            'alamat_lengkap'      => 'Ganesha',
+            'tanggal_mulai'       => '2026-06-01',
+            'tanggal_berakhir'    => '2026-07-01',
+        ]);
+
+        // Lowongan 2: Gaji 12jt, Part-time
+        Lowongan::create([
+            'perusahaan_id'       => $this->perusahaan->id,
+            'kategori_pekerjaan'  => 'Teknologi',
+            'posisi_pekerjaan'    => 'Mid Dev',
+            'jenis_pekerjaan'     => 'Part-time',
+            'gaji'                => 'Rp 12.000.000',
+            'deskripsi_singkat'   => 'Job 2',
+            'deskripsi_pekerjaan' => 'Desc 2',
+            'syarat'              => 'Syarat 2',
+            'provinsi'            => 'Jawa Barat',
+            'kabupaten'           => 'Bandung',
+            'kecamatan'           => 'Coblong',
+            'alamat_lengkap'      => 'Ganesha',
+            'tanggal_mulai'       => '2026-06-01',
+            'tanggal_berakhir'    => '2026-07-01',
+        ]);
+
+        // Lowongan 3: Gaji 16jt, Kontrak
+        Lowongan::create([
+            'perusahaan_id'       => $this->perusahaan->id,
+            'kategori_pekerjaan'  => 'Teknologi',
+            'posisi_pekerjaan'    => 'Senior Dev',
+            'jenis_pekerjaan'     => 'Kontrak',
+            'gaji'                => 'Rp 16.000.000',
+            'deskripsi_singkat'   => 'Job 3',
+            'deskripsi_pekerjaan' => 'Desc 3',
+            'syarat'              => 'Syarat 3',
+            'provinsi'            => 'Jawa Barat',
+            'kabupaten'           => 'Bandung',
+            'kecamatan'           => 'Coblong',
+            'alamat_lengkap'      => 'Ganesha',
+            'tanggal_mulai'       => '2026-06-01',
+            'tanggal_berakhir'    => '2026-07-01',
+        ]);
+
+        // 1. Filter Rentang Gaji: under_5m (< 5jt) -> should return Junior Dev
+        $response = $this->get('/home-pelamar?gaji_range=under_5m');
+        $response->assertStatus(200);
+        $this->assertEquals(1, $response->viewData('lowongans')->count());
+        $this->assertEquals('Junior Dev', $response->viewData('lowongans')->first()->posisi_pekerjaan);
+
+        // 2. Filter Rentang Gaji: 10m_15m -> should return Mid Dev
+        $response = $this->get('/home-pelamar?gaji_range=10m_15m');
+        $response->assertStatus(200);
+        $this->assertEquals(1, $response->viewData('lowongans')->count());
+        $this->assertEquals('Mid Dev', $response->viewData('lowongans')->first()->posisi_pekerjaan);
+
+        // 3. Filter Rentang Gaji: above_15m -> should return Senior Dev
+        $response = $this->get('/home-pelamar?gaji_range=above_15m');
+        $response->assertStatus(200);
+        $this->assertEquals(1, $response->viewData('lowongans')->count());
+        $this->assertEquals('Senior Dev', $response->viewData('lowongans')->first()->posisi_pekerjaan);
+
+        // 4. Filter Jenis Pekerjaan: Full-time -> should return Junior Dev
+        $response = $this->get('/home-pelamar?jenis_pekerjaan=Full-time');
+        $response->assertStatus(200);
+        $this->assertEquals(1, $response->viewData('lowongans')->count());
+        $this->assertEquals('Junior Dev', $response->viewData('lowongans')->first()->posisi_pekerjaan);
+
+        // 5. Filter Jenis Pekerjaan: Kontrak -> should return Senior Dev
+        $response = $this->get('/home-pelamar?jenis_pekerjaan=Kontrak');
+        $response->assertStatus(200);
+        $this->assertEquals(1, $response->viewData('lowongans')->count());
+        $this->assertEquals('Senior Dev', $response->viewData('lowongans')->first()->posisi_pekerjaan);
     }
 }
 

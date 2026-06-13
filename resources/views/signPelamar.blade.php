@@ -163,7 +163,11 @@
             <!-- Registration Form Panel -->
             <div class="md:col-span-7 p-md md:p-xl bg-white">
                 <div class="max-w-md mx-auto">
-                    <div class="mb-lg">
+                    <div class="mb-lg flex flex-col gap-1">
+                        <a href="/pilihRole" class="flex items-center gap-2 text-secondary hover:text-primary transition-colors font-semibold text-sm w-fit mb-2">
+                            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                            Kembali ke Pilih Peran
+                        </a>
                         <h2 class="font-headline-lg text-headline-lg text-primary mb-xs">Buat Akun Baru</h2>
                         <p class="text-on-surface-variant font-body-md">Lengkapi data diri untuk memulai perjalanan karirmu.</p>
                     </div>
