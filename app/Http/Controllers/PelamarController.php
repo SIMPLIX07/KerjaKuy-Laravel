@@ -7,7 +7,6 @@ use App\Models\Pelamar;
 use App\Models\Keahlian;
 use GuzzleHttp\RedirectMiddleware;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -26,8 +25,6 @@ class PelamarController extends Controller
             'conf'         => 'required|same:password',
             'keahlian'     => 'nullable'
         ]);
-
-        session()->flush();
 
         // Simpan pelamar
         $pelamar = Pelamar::create([
@@ -59,7 +56,7 @@ class PelamarController extends Controller
             'pelamar_foto'     => $pelamar->foto_profil,
         ]);
 
-        return redirect('/home-pelamar')->with('success', 'Registrasi berhasil!');
+        return redirect()->route('home')->with('success', 'Registrasi berhasil!');
     }
 
     public function updatePassword(Request $request)
@@ -98,40 +95,27 @@ class PelamarController extends Controller
 
     public function login(Request $request)
     {
-
         $request->validate([
             'username' => 'required',
             'password' => 'required'
         ]);
 
-        try {
-            $response = Http::post('http://localhost:3001/login-pelamar', [
-                'username' => $request->username,
-                'password' => $request->password,
-            ]);
-        } catch (\Exception $e) {
-            return back()->withErrors([
-                'login' => 'Server login sedang tidak tersedia'
-            ]);
-        }
-        if ($response->failed()) {
-            return back()->withErrors([
-                'login' => $response->json()['message'] ?? 'Login gagal'
-            ]);
-        }
-        $data = $response->json();
+        $pelamar = Pelamar::where('username', $request->username)->first();
 
-        // Fetch full pelamar data to get foto_profil
-        $pelamarData = Pelamar::find($data['id']);
+        if (!$pelamar || !Hash::check($request->password, $pelamar->password)) {
+            return back()->withErrors([
+                'login' => 'Username atau password salah'
+            ])->withInput();
+        }
 
         session([
-            'pelamar_id'       => $data['id'],
-            'pelamar_username' => $data['username'],
-            'pelamar_nama'     => $data['nama'],
-            'pelamar_foto'     => $pelamarData ? $pelamarData->foto_profil : null,
+            'pelamar_id'       => $pelamar->id,
+            'pelamar_username' => $pelamar->username,
+            'pelamar_nama'     => $pelamar->nama_lengkap,
+            'pelamar_foto'     => $pelamar->foto_profil,
         ]);
 
-        return redirect('/home-pelamar');
+        return redirect()->route('home');
     }
 
     //setting
