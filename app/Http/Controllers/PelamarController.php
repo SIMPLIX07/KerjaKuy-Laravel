@@ -147,8 +147,8 @@ class PelamarController extends Controller
         $fotoProfilPath = $pelamar->foto_profil;
 
         if ($request->hasFile('foto_profil')) {
-            if ($pelamar->foto_profil) {
-                Storage::delete('public/profil/' . $pelamar->foto_profil);
+            if ($pelamar->foto_profil && Storage::disk('public')->exists($pelamar->foto_profil)) {
+                Storage::disk('public')->delete($pelamar->foto_profil);
             }
 
             $fotoProfilPath = $request->file('foto_profil')->store(
