@@ -143,13 +143,22 @@
         }
     </script>
     <style>
-        <p class="text-on-surface-variant font-body-sm">Format PNG,
-        JPG,
-        JPEG. Maks. 2MB</p>font-variation-settings: 'FILL' 0,
-        'wght' 400,
-        'GRAD' 0,
-        'opsz' 24;
-        vertical-align: middle;
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
         }
 
         .active-glow {
@@ -159,8 +168,6 @@
 </head>
 
 <body class="bg-background text-on-background font-body-md overflow-x-hidden">
-    <input type="file" name="foto_profil" id="inputFoto" class="hidden" accept="image/png, image/jpeg, image/jpg"
-        onchange="previewImg()" />
     <div id="sidebar-backdrop"
         class="fixed inset-0 z-30 bg-black/40 backdrop-blur-sm hidden md:hidden transition-opacity duration-300 opacity-0">
     </div>
@@ -447,9 +454,16 @@
                 <!-- Password Lama -->
                 <div class="space-y-xs">
                     <label class="text-label-md font-label-md text-on-surface-variant px-base">Password Lama</label>
-                    <input type="password" name="password_lama"
-                        class="w-full h-12 px-md bg-surface-container-lowest border border-outline-variant rounded-lg focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all font-body-md text-on-surface"
-                        required />
+                    <div class="relative">
+                        <input type="password" name="password_lama" data-password-input
+                            class="w-full h-12 px-md pr-12 bg-surface-container-lowest border border-outline-variant rounded-lg focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all font-body-md text-on-surface"
+                            required />
+                        <button type="button" data-toggle-password
+                            class="absolute right-0 top-0 h-12 w-12 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container cursor-pointer transition-colors rounded"
+                            aria-label="Tampilkan password" tabindex="-1">
+                            <span class="material-symbols-outlined text-[20px]">visibility</span>
+                        </button>
+                    </div>
                     @error('password_lama')
                         <p class="text-error font-body-sm px-base mt-1">{{ $message }}</p>
                     @enderror
@@ -459,9 +473,16 @@
                 <div class="space-y-xs">
                     <label class="text-label-md font-label-md text-on-surface-variant px-base">Password Baru (Min. 8
                         karakter)</label>
-                    <input type="password" name="password_baru"
-                        class="w-full h-12 px-md bg-surface-container-lowest border border-outline-variant rounded-lg focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all font-body-md text-on-surface"
-                        required />
+                    <div class="relative">
+                        <input type="password" name="password_baru" data-password-input
+                            class="w-full h-12 px-md pr-12 bg-surface-container-lowest border border-outline-variant rounded-lg focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all font-body-md text-on-surface"
+                            required />
+                        <button type="button" data-toggle-password
+                            class="absolute right-0 top-0 h-12 w-12 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container cursor-pointer transition-colors rounded"
+                            aria-label="Tampilkan password" tabindex="-1">
+                            <span class="material-symbols-outlined text-[20px]">visibility</span>
+                        </button>
+                    </div>
                     @error('password_baru')
                         <p class="text-error font-body-sm px-base mt-1">{{ $message }}</p>
                     @enderror
@@ -471,9 +492,16 @@
                 <div class="space-y-xs">
                     <label class="text-label-md font-label-md text-on-surface-variant px-base">Konfirmasi Password
                         Baru</label>
-                    <input type="password" name="password_baru_confirmation"
-                        class="w-full h-12 px-md bg-surface-container-lowest border border-outline-variant rounded-lg focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all font-body-md text-on-surface"
-                        required />
+                    <div class="relative">
+                        <input type="password" name="password_baru_confirmation" data-password-input
+                            class="w-full h-12 px-md pr-12 bg-surface-container-lowest border border-outline-variant rounded-lg focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all font-body-md text-on-surface"
+                            required />
+                        <button type="button" data-toggle-password
+                            class="absolute right-0 top-0 h-12 w-12 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container cursor-pointer transition-colors rounded"
+                            aria-label="Tampilkan password" tabindex="-1">
+                            <span class="material-symbols-outlined text-[20px]">visibility</span>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="pt-md flex justify-end gap-md">
@@ -620,6 +648,27 @@
                 deleteAccountModal.classList.add('hidden');
                 deleteAccountModal.classList.remove('flex');
             }
+        });
+
+        // Toggle Password Visibility
+        document.querySelectorAll('[data-toggle-password]').forEach(toggleBtn => {
+            toggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const passwordInput = toggleBtn.closest('.relative').querySelector('[data-password-input]');
+                const icon = toggleBtn.querySelector('.material-symbols-outlined');
+
+                if (passwordInput) {
+                    if (passwordInput.type === 'password') {
+                        passwordInput.type = 'text';
+                        icon.textContent = 'visibility_off';
+                        toggleBtn.setAttribute('aria-label', 'Sembunyikan password');
+                    } else {
+                        passwordInput.type = 'password';
+                        icon.textContent = 'visibility';
+                        toggleBtn.setAttribute('aria-label', 'Tampilkan password');
+                    }
+                }
+            });
         });
 
         // Mobile Sidebar Drawer Toggle Logic
