@@ -119,25 +119,23 @@
 <nav class="bg-surface-container-lowest text-primary docked full-width top-0 sticky z-50 shadow-sm h-16 flex items-center">
     <div class="flex justify-between items-center w-full px-margin-desktop max-w-7xl mx-auto">
         <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaKuy</a>
-        @if (session('perusahaan_id'))
-        <nav class="hidden md:flex gap-8 items-center">
-            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="/home-perusahaan">Lowongan Kerja</a>
-            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="/karyawanPerusahaan">Karyawan</a>
-            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="/perusahaan/wawancara">Wawancara</a>
-            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ route('perusahaan.history') }}">History</a>
-        </nav>
-        @elseif (session('pelamar_id'))
-        <nav class="hidden md:flex gap-8 items-center">
-            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ route('home') }}">Lowongan Kerja</a>
-            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ url('/lamaran-anda') }}">Lamaran Anda</a>
-            <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ route('pelamar.wawancara') }}">Wawancara</a>
-        </nav>
-        @endif
+        <div class="flex-1 flex justify-center">
+            @if (session('perusahaan_id'))
+            <nav class="hidden md:flex gap-8 items-center">
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="/home-perusahaan">Lowongan Kerja</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="/karyawanPerusahaan">Karyawan</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="/perusahaan/wawancara">Wawancara</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ route('perusahaan.history') }}">History</a>
+            </nav>
+            @elseif (session('pelamar_id'))
+            <nav class="hidden md:flex gap-8 items-center">
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ route('home') }}">Lowongan Kerja</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ url('/lamaran-anda') }}">Lamaran Anda</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ route('pelamar.wawancara') }}">Wawancara</a>
+            </nav>
+            @endif
+        </div>
         <div class="flex items-center gap-4">
-            <button onclick="window.history.back()" class="inline-flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors font-body-sm bg-surface-container-low px-4 py-2 rounded-lg font-bold">
-                <span class="material-symbols-outlined text-[18px]">arrow_back</span>
-                <span>Kembali</span>
-            </button>
         </div>
     </div>
 </nav>
@@ -190,24 +188,94 @@
                     </p>
                 </div>
 
-                <!-- Experience Card -->
-                @if ($cv->pengalamans->count() > 0)
+                <!-- Experience Row -->
+                <div class="space-y-md">
+                    @if ($cv->pengalamans->count() > 0)
+                    <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex items-center gap-sm mb-md">
+                            <span class="material-symbols-outlined text-secondary" style="font-variation-settings: &quot;FILL&quot; 1;">work</span>
+                            <h2 class="font-headline-md text-headline-md text-primary">Pengalaman</h2>
+                        </div>
+                        <div class="space-y-md">
+                            @foreach ($cv->pengalamans as $pengalaman)
+                            <div class="flex gap-md p-md rounded-lg bg-surface-container-low border border-outline-variant/50">
+                                <div class="bg-primary-container p-sm rounded-xl flex items-center justify-center h-fit">
+                                    <span class="material-symbols-outlined text-on-primary-container">business</span>
+                                </div>
+                                <div class="flex-1">
+                                    <div class="flex justify-between items-start">
+                                        <h3 class="font-headline-md text-body-lg text-primary font-bold">{{ $pengalaman->pengalaman }}</h3>
+                                        <span class="bg-secondary-container text-on-secondary-container text-xs font-bold px-sm py-1 rounded-full">{{ $pengalaman->durasi }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
+                </div>
+
+                <!-- Portfolio Card -->
+                @if ($cv->pelamar->portofolios->count() > 0)
                 <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex items-center gap-sm mb-md">
-                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings: &quot;FILL&quot; 1;">work</span>
-                        <h2 class="font-headline-md text-headline-md text-primary">Pengalaman</h2>
+                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings: &quot;FILL&quot; 1;">folder</span>
+                        <h2 class="font-headline-md text-headline-md text-primary">Portofolio</h2>
                     </div>
                     <div class="space-y-md">
-                        @foreach ($cv->pengalamans as $pengalaman)
-                        <div class="flex gap-md p-md rounded-lg bg-surface-container-low border border-outline-variant/50">
-                            <div class="bg-primary-container p-sm rounded-xl flex items-center justify-center h-fit">
-                                <span class="material-symbols-outlined text-on-primary-container">business</span>
-                            </div>
-                            <div class="flex-1">
-                                <div class="flex justify-between items-start">
-                                    <h3 class="font-headline-md text-body-lg text-primary font-bold">{{ $pengalaman->pengalaman }}</h3>
-                                    <span class="bg-secondary-container text-on-secondary-container text-xs font-bold px-sm py-1 rounded-full">{{ $pengalaman->durasi }}</span>
+                        @foreach ($cv->pelamar->portofolios as $portfolio)
+                        <div class="p-md rounded-xl bg-surface-container-low border border-outline-variant/50">
+                            <div class="flex flex-col gap-sm">
+                                <div class="flex flex-wrap justify-between gap-4 items-start">
+                                    <div>
+                                        <h3 class="font-headline-md text-body-lg text-primary font-bold">{{ $portfolio->judul }}</h3>
+                                        <p class="text-on-surface-variant font-body-sm">{{ $portfolio->kategori ?? '-' }}</p>
+                                    </div>
+                                    <span class="bg-secondary-container text-on-secondary-container text-xs font-bold px-sm py-1 rounded-full">{{ $portfolio->teknologi ?? '—' }}</span>
                                 </div>
+                                @if($portfolio->deskripsi)
+                                <p class="text-on-surface-variant font-body-md leading-relaxed whitespace-pre-line">{{ $portfolio->deskripsi }}</p>
+                                @endif
+                                <div class="flex flex-wrap gap-2">
+                                    @if ($portfolio->link_demo)
+                                    <a href="{{ $portfolio->link_demo }}" target="_blank" class="inline-flex items-center gap-2 px-sm py-2 rounded-lg bg-secondary text-white text-label-md hover:opacity-90 transition-all">
+                                        <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+                                        <span>Demo</span>
+                                    </a>
+                                    @endif
+                                    @if ($portfolio->link_repo)
+                                    <a href="{{ $portfolio->link_repo }}" target="_blank" class="inline-flex items-center gap-2 px-sm py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container transition-all border border-outline-variant">
+                                        <span class="material-symbols-outlined text-[18px]">code</span>
+                                        <span>Repository</span>
+                                    </a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
+            </div>
+
+            <!-- Right Column (Skills & Quick Info) -->
+            <div class="space-y-md">
+                <!-- Skills Card -->
+                @if ($cv->skills->count() > 0)
+                <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-center gap-sm mb-md">
+                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings: &quot;FILL&quot; 1;">bolt</span>
+                        <h2 class="font-headline-md text-headline-md text-primary">Kemampuan</h2>
+                    </div>
+                    <div class="space-y-md">
+                        @foreach ($cv->skills as $skill)
+                        <div>
+                            <div class="flex justify-between mb-xs">
+                                <span class="font-label-md text-primary">{{ $skill->skill }}</span>
+                                <span class="font-label-md text-secondary">{{ $skill->kemampuan }}%</span>
+                            </div>
+                            <div class="w-full bg-surface-container-high rounded-full h-2">
+                                <div class="bg-secondary h-2 rounded-full transition-all duration-1000" style="width: {{ $skill->kemampuan }}%"></div>
                             </div>
                         </div>
                         @endforeach
@@ -236,32 +304,6 @@
                             <div class="md:col-span-2">
                                 <p class="text-xs uppercase tracking-wider text-outline mb-1 font-bold">Jurusan</p>
                                 <p class="font-headline-md text-body-lg text-primary">{{ $pendidikan->jurusan }}</p>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-                @endif
-            </div>
-
-            <!-- Right Column (Skills & Quick Info) -->
-            <div class="space-y-md">
-                <!-- Skills Card -->
-                @if ($cv->skills->count() > 0)
-                <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
-                    <div class="flex items-center gap-sm mb-md">
-                        <span class="material-symbols-outlined text-secondary" style="font-variation-settings: &quot;FILL&quot; 1;">bolt</span>
-                        <h2 class="font-headline-md text-headline-md text-primary">Kemampuan</h2>
-                    </div>
-                    <div class="space-y-md">
-                        @foreach ($cv->skills as $skill)
-                        <div>
-                            <div class="flex justify-between mb-xs">
-                                <span class="font-label-md text-primary">{{ $skill->skill }}</span>
-                                <span class="font-label-md text-secondary">{{ $skill->kemampuan }}%</span>
-                            </div>
-                            <div class="w-full bg-surface-container-high rounded-full h-2">
-                                <div class="bg-secondary h-2 rounded-full transition-all duration-1000" style="width: {{ $skill->kemampuan }}%"></div>
                             </div>
                         </div>
                         @endforeach

@@ -129,8 +129,9 @@ class CVController extends Controller
      */
     public function show($id)
     {
-        $cv = Cv::with(['pelamar', 'pendidikans', 'skills', 'pengalamans'])
-        ->findOrFail($id);
+        $cv = Cv::with(['pelamar.portofolios', 'pendidikans', 'skills', 'pengalamans'])
+            ->findOrFail($id);
+
         return view('cv.detail', compact('cv'));
     }
 
