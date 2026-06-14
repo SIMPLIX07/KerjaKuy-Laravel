@@ -60,8 +60,8 @@
                 <label>Deskripsi Pekerjaan</label>
                 <textarea name="deskripsi"></textarea>
 
-                <label>Syarat</label>
-                <textarea name="syarat"></textarea>
+                <label>Keterangan Tambahan</label>
+                <textarea name="syarat" placeholder="Contoh: Bersedia ditempatkan di luar kota, memiliki laptop sendiri, dll."></textarea>
 
                 <!-- Syarat & Kualifikasi -->
                 <h4>Syarat & Kualifikasi</h4>

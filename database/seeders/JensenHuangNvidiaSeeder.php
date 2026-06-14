@@ -6,7 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Pelamar;
 use App\Models\Perusahaan;
 use App\Models\Lowongan;
-use App\Models\CV;
+use App\Models\Cv;
 use App\Models\Pendidikan;
 use App\Models\SkillCv;
 use App\Models\Pengalaman;
@@ -31,7 +31,7 @@ class JensenHuangNvidiaSeeder extends Seeder
         ]);
 
         // 2. Create CV for Jensen Huang
-        $cv = CV::create([
+        $cv = Cv::create([
             'pelamar_id' => $pelamar->id,
             'umur' => 63,
             'tentang_saya' => 'Founder & CEO of NVIDIA Corporation. Pioneered GPU-accelerated computing and CUDA programming model, paving the way for modern AI, gaming, and deep learning platforms.',

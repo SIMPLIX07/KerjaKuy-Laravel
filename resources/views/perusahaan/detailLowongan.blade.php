@@ -270,7 +270,7 @@
             <section class="content-card bg-surface-container-lowest border border-surface-variant rounded-xl p-6">
                 <h2 class="text-[24px] leading-8 font-headline font-bold text-on-surface mb-4 flex items-center gap-2">
                     <span class="material-symbols-outlined text-secondary">description</span>
-                    Ketentuan Tambahan
+                    Keterangan Tambahan
                 </h2>
                 <div class="text-[16px] leading-7 text-on-surface-variant">
                     {!! nl2br(e($lowongan->syarat)) !!}

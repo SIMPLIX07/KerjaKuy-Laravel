@@ -140,7 +140,7 @@ class CVController extends Controller
     public function edit($id)
     {
         $cv = Cv::with(['pendidikans', 'skills', 'pengalamans']) ->findOrFail($id);
-        return view('cv/editCv', compact('cv'));
+        return view('cv.editCv', compact('cv'));
     }
 
 

@@ -62,7 +62,7 @@ class LowonganController extends Controller
             return redirect('/login/perusahaan');
         }
 
-        return view('/lowongan/tambahLowongan');
+        return view('lowongan.tambahLowongan');
     }
 
     public function store(Request $request)
@@ -88,6 +88,8 @@ class LowonganController extends Controller
             'pendidikan'        => 'required',
             'pengalaman'        => 'required',
             'keahlian_teknis'   => 'required',
+        ], [], [
+            'syarat' => 'keterangan tambahan',
         ]);
 
         Lowongan::create([
@@ -164,6 +166,8 @@ class LowonganController extends Controller
             'pendidikan'        => 'required',
             'pengalaman'        => 'required',
             'keahlian_teknis'   => 'required',
+        ], [], [
+            'syarat' => 'keterangan tambahan',
         ]);
 
         $data = [

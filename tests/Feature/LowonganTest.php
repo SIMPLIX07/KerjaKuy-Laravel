@@ -107,7 +107,7 @@ class LowonganTest extends TestCase
         $response = $this->withSession(['perusahaan_id' => $this->perusahaan->id])
             ->get('/lowongan/tambah');
         $response->assertStatus(200);
-        $response->assertViewIs('.lowongan.tambahLowongan');
+        $response->assertViewIs('lowongan.tambahLowongan');
     }
 
     /**

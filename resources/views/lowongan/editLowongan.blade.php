@@ -57,8 +57,8 @@
                 <label>Deskripsi Pekerjaan</label>
                 <textarea name="deskripsi">{{ $lowongan->deskripsi_pekerjaan }}</textarea>
 
-                <label>Syarat</label>
-                <textarea name="syarat">{{ $lowongan->syarat }}</textarea>
+                <label>Keterangan Tambahan</label>
+                <textarea name="syarat" placeholder="Contoh: Bersedia ditempatkan di luar kota, memiliki laptop sendiri, dll.">{{ $lowongan->syarat }}</textarea>
 
                 <!-- Syarat & Kualifikasi -->
                 <h4>Syarat & Kualifikasi</h4>
