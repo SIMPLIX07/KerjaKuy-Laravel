@@ -225,8 +225,9 @@ class LowonganController extends Controller
         }
 
         // Filter: Lokasi
+        // Nilai lokasi bisa berformat "Kabupaten, Provinsi" — ekstrak bagian kabupaten saja
         if ($request->filled('lokasi')) {
-            $lokasi = $request->lokasi;
+            $lokasi = trim(explode(',', $request->lokasi)[0]);
             $query->where(function ($q) use ($lokasi) {
                 $q->where('kabupaten', 'like', "%{$lokasi}%")
                   ->orWhere('provinsi', 'like', "%{$lokasi}%")
@@ -292,21 +293,23 @@ class LowonganController extends Controller
         // Paginate: 12 items (3 rows on a 4-column desktop layout)
         $lowongans = $query->paginate(12);
 
-        // Ambil opsi lokasi unik dari database + default kota populer
-        $defaultLokasi = ['Jakarta', 'Bandung', 'Surabaya', 'Medan', 'Semarang', 'Yogyakarta'];
+        // Ambil opsi lokasi unik dari database berdasarkan lokasi lowongan yang tersedia
+        // Gabungkan kabupaten + provinsi, filter yang tidak valid (panjang < 3 karakter)
         $dbLokasi = Lowongan::whereNotNull('kabupaten')
             ->where('kabupaten', '!=', '')
-            ->select('kabupaten')
-            ->distinct()
-            ->pluck('kabupaten')
-            ->toArray();
+            ->whereRaw('LENGTH(TRIM(kabupaten)) >= 3')
+            ->select('kabupaten', 'provinsi')
+            ->get();
 
-        // Standardize formatting
-        $dbLokasi = array_map(function($val) {
-            return ucwords(strtolower(trim($val)));
-        }, $dbLokasi);
-
-        $lokasiOptions = array_unique(array_merge($defaultLokasi, $dbLokasi));
+        // Build label "Kabupaten, Provinsi" dan deduplicate
+        $lokasiOptions = [];
+        foreach ($dbLokasi as $row) {
+            $kab = ucwords(strtolower(trim($row->kabupaten)));
+            $prov = ucwords(strtolower(trim($row->provinsi ?? '')));
+            $label = $prov ? "{$kab}, {$prov}" : $kab;
+            $lokasiOptions[$label] = $label;
+        }
+        $lokasiOptions = array_values($lokasiOptions);
         sort($lokasiOptions);
 
         // Ambil ID lowongan yang sudah di-bookmark oleh pelamar yang sedang login

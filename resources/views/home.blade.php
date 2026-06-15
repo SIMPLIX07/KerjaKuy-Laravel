@@ -228,7 +228,7 @@
 
     <main class="flex-grow w-full">
         <!-- Hero Section -->
-        <section class="relative bg-gradient-to-br from-primary-container via-primary to-secondary overflow-hidden py-24 px-margin-mobile md:px-margin-desktop flex items-center justify-center">
+        <section class="relative bg-gradient-to-br from-primary-container via-primary to-secondary py-24 px-margin-mobile md:px-margin-desktop flex items-center justify-center">
             <div class="absolute inset-0 overflow-hidden pointer-events-none">
                 <div class="absolute -top-24 -right-24 w-96 h-96 bg-secondary-container rounded-full mix-blend-overlay filter blur-3xl opacity-50"></div>
                 <div class="absolute top-1/2 -left-24 w-72 h-72 bg-tertiary-container rounded-full mix-blend-overlay filter blur-3xl opacity-50"></div>
@@ -256,15 +256,47 @@
 
                     <div class="hidden md:block w-px h-8 bg-outline-variant"></div>
 
-                    <div class="w-full md:w-64 flex items-center bg-surface-container-low rounded-lg px-4 py-3 search-input transition-colors group">
-                        <span class="material-symbols-outlined text-outline group-focus-within:text-secondary mr-3" style="font-variation-settings: 'FILL' 0;">location_on</span>
-                        <select name="lokasi" class="w-full bg-transparent border-none focus:ring-0 text-on-surface text-body-md font-body-md p-0 cursor-pointer appearance-none" aria-label="Lokasi">
-                            <option value="">Semua Lokasi</option>
-                            @foreach($lokasiOptions as $locOption)
-                                <option value="{{ $locOption }}" {{ request('lokasi') == $locOption ? 'selected' : '' }}>{{ $locOption }}</option>
-                            @endforeach
-                        </select>
-                        <span class="material-symbols-outlined text-outline ml-2 pointer-events-none" style="font-variation-settings: 'FILL' 0;">expand_more</span>
+                    <!-- Custom Searchable Location Dropdown -->
+                    <div class="relative w-full md:w-64">
+                        <button type="button" id="lokasi-dropdown-btn" class="w-full flex items-center bg-surface-container-low rounded-lg px-4 py-3 search-input transition-colors group text-left justify-between focus:outline-none focus:ring-2 focus:ring-secondary">
+                            <div class="flex items-center min-w-0">
+                                <span class="material-symbols-outlined text-outline group-focus-within:text-secondary mr-3 flex-shrink-0" style="font-variation-settings: 'FILL' 0;">location_on</span>
+                                <span id="lokasi-selected-text" class="text-on-surface text-body-md font-body-md truncate">
+                                    {{ request('lokasi') ?: 'Semua Lokasi' }}
+                                </span>
+                            </div>
+                            <span class="material-symbols-outlined text-outline ml-2 transition-transform duration-200 flex-shrink-0" id="lokasi-dropdown-arrow" style="font-variation-settings: 'FILL' 0;">expand_more</span>
+                        </button>
+                        <input type="hidden" name="lokasi" id="input-lokasi" value="{{ request('lokasi') }}">
+                        
+                        <!-- Dropdown Panel -->
+                        <div id="lokasi-dropdown-panel" class="absolute z-[9999] left-0 right-0 mt-2 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-lg p-3 hidden transition-all duration-150 ease-out origin-top scale-95 opacity-0">
+                            <!-- Search Input -->
+                            <div class="flex items-center bg-surface-container-low rounded-lg px-3 py-2 mb-2 focus-within:ring-1 focus-within:ring-secondary">
+                                <span class="material-symbols-outlined text-outline text-[18px] mr-2 flex-shrink-0">search</span>
+                                <input type="text" id="search-lokasi-input" class="w-full bg-transparent border-none focus:ring-0 text-on-surface text-body-sm p-0 placeholder-outline" placeholder="Cari lokasi...">
+                            </div>
+                            <!-- Options List -->
+                            <ul id="lokasi-options-list" class="max-h-60 overflow-y-auto space-y-1">
+                                <li data-value="" class="px-3 py-2 rounded-lg text-body-sm cursor-pointer hover:bg-surface-container-high transition-colors select-none text-on-surface flex items-center justify-between {{ request('lokasi') == '' ? 'bg-surface-container-low font-semibold' : '' }}">
+                                    <span>Semua Lokasi</span>
+                                    @if(request('lokasi') == '')
+                                        <span class="material-symbols-outlined text-secondary text-[16px] flex-shrink-0">check</span>
+                                    @endif
+                                </li>
+                                @foreach($lokasiOptions as $locOption)
+                                    <li data-value="{{ $locOption }}" class="px-3 py-2 rounded-lg text-body-sm cursor-pointer hover:bg-surface-container-high transition-colors select-none text-on-surface flex items-center justify-between {{ request('lokasi') == $locOption ? 'bg-surface-container-low font-semibold' : '' }}">
+                                        <span class="truncate">{{ $locOption }}</span>
+                                        @if(request('lokasi') == $locOption)
+                                            <span class="material-symbols-outlined text-secondary text-[16px] flex-shrink-0">check</span>
+                                        @endif
+                                    </li>
+                                @endforeach
+                            </ul>
+                            <div id="lokasi-no-results" class="px-3 py-2 text-body-sm text-outline text-center hidden">
+                                Tidak ada lokasi ditemukan
+                            </div>
+                        </div>
                     </div>
 
                     <button type="submit" class="w-full md:w-auto bg-primary-container hover:bg-secondary text-on-primary text-label-md font-label-md py-4 px-8 rounded-lg flex items-center justify-center gap-2 btn-primary transition-colors">Cari Lowongan</button>
@@ -545,6 +577,124 @@
     document.getElementById('btn-filter-toggle').addEventListener('click', function() {
         const panel = document.getElementById('filter-panel');
         panel.classList.toggle('hidden');
+    });
+
+    // Searchable Location Dropdown Logic
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdownBtn = document.getElementById('lokasi-dropdown-btn');
+        const dropdownPanel = document.getElementById('lokasi-dropdown-panel');
+        const dropdownArrow = document.getElementById('lokasi-dropdown-arrow');
+        const searchInput = document.getElementById('search-lokasi-input');
+        const optionsList = document.getElementById('lokasi-options-list');
+        const noResults = document.getElementById('lokasi-no-results');
+        const selectedText = document.getElementById('lokasi-selected-text');
+        const inputLokasi = document.getElementById('input-lokasi');
+
+        if (!dropdownBtn || !dropdownPanel) return;
+
+        function toggleDropdown() {
+            const isHidden = dropdownPanel.classList.contains('hidden');
+            if (isHidden) {
+                dropdownPanel.classList.remove('hidden');
+                dropdownArrow.style.transform = 'rotate(180deg)';
+                setTimeout(() => {
+                    dropdownPanel.classList.remove('scale-95', 'opacity-0');
+                    dropdownPanel.classList.add('scale-100', 'opacity-100');
+                }, 10);
+                searchInput.focus();
+            } else {
+                dropdownPanel.classList.remove('scale-100', 'opacity-100');
+                dropdownPanel.classList.add('scale-95', 'opacity-0');
+                dropdownArrow.style.transform = 'rotate(0deg)';
+                setTimeout(() => {
+                    dropdownPanel.classList.add('hidden');
+                }, 150);
+            }
+        }
+
+        dropdownBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleDropdown();
+        });
+
+        // Close on click outside
+        document.addEventListener('click', function(e) {
+            if (!dropdownBtn.contains(e.target) && !dropdownPanel.contains(e.target)) {
+                if (!dropdownPanel.classList.contains('hidden')) {
+                    dropdownPanel.classList.remove('scale-100', 'opacity-100');
+                    dropdownPanel.classList.add('scale-95', 'opacity-0');
+                    dropdownArrow.style.transform = 'rotate(0deg)';
+                    setTimeout(() => {
+                        dropdownPanel.classList.add('hidden');
+                    }, 150);
+                }
+            }
+        });
+
+        // Search functionality
+        searchInput.addEventListener('input', function() {
+            const filter = searchInput.value.toLowerCase().trim();
+            const items = optionsList.querySelectorAll('li');
+            let matches = 0;
+
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(filter)) {
+                    item.classList.remove('hidden');
+                    matches++;
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+
+            if (matches === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        });
+
+        // Option selection
+        optionsList.querySelectorAll('li').forEach(item => {
+            item.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const val = this.dataset.value;
+                const text = this.querySelector('span').textContent.trim();
+
+                inputLokasi.value = val;
+                selectedText.textContent = text;
+
+                // Also update any other hidden inputs in the page that have name="lokasi"
+                // (e.g. inside the filter panel form)
+                const otherLokasiInputs = document.querySelectorAll('input[name="lokasi"]');
+                otherLokasiInputs.forEach(input => {
+                    if (input !== inputLokasi) {
+                        input.value = val;
+                    }
+                });
+
+                // Update checked indicators in the dropdown list
+                optionsList.querySelectorAll('li').forEach(li => {
+                    li.classList.remove('bg-surface-container-low', 'font-semibold');
+                    const check = li.querySelector('.material-symbols-outlined');
+                    if (check) check.remove();
+                });
+
+                this.classList.add('bg-surface-container-low', 'font-semibold');
+                const checkSpan = document.createElement('span');
+                checkSpan.className = 'material-symbols-outlined text-secondary text-[16px] flex-shrink-0';
+                checkSpan.textContent = 'check';
+                this.appendChild(checkSpan);
+
+                // Close dropdown
+                toggleDropdown();
+
+                // Clear search input filter
+                searchInput.value = '';
+                optionsList.querySelectorAll('li').forEach(li => li.classList.remove('hidden'));
+                noResults.classList.add('hidden');
+            });
+        });
     });
 </script>
 

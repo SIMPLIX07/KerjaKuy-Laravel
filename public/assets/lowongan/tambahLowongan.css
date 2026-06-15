@@ -85,8 +85,35 @@ textarea {
 }
 
 /* Button */
-.btn-submit {
+.form-actions {
     margin-top: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 24px;
+    background: #f1f4f6;
+    color: #43474c;
+    border: 1px solid #c3c7cd;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.btn-back:hover {
+    background: #e5e9eb;
+    border-color: #9ea4ab;
+}
+
+.btn-submit {
     background: #4aa89c;
     color: white;
     padding: 12px 34px;

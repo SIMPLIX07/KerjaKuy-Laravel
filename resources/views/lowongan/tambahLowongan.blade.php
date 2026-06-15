@@ -115,7 +115,10 @@
 
 
 
-                <button type="submit" class="btn-submit">Buat</button>
+                <div class="form-actions">
+                    <a href="/home-perusahaan" class="btn-back">← Kembali</a>
+                    <button type="submit" class="btn-submit">Buat</button>
+                </div>
             </form>
         </div>
     </div>

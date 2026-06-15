@@ -246,15 +246,15 @@
                 <div x-show="showDetail" x-cloak x-transition
                     class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[1050] p-margin-mobile">
 
-                    <div class="bg-surface-container-lowest w-full max-w-2xl rounded-xl p-6 shadow-2xl relative flex flex-col border border-outline-variant/30 max-h-[90vh] overflow-y-auto" @click.outside="closeAll()">
+                    <div class="bg-surface-container-lowest w-full max-w-2xl rounded-xl p-6 shadow-2xl relative flex flex-col border border-outline-variant/30 max-h-[90vh] overflow-y-auto overflow-x-hidden" @click.outside="closeAll()">
                         <!-- Close Button -->
                         <button @click="closeAll()" class="absolute top-4 right-4 p-2 rounded-full hover:bg-surface-container transition-colors text-outline hover:text-on-surface">
                             <span class="material-symbols-outlined">close</span>
                         </button>
 
                         <!-- Header -->
-                        <h2 class="text-headline-md font-headline-md font-bold text-secondary mb-xs pr-8" x-text="cv.title"></h2>
-                        <p class="text-on-surface-variant font-body-sm mb-md pb-xs border-b border-outline-variant/30" x-text="cv.subtitle"></p>
+                        <h2 class="text-headline-md font-headline-md font-bold text-secondary mb-xs pr-8 break-words" x-text="cv.title"></h2>
+                        <p class="text-on-surface-variant font-body-sm mb-md pb-xs border-b border-outline-variant/30 break-words" x-text="cv.subtitle"></p>
 
                         <!-- Info Utama -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-sm text-body-sm mt-2">
@@ -268,7 +268,7 @@
                             </div>
                             <div class="col-span-2 py-2 flex flex-col gap-1">
                                 <span class="font-label-sm text-on-surface-variant">Tentang Saya</span>
-                                <span class="text-on-surface font-body-sm bg-surface-container-low p-md rounded-lg whitespace-pre-wrap" x-text="cv.tentang_saya ?? '-'"></span>
+                                <span class="text-on-surface font-body-sm bg-surface-container-low p-md rounded-lg whitespace-pre-wrap break-words overflow-hidden block" x-text="cv.tentang_saya ?? '-'"></span>
                             </div>
                         </div>
 
@@ -279,11 +279,11 @@
                             <template x-if="cv.pendidikans?.length">
                                 <div class="space-y-xs">
                                     <template x-for="p in cv.pendidikans" :key="p.id">
-                                        <div class="flex items-center gap-xs text-on-surface font-body-sm">
+                                        <div class="flex flex-wrap items-center gap-xs text-on-surface font-body-sm">
                                             <span class="material-symbols-outlined text-secondary text-[18px]">school</span>
-                                            <span class="font-semibold" x-text="p.universitas"></span>
+                                            <span class="font-semibold break-words" x-text="p.universitas"></span>
                                             <span class="text-on-surface-variant">—</span>
-                                            <span x-text="p.jurusan"></span>
+                                            <span class="break-words" x-text="p.jurusan"></span>
                                             <span class="text-on-surface-variant text-xs bg-surface-container px-2 py-0.5 rounded" x-text="p.tingkat"></span>
                                         </div>
                                     </template>
@@ -302,11 +302,11 @@
                             <template x-if="cv.pengalamans?.length">
                                 <div class="space-y-xs">
                                     <template x-for="p in cv.pengalamans" :key="p.id">
-                                        <div class="flex items-center gap-xs text-on-surface font-body-sm">
+                                        <div class="flex flex-wrap items-center gap-xs text-on-surface font-body-sm">
                                             <span class="material-symbols-outlined text-secondary text-[18px]">work</span>
-                                            <span class="font-semibold" x-text="p.posisi"></span>
+                                            <span class="font-semibold break-words" x-text="p.posisi"></span>
                                             <span class="text-on-surface-variant">di</span>
-                                            <span x-text="p.perusahaan"></span>
+                                            <span class="break-words" x-text="p.perusahaan"></span>
                                             <span class="text-on-surface-variant text-xs bg-surface-container px-2 py-0.5 rounded" x-text="p.durasi"></span>
                                         </div>
                                     </template>

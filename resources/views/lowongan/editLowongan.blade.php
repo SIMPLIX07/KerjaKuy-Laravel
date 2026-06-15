@@ -99,7 +99,10 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn-submit">Selesai</button>
+                <div class="form-actions">
+                    <a href="{{ route('perusahaan.lowongan.detail', $lowongan->id) }}" class="btn-back">← Kembali</a>
+                    <button type="submit" class="btn-submit">Selesai</button>
+                </div>
             </form>
         </div>
     </div>
