@@ -368,26 +368,41 @@
             <!-- Password Lama -->
             <div class="space-y-xs">
                 <label class="text-label-md font-label-md text-on-surface-variant px-base">Password Lama</label>
-                <input type="password" name="password_lama" class="w-full h-12 px-md bg-surface-container-lowest border border-outline-variant rounded-lg focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all font-body-md text-on-surface" required/>
-                @error('password_lama')
-                <p class="text-error font-body-sm px-base mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+                    <div class="relative">
+                        <input type="password" name="password_lama" data-password-input class="w-full h-12 px-md pr-12 bg-surface-container-lowest border border-outline-variant rounded-lg focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all font-body-md text-on-surface" required/>
+                        <button type="button" data-toggle-password class="absolute right-0 top-0 h-12 w-12 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container cursor-pointer transition-colors rounded" aria-label="Tampilkan password" tabindex="-1">
+                            <span class="material-symbols-outlined text-[20px]">visibility</span>
+                        </button>
+                    </div>
+                    @error('password_lama')
+                    <p class="text-error font-body-sm px-base mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
-            <!-- Password Baru -->
-            <div class="space-y-xs">
-                <label class="text-label-md font-label-md text-on-surface-variant px-base">Password Baru (Min. 6 karakter)</label>
-                <input type="password" name="password_baru" class="w-full h-12 px-md bg-surface-container-lowest border border-outline-variant rounded-lg focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all font-body-md text-on-surface" required/>
-                @error('password_baru')
-                <p class="text-error font-body-sm px-base mt-1">{{ $message }}</p>
-                @enderror
-            </div>
+                <!-- Password Baru -->
+                <div class="space-y-xs">
+                    <label class="text-label-md font-label-md text-on-surface-variant px-base">Password Baru (Min. 6 karakter)</label>
+                    <div class="relative">
+                        <input type="password" name="password_baru" data-password-input class="w-full h-12 px-md pr-12 bg-surface-container-lowest border border-outline-variant rounded-lg focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all font-body-md text-on-surface" required/>
+                        <button type="button" data-toggle-password class="absolute right-0 top-0 h-12 w-12 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container cursor-pointer transition-colors rounded" aria-label="Tampilkan password" tabindex="-1">
+                            <span class="material-symbols-outlined text-[20px]">visibility</span>
+                        </button>
+                    </div>
+                    @error('password_baru')
+                    <p class="text-error font-body-sm px-base mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
 
-            <!-- Konfirmasi Password Baru -->
-            <div class="space-y-xs">
-                <label class="text-label-md font-label-md text-on-surface-variant px-base">Konfirmasi Password Baru</label>
-                <input type="password" name="password_baru_confirmation" class="w-full h-12 px-md bg-surface-container-lowest border border-outline-variant rounded-lg focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all font-body-md text-on-surface" required/>
-            </div>
+                <!-- Konfirmasi Password Baru -->
+                <div class="space-y-xs">
+                    <label class="text-label-md font-label-md text-on-surface-variant px-base">Konfirmasi Password Baru</label>
+                    <div class="relative">
+                        <input type="password" name="password_baru_confirmation" data-password-input class="w-full h-12 px-md pr-12 bg-surface-container-lowest border border-outline-variant rounded-lg focus:border-secondary focus:ring-1 focus:ring-secondary outline-none transition-all font-body-md text-on-surface" required/>
+                        <button type="button" data-toggle-password class="absolute right-0 top-0 h-12 w-12 flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-surface-container cursor-pointer transition-colors rounded" aria-label="Tampilkan password" tabindex="-1">
+                            <span class="material-symbols-outlined text-[20px]">visibility</span>
+                        </button>
+                    </div>
+                </div>
 
             <div class="pt-md flex justify-end gap-md">
                 <button type="button" id="cancelPasswordModalBtn" class="px-lg h-12 rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container transition-all">Batal</button>
@@ -471,6 +486,27 @@
             passwordModal.classList.add('hidden');
             passwordModal.classList.remove('flex');
         }
+    });
+
+    // Toggle Password Visibility
+    document.querySelectorAll('[data-toggle-password]').forEach(toggleBtn => {
+        toggleBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const passwordInput = toggleBtn.closest('.relative').querySelector('[data-password-input]');
+            const icon = toggleBtn.querySelector('.material-symbols-outlined');
+
+            if (passwordInput) {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    icon.textContent = 'visibility_off';
+                    toggleBtn.setAttribute('aria-label', 'Sembunyikan password');
+                } else {
+                    passwordInput.type = 'password';
+                    icon.textContent = 'visibility';
+                    toggleBtn.setAttribute('aria-label', 'Tampilkan password');
+                }
+            }
+        });
     });
 
     // Mobile Sidebar Drawer Toggle Logic

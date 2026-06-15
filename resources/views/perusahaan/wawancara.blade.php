@@ -329,6 +329,29 @@
         </div>
     </div>
 
+    <!-- Confirmation popup -->
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden" id="confirmDialog">
+        <div class="glass-card p-6 rounded-xl shadow-2xl max-w-sm w-full mx-4 border border-outline-variant">
+            <div class="flex flex-col items-center text-center gap-4">
+                <span class="material-symbols-outlined text-5xl text-secondary" id="confirmDialogIcon">help_outline</span>
+                <div>
+                    <h4 class="font-headline-md text-xl font-bold text-on-surface" id="confirmDialogTitle">Konfirmasi tindakan</h4>
+                    <p class="mt-2 text-body-sm text-on-surface-variant" id="confirmDialogText">Apakah Anda yakin ingin melanjutkan?</p>
+                </div>
+            </div>
+            <div class="mt-6 flex gap-3">
+                <button id="confirmDialogCancel" class="flex-1 py-3 bg-surface-variant text-on-surface rounded-xl font-semibold hover:bg-surface-container transition-all active:scale-95">Batal</button>
+                <button id="confirmDialogBtn" class="flex-1 py-3 bg-secondary text-white rounded-xl font-semibold hover:bg-opacity-90 transition-all active:scale-95">Lanjutkan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="actionToast" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 hidden bg-[#E6FFFA] text-[#006e6d] border border-[#91f0ed] px-6 py-3 rounded-xl shadow-lg flex items-center gap-3 font-semibold">
+        <span class="material-symbols-outlined text-secondary" id="actionToastIcon">task_alt</span>
+        <span id="actionToastMessage">Berhasil!</span>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-surface-container-lowest border-t border-outline-variant mt-auto">
         <div class="max-w-7xl mx-auto px-margin-desktop py-lg flex flex-col md:flex-row justify-between items-center gap-8">
@@ -448,62 +471,110 @@
                 });
             });
 
+            const confirmDialog = document.getElementById('confirmDialog');
+            const confirmDialogTitle = document.getElementById('confirmDialogTitle');
+            const confirmDialogText = document.getElementById('confirmDialogText');
+            const confirmDialogBtn = document.getElementById('confirmDialogBtn');
+            const confirmDialogCancel = document.getElementById('confirmDialogCancel');
+            let pendingDecision = null;
+
+            const closeConfirmDialog = () => {
+                pendingDecision = null;
+                confirmDialog.classList.add('hidden');
+            };
+
+            const openConfirmDialog = (action) => {
+                pendingDecision = action;
+                confirmDialogTitle.textContent = action === 'terima' ? 'Terima Pelamar' : 'Tolak Lamaran';
+                confirmDialogText.textContent = action === 'terima'
+                    ? 'Apakah Anda yakin ingin menerima pelamar ini sebagai karyawan?'
+                    : 'Apakah Anda yakin ingin menolak lamaran pelamar ini?';
+                confirmDialogBtn.textContent = action === 'terima' ? 'Terima' : 'Tolak';
+                confirmDialogBtn.classList.toggle('bg-secondary', action === 'terima');
+                confirmDialogBtn.classList.toggle('bg-error', action === 'tolak');
+                confirmDialog.classList.remove('hidden');
+            };
+
+            const toastElement = document.getElementById('actionToast');
+            const toastMessage = document.getElementById('actionToastMessage');
+            const toastIcon = document.getElementById('actionToastIcon');
+            let toastTimeout = null;
+
+            const showToast = (message, type = 'success') => {
+                if (!toastElement) return;
+
+                clearTimeout(toastTimeout);
+                toastMessage.textContent = message;
+                toastIcon.textContent = type === 'error' ? 'error' : 'task_alt';
+                toastElement.classList.remove('hidden');
+                toastElement.classList.toggle('bg-[#FEE2E2]', type === 'error');
+                toastElement.classList.toggle('border-[#FECACA]', type === 'error');
+                toastElement.classList.toggle('text-[#B91C1C]', type === 'error');
+                toastElement.classList.toggle('bg-[#E6FFFA]', type !== 'error');
+                toastElement.classList.toggle('border-[#91f0ed]', type !== 'error');
+                toastElement.classList.toggle('text-[#006e6d]', type !== 'error');
+
+                toastTimeout = setTimeout(() => {
+                    toastElement.classList.add('hidden');
+                }, 3000);
+            };
+
+            const executeDecision = (action) => {
+                if (!wawancaraId || !action) return;
+
+                const url = action === 'terima'
+                    ? `/perusahaan/wawancara/${wawancaraId}/terima`
+                    : `/perusahaan/wawancara/${wawancaraId}/tolak`;
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    closeConfirmDialog();
+                    modal.classList.add('hidden');
+                    showToast(`Berhasil! ${data.message}`, 'success');
+                    setTimeout(() => location.reload(), 1200);
+                })
+                .catch(err => {
+                    console.error(err);
+                    closeConfirmDialog();
+                    showToast('Terjadi kesalahan saat memproses data.', 'error');
+                });
+            };
+
             // Tombol Terima
             document.getElementById('btnTerima').addEventListener('click', (e) => {
                 e.stopPropagation();
                 if (!wawancaraId) return;
-
-                if (confirm('Terima pelamar ini sebagai karyawan?')) {
-                    fetch(`/perusahaan/wawancara/${wawancaraId}/terima`, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        modal.classList.add('hidden');
-                        alert("Berhasil! " + data.message);
-                        location.reload();
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        alert("Terjadi kesalahan saat memproses data.");
-                    });
-                }
+                openConfirmDialog('terima');
             });
 
             // Tombol Tolak
             document.getElementById('btnTolak').addEventListener('click', (e) => {
                 e.stopPropagation();
                 if (!wawancaraId) return;
+                openConfirmDialog('tolak');
+            });
 
-                if (confirm('Tolak lamaran ini?')) {
-                    fetch(`/perusahaan/wawancara/${wawancaraId}/tolak`, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        modal.classList.add('hidden');
-                        alert("Berhasil! " + data.message);
-                        location.reload();
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        alert("Terjadi kesalahan saat memproses data.");
-                    });
-                }
+            confirmDialogBtn.addEventListener('click', () => {
+                executeDecision(pendingDecision);
+            });
+
+            confirmDialogCancel.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeConfirmDialog();
             });
 
             if (closeModal) {
                 closeModal.addEventListener('click', () => {
                     modal.classList.add('hidden');
                     modal.classList.remove('flex');
+                    closeConfirmDialog();
                 });
             }
 
