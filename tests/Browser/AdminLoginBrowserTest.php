@@ -13,7 +13,7 @@ class AdminLoginBrowserTest extends DuskTestCase
  
     public function test_admin_can_login_and_view_dashboard(): void
     {
-        $adminEmail = config('admin.admin.email') ?? 'admin@kerjakuy.com';
+        $adminEmail = config('admin.admin.email') ?? 'admin@kerjayuk.com';
         $adminPassword = config('admin.admin.password') ?? 'admin123';
 
         $this->browse(function (Browser $browser) use ($adminEmail, $adminPassword) {
@@ -48,7 +48,7 @@ class AdminLoginBrowserTest extends DuskTestCase
             'status_verifikasi' => 'pending',
         ]);
 
-        $adminEmail = config('admin.admin.email') ?? 'admin@kerjakuy.com';
+        $adminEmail = config('admin.admin.email') ?? 'admin@kerjayuk.com';
         $adminPassword = config('admin.admin.password') ?? 'admin123';
 
         $this->browse(function (Browser $browser) use ($adminEmail, $adminPassword, $companyName, $perusahaan) {

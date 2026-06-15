@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Lowongan Anda - KerjaKuy</title>
+    <title>Lowongan Anda - KerjaYuk</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -158,8 +158,13 @@
 
 <body class="bg-background text-on-background font-body-md antialiased">
     <header class="bg-surface-container-lowest dark:bg-surface-container-lowest text-primary dark:text-primary-fixed-dim docked full-width top-0 sticky z-50 shadow-sm dark:shadow-none">
-        <div class="flex justify-between items-center w-full px-margin-desktop max-w-7xl mx-auto h-16">
-            <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary dark:text-primary-fixed-dim">KerjaKuy</a>
+        <div class="flex justify-between items-center w-full px-4 md:px-margin-desktop max-w-7xl mx-auto h-16">
+            <div class="flex items-center gap-4">
+                <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="block md:hidden text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-container-low p-2 rounded-lg transition-all" type="button">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary dark:text-primary-fixed-dim">KerjaYuk</a>
+            </div>
             <nav class="hidden md:flex gap-8 items-center">
                 <a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 font-bold text-label-md font-label-md active:scale-95 transition-transform duration-150" href="/home-perusahaan">Lowongan Anda</a>
                 <a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors text-label-md font-label-md hover:bg-surface-container-low dark:hover:bg-surface-container-low transition-all duration-200" href="/karyawanPerusahaan">Karyawan</a>
@@ -167,18 +172,22 @@
                 <a class="text-on-surface-variant dark:text-on-surface-variant hover:text-primary dark:hover:text-primary-fixed-dim transition-colors text-label-md font-label-md hover:bg-surface-container-low dark:hover:bg-surface-container-low transition-all duration-200" href="{{ route('perusahaan.history') }}">History</a>
             </nav>
             <div class="flex items-center gap-4">
-                <button class="p-2 rounded-full hover:bg-surface-container-low dark:hover:bg-surface-container-low transition-colors text-primary dark:text-primary-fixed-dim">
-                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
-                </button>
                 <a href="{{ route('perusahaan.settings') }}" class="flex items-center gap-2 px-2 py-1.5 rounded-full hover:bg-surface-container-low dark:hover:bg-surface-container-low transition-colors text-primary dark:text-primary-fixed-dim text-label-md font-label-md">
                     @if(session('perusahaan_foto'))
                         <img src="{{ asset('storage/' . session('perusahaan_foto')) }}" alt="Logo Perusahaan" class="w-8 h-8 rounded-full object-cover border border-outline-variant">
                     @else
                         <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
                     @endif
-                    <span>{{ session('perusahaan_nama') }}</span>
+                    <span class="hidden sm:inline">{{ session('perusahaan_nama') }}</span>
                 </a>
             </div>
+        </div>
+        <!-- Mobile Dropdown Navigation Menu -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full border-b border-outline-variant bg-surface-container-lowest/95 backdrop-blur-md py-4 px-4 flex flex-col gap-3 shadow-lg z-40 md:hidden">
+            <a class="text-label-md text-primary font-bold py-2.5 px-4 bg-surface-container-low rounded-xl transition-all" href="/home-perusahaan">Lowongan Anda</a>
+            <a class="text-label-md text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="/karyawanPerusahaan">Karyawan</a>
+            <a class="text-label-md text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="/perusahaan/wawancara">Wawancara</a>
+            <a class="text-label-md text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="{{ route('perusahaan.history') }}">History</a>
         </div>
     </header>
     <main>
@@ -277,8 +286,8 @@
     <footer class="bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant dark:border-outline">
         <div class="w-full py-xl px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto">
             <div class="mb-md md:mb-0">
-                <span class="font-headline-md text-headline-md font-black text-secondary dark:text-secondary-fixed">KerjaKuy</span>
-                <p class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant mt-base">© 2024 KerjaKuy. All rights reserved.</p>
+                <span class="font-headline-md text-headline-md font-black text-secondary dark:text-secondary-fixed">KerjaYuk</span>
+                <p class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant mt-base">© 2024 KerjaYuk. All rights reserved.</p>
             </div>
             <div class="flex gap-lg flex-wrap justify-center">
                 <a class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-all" href="#">Tentang Kami</a>

@@ -8,7 +8,7 @@
     <meta name="pelamar-id" content="{{ session('pelamar_id') }}">
     <meta name="lowongan-id" content="{{ $lowongan->id }}">
 
-    <title>{{ $lowongan->posisi_pekerjaan }} - {{ $lowongan->perusahaan->nama_perusahaan }} | KerjaKuy</title>
+    <title>{{ $lowongan->posisi_pekerjaan }} - {{ $lowongan->perusahaan->nama_perusahaan }} | KerjaYuk</title>
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700&display=swap" rel="stylesheet" />
@@ -111,7 +111,7 @@
 <body class="min-h-screen flex flex-col font-body text-body antialiased bg-background text-on-surface page-grid">
     <header class="bg-surface-container-lowest sticky top-0 z-50 shadow-sm border-b border-outline-variant">
         <div class="flex justify-between items-center w-full px-4 md:px-12 max-w-7xl mx-auto h-16">
-            <a href="{{ route('home') }}" class="text-[24px] leading-8 font-extrabold text-primary font-headline">KerjaKuy</a>
+            <a href="{{ route('home') }}" class="text-[24px] leading-8 font-extrabold text-primary font-headline">KerjaYuk</a>
 
             <nav class="hidden md:flex gap-8 items-center">
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ route('home') }}">Lowongan Kerja</a>
@@ -316,13 +316,13 @@
 
     <footer class="bg-surface-container-lowest w-full py-8 mt-auto border-t border-outline-variant">
         <div class="flex flex-col md:flex-row justify-between items-center px-4 md:px-12 max-w-7xl mx-auto gap-4">
-            <div class="text-[18px] leading-7 font-bold text-primary font-headline">KerjaKuy</div>
+            <div class="text-[18px] leading-7 font-bold text-primary font-headline">KerjaYuk</div>
             <div class="flex flex-wrap justify-center gap-6 text-[14px] leading-5">
                 <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Syarat &amp; Ketentuan</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Kebijakan Privasi</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Hubungi Kami</a>
             </div>
-            <div class="text-[14px] leading-5 text-primary">© 2024 KerjaKuy. Seluruh hak cipta dilindungi.</div>
+            <div class="text-[14px] leading-5 text-primary">© 2024 KerjaYuk. Seluruh hak cipta dilindungi.</div>
         </div>
     </footer>
 

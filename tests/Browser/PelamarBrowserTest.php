@@ -30,7 +30,7 @@ class PelamarBrowserTest extends DuskTestCase
                 ->type('keahlian', 'PHP, Dusk, testing')
                 ->press('Lanjut')
                 ->waitForLocation('/home-pelamar')
-                ->assertSee('KerjaKuy')
+                ->assertSee('KerjaYuk')
                 
                 // 2. Akses halaman setting
                 ->visit('/pelamar/setting')
@@ -84,7 +84,7 @@ class PelamarBrowserTest extends DuskTestCase
                 ->type('subtitle', 'Backend Developer')
                 ->type('tentang_saya', 'Saya adalah pengembang backend yang berdedikasi.')
                 ->type('pendidikan[0][tingkat]', 'S1')
-                ->type('pendidikan[0][universitas]', 'Universitas KerjaKuy')
+                ->type('pendidikan[0][universitas]', 'Universitas KerjaYuk')
                 ->type('pendidikan[0][jurusan]', 'Teknik Informatika')
                 ->press('Simpan CV')
                 ->waitForLocation('/cv')
@@ -97,18 +97,18 @@ class PelamarBrowserTest extends DuskTestCase
                 ->waitForLocation('/portofolio/create')
                 
                 // 5. Isi form Portofolio
-                ->type('judul', 'Project KerjaKuy Dusk')
+                ->type('judul', 'Project KerjaYuk Dusk')
                 ->type('kategori', 'Testing')
                 ->type('deskripsi', 'Automated testing project.')
                 ->type('teknologi', 'Laravel Dusk')
                 ->press('Simpan Portofolio')
                 ->waitForLocation('/portofolio')
-                ->assertSee('Project KerjaKuy Dusk')
+                ->assertSee('Project KerjaYuk Dusk')
                 
                 // 6. Hapus Portofolio
                 ->press('Hapus')
                 ->waitForLocation('/portofolio')
-                ->assertDontSee('Project KerjaKuy Dusk')
+                ->assertDontSee('Project KerjaYuk Dusk')
                 
                 // 7. Keluar
                 ->press('Keluar')

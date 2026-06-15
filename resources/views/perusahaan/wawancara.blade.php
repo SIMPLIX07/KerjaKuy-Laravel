@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Jadwal Wawancara | KerjaKuy</title>
+    <title>Jadwal Wawancara | KerjaYuk</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -127,8 +127,13 @@
 <body class="bg-background text-on-surface font-body-md selection:bg-secondary-container selection:text-on-secondary-container min-h-screen flex flex-col">
     <!-- Top Navigation Bar -->
     <nav class="bg-surface-container-lowest text-primary docked full-width top-0 sticky z-50 shadow-sm">
-        <div class="flex justify-between items-center w-full px-margin-desktop max-w-7xl mx-auto h-16">
-            <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaKuy</a>
+        <div class="flex justify-between items-center w-full px-4 md:px-margin-desktop max-w-7xl mx-auto h-16">
+            <div class="flex items-center gap-4">
+                <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="block md:hidden text-primary hover:bg-surface-container-low p-2 rounded-lg transition-all" type="button">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaYuk</a>
+            </div>
             <nav class="hidden md:flex gap-8 items-center">
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md hover:bg-surface-container-low transition-all duration-200" href="/home-perusahaan">Lowongan Kerja</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md hover:bg-surface-container-low transition-all duration-200" href="/karyawanPerusahaan">Karyawan</a>
@@ -136,18 +141,22 @@
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md hover:bg-surface-container-low transition-all duration-200" href="{{ route('perusahaan.history') }}">History</a>
             </nav>
             <div class="flex items-center gap-4">
-                <button class="p-2 rounded-full hover:bg-surface-container-low transition-colors text-primary">
-                    <span class="material-symbols-outlined">notifications</span>
-                </button>
                 <a href="{{ route('perusahaan.settings') }}" class="flex items-center gap-2 px-2 py-1.5 rounded-full hover:bg-surface-container-low transition-colors text-primary text-label-md font-label-md">
                     @if(session('perusahaan_foto'))
                         <img src="{{ asset('storage/' . session('perusahaan_foto')) }}" alt="Logo Perusahaan" class="w-8 h-8 rounded-full object-cover border border-outline-variant">
                     @else
                         <span class="material-symbols-outlined">account_circle</span>
                     @endif
-                    <span>{{ session('perusahaan_nama') ?? 'Perusahaan' }}</span>
+                    <span class="hidden sm:inline">{{ session('perusahaan_nama') ?? 'Perusahaan' }}</span>
                 </a>
             </div>
+        </div>
+        <!-- Mobile Dropdown Navigation Menu -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full border-b border-outline-variant bg-surface-container-lowest/95 backdrop-blur-md py-4 px-4 flex flex-col gap-3 shadow-lg z-40 md:hidden">
+            <a class="text-label-md text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="/home-perusahaan">Lowongan Kerja</a>
+            <a class="text-label-md text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="/karyawanPerusahaan">Karyawan</a>
+            <a class="text-label-md text-primary font-bold py-2.5 px-4 bg-surface-container-low rounded-xl transition-all" href="/perusahaan/wawancara">Wawancara</a>
+            <a class="text-label-md text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="{{ route('perusahaan.history') }}">History</a>
         </div>
     </nav>
 
@@ -181,7 +190,7 @@
             @php
             $uiStatus = $wawancara->status === 'proses' ? 'proses' : 'selesai';
             $statusLabel = $uiStatus === 'proses' ? 'Akan Datang' : 'Selesai';
-            $company = $wawancara->pelamar->nama_lengkap ?? 'Pelamar';
+            $company = $wawancara->pelamar?->nama_lengkap ?? 'Pelamar';
             @endphp
             
             <!-- Card -->
@@ -356,8 +365,8 @@
     <footer class="bg-surface-container-lowest border-t border-outline-variant mt-auto">
         <div class="max-w-7xl mx-auto px-margin-desktop py-lg flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="flex flex-col items-center md:items-start gap-4">
-                <span class="font-headline-md text-headline-md font-bold text-primary">KerjaKuy</span>
-                <p class="font-body-sm text-body-sm text-on-surface-muted max-w-sm text-center md:text-left">© 2024 KerjaKuy Career Portal. Empowering professional growth with advanced recruitment tools and career insights.</p>
+                <span class="font-headline-md text-headline-md font-bold text-primary">KerjaYuk</span>
+                <p class="font-body-sm text-body-sm text-on-surface-muted max-w-sm text-center md:text-left">© 2024 KerjaYuk Career Portal. Empowering professional growth with advanced recruitment tools and career insights.</p>
             </div>
             <div class="flex flex-wrap justify-center gap-8">
                 <a class="font-body-sm text-body-sm text-on-surface-variant hover:underline transition-all" href="#">About Us</a>

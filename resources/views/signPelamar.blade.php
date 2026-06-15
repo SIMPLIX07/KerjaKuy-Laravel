@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Sign Up | KerjaKuy - Elevate Your Career</title>
+    <title>Sign Up | KerjaYuk - Elevate Your Career</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -240,7 +240,7 @@
                         <!-- Agreement -->
                         <div class="md:col-span-2 flex items-start gap-xs py-xs">
                             <input class="mt-1 rounded border-outline-variant text-secondary focus:ring-secondary" id="terms" type="checkbox">
-                            <label class="text-body-sm text-on-surface-variant" for="terms">Saya menyetujui <a class="text-secondary font-bold hover:underline" href="#">Syarat &amp; Ketentuan</a> serta <a class="text-secondary font-bold hover:underline" href="#">Kebijakan Privasi</a> KerjaKuy.</label>
+                            <label class="text-body-sm text-on-surface-variant" for="terms">Saya menyetujui <a class="text-secondary font-bold hover:underline" href="#">Syarat &amp; Ketentuan</a> serta <a class="text-secondary font-bold hover:underline" href="#">Kebijakan Privasi</a> KerjaYuk.</label>
                         </div>
                         <!-- Action Button -->
                         <div class="md:col-span-2 mt-md">
@@ -262,8 +262,8 @@
     <!-- Footer -->
     <footer class="w-full py-xl px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container-highest dark:bg-inverse-surface border-t border-outline-variant">
         <div class="flex flex-col items-center md:items-start gap-xs">
-            <span class="font-headline-md text-headline-md font-black text-primary dark:text-inverse-primary">KerjaKuy</span>
-            <p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 KerjaKuy. Empowering your career velocity.</p>
+            <span class="font-headline-md text-headline-md font-black text-primary dark:text-inverse-primary">KerjaYuk</span>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 KerjaYuk. Empowering your career velocity.</p>
         </div>
         <div class="flex gap-lg flex-wrap justify-center">
             <a class="text-on-surface-variant hover:text-primary font-label-md transition-all hover:underline decoration-secondary" href="#">Privacy Policy</a>

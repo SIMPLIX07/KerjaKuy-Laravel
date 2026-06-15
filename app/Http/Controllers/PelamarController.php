@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pelamar;
 use App\Models\Keahlian;
+use App\Models\Karyawan;
 use GuzzleHttp\RedirectMiddleware;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -201,6 +202,7 @@ class PelamarController extends Controller
             return redirect('/login/pelamar');
         }
         Keahlian::where('pelamar_id', $pelamarId)->delete();
+        Karyawan::where('id_pelamar', $pelamarId)->delete();
         $pelamar = Pelamar::find($pelamarId);
         if ($pelamar && $pelamar->foto_profil) {
             Storage::disk('public')->delete($pelamar->foto_profil);

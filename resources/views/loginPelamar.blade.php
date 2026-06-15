@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Masuk - KerjaKuy</title>
+    <title>Masuk - KerjaYuk</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -134,7 +134,7 @@
             <!-- Left Content: Hero Text -->
             <div class="hidden md:block space-y-md text-on-primary">
                 <h1 class="font-headline-xl text-headline-xl leading-tight text-white">
-                    Selamat Datang Kembali di <span class="text-secondary-fixed font-bold">KerjaKuy</span>
+                    Selamat Datang Kembali di <span class="text-secondary-fixed font-bold">KerjaYuk</span>
                 </h1>
                 <p class="font-body-lg text-body-lg text-on-primary-container max-w-md opacity-90">
                     Temukan peluang karir terbaikmu hari ini. Hubungkan dirimu dengan ribuan perusahaan ternama dengan kecepatan tinggi.
@@ -229,11 +229,11 @@
     <footer class="bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant dark:border-outline">
         <div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop py-lg w-full max-w-7xl mx-auto">
             <div class="mb-md md:mb-0 text-center md:text-left">
-                <span class="font-headline-sm text-headline-sm font-black text-primary dark:text-primary-fixed block mb-base">KerjaKuy</span>
-                <p class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant">© 2024 KerjaKuy. Hubungkan Karir Anda dengan Kecepatan.</p>
+                <span class="font-headline-sm text-headline-sm font-black text-primary dark:text-primary-fixed block mb-base">KerjaYuk</span>
+                <p class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant">© 2024 KerjaYuk. Hubungkan Karir Anda dengan Kecepatan.</p>
             </div>
             <div class="flex flex-wrap justify-center gap-md">
-                <a class="text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors" href="#">Tentang Kami</a>
+                <a class="text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors" href="/tentang-kami">Tentang Kami</a>
                 <a class="text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors" href="#">Pusat Bantuan</a>
                 <a class="text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors" href="#">Kebijakan Privasi</a>
                 <a class="text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors" href="#">Syarat &amp; Ketentuan</a>

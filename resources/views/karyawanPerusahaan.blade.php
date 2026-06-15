@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Daftar Karyawan - KerjaKuy</title>
+    <title>Daftar Karyawan - KerjaYuk</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -159,8 +159,13 @@
 <body class="bg-background text-on-surface font-body-md antialiased min-h-screen flex flex-col">
     <!-- Top Navigation Bar -->
     <header class="bg-surface-container-lowest text-primary docked full-width top-0 sticky z-50 shadow-sm">
-        <div class="flex justify-between items-center w-full px-margin-desktop max-w-7xl mx-auto h-16">
-            <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaKuy</a>
+        <div class="flex justify-between items-center w-full px-4 md:px-margin-desktop max-w-7xl mx-auto h-16">
+            <div class="flex items-center gap-4">
+                <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="block md:hidden text-primary hover:bg-surface-container-low p-2 rounded-lg transition-all" type="button">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaYuk</a>
+            </div>
             <nav class="hidden md:flex gap-8 items-center">
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md hover:bg-surface-container-low transition-all duration-200" href="/home-perusahaan">Lowongan Kerja</a>
                 <a class="text-primary border-b-2 border-primary pb-1 font-bold text-label-md font-label-md active:scale-95 transition-transform duration-150" href="/karyawanPerusahaan">Karyawan</a>
@@ -168,18 +173,22 @@
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md hover:bg-surface-container-low transition-all duration-200" href="{{ route('perusahaan.history') }}">History</a>
             </nav>
             <div class="flex items-center gap-4">
-                <button class="p-2 rounded-full hover:bg-surface-container-low transition-colors text-primary">
-                    <span class="material-symbols-outlined">notifications</span>
-                </button>
                 <a href="{{ route('perusahaan.settings') }}" class="flex items-center gap-2 px-2 py-1.5 rounded-full hover:bg-surface-container-low transition-colors text-primary text-label-md font-label-md">
                     @if(session('perusahaan_foto'))
                         <img src="{{ asset('storage/' . session('perusahaan_foto')) }}" alt="Logo Perusahaan" class="w-8 h-8 rounded-full object-cover border border-outline-variant">
                     @else
                         <span class="material-symbols-outlined">account_circle</span>
                     @endif
-                    <span>{{ session('perusahaan_nama') }}</span>
+                    <span class="hidden sm:inline">{{ session('perusahaan_nama') }}</span>
                 </a>
             </div>
+        </div>
+        <!-- Mobile Dropdown Navigation Menu -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full border-b border-outline-variant bg-surface-container-lowest/95 backdrop-blur-md py-4 px-4 flex flex-col gap-3 shadow-lg z-40 md:hidden">
+            <a class="text-label-md text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="/home-perusahaan">Lowongan Kerja</a>
+            <a class="text-label-md text-primary font-bold py-2.5 px-4 bg-surface-container-low rounded-xl transition-all" href="/karyawanPerusahaan">Karyawan</a>
+            <a class="text-label-md text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="/perusahaan/wawancara">Wawancara</a>
+            <a class="text-label-md text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="{{ route('perusahaan.history') }}">History</a>
         </div>
     </header>
 
@@ -228,16 +237,16 @@
             <!-- Employee Card -->
             <div class="employee-card glass-card p-md rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 group flex flex-col justify-between"
                 style="transform: translateY(0px);"
-                data-nama="{{ $k->pelamar->nama_lengkap }}"
+                data-nama="{{ $k->pelamar->nama_lengkap ?? 'Akun Dihapus' }}"
                 data-posisi="{{ $k->posisi }}"
                 data-kategori="{{ $k->kategori_pekerjaan }}"
                 data-lokasi="{{ $k->lowongan ? $k->lowongan->kabupaten : '' }}">
                 
                 <div class="flex flex-col items-center text-center">
                     <div class="w-24 h-24 rounded-full overflow-hidden mb-md border-4 border-surface-container relative">
-                        <img alt="{{ $k->pelamar->nama_lengkap }}" class="w-full h-full object-cover" src="{{ $k->pelamar->foto_profil ? asset('storage/' . $k->pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}">
+                        <img alt="{{ $k->pelamar->nama_lengkap ?? 'Akun Dihapus' }}" class="w-full h-full object-cover" src="{{ ($k->pelamar && $k->pelamar->foto_profil) ? asset('storage/' . $k->pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}">
                     </div>
-                    <h3 class="font-headline-md text-xl font-bold text-on-surface mb-xs">{{ $k->pelamar->nama_lengkap }}</h3>
+                    <h3 class="font-headline-md text-xl font-bold text-on-surface mb-xs">{{ $k->pelamar->nama_lengkap ?? 'Akun Dihapus' }}</h3>
                     <p class="font-label-md text-secondary font-semibold mb-xs">{{ $k->posisi }}</p>
                     <p class="font-body-sm text-on-surface-muted mb-md">{{ $k->kategori_pekerjaan }}</p>
                     
@@ -255,15 +264,15 @@
 
                 <div>
                     <button class="btn-detail w-full py-2 border border-secondary text-secondary rounded-lg font-label-md hover:bg-secondary hover:text-white transition-colors active:scale-95"
-                        data-nama="{{ $k->pelamar->nama_lengkap }}"
-                        data-email="{{ $k->pelamar->email }}"
+                        data-nama="{{ $k->pelamar->nama_lengkap ?? 'Akun Dihapus' }}"
+                        data-email="{{ $k->pelamar->email ?? '-' }}"
                         data-telepon="{{ $k->pelamar->no_telp ?? '-' }}"
                         data-posisi="{{ $k->posisi }}"
                         data-kategori="{{ $k->kategori_pekerjaan }}"
                         data-mulai="{{ $k->tanggal_mulai ? \Carbon\Carbon::parse($k->tanggal_mulai)->format('d M Y') : '-' }}"
                         data-status="{{ ucfirst($k->status_karyawan) }}"
                         data-lokasi="{{ $k->lowongan ? ($k->lowongan->alamat_lengkap . ', ' . $k->lowongan->kabupaten . ', ' . $k->lowongan->provinsi) : 'Tidak Terikat Lokasi (Remote)' }}"
-                        data-foto="{{ $k->pelamar->foto_profil ? asset('storage/' . $k->pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}">
+                        data-foto="{{ ($k->pelamar && $k->pelamar->foto_profil) ? asset('storage/' . $k->pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}">
                         Lihat Detail
                     </button>
                 </div>
@@ -327,8 +336,8 @@
     <footer class="w-full py-lg mt-xl bg-surface-container-low border-t border-outline-variant">
         <div class="max-w-7xl mx-auto px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md">
             <div class="flex flex-col gap-xs items-center md:items-start">
-                <span class="font-headline-md text-headline-md text-secondary font-bold">KerjaKuy</span>
-                <p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 KerjaKuy. All rights reserved.</p>
+                <span class="font-headline-md text-headline-md text-secondary font-bold">KerjaYuk</span>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 KerjaYuk. All rights reserved.</p>
             </div>
             <div class="flex gap-md">
                 <a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>

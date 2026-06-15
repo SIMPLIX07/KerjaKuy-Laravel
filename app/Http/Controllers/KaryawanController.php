@@ -45,11 +45,12 @@ class KaryawanController extends Controller
 
         $karyawans = Karyawan::where('id_perusahaan', $perusahaanId)
             ->where('kategori_pekerjaan', $kategori)
+            ->whereHas('pelamar')
             ->with('pelamar')
             ->get()
             ->map(function ($k) {
                 return [
-                    'nama'   => $k->pelamar->nama_lengkap,
+                    'nama'   => $k->pelamar?->nama_lengkap ?? 'Akun Dihapus',
                     'posisi' => $k->posisi
                 ];
             });

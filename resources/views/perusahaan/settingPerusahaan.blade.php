@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Pengaturan Akun Perusahaan - KerjaKuy</title>
+    <title>Pengaturan Akun Perusahaan - KerjaYuk</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -125,7 +125,7 @@
         <div class="flex items-center gap-md md:gap-xl">
             <!-- Hamburger button for mobile setting sidebar -->
             <button id="mobile-menu-btn" class="md:hidden material-symbols-outlined text-on-surface-variant hover:bg-surface-container p-2 rounded-full transition-all">menu</button>
-            <a href="/home-perusahaan" class="text-headline-md font-headline-md font-bold text-on-surface">KerjaKuy</a>
+            <a href="/home-perusahaan" class="text-headline-md font-headline-md font-bold text-on-surface">KerjaYuk</a>
             <nav class="hidden md:flex items-center gap-lg">
                 <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="/home-perusahaan">Lowongan Kerja</a>
                 <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="/karyawanPerusahaan">Karyawan</a>
@@ -134,7 +134,6 @@
             </nav>
         </div>
         <div class="flex items-center gap-md">
-            <button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container p-2 rounded-full transition-all">notifications</button>
             <a href="{{ route('perusahaan.settings') }}" class="h-10 w-10 rounded-full border border-outline-variant overflow-hidden cursor-pointer hover:ring-2 hover:ring-secondary/20 transition-all flex items-center justify-center bg-secondary">
                 @if($perusahaan->foto_profil)
                     <img alt="Logo Perusahaan" class="w-full h-full object-cover" src="{{ asset('storage/' . $perusahaan->foto_profil) }}"/>
@@ -342,14 +341,14 @@
 <!-- Footer -->
 <footer class="bg-primary dark:bg-tertiary-container border-t border-outline-variant/20">
     <div class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop py-lg w-full">
-        <span class="text-headline-sm font-headline-sm text-white mb-md md:mb-0">KerjaKuy</span>
+        <span class="text-headline-sm font-headline-sm text-white mb-md md:mb-0">KerjaYuk</span>
         <div class="flex flex-wrap justify-center gap-md mb-md md:mb-0">
             <a class="font-label-md text-label-md text-surface-variant hover:text-white transition-colors hover:underline" href="#">Tentang Kami</a>
             <a class="font-label-md text-label-md text-surface-variant hover:text-white transition-colors hover:underline" href="#">Pusat Bantuan</a>
             <a class="font-label-md text-label-md text-surface-variant hover:text-white transition-colors hover:underline" href="#">Ketentuan Layanan</a>
             <a class="font-label-md text-label-md text-surface-variant hover:text-white transition-colors hover:underline" href="#">Kebijakan Privasi</a>
         </div>
-        <p class="font-label-md text-label-md text-surface-variant">© 2024 KerjaKuy. All rights reserved.</p>
+        <p class="font-label-md text-label-md text-surface-variant">© 2024 KerjaYuk. All rights reserved.</p>
     </div>
 </footer>
 

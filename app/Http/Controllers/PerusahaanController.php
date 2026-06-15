@@ -100,12 +100,14 @@ class PerusahaanController extends Controller
         $perusahaanId = session('perusahaan_id');
 
         $kategori = Karyawan::where('id_perusahaan', $perusahaanId)
+            ->whereHas('pelamar')
             ->select('kategori_pekerjaan')
             ->selectRaw('COUNT(*) as jumlah')
             ->groupBy('kategori_pekerjaan')
             ->get();
 
         $karyawans = Karyawan::where('id_perusahaan', $perusahaanId)
+            ->whereHas('pelamar')
             ->with(['pelamar', 'lowongan'])
             ->get();
 
