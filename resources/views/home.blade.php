@@ -429,6 +429,49 @@
             <div class="text-body-sm font-body-sm text-inverse-on-surface text-center md:text-right">© 2024 KerjaYuk. Hubungi Kami untuk percepatan karir Anda.</div>
         </div>
     </footer>
+    <!-- Congratulations Popup -->
+    @if(isset($acceptedLamaran) && $acceptedLamaran)
+    <div id="congratsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm animate-fade-in">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 mx-margin-mobile border border-outline-variant relative overflow-hidden flex flex-col items-center text-center">
+            <!-- Celebration decorative icon -->
+            <div class="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center text-secondary mb-6 animate-bounce">
+                <span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">celebration</span>
+            </div>
+            
+            <h2 class="text-headline-lg font-headline font-bold text-secondary mb-2">Selamat, Anda Diterima! 🎉</h2>
+            <p class="text-body-md font-body text-on-surface-variant mb-6 leading-relaxed">
+                Anda telah resmi diterima untuk posisi <strong class="text-primary font-bold">{{ $acceptedLamaran->lowongan->posisi_pekerjaan }}</strong> di <strong class="text-primary font-bold">{{ $acceptedLamaran->lowongan->perusahaan->nama_perusahaan }}</strong>.
+            </p>
+            
+            <div class="w-full bg-surface-container-low p-4 rounded-xl text-left border border-outline-variant/60 mb-6">
+                <div class="flex items-center gap-sm mb-xs">
+                    <span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1;">apartment</span>
+                    <span class="text-body-sm font-semibold text-on-surface ml-1">{{ $acceptedLamaran->lowongan->perusahaan->nama_perusahaan }}</span>
+                </div>
+                <div class="flex items-center gap-sm">
+                    <span class="material-symbols-outlined text-secondary text-[20px]">work</span>
+                    <span class="text-body-sm font-semibold text-on-surface ml-1">{{ $acceptedLamaran->lowongan->posisi_pekerjaan }}</span>
+                </div>
+            </div>
+
+            <button type="button" id="btnDismissCongrats" class="w-full py-4 bg-secondary text-white font-bold rounded-xl hover:bg-opacity-90 transition-all active:scale-95 shadow-md">
+                Terima Kasih
+            </button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const congratsModal = document.getElementById('congratsModal');
+            const btnDismiss = document.getElementById('btnDismissCongrats');
+            if (btnDismiss && congratsModal) {
+                btnDismiss.addEventListener('click', () => {
+                    congratsModal.classList.add('hidden');
+                    congratsModal.classList.remove('flex');
+                });
+            }
+        });
+    </script>
+    @endif
 </body>
 
 <script>

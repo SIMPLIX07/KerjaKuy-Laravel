@@ -213,15 +213,65 @@
                     @endif
                 </div>
 
+                <!-- Portofolio Terlampir -->
+                @if (isset($attachedPortfolio) && $attachedPortfolio)
+                <div class="bg-surface-container-lowest p-md rounded-xl border-2 border-secondary/50 shadow-md hover:shadow-lg transition-shadow bg-gradient-to-br from-white to-secondary/5">
+                    <div class="flex items-center justify-between mb-md">
+                        <div class="flex items-center gap-sm">
+                            <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">folder_special</span>
+                            <h2 class="font-headline-md text-headline-md text-primary font-bold">Portofolio Terlampir</h2>
+                        </div>
+                        <span class="bg-secondary text-white text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                            <span class="material-symbols-outlined text-[14px]">attachment</span>
+                            Terlampir pada Lamaran
+                        </span>
+                    </div>
+                    <div class="p-md rounded-xl bg-white border border-outline-variant/60 shadow-sm">
+                        <div class="flex flex-col gap-sm">
+                            <div class="flex flex-wrap justify-between gap-4 items-start">
+                                <div>
+                                    <h3 class="font-headline-md text-body-lg text-primary font-bold">{{ $attachedPortfolio->judul }}</h3>
+                                    <p class="text-on-surface-variant font-body-sm">{{ $attachedPortfolio->kategori ?? '-' }}</p>
+                                </div>
+                                <span class="bg-secondary-container text-on-secondary-container text-xs font-bold px-sm py-1 rounded-full">{{ $attachedPortfolio->teknologi ?? '—' }}</span>
+                            </div>
+                            @if($attachedPortfolio->deskripsi)
+                            <p class="text-on-surface-variant font-body-md leading-relaxed whitespace-pre-line">{{ $attachedPortfolio->deskripsi }}</p>
+                            @endif
+                            <div class="flex flex-wrap gap-2 mt-2">
+                                @if ($attachedPortfolio->link_demo)
+                                <a href="{{ $attachedPortfolio->link_demo }}" target="_blank" class="inline-flex items-center gap-2 px-sm py-2 rounded-lg bg-secondary text-white text-label-md hover:opacity-90 transition-all shadow-sm">
+                                    <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+                                    <span>Demo</span>
+                                </a>
+                                @endif
+                                @if ($attachedPortfolio->link_repo)
+                                <a href="{{ $attachedPortfolio->link_repo }}" target="_blank" class="inline-flex items-center gap-2 px-sm py-2 rounded-lg bg-surface-container-high text-on-surface hover:bg-surface-container transition-all border border-outline-variant shadow-sm">
+                                    <span class="material-symbols-outlined text-[18px]">code</span>
+                                    <span>Repository</span>
+                                </a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+
                 <!-- Portfolio Card -->
-                @if ($cv->pelamar->portofolios->count() > 0)
+                @php
+                    $otherPortfolios = $cv->pelamar->portofolios->filter(function($p) use ($attachedPortfolio) {
+                        return !$attachedPortfolio || $p->id !== $attachedPortfolio->id;
+                    });
+                @endphp
+
+                @if ($otherPortfolios->count() > 0)
                 <div class="bg-surface-container-lowest p-md rounded-xl border border-outline-variant shadow-sm hover:shadow-md transition-shadow">
                     <div class="flex items-center gap-sm mb-md">
                         <span class="material-symbols-outlined text-secondary" style="font-variation-settings: &quot;FILL&quot; 1;">folder</span>
-                        <h2 class="font-headline-md text-headline-md text-primary">Portofolio</h2>
+                        <h2 class="font-headline-md text-headline-md text-primary">{{ (isset($attachedPortfolio) && $attachedPortfolio) ? 'Portofolio Lainnya' : 'Portofolio' }}</h2>
                     </div>
                     <div class="space-y-md">
-                        @foreach ($cv->pelamar->portofolios as $portfolio)
+                        @foreach ($otherPortfolios as $portfolio)
                         <div class="p-md rounded-xl bg-surface-container-low border border-outline-variant/50">
                             <div class="flex flex-col gap-sm">
                                 <div class="flex flex-wrap justify-between gap-4 items-start">

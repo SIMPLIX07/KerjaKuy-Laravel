@@ -303,4 +303,77 @@ class CvTest extends TestCase
         $this->assertDatabaseMissing('skill_cvs', ['id' => $skill->id]);
         $this->assertDatabaseMissing('pengalamen', ['id' => $pengalaman->id]);
     }
+
+    /**
+     * Menguji halaman detail CV menampilkan portofolio terlampir jika lamaran_id dikirimkan.
+     */
+    public function test_show_detail_cv_with_attached_portfolio()
+    {
+        $cv = Cv::create([
+            'pelamar_id'   => $this->pelamar->id,
+            'umur'         => 23,
+            'tentang_saya' => 'IT Graduate',
+            'kontak'       => '0812',
+            'title'        => 'CV IT',
+            'subtitle'     => 'Resume',
+        ]);
+
+        $perusahaan = \App\Models\Perusahaan::create([
+            'nama_perusahaan'   => 'PT Test',
+            'email'             => 'test@company.com',
+            'password'          => bcrypt('password153'),
+            'telepon'           => '0812',
+            'npwp'              => '12.345.678.9-1234',
+            'status_verifikasi' => 'verified',
+        ]);
+
+        $lowongan = \App\Models\Lowongan::create([
+            'perusahaan_id'      => $perusahaan->id,
+            'kategori_pekerjaan' => 'IT',
+            'posisi_pekerjaan'   => 'Software Engineer',
+            'jenis_pekerjaan'    => 'Full Time',
+            'gaji'               => '10000000',
+            'deskripsi_singkat'  => 'Short desc',
+            'deskripsi_pekerjaan'=> 'Long desc',
+            'syarat'             => 'PHP',
+            'pendidikan'         => 'S1',
+            'pengalaman'         => '1 tahun',
+            'keahlian_teknis'    => 'PHP',
+            'provinsi'           => 'Jawa Barat',
+            'kabupaten'          => 'Bandung',
+            'kecamatan'          => 'Coblong',
+            'alamat_lengkap'     => 'Jl Ganesha No 10',
+            'tanggal_mulai'      => '2026-06-07',
+            'tanggal_berakhir'   => '2026-07-07',
+        ]);
+
+        $portofolio = \App\Models\Portofolio::create([
+            'pelamar_id' => $this->pelamar->id,
+            'judul' => 'Sistem Reservasi Online',
+            'kategori' => 'Web App',
+            'teknologi' => 'Laravel, Vue.js',
+            'deskripsi' => 'Aplikasi web reservasi.',
+            'link_demo' => 'https://demo.example.com',
+            'link_repo' => 'https://github.com/repo',
+            'tanggal_mulai' => '2025-01-01',
+            'tanggal_selesai' => '2025-06-01',
+        ]);
+
+        $lamaran = \App\Models\Lamaran::create([
+            'pelamar_id' => $this->pelamar->id,
+            'lowongan_id' => $lowongan->id,
+            'cv_id' => $cv->id,
+            'portofolio_id' => $portofolio->id,
+            'status' => 'diproses',
+        ]);
+
+        $response = $this->get('/cv/detail/' . $cv->id . '?lamaran_id=' . $lamaran->id);
+
+        $response->assertStatus(200);
+        $response->assertViewIs('cv.detail');
+        $response->assertViewHas('cv');
+        $response->assertViewHas('attachedPortfolio');
+        $response->assertSee('Portofolio Terlampir');
+        $response->assertSee('Sistem Reservasi Online');
+    }
 }

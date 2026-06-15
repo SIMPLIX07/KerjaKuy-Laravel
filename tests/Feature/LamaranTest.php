@@ -327,4 +327,35 @@ class LamaranTest extends TestCase
                    $request['room'] === 'https://meet.google.com/abc-defg-hij';
         });
     }
+
+    /**
+     * Menguji bahwa pelamar yang diterima mendapatkan popup selamat ketika login/mengakses home.
+     */
+    public function test_accepted_pelamar_sees_congratulations_popup()
+    {
+        $lamaran = Lamaran::create([
+            'pelamar_id' => $this->pelamar->id,
+            'lowongan_id' => $this->lowongan->id,
+            'cv_id' => $this->cv->id,
+            'status' => 'diterima',
+            'popup_diterima_tampil' => false,
+        ]);
+
+        $response = $this->withSession(['pelamar_id' => $this->pelamar->id])
+            ->get('/home-pelamar');
+
+        $response->assertStatus(200);
+        $response->assertViewHas('acceptedLamaran');
+        
+        $acceptedLamaranInView = $response->viewData('acceptedLamaran');
+        $this->assertEquals($lamaran->id, $acceptedLamaranInView->id);
+
+        $lamaran->refresh();
+        $this->assertTrue((bool)$lamaran->popup_diterima_tampil);
+
+        // Akses kedua kali tidak boleh memunculkan popup lagi
+        $response2 = $this->withSession(['pelamar_id' => $this->pelamar->id])
+            ->get('/home-pelamar');
+        $response2->assertViewHas('acceptedLamaran', null);
+    }
 }

@@ -261,7 +261,7 @@
                                     <div class="flex items-center gap-xs">
                                         <span class="material-symbols-outlined text-[18px] text-outline">description</span>
                                         <span class="font-medium text-on-surface-variant">CV:</span>
-                                        <a href="{{ route('cv.show', $lamaran->cv_id) }}" target="_blank" class="text-secondary hover:underline flex items-center gap-1 font-semibold text-decoration-none">
+                                        <a href="{{ route('cv.show', ['cv' => $lamaran->cv_id, 'lamaran_id' => $lamaran->id]) }}" target="_blank" class="text-secondary hover:underline flex items-center gap-1 font-semibold text-decoration-none">
                                             Resume.pdf
                                             <span class="material-symbols-outlined text-[14px]">open_in_new</span>
                                         </a>

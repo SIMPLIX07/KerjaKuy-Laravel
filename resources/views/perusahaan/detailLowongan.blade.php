@@ -334,7 +334,7 @@
                                     <img src="{{ $lamaran->pelamar->foto_profil ? asset('storage/' . $lamaran->pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}" class="w-10 h-10 rounded-full object-cover shrink-0 border border-outline-variant">
                                     <div class="min-w-0">
                                         <p class="font-semibold text-body-sm text-on-surface truncate leading-tight">{{ $lamaran->pelamar->nama_lengkap }}</p>
-                                        <a href="{{ route('cv.show', $lamaran->cv_id) }}" target="_blank" class="text-[12px] text-secondary hover:underline flex items-center gap-0.5 leading-none mt-1">
+                                        <a href="{{ route('cv.show', ['cv' => $lamaran->cv_id, 'lamaran_id' => $lamaran->id]) }}" target="_blank" class="text-[12px] text-secondary hover:underline flex items-center gap-0.5 leading-none mt-1">
                                             <span class="material-symbols-outlined text-[14px]">description</span>
                                             Resume.pdf
                                         </a>
@@ -350,9 +350,9 @@
                                     </button>
                                     
                                     <!-- Reject Action -->
-                                    <form action="{{ route('lamaran.tolak', $lamaran->id) }}" method="POST" onsubmit="return confirm('Tolak lamaran {{ $lamaran->pelamar->nama_lengkap }}?')">
+                                    <form id="reject-form-{{ $lamaran->id }}" action="{{ route('lamaran.tolak', $lamaran->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="p-2 bg-error text-white rounded-lg hover:bg-opacity-90 active:scale-95 transition-all flex items-center justify-center" title="Tolak Lamaran">
+                                        <button type="button" onclick="openRejectModal({{ $lamaran->id }}, '{{ $lamaran->pelamar->nama_lengkap }}')" class="p-2 bg-error text-white rounded-lg hover:bg-opacity-90 active:scale-95 transition-all flex items-center justify-center" title="Tolak Lamaran">
                                             <span class="material-symbols-outlined text-[18px]">close</span>
                                         </button>
                                     </form>
@@ -434,16 +434,59 @@
                     </button>
                 </div>
             </form>
+    <!-- Custom Reject Confirmation Popup -->
+    <div class="fixed inset-0 z-50 items-center justify-center bg-black bg-opacity-40 hidden animate-fade-in" id="confirmDialog">
+        <div class="glass-card p-6 rounded-xl shadow-2xl max-w-sm w-full mx-4 border border-outline-variant bg-white text-center">
+            <div class="flex flex-col items-center gap-4">
+                <span class="material-symbols-outlined text-5xl text-error">error_outline</span>
+                <div>
+                    <h4 class="font-headline text-xl font-bold text-on-surface">Tolak Lamaran</h4>
+                    <p class="mt-2 text-body-sm text-on-surface-variant" id="confirmDialogText">Apakah Anda yakin ingin menolak lamaran pelamar ini?</p>
+                </div>
+            </div>
+            <div class="mt-6 flex gap-3">
+                <button id="confirmDialogCancel" type="button" class="flex-1 py-3 bg-surface-variant text-on-surface rounded-xl font-semibold hover:bg-surface-container transition-all active:scale-95">Batal</button>
+                <button id="confirmDialogBtn" type="button" class="flex-1 py-3 bg-error text-white rounded-xl font-semibold hover:bg-opacity-90 transition-all active:scale-95">Tolak</button>
+            </div>
         </div>
     </div>
 
     <script>
+        let activeFormId = null;
+        function openRejectModal(lamaranId, namaPelamar) {
+            activeFormId = `reject-form-${lamaranId}`;
+            document.getElementById('confirmDialogText').textContent = `Apakah Anda yakin ingin menolak lamaran dari ${namaPelamar}?`;
+            const confirmDialog = document.getElementById('confirmDialog');
+            confirmDialog.classList.remove('hidden');
+            confirmDialog.classList.add('flex');
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const modal = document.getElementById('wawancaraModal');
             const cancelModalBtn = document.getElementById('btnCancelModal');
             const cancelModalBtn2 = document.getElementById('btnCancelModalBtn');
             const wawancaraForm = document.getElementById('wawancaraForm');
             const pelamarNamaSpan = document.getElementById('wawancaraPelamarNama');
+
+            const confirmDialog = document.getElementById('confirmDialog');
+            const confirmDialogCancel = document.getElementById('confirmDialogCancel');
+            const confirmDialogBtn = document.getElementById('confirmDialogBtn');
+
+            if (confirmDialogCancel) {
+                confirmDialogCancel.addEventListener('click', () => {
+                    confirmDialog.classList.add('hidden');
+                    confirmDialog.classList.remove('flex');
+                    activeFormId = null;
+                });
+            }
+
+            if (confirmDialogBtn) {
+                confirmDialogBtn.addEventListener('click', () => {
+                    if (activeFormId) {
+                        document.getElementById(activeFormId).submit();
+                    }
+                });
+            }
 
             document.querySelectorAll('.btn-wawancara').forEach(button => {
                 button.addEventListener('click', () => {
