@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>KerjaKuy Admin Dashboard</title>
+    <title>KerjaYuk Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -146,7 +146,7 @@
                     <span class="material-symbols-outlined">menu</span>
                 </button>
                 <div class="flex items-center gap-2">
-                    <span class="font-headline-md text-primary tracking-tight">KerjaKuy</span>
+                    <span class="font-headline-md text-primary tracking-tight">KerjaYuk</span>
                 </div>
                 <nav class="hidden md:flex items-center gap-6">
                     <a class="text-label-md text-primary font-semibold" href="{{ route('admin.dashboard') }}">Dashboard</a>
@@ -386,30 +386,79 @@
 
             <!-- Secondary Insight Grid (Visual Polish) -->
             <div class="grid grid-cols-1 gap-gutter">
-                <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-md">
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-2xl p-md"
+                     x-data="{
+                         period: '7',
+                         trends7: {{ json_encode($trends) }},
+                         trends30: {{ json_encode($trends30) }},
+                         get currentTrends() {
+                             return this.period === '7' ? this.trends7 : this.trends30;
+                         },
+                         getHeight(count) {
+                             if (count === 0) return '4%';
+                             return (Math.min(count, 50) / 50 * 100) + '%';
+                         },
+                         getBarColor(count, index, total) {
+                             if (count === 0) return '#ebeef0'; // Slate-100 like surface-container
+                             let ratio = total > 1 ? index / (total - 1) : 0;
+                             let h = Math.round(190 + ratio * 28);
+                             let s = 80;
+                             let l = Math.round(65 - ratio * 13);
+                             return 'hsl(' + h + ', ' + s + '%, ' + l + '%)';
+                         }
+                     }">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
                         <h4 class="font-headline-md text-headline-md text-primary">Tren Pendaftaran</h4>
-                        <select class="w-full sm:w-auto bg-surface border-outline-variant rounded-lg text-label-sm py-1.5 focus:ring-secondary">
-                            <option>7 Hari Terakhir</option>
-                            <option>30 Hari Terakhir</option>
+                        <select x-model="period" class="w-full sm:w-auto bg-surface border-outline-variant rounded-lg text-label-sm py-1.5 focus:ring-secondary">
+                            <option value="7">7 Hari Terakhir</option>
+                            <option value="30">30 Hari Terakhir</option>
                         </select>
                     </div>
-                    <div class="h-64 flex items-end gap-2 sm:gap-4 px-2 sm:px-4 pb-4 border-b border-outline-variant">
-                        @foreach ($trends as $t)
-                            @php
-                                $heightPercent = $t['count'] > 0 ? round(($t['count'] / $maxTrendCount) * 80) + 15 : 5;
-                            @endphp
-                            <div class="flex-1 bg-primary/10 rounded-t-lg group relative hover:bg-primary/20 transition-all cursor-pointer" style="height: {{ $heightPercent }}%;">
-                                <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary text-on-primary text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20">
-                                    {{ $t['count'] }} Baru
-                                </div>
+                    <div class="flex gap-4">
+                        <!-- Y-Axis Labels -->
+                        <div class="flex flex-col justify-between text-right text-[10px] text-on-surface-variant font-bold h-64 pb-4 select-none w-8">
+                            <span>50</span>
+                            <span>40</span>
+                            <span>30</span>
+                            <span>20</span>
+                            <span>10</span>
+                            <span>0</span>
+                        </div>
+                        <!-- Chart Area -->
+                        <div class="flex-1 relative h-64">
+                            <!-- Grid Lines -->
+                            <div class="absolute inset-0 flex flex-col justify-between pb-4 pointer-events-none">
+                                <div class="border-t border-outline-variant/30 w-full"></div>
+                                <div class="border-t border-outline-variant/30 w-full"></div>
+                                <div class="border-t border-outline-variant/30 w-full"></div>
+                                <div class="border-t border-outline-variant/30 w-full"></div>
+                                <div class="border-t border-outline-variant/30 w-full"></div>
+                                <div class="border-b border-outline-variant w-full"></div>
                             </div>
-                        @endforeach
+                            <!-- Bars -->
+                            <div class="absolute inset-0 flex items-end gap-2 sm:gap-4 pb-4 px-2">
+                                <template x-for="(t, index) in currentTrends" :key="index">
+                                    <div class="flex-1 rounded-t-lg group relative hover:opacity-90 transition-all cursor-pointer" 
+                                         :style="{ 
+                                             height: getHeight(t.count), 
+                                             backgroundColor: getBarColor(t.count, index, currentTrends.length) 
+                                         }">
+                                        <div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary text-on-primary text-[10px] py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20">
+                                            <span x-text="t.count + ' Baru'"></span>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex justify-between mt-4 px-2 sm:px-4 gap-2 sm:gap-4 text-[10px] sm:text-xs text-on-surface-variant font-bold uppercase tracking-widest">
-                        @foreach ($trends as $t)
-                            <span class="flex-1 text-center" title="{{ $t['date_label'] }}">{{ $t['day'] }}</span>
-                        @endforeach
+                    <!-- X-Axis Labels -->
+                    <div class="flex gap-4">
+                        <div class="w-8"></div>
+                        <div class="flex-1 flex justify-between mt-4 px-2 text-[10px] sm:text-xs text-on-surface-variant font-bold uppercase tracking-widest">
+                            <template x-for="(t, index) in currentTrends" :key="index">
+                                <span class="flex-1 text-center" :title="t.date_label" x-text="t.day"></span>
+                            </template>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -417,7 +466,7 @@
 
         <!-- Footer Decoration -->
         <footer class="mt-xl py-6 px-margin-desktop border-t border-outline-variant bg-surface flex justify-between items-center">
-            <p class="text-label-sm text-on-surface-variant">© 2024 KerjaKuy Enterprise. Hak cipta dilindungi undang-undang.</p>
+            <p class="text-label-sm text-on-surface-variant">© 2024 KerjaYuk Enterprise. Hak cipta dilindungi undang-undang.</p>
             <div class="flex gap-6">
                 <a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Kebijakan Privasi</a>
                 <a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Syarat & Ketentuan</a>

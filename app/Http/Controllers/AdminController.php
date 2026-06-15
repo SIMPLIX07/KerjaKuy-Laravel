@@ -83,6 +83,40 @@ class AdminController extends Controller
             ];
         }
 
+        // Ambil data trend registrasi selama 30 hari terakhir (4 Minggu)
+        $trends30 = [];
+        $weeks = [
+            [
+                'day' => 'Minggu 1',
+                'start' => now()->subDays(30)->startOfDay(),
+                'end' => now()->subDays(22)->endOfDay(),
+            ],
+            [
+                'day' => 'Minggu 2',
+                'start' => now()->subDays(21)->startOfDay(),
+                'end' => now()->subDays(15)->endOfDay(),
+            ],
+            [
+                'day' => 'Minggu 3',
+                'start' => now()->subDays(14)->startOfDay(),
+                'end' => now()->subDays(8)->endOfDay(),
+            ],
+            [
+                'day' => 'Minggu 4',
+                'start' => now()->subDays(7)->startOfDay(),
+                'end' => now(),
+            ]
+        ];
+
+        foreach ($weeks as $week) {
+            $count = Perusahaan::whereBetween('created_at', [$week['start'], $week['end']])->count();
+            $trends30[] = [
+                'day' => $week['day'],
+                'count' => $count,
+                'date_label' => $week['start']->format('d M') . ' - ' . $week['end']->format('d M')
+            ];
+        }
+
         $maxTrendCount = max(array_column($trends, 'count'));
 
         return view('admin.dashboard', compact(
@@ -92,6 +126,7 @@ class AdminController extends Controller
             'totalPerusahaan',
             'growthFormatted',
             'trends',
+            'trends30',
             'maxTrendCount'
         ));
     }

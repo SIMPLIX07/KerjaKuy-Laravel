@@ -196,6 +196,20 @@ class LowonganController extends Controller
 
     public function listPelamar(Request $request)
     {
+        $pelamarId = session('pelamar_id');
+        $acceptedLamaran = null;
+        if ($pelamarId) {
+            $acceptedLamaran = \App\Models\Lamaran::with('lowongan.perusahaan')
+                ->where('pelamar_id', $pelamarId)
+                ->where('status', 'diterima')
+                ->where('popup_diterima_tampil', false)
+                ->first();
+            
+            if ($acceptedLamaran) {
+                $acceptedLamaran->update(['popup_diterima_tampil' => true]);
+            }
+        }
+
         $query = Lowongan::with('perusahaan');
 
         // Filter: Kata Kunci (Posisi, kategori, atau nama perusahaan)
@@ -304,6 +318,6 @@ class LowonganController extends Controller
                 ->toArray();
         }
 
-        return view('home', compact('lowongans', 'lokasiOptions', 'bookmarkedIds'));
+        return view('home', compact('lowongans', 'lokasiOptions', 'bookmarkedIds', 'acceptedLamaran'));
     }
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Detail Perusahaan | KerjaKuy Admin</title>
+    <title>Detail Perusahaan | KerjaYuk Admin</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <!-- Google Fonts & Icons -->
@@ -149,75 +149,57 @@
 <body
     class="bg-background text-on-background font-body-md min-h-screen flex flex-col selection:bg-secondary-fixed selection:text-on-secondary-fixed">
 
-    <!-- TopNavBar -->
-    <header
-        class="sticky top-0 z-50 w-full bg-surface/80 backdrop-blur-md border-b border-outline-variant px-margin-desktop py-4 flex justify-between items-center"
-        x-data="{ mobileMenuOpen: false }">
-        <div class="flex items-center gap-4 md:gap-8">
-            <!-- Hamburger Button for Mobile -->
-            <button @click="mobileMenuOpen = !mobileMenuOpen"
-                class="block md:hidden text-on-surface-variant hover:bg-surface-container p-2 rounded-lg transition-all"
-                type="button">
-                <span class="material-symbols-outlined">menu</span>
-            </button>
-            <div class="flex items-center gap-2">
-                <span class="font-headline-md text-primary tracking-tight">KerjaKuy</span>
-            </div>
-            <nav class="hidden md:flex items-center gap-6">
-                <a class="text-label-md text-on-surface-variant hover:text-primary transition-colors"
-                    href="{{ route('admin.dashboard') }}">Dashboard</a>
-                <a class="text-label-md text-primary font-semibold" href="{{ route('admin.daftarPerusahaan') }}">Daftar
-                    Perusahaan</a>
-                <a class="text-label-md text-on-surface-variant hover:text-primary transition-colors"
-                    href="{{ route('admin.historyVerifikasi') }}">Riwayat</a>
-            </nav>
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 w-full bg-surface/80 backdrop-blur-md border-b border-outline-variant px-margin-desktop py-4 flex justify-between items-center" x-data="{ mobileMenuOpen: false }">
+    <div class="flex items-center gap-4 md:gap-8">
+        <!-- Hamburger Button for Mobile -->
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="block md:hidden text-on-surface-variant hover:bg-surface-container p-2 rounded-lg transition-all" type="button">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+        <div class="flex items-center gap-2">
+            <span class="font-headline-md text-primary tracking-tight">KerjaYuk</span>
         </div>
-        <div class="flex items-center gap-6">
-            <!-- Profile Dropdown -->
-            <div class="relative" x-data="{ open: false }">
-                <div @click="open = !open" class="flex items-center gap-3 cursor-pointer group">
-                    <div class="text-right hidden xl:block">
-                        <p class="text-label-md text-primary font-bold leading-none">Super Admin</p>
-                        <p class="text-[10px] text-on-surface-variant uppercase tracking-widest mt-1">Kelola Ruang Kerja
-                        </p>
-                    </div>
-                    <div
-                        class="w-10 h-10 rounded-full border-2 border-secondary flex items-center justify-center overflow-hidden">
-                        <img alt="Profile" class="w-full h-full object-cover"
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1TKSAE9jduKpLDffHwesxf0pVM1OyEOXMte4OQpC4Qb21DqhO0_7p3QSNTApvXetQ5cqAReE1BIo6qI-EgOwyd9rc9cSXADMhnE52LgupjlqQjryBuVPctELbc2BoO1yZp9zqadj1frtc2gt7BGuxKWFtWT3Hcdfnn-sum5MrnMDo5V4KtQ-XPvQ5ccKuWyZYmI4gp2g8Mv11ZbPPppH393rx9uKoMmzwNKMNUHbNDBfVJsr9bxNNg2oeEsNn5zq3CON9WIEXV5s">
-                    </div>
+        <nav class="hidden md:flex items-center gap-6">
+            <a class="text-label-md text-on-surface-variant hover:text-primary transition-colors" href="{{ route('admin.dashboard') }}">Dashboard</a>
+            <a class="text-label-md text-primary font-semibold" href="{{ route('admin.daftarPerusahaan') }}">Daftar Perusahaan</a>
+            <a class="text-label-md text-on-surface-variant hover:text-primary transition-colors" href="{{ route('admin.historyVerifikasi') }}">Riwayat</a>
+        </nav>
+    </div>
+    <div class="flex items-center gap-6">
+        <!-- Profile Dropdown -->
+        <div class="relative" x-data="{ open: false }">
+            <div @click="open = !open" class="flex items-center gap-3 cursor-pointer group">
+                <div class="text-right hidden xl:block">
+                    <p class="text-label-md text-primary font-bold leading-none">Super Admin</p>
+                    <p class="text-[10px] text-on-surface-variant uppercase tracking-widest mt-1">Kelola Ruang Kerja</p>
                 </div>
-                <!-- Dropdown Menu -->
-                <div x-show="open" @click.outside="open = false"
-                    class="absolute right-0 mt-2 w-48 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-lg py-2 z-50"
-                    style="display: none;">
-                    <div class="px-4 py-2 border-b border-outline-variant">
-                        <p class="text-label-md font-bold text-primary">Super Admin</p>
-                        <p class="text-[11px] text-on-surface-variant truncate">{{ session('admin_email') }}</p>
-                    </div>
-                    <form action="{{ route('admin.logout') }}" method="POST" class="block w-full">
-                        @csrf
-                        <button type="submit"
-                            class="w-full text-left px-4 py-2 text-body-sm text-error hover:bg-error-container/20 flex items-center gap-2 transition-colors">
-                            <span class="material-symbols-outlined text-[18px]">logout</span>
-                            Keluar
-                        </button>
-                    </form>
+                <div class="w-10 h-10 rounded-full border-2 border-secondary flex items-center justify-center overflow-hidden">
+                    <img alt="Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1TKSAE9jduKpLDffHwesxf0pVM1OyEOXMte4OQpC4Qb21DqhO0_7p3QSNTApvXetQ5cqAReE1BIo6qI-EgOwyd9rc9cSXADMhnE52LgupjlqQjryBuVPctELbc2BoO1yZp9zqadj1frtc2gt7BGuxKWFtWT3Hcdfnn-sum5MrnMDo5V4KtQ-XPvQ5ccKuWyZYmI4gp2g8Mv11ZbPPppH393rx9uKoMmzwNKMNUHbNDBfVJsr9bxNNg2oeEsNn5zq3CON9WIEXV5s">
                 </div>
             </div>
+            <!-- Dropdown Menu -->
+            <div x-show="open" @click.outside="open = false" class="absolute right-0 mt-2 w-48 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-lg py-2 z-50" style="display: none;">
+                <div class="px-4 py-2 border-b border-outline-variant">
+                    <p class="text-label-md font-bold text-primary">Super Admin</p>
+                    <p class="text-[11px] text-on-surface-variant truncate">{{ session('admin_email') }}</p>
+                </div>
+                <form action="{{ route('admin.logout') }}" method="POST" class="block w-full">
+                    @csrf
+                    <button type="submit" class="w-full text-left px-4 py-2 text-body-sm text-error hover:bg-error-container/20 flex items-center gap-2 transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">logout</span>
+                        Keluar
+                    </button>
+                </form>
+            </div>
         </div>
-        <!-- Mobile Dropdown Navigation Drawer -->
-        <div x-show="mobileMenuOpen" @click.outside="mobileMenuOpen = false"
-            class="absolute top-full left-0 w-full border-b border-outline-variant bg-surface/95 backdrop-blur-md py-4 px-margin-mobile flex flex-col gap-3 shadow-lg z-40 md:hidden"
-            style="display: none;">
-            <a class="text-label-md text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all"
-                href="{{ route('admin.dashboard') }}">Dashboard</a>
-            <a class="text-label-md text-primary font-semibold py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all"
-                href="{{ route('admin.daftarPerusahaan') }}">Daftar Perusahaan</a>
-            <a class="text-label-md text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all"
-                href="{{ route('admin.historyVerifikasi') }}">Riwayat</a>
-        </div>
-    </header>
+    </div>
+    <!-- Mobile Dropdown Navigation Drawer -->
+    <div x-show="mobileMenuOpen" @click.outside="mobileMenuOpen = false" class="absolute top-full left-0 w-full border-b border-outline-variant bg-surface/95 backdrop-blur-md py-4 px-margin-mobile flex flex-col gap-3 shadow-lg z-40 md:hidden" style="display: none;">
+        <a class="text-label-md text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="{{ route('admin.dashboard') }}">Dashboard</a>
+        <a class="text-label-md text-primary font-semibold py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="{{ route('admin.daftarPerusahaan') }}">Daftar Perusahaan</a>
+        <a class="text-label-md text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="{{ route('admin.historyVerifikasi') }}">Riwayat</a>
+    </div>
+</header>
 
     <!-- Main Content Area -->
     <main class="max-w-5xl mx-auto px-margin-mobile md:px-margin-desktop py-lg flex-1 w-full">
@@ -491,20 +473,15 @@
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer
-        class="mt-xl py-6 px-margin-desktop border-t border-outline-variant bg-surface flex justify-between items-center">
-        <p class="text-label-sm text-on-surface-variant">© 2024 KerjaKuy Enterprise. Hak cipta dilindungi
-            undang-undang.</p>
-        <div class="flex gap-6">
-            <a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors"
-                href="#">Kebijakan Privasi</a>
-            <a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors"
-                href="#">Syarat & Ketentuan</a>
-            <a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors"
-                href="#">Pusat Bantuan</a>
-        </div>
-    </footer>
+<!-- Footer -->
+<footer class="mt-xl py-6 px-margin-desktop border-t border-outline-variant bg-surface flex justify-between items-center">
+    <p class="text-label-sm text-on-surface-variant">© 2024 KerjaYuk Enterprise. Hak cipta dilindungi undang-undang.</p>
+    <div class="flex gap-6">
+        <a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Kebijakan Privasi</a>
+        <a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Syarat & Ketentuan</a>
+        <a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Pusat Bantuan</a>
+    </div>
+</footer>
 
     <script>
         function toggleRejectSection() {

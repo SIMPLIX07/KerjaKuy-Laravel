@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Riwayat Verifikasi Perusahaan | KerjaKuy Admin</title>
+    <title>Riwayat Verifikasi Perusahaan | KerjaYuk Admin</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <!-- Google Fonts & Icons -->
@@ -126,7 +126,7 @@
             <span class="material-symbols-outlined">menu</span>
         </button>
         <div class="flex items-center gap-2">
-            <span class="font-headline-md text-primary tracking-tight">KerjaKuy</span>
+            <span class="font-headline-md text-primary tracking-tight">KerjaYuk</span>
         </div>
         <nav class="hidden md:flex items-center gap-6">
             <a class="text-label-md text-on-surface-variant hover:text-primary transition-colors" href="{{ route('admin.dashboard') }}">Dashboard</a>
@@ -177,7 +177,7 @@
             <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">history_edu</span>
             <h1 class="font-headline-md text-headline-md text-primary">Riwayat Verifikasi Perusahaan</h1>
         </div>
-        <p class="font-body-md text-body-md text-on-surface-variant">Log komprehensif seluruh aktivitas verifikasi data perusahaan dalam platform KerjaKuy.</p>
+        <p class="font-body-md text-body-md text-on-surface-variant">Log komprehensif seluruh aktivitas verifikasi data perusahaan dalam platform KerjaYuk.</p>
     </header>
 
     <!-- Search & Filter Controls -->
@@ -305,7 +305,7 @@
 
 <!-- Footer -->
 <footer class="mt-xl py-6 px-margin-desktop border-t border-outline-variant bg-surface flex justify-between items-center">
-    <p class="text-label-sm text-on-surface-variant">© 2024 KerjaKuy Enterprise. Hak cipta dilindungi undang-undang.</p>
+    <p class="text-label-sm text-on-surface-variant">© 2024 KerjaYuk Enterprise. Hak cipta dilindungi undang-undang.</p>
     <div class="flex gap-6">
         <a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Kebijakan Privasi</a>
         <a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Syarat & Ketentuan</a>

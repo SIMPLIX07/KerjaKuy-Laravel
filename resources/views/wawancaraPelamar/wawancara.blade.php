@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jadwal Wawancara - KerjaKuy</title>
+    <title>Jadwal Wawancara - KerjaYuk</title>
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;900&display=swap" rel="stylesheet" />
@@ -174,7 +174,7 @@
 <body class="min-h-screen flex flex-col font-body-md text-body-md text-on-surface antialiased">
     <header class="bg-surface-container-lowest sticky top-0 z-50 shadow-sm">
         <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto h-16">
-            <a href="{{ route('home') }}" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaKuy</a>
+            <a href="{{ route('home') }}" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaYuk</a>
 
             <nav class="hidden md:flex gap-8 items-center">
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="{{ route('home') }}">Lowongan Kerja</a>
@@ -375,14 +375,14 @@
 
     <footer class="bg-surface-container-highest border-t border-outline-variant mt-auto">
         <div class="w-full px-margin-mobile md:px-margin-desktop py-lg flex flex-col md:flex-row justify-between items-center gap-md max-w-7xl mx-auto">
-            <div class="font-headline-md text-headline-md font-bold text-primary">KerjaKuy</div>
+            <div class="font-headline-md text-headline-md font-bold text-primary">KerjaYuk</div>
             <ul class="flex flex-wrap justify-center gap-md font-label-sm text-label-sm">
                 <li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Tentang Kami</a></li>
                 <li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Pusat Bantuan</a></li>
                 <li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Kebijakan Privasi</a></li>
                 <li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Syarat &amp; Ketentuan</a></li>
             </ul>
-            <div class="font-body-sm text-body-sm text-primary">© 2024 KerjaKuy. Empowering your next career move.</div>
+            <div class="font-body-sm text-body-sm text-primary">© 2024 KerjaYuk. Empowering your next career move.</div>
         </div>
     </footer>
 

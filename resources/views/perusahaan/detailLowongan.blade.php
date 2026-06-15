@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Detail Lowongan: {{ $lowongan->posisi_pekerjaan }} | KerjaKuy</title>
+    <title>Detail Lowongan: {{ $lowongan->posisi_pekerjaan }} | KerjaYuk</title>
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700&display=swap" rel="stylesheet" />
@@ -110,7 +110,12 @@
     <!-- Top Navigation Bar -->
     <header class="bg-surface-container-lowest sticky top-0 z-50 shadow-sm border-b border-outline-variant">
         <div class="flex justify-between items-center w-full px-4 md:px-12 max-w-7xl mx-auto h-16">
-            <a href="/" class="text-[24px] leading-8 font-extrabold text-primary font-headline">KerjaKuy</a>
+            <div class="flex items-center gap-4">
+                <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="block md:hidden text-primary hover:bg-surface-container-low p-2 rounded-lg transition-all" type="button">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <a href="/" class="text-[24px] leading-8 font-extrabold text-primary font-headline">KerjaYuk</a>
+            </div>
             <nav class="hidden md:flex gap-8 items-center">
                 <a class="text-primary border-b-2 border-primary pb-1 font-bold text-[14px]" href="/home-perusahaan">Lowongan Anda</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="/karyawanPerusahaan">Karyawan</a>
@@ -118,18 +123,22 @@
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ route('perusahaan.history') }}">History</a>
             </nav>
             <div class="flex items-center gap-4">
-                <button class="p-2 rounded-full hover:bg-surface-container-low transition-colors text-primary">
-                    <span class="material-symbols-outlined">notifications</span>
-                </button>
                 <a href="{{ route('perusahaan.settings') }}" class="flex items-center gap-2 px-2 py-1.5 rounded-full hover:bg-surface-container-low transition-colors text-primary text-label-md font-label-md">
                     @if(session('perusahaan_foto'))
                         <img src="{{ asset('storage/' . session('perusahaan_foto')) }}" alt="Logo Perusahaan" class="w-8 h-8 rounded-full object-cover border border-outline-variant">
                     @else
                         <span class="material-symbols-outlined">account_circle</span>
                     @endif
-                    <span>{{ session('perusahaan_nama') ?? 'Perusahaan' }}</span>
+                    <span class="hidden sm:inline">{{ session('perusahaan_nama') ?? 'Perusahaan' }}</span>
                 </a>
             </div>
+        </div>
+        <!-- Mobile Dropdown Navigation Menu -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full border-b border-outline-variant bg-surface-container-lowest/95 backdrop-blur-md py-4 px-4 flex flex-col gap-3 shadow-lg z-40 md:hidden">
+            <a class="text-[14px] font-semibold text-primary font-bold py-2.5 px-4 bg-surface-container-low rounded-xl transition-all" href="/home-perusahaan">Lowongan Anda</a>
+            <a class="text-[14px] font-semibold text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="/karyawanPerusahaan">Karyawan</a>
+            <a class="text-[14px] font-semibold text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="/perusahaan/wawancara">Wawancara</a>
+            <a class="text-[14px] font-semibold text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="{{ route('perusahaan.history') }}">History</a>
         </div>
     </header>
 
@@ -325,7 +334,7 @@
                                     <img src="{{ $lamaran->pelamar->foto_profil ? asset('storage/' . $lamaran->pelamar->foto_profil) : 'https://cdn-icons-png.flaticon.com/512/847/847969.png' }}" class="w-10 h-10 rounded-full object-cover shrink-0 border border-outline-variant">
                                     <div class="min-w-0">
                                         <p class="font-semibold text-body-sm text-on-surface truncate leading-tight">{{ $lamaran->pelamar->nama_lengkap }}</p>
-                                        <a href="{{ route('cv.show', $lamaran->cv_id) }}" target="_blank" class="text-[12px] text-secondary hover:underline flex items-center gap-0.5 leading-none mt-1">
+                                        <a href="{{ route('cv.show', ['cv' => $lamaran->cv_id, 'lamaran_id' => $lamaran->id]) }}" target="_blank" class="text-[12px] text-secondary hover:underline flex items-center gap-0.5 leading-none mt-1">
                                             <span class="material-symbols-outlined text-[14px]">description</span>
                                             Resume.pdf
                                         </a>
@@ -341,9 +350,9 @@
                                     </button>
                                     
                                     <!-- Reject Action -->
-                                    <form action="{{ route('lamaran.tolak', $lamaran->id) }}" method="POST" onsubmit="return confirm('Tolak lamaran {{ $lamaran->pelamar->nama_lengkap }}?')">
+                                    <form id="reject-form-{{ $lamaran->id }}" action="{{ route('lamaran.tolak', $lamaran->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="p-2 bg-error text-white rounded-lg hover:bg-opacity-90 active:scale-95 transition-all flex items-center justify-center" title="Tolak Lamaran">
+                                        <button type="button" onclick="openRejectModal({{ $lamaran->id }}, '{{ $lamaran->pelamar->nama_lengkap }}')" class="p-2 bg-error text-white rounded-lg hover:bg-opacity-90 active:scale-95 transition-all flex items-center justify-center" title="Tolak Lamaran">
                                             <span class="material-symbols-outlined text-[18px]">close</span>
                                         </button>
                                     </form>
@@ -361,13 +370,13 @@
     <!-- Footer -->
     <footer class="bg-surface-container-lowest w-full py-8 mt-auto border-t border-outline-variant">
         <div class="flex flex-col md:flex-row justify-between items-center px-4 md:px-12 max-w-7xl mx-auto gap-4">
-            <div class="text-[18px] leading-7 font-bold text-primary font-headline">KerjaKuy</div>
+            <div class="text-[18px] leading-7 font-bold text-primary font-headline">KerjaYuk</div>
             <div class="flex flex-wrap justify-center gap-6 text-[14px] leading-5">
                 <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Syarat &amp; Ketentuan</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Kebijakan Privasi</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Hubungi Kami</a>
             </div>
-            <div class="text-[14px] leading-5 text-primary">© 2024 KerjaKuy. Seluruh hak cipta dilindungi.</div>
+            <div class="text-[14px] leading-5 text-primary">© 2024 KerjaYuk. Seluruh hak cipta dilindungi.</div>
         </div>
     </footer>
 
@@ -425,16 +434,59 @@
                     </button>
                 </div>
             </form>
+    <!-- Custom Reject Confirmation Popup -->
+    <div class="fixed inset-0 z-50 items-center justify-center bg-black bg-opacity-40 hidden animate-fade-in" id="confirmDialog">
+        <div class="glass-card p-6 rounded-xl shadow-2xl max-w-sm w-full mx-4 border border-outline-variant bg-white text-center">
+            <div class="flex flex-col items-center gap-4">
+                <span class="material-symbols-outlined text-5xl text-error">error_outline</span>
+                <div>
+                    <h4 class="font-headline text-xl font-bold text-on-surface">Tolak Lamaran</h4>
+                    <p class="mt-2 text-body-sm text-on-surface-variant" id="confirmDialogText">Apakah Anda yakin ingin menolak lamaran pelamar ini?</p>
+                </div>
+            </div>
+            <div class="mt-6 flex gap-3">
+                <button id="confirmDialogCancel" type="button" class="flex-1 py-3 bg-surface-variant text-on-surface rounded-xl font-semibold hover:bg-surface-container transition-all active:scale-95">Batal</button>
+                <button id="confirmDialogBtn" type="button" class="flex-1 py-3 bg-error text-white rounded-xl font-semibold hover:bg-opacity-90 transition-all active:scale-95">Tolak</button>
+            </div>
         </div>
     </div>
 
     <script>
+        let activeFormId = null;
+        function openRejectModal(lamaranId, namaPelamar) {
+            activeFormId = `reject-form-${lamaranId}`;
+            document.getElementById('confirmDialogText').textContent = `Apakah Anda yakin ingin menolak lamaran dari ${namaPelamar}?`;
+            const confirmDialog = document.getElementById('confirmDialog');
+            confirmDialog.classList.remove('hidden');
+            confirmDialog.classList.add('flex');
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             const modal = document.getElementById('wawancaraModal');
             const cancelModalBtn = document.getElementById('btnCancelModal');
             const cancelModalBtn2 = document.getElementById('btnCancelModalBtn');
             const wawancaraForm = document.getElementById('wawancaraForm');
             const pelamarNamaSpan = document.getElementById('wawancaraPelamarNama');
+
+            const confirmDialog = document.getElementById('confirmDialog');
+            const confirmDialogCancel = document.getElementById('confirmDialogCancel');
+            const confirmDialogBtn = document.getElementById('confirmDialogBtn');
+
+            if (confirmDialogCancel) {
+                confirmDialogCancel.addEventListener('click', () => {
+                    confirmDialog.classList.add('hidden');
+                    confirmDialog.classList.remove('flex');
+                    activeFormId = null;
+                });
+            }
+
+            if (confirmDialogBtn) {
+                confirmDialogBtn.addEventListener('click', () => {
+                    if (activeFormId) {
+                        document.getElementById(activeFormId).submit();
+                    }
+                });
+            }
 
             document.querySelectorAll('.btn-wawancara').forEach(button => {
                 button.addEventListener('click', () => {

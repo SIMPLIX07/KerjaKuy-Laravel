@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KerjaKuy - Temukan Karir Impian Anda</title>
+    <title>KerjaYuk - Temukan Karir Impian Anda</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -204,7 +204,7 @@
     <!-- TopNavBar -->
     <header class="bg-surface-container-lowest text-primary sticky top-0 z-50 shadow-sm">
         <div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop max-w-7xl mx-auto h-16">
-            <a href="{{ route('home') }}" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaKuy</a>
+            <a href="{{ route('home') }}" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaYuk</a>
 
             <nav class="hidden md:flex gap-8 items-center">
                 <a class="text-primary border-b-2 border-primary pb-1 font-bold text-label-md font-label-md active:scale-95 transition-transform duration-150" href="{{ route('home') }}">Lowongan Kerja</a>
@@ -419,16 +419,59 @@
     <!-- Footer -->
     <footer class="bg-inverse-surface text-inverse-primary w-full px-margin-mobile md:px-margin-desktop py-12 border-t border-outline-variant">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="text-headline-md font-headline-md font-bold text-inverse-on-surface">KerjaKuy</div>
+            <div class="text-headline-md font-headline-md font-bold text-inverse-on-surface">KerjaYuk</div>
             <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2">
                 <a class="text-inverse-on-surface hover:text-secondary-fixed text-label-sm font-label-sm transition-colors duration-200" href="#">Kebijakan Privasi</a>
                 <a class="text-inverse-on-surface hover:text-secondary-fixed text-label-sm font-label-sm transition-colors duration-200" href="#">Syarat &amp; Ketentuan</a>
                 <a class="text-inverse-on-surface hover:text-secondary-fixed text-label-sm font-label-sm transition-colors duration-200" href="#">Bantuan</a>
                 <a class="text-inverse-on-surface hover:text-secondary-fixed text-label-sm font-label-sm transition-colors duration-200" href="#">Karir</a>
             </nav>
-            <div class="text-body-sm font-body-sm text-inverse-on-surface text-center md:text-right">© 2024 KerjaKuy. Hubungi Kami untuk percepatan karir Anda.</div>
+            <div class="text-body-sm font-body-sm text-inverse-on-surface text-center md:text-right">© 2024 KerjaYuk. Hubungi Kami untuk percepatan karir Anda.</div>
         </div>
     </footer>
+    <!-- Congratulations Popup -->
+    @if(isset($acceptedLamaran) && $acceptedLamaran)
+    <div id="congratsModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60 backdrop-blur-sm animate-fade-in">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-8 mx-margin-mobile border border-outline-variant relative overflow-hidden flex flex-col items-center text-center">
+            <!-- Celebration decorative icon -->
+            <div class="w-20 h-20 rounded-full bg-secondary/10 flex items-center justify-center text-secondary mb-6 animate-bounce">
+                <span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'FILL' 1;">celebration</span>
+            </div>
+            
+            <h2 class="text-headline-lg font-headline font-bold text-secondary mb-2">Selamat, Anda Diterima! 🎉</h2>
+            <p class="text-body-md font-body text-on-surface-variant mb-6 leading-relaxed">
+                Anda telah resmi diterima untuk posisi <strong class="text-primary font-bold">{{ $acceptedLamaran->lowongan->posisi_pekerjaan }}</strong> di <strong class="text-primary font-bold">{{ $acceptedLamaran->lowongan->perusahaan->nama_perusahaan }}</strong>.
+            </p>
+            
+            <div class="w-full bg-surface-container-low p-4 rounded-xl text-left border border-outline-variant/60 mb-6">
+                <div class="flex items-center gap-sm mb-xs">
+                    <span class="material-symbols-outlined text-secondary text-[20px]" style="font-variation-settings: 'FILL' 1;">apartment</span>
+                    <span class="text-body-sm font-semibold text-on-surface ml-1">{{ $acceptedLamaran->lowongan->perusahaan->nama_perusahaan }}</span>
+                </div>
+                <div class="flex items-center gap-sm">
+                    <span class="material-symbols-outlined text-secondary text-[20px]">work</span>
+                    <span class="text-body-sm font-semibold text-on-surface ml-1">{{ $acceptedLamaran->lowongan->posisi_pekerjaan }}</span>
+                </div>
+            </div>
+
+            <button type="button" id="btnDismissCongrats" class="w-full py-4 bg-secondary text-white font-bold rounded-xl hover:bg-opacity-90 transition-all active:scale-95 shadow-md">
+                Terima Kasih
+            </button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const congratsModal = document.getElementById('congratsModal');
+            const btnDismiss = document.getElementById('btnDismissCongrats');
+            if (btnDismiss && congratsModal) {
+                btnDismiss.addEventListener('click', () => {
+                    congratsModal.classList.add('hidden');
+                    congratsModal.classList.remove('flex');
+                });
+            }
+        });
+    </script>
+    @endif
 </body>
 
 <script>

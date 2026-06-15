@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bookmark - KerjaKuy</title>
-    <meta name="description" content="Kelola lowongan kerja yang Anda simpan di KerjaKuy">
+    <title>Bookmark - KerjaYuk</title>
+    <meta name="description" content="Kelola lowongan kerja yang Anda simpan di KerjaYuk">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -133,7 +133,7 @@
     <!-- Navbar -->
     <header class="bg-surface-container-lowest text-primary sticky top-0 z-50 shadow-sm border-b border-outline-variant">
         <div class="flex justify-between items-center w-full px-4 md:px-12 max-w-7xl mx-auto h-16">
-            <a href="{{ route('home') }}" class="text-[24px] leading-8 font-extrabold text-primary font-headline-md">KerjaKuy</a>
+            <a href="{{ route('home') }}" class="text-[24px] leading-8 font-extrabold text-primary font-headline-md">KerjaYuk</a>
 
             <nav class="hidden md:flex gap-8 items-center">
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ route('home') }}">Lowongan Kerja</a>
@@ -295,13 +295,13 @@
     <!-- Footer -->
     <footer class="bg-surface-container-highest border-t border-outline-variant mt-auto">
         <div class="w-full px-4 md:px-12 py-lg flex flex-col md:flex-row justify-between items-center gap-md max-w-7xl mx-auto">
-            <div class="font-headline-md text-headline-md font-bold text-primary">KerjaKuy</div>
+            <div class="font-headline-md text-headline-md font-bold text-primary">KerjaYuk</div>
             <ul class="flex flex-wrap justify-center gap-md font-label-sm text-label-sm">
                 <li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Tentang Kami</a></li>
                 <li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Pusat Bantuan</a></li>
                 <li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Kebijakan Privasi</a></li>
             </ul>
-            <div class="font-body-sm text-body-sm text-primary">© 2024 KerjaKuy. Empowering your next career move.</div>
+            <div class="font-body-sm text-body-sm text-primary">© 2024 KerjaYuk. Empowering your next career move.</div>
         </div>
     </footer>
 

@@ -26,7 +26,7 @@ class AdminVerifikasiTest extends TestCase
      */
     public function test_admin_can_login_with_valid_credentials()
     {
-        $adminEmail = config('admin.admin.email') ?? 'admin@kerjakuy.com';
+        $adminEmail = config('admin.admin.email') ?? 'admin@kerjayuk.com';
         $adminPassword = config('admin.admin.password') ?? 'admin123';
 
         $response = $this->post('/admin/login', [
@@ -268,7 +268,7 @@ class AdminVerifikasiTest extends TestCase
      */
     public function test_admin_can_logout()
     {
-        $response = $this->withSession(['admin_id' => 'admin', 'admin_email' => 'admin@kerjakuy.com'])
+        $response = $this->withSession(['admin_id' => 'admin', 'admin_email' => 'admin@kerjayuk.com'])
             ->post('/admin/logout');
 
         $response->assertRedirect('/');

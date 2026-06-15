@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KerjaKuy - Temukan Pekerjaan Impian Anda</title>
+    <title>KerjaYuk - Temukan Pekerjaan Impian Anda</title>
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -16,16 +16,15 @@
     <nav class="mt-6 md:mt-10 mx-6 md:mx-16 flex justify-between items-center relative z-50">
         <!-- Logo Left -->
         <div class="flex items-center gap-3">
-            <img src="/assets/index/asset/logo.png" alt="KerjaKuy Logo" class="h-10 md:h-12 w-auto object-contain">
-            <span class="font-bold text-xl md:text-2xl tracking-wide">KerjaKuy</span>
+            <img src="/assets/index/asset/logo.png" alt="KerjaYuk Logo" class="h-10 md:h-12 w-auto object-contain">
+            <span class="font-bold text-xl md:text-2xl tracking-wide">KerjaYuk</span>
         </div>
 
         <!-- Desktop Navigation Middle -->
         <div class="hidden md:flex items-center gap-8 text-teal-100 font-medium">
-            <a href="#" class="hover:text-white transition-colors duration-200">Download</a>
-            <a href="#" class="hover:text-white transition-colors duration-200">Blog</a>
-            <a href="#" class="hover:text-white transition-colors duration-200">Tentang</a>
-            <a href="#" class="hover:text-white transition-colors duration-200">Dukungan</a>
+            <a href="/blog" class="hover:text-white transition-colors duration-200">Blog</a>
+            <a href="/tentang-kami" class="hover:text-white transition-colors duration-200">Tentang</a>
+            <a href="/pusat-bantuan" class="hover:text-white transition-colors duration-200">Dukungan</a>
         </div>
 
         <!-- Desktop Actions Right -->
@@ -55,10 +54,9 @@
         <!-- Mobile Drawer / Dropdown -->
         <div id="mobile-menu" class="hidden absolute top-full left-0 right-0 mt-4 p-6 bg-[#000E3A]/95 backdrop-blur-lg border border-white/10 rounded-2xl flex-col gap-6 shadow-2xl z-50 transition-all duration-300">
             <div class="flex flex-col gap-4 text-center font-medium">
-                <a href="#" class="py-2 hover:text-teal-300 transition-colors">Download</a>
-                <a href="#" class="py-2 hover:text-teal-300 transition-colors">Blog</a>
-                <a href="#" class="py-2 hover:text-teal-300 transition-colors">Tentang</a>
-                <a href="#" class="py-2 hover:text-teal-300 transition-colors">Dukungan</a>
+                <a href="/blog" class="py-2 hover:text-teal-300 transition-colors">Blog</a>
+                <a href="/tentang-kami" class="py-2 hover:text-teal-300 transition-colors">Tentang</a>
+                <a href="/pusat-bantuan" class="py-2 hover:text-teal-300 transition-colors">Dukungan</a>
             </div>
             <hr class="border-white/10">
             <div class="flex flex-col gap-4">
@@ -77,7 +75,7 @@
     <!-- Hero Section -->
     <div class="min-h-[70vh] md:min-h-[80vh] flex flex-col justify-center items-center text-center px-6 -mt-16 md:-mt-24">
         <h1 class="text-6xl sm:text-7xl md:text-[100px] font-black tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white via-teal-200 to-white leading-none">
-            KerjaKuy
+            KerjaYuk
         </h1>
         <p class="text-xl sm:text-2xl font-light text-teal-100 opacity-95 tracking-wide max-w-lg leading-relaxed">
             Tempat anda menemukan <br class="hidden sm:inline"> pekerjaan impian anda
@@ -93,13 +91,13 @@
                 <p class="text-base md:text-lg text-gray-600 leading-relaxed">
                     Kami Menyediakan Platform Untuk Menemukan Pekerjaan Impian Anda, Dengan Langkah Langkah Yang Mudah dan Praktis.
                 </p>
-                <button class="bg-teal-500 hover:bg-teal-600 font-semibold px-6 py-3 text-white rounded-xl shadow-md hover:shadow-lg transition-all duration-200 w-fit cursor-pointer">
+                <a href="/tentang-kami" class="bg-teal-500 hover:bg-teal-600 font-semibold px-6 py-3 text-white rounded-xl shadow-md hover:shadow-lg transition-all duration-200 w-fit cursor-pointer text-center block">
                     Lebih Banyak
-                </button>
+                </a>
             </div>
             <!-- Image -->
             <div class="w-full sm:w-8/12 md:w-5/12 rounded-2xl shadow-xl overflow-hidden">
-                <img class="w-full h-auto object-cover hover:scale-105 transition-transform duration-300 rounded-2xl" src="/assets/index/asset/person.jpg" alt="Tentang KerjaKuy">
+                <img class="w-full h-auto object-cover hover:scale-105 transition-transform duration-300 rounded-2xl" src="/assets/index/asset/person.jpg" alt="Tentang KerjaYuk">
             </div>
         </div>
     </div>
@@ -241,75 +239,14 @@
         </div>
     </div>
 
-    <!-- Ayo Bergabung Section -->
-    <div class="w-full py-16 px-6 sm:px-12 md:py-24 lg:px-40 bg-[#000E3A]/40 border-t border-white/5">
-        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between gap-12 lg:gap-24">
-            <!-- Brand / Call to Action -->
-            <div class="flex flex-col gap-4 max-w-md">
-                <span class="text-teal-300 font-bold text-xl tracking-wider uppercase">Ayo</span>
-                <h2 class="font-black text-4xl sm:text-5xl md:text-6xl text-white leading-tight">
-                    Bergabung <br class="hidden sm:inline"> Bersama Kami
-                </h2>
-                <p class="text-teal-100/70 mt-2">Temukan peluang terbaik untuk masa depan karir Anda dan kembangkan bisnis Anda bersama KerjaKuy.</p>
-            </div>
-            
-            <!-- Links Columns Grid -->
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 lg:gap-16 w-full lg:w-auto">
-                <!-- Col 1 -->
-                <div class="flex flex-col gap-4">
-                    <p class="font-bold text-lg text-white border-b border-white/10 pb-2">Pelamar</p>
-                    <div class="text-teal-100/70 flex flex-col gap-3 text-sm">
-                        <a href="/" class="hover:text-teal-300 transition-colors">Cari Lowongan</a>
-                        <a href="/" class="hover:text-teal-300 transition-colors">Rekomendasi</a>
-                        <a href="/" class="hover:text-teal-300 transition-colors">Kategori Populer</a>
-                        <a href="/" class="hover:text-teal-300 transition-colors">Lihat Profile</a>
-                        <a href="/" class="hover:text-teal-300 transition-colors">Download Aplikasi</a>
-                    </div>
-                </div>
-                <!-- Col 2 -->
-                <div class="flex flex-col gap-4">
-                    <p class="font-bold text-lg text-white border-b border-white/10 pb-2">Mitra</p>
-                    <div class="text-teal-100/70 flex flex-col gap-3 text-sm">
-                        <a href="/" class="hover:text-teal-300 transition-colors">Cari Lowongan</a>
-                        <a href="/" class="hover:text-teal-300 transition-colors">Rekomendasi</a>
-                        <a href="/" class="hover:text-teal-300 transition-colors">Kategori Populer</a>
-                        <a href="/" class="hover:text-teal-300 transition-colors">Lihat Profile</a>
-                        <a href="/" class="hover:text-teal-300 transition-colors">Download Aplikasi</a>
-                    </div>
-                </div>
-                <!-- Col 3 -->
-                <div class="flex flex-col gap-4">
-                    <p class="font-bold text-lg text-white border-b border-white/10 pb-2">Tentang</p>
-                    <div class="text-teal-100/70 flex flex-col gap-3 text-sm">
-                        <a href="/" class="hover:text-teal-300 transition-colors">Cari Lowongan</a>
-                        <a href="/" class="hover:text-teal-300 transition-colors">Rekomendasi</a>
-                        <a href="/" class="hover:text-teal-300 transition-colors">Kategori Populer</a>
-                        <a href="/" class="hover:text-teal-300 transition-colors">Lihat Profile</a>
-                        <a href="/" class="hover:text-teal-300 transition-colors">Download Aplikasi</a>
-                    </div>
-                </div>
-                <!-- Col 4 -->
-                <div class="flex flex-col gap-4">
-                    <p class="font-bold text-lg text-white border-b border-white/10 pb-2">Dukungan</p>
-                    <div class="text-teal-100/70 flex flex-col gap-3 text-sm">
-                        <a href="/" class="hover:text-teal-300 transition-colors">Cari Lowongan</a>
-                        <a href="/" class="hover:text-teal-300 transition-colors">Rekomendasi</a>
-                        <a href="/" class="hover:text-teal-300 transition-colors">Kategori Populer</a>
-                        <a href="/" class="hover:text-teal-300 transition-colors">Lihat Profile</a>
-                        <a href="/" class="hover:text-teal-300 transition-colors">Download Aplikasi</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Footer Copyright -->
     <footer class="bg-[#000E3A]/60 py-8 text-center text-sm text-teal-200/40 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p>&copy; 2026 KerjaKuy. Hubungkan Karir Anda dengan Kecepatan.</p>
+            <p>&copy; 2026 KerjaYuk. Hubungkan Karir Anda dengan Kecepatan.</p>
             <div class="flex gap-6">
-                <a href="#" class="hover:text-teal-300 transition-colors">Kebijakan Privasi</a>
-                <a href="#" class="hover:text-teal-300 transition-colors">Syarat & Ketentuan</a>
+                <a href="/tentang-kami" class="hover:text-teal-300 transition-colors">Tentang Kami</a>
+                <a href="/blog" class="hover:text-teal-300 transition-colors">Blog</a>
+                <a href="/pusat-bantuan" class="hover:text-teal-300 transition-colors">Pusat Bantuan</a>
             </div>
         </div>
     </footer>

@@ -19,6 +19,27 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/tentang-kami', function () {
+    try {
+        $dbPerusahaan = \App\Models\Perusahaan::count();
+        $dbPenempatan = \App\Models\Karyawan::count() + \App\Models\Lamaran::where('status', 'diterima')->count();
+        $perusahaanCount = $dbPerusahaan > 0 ? $dbPerusahaan : 500;
+        $penempatanCount = $dbPenempatan > 0 ? $dbPenempatan : 10000;
+    } catch (\Exception $e) {
+        $perusahaanCount = 500;
+        $penempatanCount = 10000;
+    }
+    return view('about', compact('perusahaanCount', 'penempatanCount'));
+})->name('about');
+
+Route::get('/pusat-bantuan', function () {
+    return view('support');
+})->name('support');
+
+Route::get('/blog', function () {
+    return view('blog');
+})->name('blog');
+
 Route::get('/lamar', function () {
     return view('lamar');
 });

@@ -10,6 +10,7 @@ use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
 use App\Models\Pelamar;
 use App\Models\Keahlian;
+use App\Models\Karyawan;
 
 class PelamarTest extends TestCase
 {
@@ -338,5 +339,41 @@ class PelamarTest extends TestCase
 
         // Cek file foto profil dihapus
         Storage::disk('public')->assertMissing($filePath);
+    }
+
+    /**
+     * Menguji bahwa menghapus akun pelamar juga menghapus data karyawannya.
+     */
+    public function test_delete_account_deletes_karyawan()
+    {
+        $pelamar = Pelamar::create([
+            'nama_lengkap' => 'Budi Karyawan',
+            'username'     => 'budikaryawan',
+            'email'        => 'budi@karyawan.com',
+            'password'     => bcrypt('password123'),
+        ]);
+
+        Karyawan::create([
+            'id_pelamar'        => $pelamar->id,
+            'id_lowongan'       => 1,
+            'id_perusahaan'     => 1,
+            'kategori_pekerjaan' => 'IT',
+            'posisi'            => 'Developer',
+            'tanggal_mulai'     => now(),
+            'status_karyawan'   => 'aktif',
+        ]);
+
+        $this->assertDatabaseHas('karyawans', [
+            'id_pelamar' => $pelamar->id,
+        ]);
+
+        $response = $this->withSession(['pelamar_id' => $pelamar->id])
+            ->delete('/pelamar/hapus-akun');
+
+        $response->assertRedirect('/');
+        $response->assertSessionHas('success', 'Akun berhasil dihapus');
+
+        $this->assertDatabaseMissing('pelamars', ['id' => $pelamar->id]);
+        $this->assertDatabaseMissing('karyawans', ['id_pelamar' => $pelamar->id]);
     }
 }

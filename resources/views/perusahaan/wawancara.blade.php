@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Jadwal Wawancara | KerjaKuy</title>
+    <title>Jadwal Wawancara | KerjaYuk</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -127,8 +127,13 @@
 <body class="bg-background text-on-surface font-body-md selection:bg-secondary-container selection:text-on-secondary-container min-h-screen flex flex-col">
     <!-- Top Navigation Bar -->
     <nav class="bg-surface-container-lowest text-primary docked full-width top-0 sticky z-50 shadow-sm">
-        <div class="flex justify-between items-center w-full px-margin-desktop max-w-7xl mx-auto h-16">
-            <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaKuy</a>
+        <div class="flex justify-between items-center w-full px-4 md:px-margin-desktop max-w-7xl mx-auto h-16">
+            <div class="flex items-center gap-4">
+                <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="block md:hidden text-primary hover:bg-surface-container-low p-2 rounded-lg transition-all" type="button">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaYuk</a>
+            </div>
             <nav class="hidden md:flex gap-8 items-center">
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md hover:bg-surface-container-low transition-all duration-200" href="/home-perusahaan">Lowongan Kerja</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md hover:bg-surface-container-low transition-all duration-200" href="/karyawanPerusahaan">Karyawan</a>
@@ -136,18 +141,22 @@
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md hover:bg-surface-container-low transition-all duration-200" href="{{ route('perusahaan.history') }}">History</a>
             </nav>
             <div class="flex items-center gap-4">
-                <button class="p-2 rounded-full hover:bg-surface-container-low transition-colors text-primary">
-                    <span class="material-symbols-outlined">notifications</span>
-                </button>
                 <a href="{{ route('perusahaan.settings') }}" class="flex items-center gap-2 px-2 py-1.5 rounded-full hover:bg-surface-container-low transition-colors text-primary text-label-md font-label-md">
                     @if(session('perusahaan_foto'))
                         <img src="{{ asset('storage/' . session('perusahaan_foto')) }}" alt="Logo Perusahaan" class="w-8 h-8 rounded-full object-cover border border-outline-variant">
                     @else
                         <span class="material-symbols-outlined">account_circle</span>
                     @endif
-                    <span>{{ session('perusahaan_nama') ?? 'Perusahaan' }}</span>
+                    <span class="hidden sm:inline">{{ session('perusahaan_nama') ?? 'Perusahaan' }}</span>
                 </a>
             </div>
+        </div>
+        <!-- Mobile Dropdown Navigation Menu -->
+        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full border-b border-outline-variant bg-surface-container-lowest/95 backdrop-blur-md py-4 px-4 flex flex-col gap-3 shadow-lg z-40 md:hidden">
+            <a class="text-label-md text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="/home-perusahaan">Lowongan Kerja</a>
+            <a class="text-label-md text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="/karyawanPerusahaan">Karyawan</a>
+            <a class="text-label-md text-primary font-bold py-2.5 px-4 bg-surface-container-low rounded-xl transition-all" href="/perusahaan/wawancara">Wawancara</a>
+            <a class="text-label-md text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="{{ route('perusahaan.history') }}">History</a>
         </div>
     </nav>
 
@@ -181,7 +190,7 @@
             @php
             $uiStatus = $wawancara->status === 'proses' ? 'proses' : 'selesai';
             $statusLabel = $uiStatus === 'proses' ? 'Akan Datang' : 'Selesai';
-            $company = $wawancara->pelamar->nama_lengkap ?? 'Pelamar';
+            $company = $wawancara->pelamar?->nama_lengkap ?? 'Pelamar';
             @endphp
             
             <!-- Card -->
@@ -329,12 +338,35 @@
         </div>
     </div>
 
+    <!-- Confirmation popup -->
+    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40 hidden" id="confirmDialog">
+        <div class="glass-card p-6 rounded-xl shadow-2xl max-w-sm w-full mx-4 border border-outline-variant">
+            <div class="flex flex-col items-center text-center gap-4">
+                <span class="material-symbols-outlined text-5xl text-secondary" id="confirmDialogIcon">help_outline</span>
+                <div>
+                    <h4 class="font-headline-md text-xl font-bold text-on-surface" id="confirmDialogTitle">Konfirmasi tindakan</h4>
+                    <p class="mt-2 text-body-sm text-on-surface-variant" id="confirmDialogText">Apakah Anda yakin ingin melanjutkan?</p>
+                </div>
+            </div>
+            <div class="mt-6 flex gap-3">
+                <button id="confirmDialogCancel" class="flex-1 py-3 bg-surface-variant text-on-surface rounded-xl font-semibold hover:bg-surface-container transition-all active:scale-95">Batal</button>
+                <button id="confirmDialogBtn" class="flex-1 py-3 bg-secondary text-white rounded-xl font-semibold hover:bg-opacity-90 transition-all active:scale-95">Lanjutkan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="actionToast" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 hidden bg-[#E6FFFA] text-[#006e6d] border border-[#91f0ed] px-6 py-3 rounded-xl shadow-lg flex items-center gap-3 font-semibold">
+        <span class="material-symbols-outlined text-secondary" id="actionToastIcon">task_alt</span>
+        <span id="actionToastMessage">Berhasil!</span>
+    </div>
+
     <!-- Footer -->
     <footer class="bg-surface-container-lowest border-t border-outline-variant mt-auto">
         <div class="max-w-7xl mx-auto px-margin-desktop py-lg flex flex-col md:flex-row justify-between items-center gap-8">
             <div class="flex flex-col items-center md:items-start gap-4">
-                <span class="font-headline-md text-headline-md font-bold text-primary">KerjaKuy</span>
-                <p class="font-body-sm text-body-sm text-on-surface-muted max-w-sm text-center md:text-left">© 2024 KerjaKuy Career Portal. Empowering professional growth with advanced recruitment tools and career insights.</p>
+                <span class="font-headline-md text-headline-md font-bold text-primary">KerjaYuk</span>
+                <p class="font-body-sm text-body-sm text-on-surface-muted max-w-sm text-center md:text-left">© 2024 KerjaYuk Career Portal. Empowering professional growth with advanced recruitment tools and career insights.</p>
             </div>
             <div class="flex flex-wrap justify-center gap-8">
                 <a class="font-body-sm text-body-sm text-on-surface-variant hover:underline transition-all" href="#">About Us</a>
@@ -448,62 +480,110 @@
                 });
             });
 
+            const confirmDialog = document.getElementById('confirmDialog');
+            const confirmDialogTitle = document.getElementById('confirmDialogTitle');
+            const confirmDialogText = document.getElementById('confirmDialogText');
+            const confirmDialogBtn = document.getElementById('confirmDialogBtn');
+            const confirmDialogCancel = document.getElementById('confirmDialogCancel');
+            let pendingDecision = null;
+
+            const closeConfirmDialog = () => {
+                pendingDecision = null;
+                confirmDialog.classList.add('hidden');
+            };
+
+            const openConfirmDialog = (action) => {
+                pendingDecision = action;
+                confirmDialogTitle.textContent = action === 'terima' ? 'Terima Pelamar' : 'Tolak Lamaran';
+                confirmDialogText.textContent = action === 'terima'
+                    ? 'Apakah Anda yakin ingin menerima pelamar ini sebagai karyawan?'
+                    : 'Apakah Anda yakin ingin menolak lamaran pelamar ini?';
+                confirmDialogBtn.textContent = action === 'terima' ? 'Terima' : 'Tolak';
+                confirmDialogBtn.classList.toggle('bg-secondary', action === 'terima');
+                confirmDialogBtn.classList.toggle('bg-error', action === 'tolak');
+                confirmDialog.classList.remove('hidden');
+            };
+
+            const toastElement = document.getElementById('actionToast');
+            const toastMessage = document.getElementById('actionToastMessage');
+            const toastIcon = document.getElementById('actionToastIcon');
+            let toastTimeout = null;
+
+            const showToast = (message, type = 'success') => {
+                if (!toastElement) return;
+
+                clearTimeout(toastTimeout);
+                toastMessage.textContent = message;
+                toastIcon.textContent = type === 'error' ? 'error' : 'task_alt';
+                toastElement.classList.remove('hidden');
+                toastElement.classList.toggle('bg-[#FEE2E2]', type === 'error');
+                toastElement.classList.toggle('border-[#FECACA]', type === 'error');
+                toastElement.classList.toggle('text-[#B91C1C]', type === 'error');
+                toastElement.classList.toggle('bg-[#E6FFFA]', type !== 'error');
+                toastElement.classList.toggle('border-[#91f0ed]', type !== 'error');
+                toastElement.classList.toggle('text-[#006e6d]', type !== 'error');
+
+                toastTimeout = setTimeout(() => {
+                    toastElement.classList.add('hidden');
+                }, 3000);
+            };
+
+            const executeDecision = (action) => {
+                if (!wawancaraId || !action) return;
+
+                const url = action === 'terima'
+                    ? `/perusahaan/wawancara/${wawancaraId}/terima`
+                    : `/perusahaan/wawancara/${wawancaraId}/tolak`;
+
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    closeConfirmDialog();
+                    modal.classList.add('hidden');
+                    showToast(`Berhasil! ${data.message}`, 'success');
+                    setTimeout(() => location.reload(), 1200);
+                })
+                .catch(err => {
+                    console.error(err);
+                    closeConfirmDialog();
+                    showToast('Terjadi kesalahan saat memproses data.', 'error');
+                });
+            };
+
             // Tombol Terima
             document.getElementById('btnTerima').addEventListener('click', (e) => {
                 e.stopPropagation();
                 if (!wawancaraId) return;
-
-                if (confirm('Terima pelamar ini sebagai karyawan?')) {
-                    fetch(`/perusahaan/wawancara/${wawancaraId}/terima`, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        modal.classList.add('hidden');
-                        alert("Berhasil! " + data.message);
-                        location.reload();
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        alert("Terjadi kesalahan saat memproses data.");
-                    });
-                }
+                openConfirmDialog('terima');
             });
 
             // Tombol Tolak
             document.getElementById('btnTolak').addEventListener('click', (e) => {
                 e.stopPropagation();
                 if (!wawancaraId) return;
+                openConfirmDialog('tolak');
+            });
 
-                if (confirm('Tolak lamaran ini?')) {
-                    fetch(`/perusahaan/wawancara/${wawancaraId}/tolak`, {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
-                            'Content-Type': 'application/json'
-                        }
-                    })
-                    .then(res => res.json())
-                    .then(data => {
-                        modal.classList.add('hidden');
-                        alert("Berhasil! " + data.message);
-                        location.reload();
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        alert("Terjadi kesalahan saat memproses data.");
-                    });
-                }
+            confirmDialogBtn.addEventListener('click', () => {
+                executeDecision(pendingDecision);
+            });
+
+            confirmDialogCancel.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeConfirmDialog();
             });
 
             if (closeModal) {
                 closeModal.addEventListener('click', () => {
                     modal.classList.add('hidden');
                     modal.classList.remove('flex');
+                    closeConfirmDialog();
                 });
             }
 

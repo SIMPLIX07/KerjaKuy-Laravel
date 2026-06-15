@@ -12,6 +12,7 @@ class Lamaran extends Model
         'status',
         'cv_id',
         'portofolio_id',
+        'popup_diterima_tampil',
     ];
 
     public function pelamar()
