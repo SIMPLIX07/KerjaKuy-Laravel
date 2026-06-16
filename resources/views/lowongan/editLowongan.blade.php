@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Lowongan</title>
     <link rel="stylesheet" href="/assets/lowongan/tambahLowongan.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
     <style>
         .is-invalid {
             border: 1px solid #b00000 !important;
@@ -29,6 +31,10 @@
 <body>
     <div class="form-wrapper">
         <div class="form-container">
+            <a href="{{ route('perusahaan.lowongan.detail', $lowongan->id) }}" style="text-decoration: none; color: #006a68; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 20px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; transition: color 0.2s;" onmouseover="this.style.color='#00182a'" onmouseout="this.style.color='#006a68'">
+                <span class="material-symbols-outlined" style="font-size: 18px; vertical-align: middle;">arrow_back</span>
+                Kembali ke Detail Lowongan
+            </a>
             <h2>Edit Lowongan</h2>
 
             @if ($errors->any())
