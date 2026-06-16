@@ -203,7 +203,7 @@
                                 <input class="w-4 h-4 rounded border-outline-variant text-secondary focus:ring-secondary" type="checkbox">
                                 <span class="font-body-sm text-on-surface-variant">Ingat Saya</span>
                             </label>
-                            <a class="font-label-sm text-secondary hover:underline" href="#">Lupa kata sandi?</a>
+                            <a class="font-label-sm text-secondary hover:underline cursor-pointer" onclick="openForgotPasswordModal()">Lupa kata sandi?</a>
                         </div>
                         
                         <button class="w-full bg-secondary text-on-secondary py-sm rounded-lg font-headline-md shadow-md hover:bg-secondary/90 hover:shadow-lg transition-all active:scale-95 duration-200" type="submit">
@@ -216,6 +216,18 @@
                             <span class="bg-surface-container-lowest px-md text-body-sm text-outline relative z-10">Atau</span>
                             <div class="absolute top-1/2 w-full h-px bg-outline-variant -z-0"></div>
                         </div>
+
+                        <!-- Google Sign-in Button -->
+                        <button id="googleSignInBtn" type="button" class="w-full flex items-center justify-center gap-3 bg-white hover:bg-gray-50 border border-outline-variant text-on-surface py-sm rounded-lg font-semibold shadow-sm transition-all active:scale-95 duration-200">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24">
+                                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+                                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                            </svg>
+                            Masuk dengan Google
+                        </button>
+
                         <p class="font-body-sm text-on-surface-variant">
                             Belum punya akun? <a class="text-secondary font-bold hover:underline" href="/register/pelamar">Daftar</a>
                         </p>
@@ -240,6 +252,35 @@
             </div>
         </div>
     </footer>
+
+    <!-- Modal Lupa Password -->
+    <div id="forgotPasswordModal" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" onclick="closeForgotPasswordModal()"></div>
+        <div class="glass-card w-full max-w-md p-md rounded-xl shadow-2xl relative z-10 mx-margin-mobile">
+            <div class="flex justify-between items-center mb-md">
+                <h3 class="font-headline-md text-headline-md text-primary">Reset Kata Sandi</h3>
+                <button onclick="closeForgotPasswordModal()" class="text-outline hover:text-secondary">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mb-md">Masukkan email akun Anda. Kami akan mengirimkan tautan untuk mengatur ulang kata sandi Anda.</p>
+            <div id="forgotPasswordError" class="mb-sm hidden p-sm bg-error-container text-on-error-container rounded-lg text-body-sm border border-error/20 flex items-center gap-xs">
+                <span class="material-symbols-outlined text-error">error</span>
+                <span id="forgotPasswordErrorText"></span>
+            </div>
+            <div id="forgotPasswordSuccess" class="mb-sm hidden p-sm bg-secondary-container text-on-secondary-container rounded-lg text-body-sm border border-secondary/20 flex items-center gap-xs">
+                <span class="material-symbols-outlined text-secondary">check_circle</span>
+                <span>Tautan reset kata sandi telah dikirim ke email Anda.</span>
+            </div>
+            <div class="space-y-xs mb-md">
+                <label class="font-label-md text-on-surface-variant block">Alamat Email</label>
+                <input id="forgotPasswordEmail" class="w-full px-sm py-xs rounded-lg border border-outline-variant bg-surface-container-lowest font-body-md focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all placeholder:text-outline-variant" placeholder="name@email.com" type="email" required>
+            </div>
+            <button id="sendResetLinkBtn" onclick="sendPasswordReset()" class="w-full bg-secondary text-on-secondary py-sm rounded-lg font-headline-md shadow-md hover:bg-secondary/90 transition-all active:scale-95 duration-200">
+                Kirim Tautan Reset
+            </button>
+        </div>
+    </div>
     
     <script>
         function togglePassword() {
@@ -259,6 +300,218 @@
             const moveX = (e.clientX - window.innerWidth / 2) * 0.01;
             const moveY = (e.clientY - window.innerHeight / 2) * 0.01;
             document.querySelector('.gradient-mesh').style.backgroundPosition = `${moveX}px ${moveY}px`;
+        });
+    </script>
+
+    <!-- Firebase SDK Integration -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { 
+            getAuth, 
+            signInWithEmailAndPassword, 
+            signInWithPopup, 
+            GoogleAuthProvider,
+            sendPasswordResetEmail,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAp_Ef_IrW3chzKEyFyHauPQRiZprbsgpc",
+            authDomain: "kerjayuk-aea0e.firebaseapp.com",
+            projectId: "kerjayuk-aea0e",
+            storageBucket: "kerjayuk-aea0e.firebasestorage.app",
+            messagingSenderId: "391966285572",
+            appId: "1:391966285572:web:ffdd346c14323822dc7a51",
+            measurementId: "G-5ZCQ89ER19"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        // Sign out initially to clear any old states
+        signOut(auth).catch(e => console.log('initial signout err', e));
+
+        // Assign to window for forgot password modal triggers
+        window.openForgotPasswordModal = function() {
+            document.getElementById('forgotPasswordModal').classList.remove('hidden');
+            document.getElementById('forgotPasswordEmail').value = '';
+            document.getElementById('forgotPasswordError').classList.add('hidden');
+            document.getElementById('forgotPasswordSuccess').classList.add('hidden');
+        };
+
+        window.closeForgotPasswordModal = function() {
+            document.getElementById('forgotPasswordModal').classList.add('hidden');
+        };
+
+        window.sendPasswordReset = async function() {
+            const email = document.getElementById('forgotPasswordEmail').value;
+            const btn = document.getElementById('sendResetLinkBtn');
+            const errorDiv = document.getElementById('forgotPasswordError');
+            const errorText = document.getElementById('forgotPasswordErrorText');
+            const successDiv = document.getElementById('forgotPasswordSuccess');
+            
+            if (!email) {
+                errorText.textContent = 'Harap isi alamat email Anda.';
+                errorDiv.classList.remove('hidden');
+                return;
+            }
+            
+            btn.disabled = true;
+            btn.textContent = 'Mengirim...';
+            errorDiv.classList.add('hidden');
+            successDiv.classList.add('hidden');
+            
+            try {
+                await sendPasswordResetEmail(auth, email);
+                successDiv.classList.remove('hidden');
+            } catch (error) {
+                console.error(error);
+                let msg = 'Gagal mengirim email reset kata sandi.';
+                if (error.code === 'auth/invalid-email') {
+                    msg = 'Format email tidak valid.';
+                } else if (error.code === 'auth/user-not-found') {
+                    msg = 'Email tidak ditemukan.';
+                }
+                errorText.textContent = msg;
+                errorDiv.classList.remove('hidden');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Kirim Tautan Reset';
+            }
+        };
+
+        // Intercept native login form
+        const form = document.querySelector('form[action*="login/pelamar"]');
+        const loginBtn = form.querySelector('button[type="submit"]');
+        let errorAlertContainer = document.querySelector('.bg-error-container');
+        
+        if (!errorAlertContainer) {
+            errorAlertContainer = document.createElement('div');
+            errorAlertContainer.className = "mb-4 p-4 rounded-lg bg-error-container text-on-error-container text-body-sm font-semibold border border-error/20 flex flex-col gap-1 hidden";
+            form.parentNode.insertBefore(errorAlertContainer, form);
+        }
+
+        function showError(message) {
+            errorAlertContainer.innerHTML = `
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[16px] text-error">error</span>
+                    <span>${message}</span>
+                </div>
+            `;
+            errorAlertContainer.classList.remove('hidden');
+        }
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const usernameInput = document.getElementById('usn');
+            const passwordInput = document.getElementById('passwordInput');
+            const username = usernameInput.value;
+            const password = passwordInput.value;
+
+            // Set loading state
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Memproses...';
+            errorAlertContainer.classList.add('hidden');
+
+            try {
+                // 1. Get Email from Username or Email
+                const emailResponse = await fetch('/login/pelamar/get-email', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({ username: username })
+                });
+
+                const emailData = await emailResponse.json();
+
+                if (!emailResponse.ok || !emailData.success) {
+                    showError(emailData.message || 'Username atau email tidak ditemukan.');
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'Masuk';
+                    return;
+                }
+
+                const resolvedEmail = emailData.email;
+
+                // 2. Sign in via Firebase Auth
+                const userCredential = await signInWithEmailAndPassword(auth, resolvedEmail, password);
+                const user = userCredential.user;
+                const idToken = await user.getIdToken();
+
+                // 3. Append hidden inputs and submit to backend
+                let idTokenInput = document.createElement('input');
+                idTokenInput.type = 'hidden';
+                idTokenInput.name = 'idToken';
+                idTokenInput.value = idToken;
+                form.appendChild(idTokenInput);
+
+                let uidInput = document.createElement('input');
+                uidInput.type = 'hidden';
+                uidInput.name = 'firebase_uid';
+                uidInput.value = user.uid;
+                form.appendChild(uidInput);
+
+                form.submit();
+
+            } catch (error) {
+                console.error(error);
+                let errorMsg = 'Gagal masuk. Silakan periksa kembali email/username dan kata sandi Anda.';
+                if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+                    errorMsg = 'Username/email atau password salah.';
+                }
+                showError(errorMsg);
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Masuk';
+            }
+        });
+
+        // Google Sign In
+        const googleBtn = document.getElementById('googleSignInBtn');
+        googleBtn.addEventListener('click', async function() {
+            googleBtn.disabled = true;
+            const originalText = googleBtn.innerHTML;
+            googleBtn.innerHTML = 'Memproses...';
+            errorAlertContainer.classList.add('hidden');
+
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                const idToken = await user.getIdToken();
+
+                // Send to backend via AJAX
+                const backendResponse = await fetch('/auth/firebase/google', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    },
+                    body: JSON.stringify({
+                        idToken: idToken,
+                        firebase_uid: user.uid,
+                        nama_lengkap: user.displayName || user.email.split('@')[0]
+                    })
+                });
+
+                const backendData = await backendResponse.json();
+
+                if (backendResponse.ok && backendData.success) {
+                    window.location.href = backendData.redirect;
+                } else {
+                    showError(backendData.message || 'Gagal masuk dengan Google.');
+                    googleBtn.disabled = false;
+                    googleBtn.innerHTML = originalText;
+                }
+            } catch (error) {
+                console.error(error);
+                showError(`Gagal masuk dengan Google: ${error.message} (${error.code})`);
+                googleBtn.disabled = false;
+                googleBtn.innerHTML = originalText;
+            }
         });
     </script>
 </body>

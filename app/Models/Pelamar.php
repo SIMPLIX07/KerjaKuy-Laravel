@@ -15,7 +15,8 @@ class Pelamar extends Model
         'email',
         'no_telp',
         'password',
-        'foto_profil'
+        'foto_profil',
+        'firebase_uid'
     ];
 
     public function keahlians()

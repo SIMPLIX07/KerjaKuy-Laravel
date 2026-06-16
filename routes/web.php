@@ -81,6 +81,9 @@ Route::get('/kelola', function () {
 // Pelamar
 Route::post('/register/pelamar', [PelamarController::class, 'store'])->name('register.pelamar');
 Route::post('/login/pelamar', [PelamarController::class, 'login'])->name('login.pelamar');
+Route::post('/register/pelamar/validate', [PelamarController::class, 'validateSignup'])->name('register.pelamar.validate');
+Route::post('/login/pelamar/get-email', [PelamarController::class, 'getEmailFromUsername'])->name('login.pelamar.getemail');
+Route::post('/auth/firebase/google', [PelamarController::class, 'firebaseGoogleLogin'])->name('auth.firebase.google');
 Route::get('/pelamar/cv', [LamaranController::class, 'getCvPelamar']);
 Route::get('/pelamar/portofolio', [LamaranController::class, 'getPortofolioPelamar']);
 Route::post('/lamaran/insert', [LamaranController::class, 'insertLamaran']);
