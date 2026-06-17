@@ -7,6 +7,7 @@ use App\Models\Lowongan;
 use App\Models\Perusahaan;
 use App\Models\Bookmark;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class LowonganController extends Controller
 {
@@ -211,7 +212,7 @@ class LowonganController extends Controller
         }
 
         $query = Lowongan::with('perusahaan');
-
+        $query->where('tanggal_berakhir', '>=', Carbon::today());
         // Filter: Kata Kunci (Posisi, kategori, atau nama perusahaan)
         if ($request->filled('q')) {
             $search = $request->q;
