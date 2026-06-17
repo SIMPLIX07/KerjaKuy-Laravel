@@ -188,6 +188,8 @@
                         href="{{ url('/lamaran-anda') }}">Lamaran Anda</a>
                     <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors"
                         href="{{ route('pelamar.wawancara') }}">Wawancara</a>
+                    <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors"
+                        href="{{ url('/bookmark') }}">Bookmark</a>
                 </nav>
             </div>
             <div class="flex items-center gap-md">
@@ -207,73 +209,84 @@
         <!-- Sidebar Navigation -->
         <aside
             class="fixed inset-y-0 left-0 z-40 w-72 bg-primary-container dark:bg-on-primary-fixed flex flex-col pt-lg pb-xl transform -translate-x-full transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:transform-none shrink-0">
-            <div class="px-md mb-lg flex items-center justify-between">
+
+            <div class="px-md mb-lg flex items-center justify-between shrink-0">
                 <h2 class="text-headline-md font-headline-md text-white px-base">Pengaturan</h2>
                 <button id="close-sidebar-btn"
                     class="md:hidden material-symbols-outlined text-white hover:bg-white/10 p-2 rounded-full transition-all">close</button>
             </div>
-            <nav class="flex-1 space-y-base px-sm">
-                <!-- Mobile Main Nav Links -->
-                <div class="md:hidden border-b border-white/10 pb-sm mb-sm px-sm space-y-base">
-                    <p class="text-white/40 text-label-sm px-md mb-xs font-bold uppercase tracking-wider">Navigasi</p>
-                    <a class="flex items-center gap-sm px-md py-sm rounded-lg text-on-primary-container hover:bg-white/5 transition-all"
-                        href="{{ route('home') }}">
-                        <span class="material-symbols-outlined">work</span>
-                        <span class="font-label-md text-label-md">Lowongan Kerja</span>
-                    </a>
-                    <a class="flex items-center gap-sm px-md py-sm rounded-lg text-on-primary-container hover:bg-white/5 transition-all"
-                        href="{{ url('/lamaran-anda') }}">
-                        <span class="material-symbols-outlined">assignment</span>
-                        <span class="font-label-md text-label-md">Lamaran Anda</span>
-                    </a>
-                    <a class="flex items-center gap-sm px-md py-sm rounded-lg text-on-primary-container hover:bg-white/5 transition-all"
-                        href="{{ route('pelamar.wawancara') }}">
-                        <span class="material-symbols-outlined">forum</span>
-                        <span class="font-label-md text-label-md">Wawancara</span>
-                    </a>
-                </div>
 
-                <!-- Akun (Active) -->
-                <a class="flex items-center gap-sm px-md py-sm rounded-lg bg-secondary text-white font-bold transition-all active:scale-95"
-                    href="{{ route('pelamar.settings') }}">
-                    <span class="material-symbols-outlined">person</span>
-                    <span class="font-label-md text-label-md">Akun</span>
-                </a>
-                <!-- CV -->
-                <a class="flex items-center gap-sm px-md py-sm rounded-lg text-on-primary-container hover:bg-white/5 transition-all active:scale-95"
-                    href="{{ route('cv.index') }}">
-                    <span class="material-symbols-outlined">description</span>
-                    <span class="font-label-md text-label-md">CV</span>
-                </a>
-                <!-- Portofolio -->
-                <a class="flex items-center gap-sm px-md py-sm rounded-lg text-on-primary-container hover:bg-white/5 transition-all active:scale-95"
-                    href="{{ route('portofolio.index') }}">
-                    <span class="material-symbols-outlined">work</span>
-                    <span class="font-label-md text-label-md">Portofolio</span>
-                </a>
-                <!-- Keamanan (Toggles Modal) -->
-                <button type="button" id="btnKeamanan"
-                    class="flex w-full items-center gap-sm px-md py-sm rounded-lg text-on-primary-container hover:bg-white/5 transition-all active:scale-95 text-left">
-                    <span class="material-symbols-outlined">lock</span>
-                    <span class="font-label-md text-label-md">Keamanan</span>
-                </button>
-            </nav>
-            <div class="mt-auto px-sm flex flex-col gap-2">
-                <!-- Hapus Akun -->
-                <button type="button" id="btnHapusAkun"
-                    class="flex w-full items-center gap-sm px-md py-sm rounded-lg text-error hover:bg-error/10 transition-all active:scale-95 text-left">
-                    <span class="material-symbols-outlined">delete</span>
-                    <span class="font-label-md text-label-md">Hapus Akun</span>
-                </button>
-                <!-- Keluar -->
-                <form action="{{ route('pelamar.logout') }}" method="POST" id="logoutForm" class="w-full">
-                    @csrf
-                    <button type="submit"
-                        class="flex w-full items-center gap-sm px-md py-sm rounded-lg text-error hover:bg-error/10 transition-all active:scale-95 text-left">
-                        <span class="material-symbols-outlined">logout</span>
-                        <span class="font-label-md text-label-md">Keluar</span>
+            {{-- Area scroll --}}
+            <div class="flex-1 overflow-y-auto flex flex-col min-h-0">
+                <nav class="flex-1 space-y-base px-sm">
+                    <!-- Mobile Main Nav Links -->
+                    <div class="md:hidden border-b border-white/10 pb-sm mb-sm px-sm space-y-base">
+                        <p class="text-white/40 text-label-sm px-md mb-xs font-bold uppercase tracking-wider">Navigasi
+                        </p>
+                        <a class="flex items-center gap-sm px-md py-sm rounded-lg text-on-primary-container hover:bg-white/5 transition-all"
+                            href="{{ route('home') }}">
+                            <span class="material-symbols-outlined">work</span>
+                            <span class="font-label-md text-label-md">Lowongan Kerja</span>
+                        </a>
+                        <a class="flex items-center gap-sm px-md py-sm rounded-lg text-on-primary-container hover:bg-white/5 transition-all"
+                            href="{{ url('/lamaran-anda') }}">
+                            <span class="material-symbols-outlined">assignment</span>
+                            <span class="font-label-md text-label-md">Lamaran Anda</span>
+                        </a>
+                        <a class="flex items-center gap-sm px-md py-sm rounded-lg text-on-primary-container hover:bg-white/5 transition-all"
+                            href="{{ route('pelamar.wawancara') }}">
+                            <span class="material-symbols-outlined">forum</span>
+                            <span class="font-label-md text-label-md">Wawancara</span>
+                        </a>
+                        <a class="flex items-center gap-sm px-md py-sm rounded-lg text-on-primary-container hover:bg-white/5 transition-all"
+                            href="{{ url('/bookmark') }}">
+                            <span class="material-symbols-outlined">bookmark</span>
+                            <span class="font-label-md text-label-md">Bookmark</span>
+                        </a>
+                    </div>
+
+                    <!-- Akun (Active) -->
+                    <a class="flex items-center gap-sm px-md py-sm rounded-lg bg-secondary text-white font-bold transition-all active:scale-95"
+                        href="{{ route('pelamar.settings') }}">
+                        <span class="material-symbols-outlined">person</span>
+                        <span class="font-label-md text-label-md">Akun</span>
+                    </a>
+                    <!-- CV -->
+                    <a class="flex items-center gap-sm px-md py-sm rounded-lg text-on-primary-container hover:bg-white/5 transition-all active:scale-95"
+                        href="{{ route('cv.index') }}">
+                        <span class="material-symbols-outlined">description</span>
+                        <span class="font-label-md text-label-md">CV</span>
+                    </a>
+                    <!-- Portofolio -->
+                    <a class="flex items-center gap-sm px-md py-sm rounded-lg text-on-primary-container hover:bg-white/5 transition-all active:scale-95"
+                        href="{{ route('portofolio.index') }}">
+                        <span class="material-symbols-outlined">work</span>
+                        <span class="font-label-md text-label-md">Portofolio</span>
+                    </a>
+                    <!-- Keamanan -->
+                    <button type="button" id="btnKeamanan"
+                        class="flex w-full items-center gap-sm px-md py-sm rounded-lg text-on-primary-container hover:bg-white/5 transition-all active:scale-95 text-left">
+                        <span class="material-symbols-outlined">lock</span>
+                        <span class="font-label-md text-label-md">Keamanan</span>
                     </button>
-                </form>
+                </nav>
+
+                {{-- Tombol bahaya di bawah, tetap ikut scroll --}}
+                <div class="px-sm flex flex-col gap-2 pt-md pb-xl shrink-0">
+                    <button type="button" id="btnHapusAkun"
+                        class="flex w-full items-center gap-sm px-md py-sm rounded-lg text-error hover:bg-error/10 transition-all active:scale-95 text-left">
+                        <span class="material-symbols-outlined">delete</span>
+                        <span class="font-label-md text-label-md">Hapus Akun</span>
+                    </button>
+                    <form action="{{ route('pelamar.logout') }}" method="POST" id="logoutForm" class="w-full">
+                        @csrf
+                        <button type="submit"
+                            class="flex w-full items-center gap-sm px-md py-sm rounded-lg text-error hover:bg-error/10 transition-all active:scale-95 text-left">
+                            <span class="material-symbols-outlined">logout</span>
+                            <span class="font-label-md text-label-md">Keluar</span>
+                        </button>
+                    </form>
+                </div>
             </div>
         </aside>
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -9,8 +10,11 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap"
+        rel="stylesheet" />
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script id="tailwind-config">
@@ -96,15 +100,45 @@
                         "label-sm": ["Inter"],
                     },
                     fontSize: {
-                        "headline-xl": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }],
-                        "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }],
-                        "label-md": ["14px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
-                        "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }],
-                        "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "700" }],
-                        "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }],
-                        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }],
-                        "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "700" }],
-                        "label-sm": ["12px", { lineHeight: "14px", fontWeight: "500" }],
+                        "headline-xl": ["40px", {
+                            lineHeight: "48px",
+                            letterSpacing: "-0.02em",
+                            fontWeight: "700"
+                        }],
+                        "body-lg": ["18px", {
+                            lineHeight: "28px",
+                            fontWeight: "400"
+                        }],
+                        "label-md": ["14px", {
+                            lineHeight: "16px",
+                            letterSpacing: "0.05em",
+                            fontWeight: "600"
+                        }],
+                        "body-sm": ["14px", {
+                            lineHeight: "20px",
+                            fontWeight: "400"
+                        }],
+                        "headline-lg": ["32px", {
+                            lineHeight: "40px",
+                            letterSpacing: "-0.01em",
+                            fontWeight: "700"
+                        }],
+                        "body-md": ["16px", {
+                            lineHeight: "24px",
+                            fontWeight: "400"
+                        }],
+                        "headline-md": ["24px", {
+                            lineHeight: "32px",
+                            fontWeight: "600"
+                        }],
+                        "headline-lg-mobile": ["24px", {
+                            lineHeight: "32px",
+                            fontWeight: "700"
+                        }],
+                        "label-sm": ["12px", {
+                            lineHeight: "14px",
+                            fontWeight: "500"
+                        }],
                     },
                 },
             },
@@ -117,96 +151,99 @@
             background-size: 24px 24px;
             color: #181c1e;
         }
+
         .card-soft {
             transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
         }
+
         .card-soft:hover {
             transform: translateY(-4px);
             box-shadow: 0 12px 30px rgba(0, 24, 42, 0.08);
             border-color: #006a68;
         }
-        a { text-decoration: none !important; }
+
+        a {
+            text-decoration: none !important;
+        }
     </style>
 </head>
+
 <body class="min-h-screen flex flex-col font-body-md text-on-surface antialiased">
 
     <!-- Navbar -->
-    <header class="bg-surface-container-lowest text-primary sticky top-0 z-50 shadow-sm border-b border-outline-variant">
+    <header
+        class="bg-surface-container-lowest text-primary sticky top-0 z-50 shadow-sm border-b border-outline-variant">
         <div class="flex justify-between items-center w-full px-4 md:px-12 max-w-7xl mx-auto h-16">
-            <a href="{{ route('home') }}" class="text-[24px] leading-8 font-extrabold text-primary font-headline-md">KerjaYuk</a>
+
+            <div class="flex items-center gap-4">
+                <button onclick="toggleMobileMenu()"
+                    class="block md:hidden text-primary hover:bg-surface-container-low p-2 rounded-lg transition-all"
+                    type="button" aria-label="Buka menu navigasi">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <a href="{{ route('home') }}"
+                    class="text-[24px] leading-8 font-extrabold text-primary font-headline-md">KerjaYuk</a>
+            </div>
 
             <nav class="hidden md:flex gap-8 items-center">
-                <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ route('home') }}">Lowongan Kerja</a>
-                <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ url('/lamaran-anda') }}">Lamaran Anda</a>
-                <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ route('pelamar.wawancara') }}">Wawancara</a>
-                <a class="text-primary border-b-2 border-primary pb-1 font-bold text-[14px]" href="{{ route('pelamar.bookmark') }}">Bookmark</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold"
+                    href="{{ route('home') }}">Lowongan Kerja</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold"
+                    href="{{ url('/lamaran-anda') }}">Lamaran Anda</a>
+                <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold"
+                    href="{{ route('pelamar.wawancara') }}">Wawancara</a>
+                <a class="text-primary border-b-2 border-primary pb-1 font-bold text-[14px]"
+                    href="{{ route('pelamar.bookmark') }}">Bookmark</a>
             </nav>
 
-            <a href="{{ route('pelamar.settings') }}" class="flex items-center gap-2 px-2 py-1.5 rounded-full hover:bg-surface-container-low transition-colors text-primary" aria-label="Pengaturan akun">
-                @if(session('pelamar_foto'))
-                    <img src="{{ asset('storage/' . session('pelamar_foto')) }}" alt="Profil" class="w-8 h-8 rounded-full object-cover border border-outline-variant">
+            <a href="{{ route('pelamar.settings') }}"
+                class="flex items-center gap-2 px-2 py-1.5 rounded-full hover:bg-surface-container-low transition-colors text-primary"
+                aria-label="Pengaturan akun">
+                @if (session('pelamar_foto'))
+                    <img src="{{ asset('storage/' . session('pelamar_foto')) }}" alt="Profil"
+                        class="w-8 h-8 rounded-full object-cover border border-outline-variant">
                 @else
-                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+                    <span class="material-symbols-outlined"
+                        style="font-variation-settings: 'FILL' 0;">account_circle</span>
                 @endif
-                <span class="hidden md:inline text-[14px] font-semibold">{{ session('pelamar_nama') ?? 'Profil' }}</span>
+                <span
+                    class="hidden md:inline text-[14px] font-semibold">{{ session('pelamar_nama') ?? 'Profil' }}</span>
             </a>
         </div>
 
-        <!-- Mobile Bottom Nav -->
-        <nav class="md:hidden flex justify-around border-t border-outline-variant bg-surface-container-lowest py-2">
-            <a href="{{ route('home') }}" class="flex flex-col items-center gap-0.5 text-on-surface-variant">
-                <span class="material-symbols-outlined text-[22px]">work</span>
-                <span class="text-[10px] font-semibold">Lowongan</span>
-            </a>
-            <a href="{{ url('/lamaran-anda') }}" class="flex flex-col items-center gap-0.5 text-on-surface-variant">
-                <span class="material-symbols-outlined text-[22px]">description</span>
-                <span class="text-[10px] font-semibold">Lamaran</span>
-            </a>
-            <a href="{{ route('pelamar.wawancara') }}" class="flex flex-col items-center gap-0.5 text-on-surface-variant">
-                <span class="material-symbols-outlined text-[22px]">calendar_month</span>
-                <span class="text-[10px] font-semibold">Wawancara</span>
-            </a>
-            <a href="{{ route('pelamar.bookmark') }}" class="flex flex-col items-center gap-0.5 text-primary">
-                <span class="material-symbols-outlined text-[22px]" style="font-variation-settings: 'FILL' 1;">bookmark</span>
-                <span class="text-[10px] font-semibold">Bookmark</span>
-            </a>
-            <a href="{{ route('pelamar.settings') }}" class="flex flex-col items-center gap-0.5 text-on-surface-variant">
-                <span class="material-symbols-outlined text-[22px]">person</span>
-                <span class="text-[10px] font-semibold">Profil</span>
-            </a>
-        </nav>
+        {{-- Mobile Dropdown --}}
+        <div id="mobile-menu"
+            class="hidden absolute top-full left-0 w-full border-b border-outline-variant bg-surface-container-lowest/95 backdrop-blur-md py-4 px-4 flex-col gap-3 shadow-lg z-40 md:hidden">
+            <a class="text-[14px] font-semibold text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all"
+                href="{{ route('home') }}">Lowongan Kerja</a>
+            <a class="text-[14px] font-semibold text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all"
+                href="{{ url('/lamaran-anda') }}">Lamaran Anda</a>
+            <a class="text-[14px] font-semibold text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all"
+                href="{{ route('pelamar.wawancara') }}">Wawancara</a>
+            <a class="text-[14px] font-bold text-primary py-2.5 px-4 bg-surface-container-low rounded-xl transition-all"
+                href="{{ route('pelamar.bookmark') }}">Bookmark</a>
+        </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="relative overflow-hidden bg-gradient-to-br from-primary-container via-primary to-secondary py-14 md:py-20 px-4 md:px-12 text-center">
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute -top-24 -right-24 w-96 h-96 bg-secondary-container rounded-full mix-blend-overlay filter blur-3xl opacity-50"></div>
-            <div class="absolute top-1/2 -left-24 w-72 h-72 bg-tertiary-container rounded-full mix-blend-overlay filter blur-3xl opacity-50"></div>
-        </div>
-        <div class="max-w-3xl mx-auto relative z-10">
-            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-2 mb-6">
-                <span class="material-symbols-outlined text-white text-[18px]" style="font-variation-settings: 'FILL' 1;">bookmark</span>
-                <span class="text-white text-[14px] font-semibold">Lowongan Tersimpan</span>
-            </div>
-            <h1 class="font-headline-xl text-headline-xl text-on-primary mb-4">Bookmark Anda</h1>
-            <p class="font-body-lg text-body-lg text-primary-fixed-dim">Simpan lowongan favorit dan lamar kapan saja Anda siap.</p>
-        </div>
-    </section>
 
     <!-- Content -->
     <main class="flex-grow max-w-7xl mx-auto w-full px-4 md:px-12 py-xl">
-        @if($bookmarks->isEmpty())
+        @if ($bookmarks->isEmpty())
             <!-- Empty State -->
             <div class="flex items-center justify-center py-16">
-                <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-10 text-center max-w-lg w-full">
-                    <div class="w-20 h-20 rounded-full bg-primary-fixed mx-auto mb-6 flex items-center justify-center text-primary">
-                        <span class="material-symbols-outlined text-[40px]" style="font-variation-settings: 'FILL' 0;">bookmark_border</span>
+                <div
+                    class="bg-surface-container-lowest rounded-2xl border border-outline-variant shadow-sm p-10 text-center max-w-lg w-full">
+                    <div
+                        class="w-20 h-20 rounded-full bg-primary-fixed mx-auto mb-6 flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined text-[40px]"
+                            style="font-variation-settings: 'FILL' 0;">bookmark_border</span>
                     </div>
                     <h2 class="text-headline-md font-headline-md text-on-surface mb-3">Belum ada bookmark</h2>
                     <p class="text-body-md text-on-surface-variant mb-6">
                         Temukan lowongan yang menarik dan klik ikon bookmark untuk menyimpannya di sini.
                     </p>
-                    <a href="{{ route('home') }}" class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-on-primary font-label-md hover:bg-secondary transition-colors">
+                    <a href="{{ route('home') }}"
+                        class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-primary text-on-primary font-label-md hover:bg-secondary transition-colors">
                         <span class="material-symbols-outlined text-[18px]">search</span>
                         Cari Lowongan
                     </a>
@@ -215,78 +252,94 @@
         @else
             <div class="mb-8 flex items-center justify-between">
                 <p class="text-on-surface-variant text-body-md">{{ $bookmarks->count() }} lowongan tersimpan</p>
-                <a href="{{ route('home') }}" class="flex items-center gap-2 text-secondary font-semibold text-[14px] hover:underline">
+                <a href="{{ route('home') }}"
+                    class="flex items-center gap-2 text-secondary font-semibold text-[14px] hover:underline">
                     <span class="material-symbols-outlined text-[18px]">add</span>
                     Cari Lowongan Lain
                 </a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
-                @foreach($bookmarks as $bookmark)
-                @php $lowongan = $bookmark->lowongan; $perusahaan = $lowongan->perusahaan; @endphp
-                <article class="card-soft bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-6 flex flex-col justify-between relative overflow-hidden group">
-                    <div class="absolute top-0 left-0 w-1 h-full bg-secondary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                @foreach ($bookmarks as $bookmark)
+                    @php
+                        $lowongan = $bookmark->lowongan;
+                        $perusahaan = $lowongan->perusahaan;
+                    @endphp
+                    <article
+                        class="card-soft bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm p-6 flex flex-col justify-between relative overflow-hidden group">
+                        <div
+                            class="absolute top-0 left-0 w-1 h-full bg-secondary opacity-0 group-hover:opacity-100 transition-opacity">
+                        </div>
 
-                    <div>
-                        <!-- Company Header -->
-                        <div class="flex items-start justify-between mb-4">
-                            <div class="flex items-start gap-3">
-                                <div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center overflow-hidden border border-outline-variant flex-shrink-0">
-                                    @if(!empty($perusahaan?->foto_profil))
-                                        <img src="{{ asset('storage/' . $perusahaan->foto_profil) }}" alt="{{ $perusahaan->nama_perusahaan }}" class="w-full h-full object-cover">
-                                    @else
-                                        <span class="material-symbols-outlined text-outline" style="font-variation-settings: 'FILL' 0;">apartment</span>
-                                    @endif
+                        <div>
+                            <!-- Company Header -->
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="flex items-start gap-3">
+                                    <div
+                                        class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center overflow-hidden border border-outline-variant flex-shrink-0">
+                                        @if (!empty($perusahaan?->foto_profil))
+                                            <img src="{{ asset('storage/' . $perusahaan->foto_profil) }}"
+                                                alt="{{ $perusahaan->nama_perusahaan }}"
+                                                class="w-full h-full object-cover">
+                                        @else
+                                            <span class="material-symbols-outlined text-outline"
+                                                style="font-variation-settings: 'FILL' 0;">apartment</span>
+                                        @endif
+                                    </div>
+                                    <div>
+                                        <h3 class="text-[16px] font-bold text-on-surface leading-tight">
+                                            {{ $lowongan->posisi_pekerjaan }}</h3>
+                                        <p class="text-[13px] text-on-surface-variant font-medium mt-0.5">
+                                            {{ $perusahaan->nama_perusahaan ?? '-' }}</p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <h3 class="text-[16px] font-bold text-on-surface leading-tight">{{ $lowongan->posisi_pekerjaan }}</h3>
-                                    <p class="text-[13px] text-on-surface-variant font-medium mt-0.5">{{ $perusahaan->nama_perusahaan ?? '-' }}</p>
-                                </div>
+                                <!-- Remove Bookmark -->
+                                <button type="button"
+                                    class="bookmark-remove p-1.5 rounded-full hover:bg-error/10 text-error transition-colors"
+                                    data-lowongan-id="{{ $lowongan->id }}" title="Hapus dari bookmark">
+                                    <span class="material-symbols-outlined text-[20px]"
+                                        style="font-variation-settings: 'FILL' 1;">bookmark</span>
+                                </button>
                             </div>
-                            <!-- Remove Bookmark -->
-                            <button type="button"
-                                class="bookmark-remove p-1.5 rounded-full hover:bg-error/10 text-error transition-colors"
-                                data-lowongan-id="{{ $lowongan->id }}"
-                                title="Hapus dari bookmark">
-                                <span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">bookmark</span>
-                            </button>
+
+                            <!-- Job Info -->
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                @if ($lowongan->jenis_pekerjaan)
+                                    <span
+                                        class="px-2.5 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[12px] font-semibold">{{ $lowongan->jenis_pekerjaan }}</span>
+                                @endif
+                                @if ($lowongan->kabupaten)
+                                    <span class="flex items-center gap-1 text-[12px] text-on-surface-variant">
+                                        <span class="material-symbols-outlined text-[14px]">location_on</span>
+                                        {{ $lowongan->kabupaten }}
+                                    </span>
+                                @endif
+                            </div>
+
+                            @if ($lowongan->gaji)
+                                <p class="text-[14px] font-semibold text-secondary mb-4">
+                                    <span class="material-symbols-outlined text-[16px] align-middle">payments</span>
+                                    {{ $lowongan->gaji }}
+                                </p>
+                            @endif
+
+                            @if ($lowongan->deskripsi_singkat)
+                                <p class="text-[13px] text-on-surface-variant leading-relaxed line-clamp-2 mb-4">
+                                    {{ $lowongan->deskripsi_singkat }}</p>
+                            @endif
                         </div>
 
-                        <!-- Job Info -->
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            @if($lowongan->jenis_pekerjaan)
-                            <span class="px-2.5 py-1 bg-secondary-container text-on-secondary-container rounded-full text-[12px] font-semibold">{{ $lowongan->jenis_pekerjaan }}</span>
-                            @endif
-                            @if($lowongan->kabupaten)
-                            <span class="flex items-center gap-1 text-[12px] text-on-surface-variant">
-                                <span class="material-symbols-outlined text-[14px]">location_on</span>
-                                {{ $lowongan->kabupaten }}
-                            </span>
-                            @endif
+                        <!-- Actions -->
+                        <div class="flex gap-2 mt-2">
+                            <a href="{{ route('lowongan.detail', $lowongan->id) }}"
+                                class="flex-1 py-2.5 bg-primary text-on-primary text-center rounded-lg font-label-md text-[13px] font-bold hover:bg-secondary transition-colors">
+                                Lihat Lowongan
+                            </a>
                         </div>
 
-                        @if($lowongan->gaji)
-                        <p class="text-[14px] font-semibold text-secondary mb-4">
-                            <span class="material-symbols-outlined text-[16px] align-middle">payments</span>
-                            {{ $lowongan->gaji }}
-                        </p>
-                        @endif
-
-                        @if($lowongan->deskripsi_singkat)
-                        <p class="text-[13px] text-on-surface-variant leading-relaxed line-clamp-2 mb-4">{{ $lowongan->deskripsi_singkat }}</p>
-                        @endif
-                    </div>
-
-                    <!-- Actions -->
-                    <div class="flex gap-2 mt-2">
-                        <a href="{{ route('lowongan.detail', $lowongan->id) }}"
-                            class="flex-1 py-2.5 bg-primary text-on-primary text-center rounded-lg font-label-md text-[13px] font-bold hover:bg-secondary transition-colors">
-                            Lihat Lowongan
-                        </a>
-                    </div>
-
-                    <p class="text-[11px] text-outline mt-3 text-right">Disimpan {{ $bookmark->created_at->diffForHumans() }}</p>
-                </article>
+                        <p class="text-[11px] text-outline mt-3 text-right">Disimpan
+                            {{ $bookmark->created_at->diffForHumans() }}</p>
+                    </article>
                 @endforeach
             </div>
         @endif
@@ -294,14 +347,19 @@
 
     <!-- Footer -->
     <footer class="bg-surface-container-highest border-t border-outline-variant mt-auto">
-        <div class="w-full px-4 md:px-12 py-lg flex flex-col md:flex-row justify-between items-center gap-md max-w-7xl mx-auto">
+        <div
+            class="w-full px-4 md:px-12 py-lg flex flex-col md:flex-row justify-between items-center gap-md max-w-7xl mx-auto">
             <div class="font-headline-md text-headline-md font-bold text-primary">KerjaYuk</div>
             <ul class="flex flex-wrap justify-center gap-md font-label-sm text-label-sm">
-                <li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Tentang Kami</a></li>
-                <li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Pusat Bantuan</a></li>
-                <li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Kebijakan Privasi</a></li>
+                <li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Tentang
+                        Kami</a></li>
+                <li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Pusat
+                        Bantuan</a></li>
+                <li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Kebijakan
+                        Privasi</a></li>
             </ul>
-            <div class="font-body-sm text-body-sm text-primary">© 2024 KerjaYuk. Empowering your next career move.</div>
+            <div class="font-body-sm text-body-sm text-primary">© 2024 KerjaYuk. Empowering your next career move.
+            </div>
         </div>
     </footer>
 
@@ -315,13 +373,16 @@
                 if (!confirm('Hapus lowongan ini dari bookmark?')) return;
 
                 try {
-                    const resp = await fetch('{{ route("bookmark.toggle") }}', {
+                    const resp = await fetch('{{ route('bookmark.toggle') }}', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')
+                                .content
                         },
-                        body: JSON.stringify({ lowongan_id: lowonganId })
+                        body: JSON.stringify({
+                            lowongan_id: lowonganId
+                        })
                     });
                     const data = await resp.json();
                     if (!data.bookmarked) {
@@ -343,6 +404,18 @@
                 }
             });
         });
+
+        function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        if (menu.classList.contains('hidden')) {
+            menu.classList.remove('hidden');
+            menu.classList.add('flex');
+        } else {
+            menu.classList.remove('flex');
+            menu.classList.add('hidden');
+        }
+    }
     </script>
 </body>
+
 </html>

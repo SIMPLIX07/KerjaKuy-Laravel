@@ -418,7 +418,7 @@
 
             try {
                 // 1. Get Email from Username or Email
-                const emailResponse = await fetch('/login/pelamar/get-email', {
+                const emailResponse = await fetch("{{ url('/login/pelamar/get-email') }}", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -459,14 +459,17 @@
                 form.submit();
 
             } catch (error) {
-                console.error(error);
-                let errorMsg = 'Gagal masuk. Silakan periksa kembali email/username dan kata sandi Anda.';
+                console.warn('Firebase login failed, trying fallback database authentication...', error);
+                
+                // If it's a credential or user-not-found error, the user might be a legacy user not registered in Firebase yet.
+                // We submit the form natively to let Laravel check the local password hash.
                 if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
-                    errorMsg = 'Username/email atau password salah.';
+                    form.submit();
+                } else {
+                    showError('Gagal masuk. Silakan periksa kembali email/username dan kata sandi Anda.');
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'Masuk';
                 }
-                showError(errorMsg);
-                loginBtn.disabled = false;
-                loginBtn.textContent = 'Masuk';
             }
         });
 
@@ -484,7 +487,7 @@
                 const idToken = await user.getIdToken();
 
                 // Send to backend via AJAX
-                const backendResponse = await fetch('/auth/firebase/google', {
+                const backendResponse = await fetch("{{ url('/auth/firebase/google') }}", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

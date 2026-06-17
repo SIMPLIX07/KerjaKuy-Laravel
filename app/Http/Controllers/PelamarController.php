@@ -100,6 +100,34 @@ class PelamarController extends Controller
 
     public function login(Request $request)
     {
+        // Fallback to traditional local database login if Firebase idToken is not provided (legacy/old users)
+        if (!$request->has('idToken')) {
+            $request->validate([
+                'username' => 'required',
+                'password' => 'required',
+            ]);
+
+            // Find applicant by email or username
+            $pelamar = Pelamar::where('username', $request->username)
+                              ->orWhere('email', $request->username)
+                              ->first();
+
+            if (!$pelamar || !Hash::check($request->password, $pelamar->password)) {
+                return back()->withErrors([
+                    'login' => 'Username/email atau password salah.'
+                ])->withInput();
+            }
+
+            session([
+                'pelamar_id'       => $pelamar->id,
+                'pelamar_username' => $pelamar->username,
+                'pelamar_nama'     => $pelamar->nama_lengkap,
+                'pelamar_foto'     => $pelamar->foto_profil,
+            ]);
+
+            return redirect()->route('home');
+        }
+
         $request->validate([
             'username' => 'required',
             'idToken' => 'required',

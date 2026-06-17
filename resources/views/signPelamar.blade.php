@@ -444,7 +444,7 @@
 
             try {
                 // 1. Validate on Backend first (unique check)
-                const validateResponse = await fetch('/register/pelamar/validate', {
+                const validateResponse = await fetch("{{ url('/register/pelamar/validate') }}", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -553,7 +553,7 @@
                 document.getElementById('googleDetailsModal').classList.add('hidden');
 
                 // Send callback to Laravel along with no_telp and keahlian
-                const backendResponse = await fetch('/auth/firebase/google', {
+                const backendResponse = await fetch("{{ url('/auth/firebase/google') }}", {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

@@ -110,26 +110,47 @@
 
 <body class="min-h-screen flex flex-col font-body text-body antialiased bg-background text-on-surface page-grid">
     <header class="bg-surface-container-lowest sticky top-0 z-50 shadow-sm border-b border-outline-variant">
-        <div class="flex justify-between items-center w-full px-4 md:px-12 max-w-7xl mx-auto h-16">
+    <div class="flex justify-between items-center w-full px-4 md:px-12 max-w-7xl mx-auto h-16">
+        
+        {{-- Kiri: tombol hamburger + logo --}}
+        <div class="flex items-center gap-4">
+            <button 
+                onclick="toggleMobileMenu()" 
+                class="block md:hidden text-primary hover:bg-surface-container-low p-2 rounded-lg transition-all" 
+                type="button"
+                aria-label="Buka menu navigasi">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
             <a href="{{ route('home') }}" class="text-[24px] leading-8 font-extrabold text-primary font-headline">KerjaYuk</a>
-
-            <nav class="hidden md:flex gap-8 items-center">
-                <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ route('home') }}">Lowongan Kerja</a>
-                <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ url('/lamaran-anda') }}">Lamaran Anda</a>
-                <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ route('pelamar.wawancara') }}">Wawancara</a>
-                <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ route('pelamar.bookmark') }}">Bookmark</a>
-            </nav>
-
-            <a href="{{ route('pelamar.settings') }}" class="flex items-center gap-2 px-2 py-1.5 rounded-full hover:bg-surface-container-low transition-colors text-primary" aria-label="Pengaturan akun">
-                @if(session('pelamar_foto'))
-                    <img src="{{ asset('storage/' . session('pelamar_foto')) }}" alt="Profil" class="w-8 h-8 rounded-full object-cover border border-outline-variant">
-                @else
-                    <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
-                @endif
-                <span class="hidden md:inline text-[14px] font-semibold">{{ session('pelamar_nama') ?? 'Profil' }}</span>
-            </a>
         </div>
-    </header>
+
+        {{-- Tengah: nav desktop --}}
+        <nav class="hidden md:flex gap-8 items-center">
+            <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ route('home') }}">Lowongan Kerja</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ url('/lamaran-anda') }}">Lamaran Anda</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ route('pelamar.wawancara') }}">Wawancara</a>
+            <a class="text-on-surface-variant hover:text-primary transition-colors text-[14px] font-semibold" href="{{ route('pelamar.bookmark') }}">Bookmark</a>
+        </nav>
+
+        {{-- Kanan: avatar/profil --}}
+        <a href="{{ route('pelamar.settings') }}" class="flex items-center gap-2 px-2 py-1.5 rounded-full hover:bg-surface-container-low transition-colors text-primary" aria-label="Pengaturan akun">
+            @if(session('pelamar_foto'))
+                <img src="{{ asset('storage/' . session('pelamar_foto')) }}" alt="Profil" class="w-8 h-8 rounded-full object-cover border border-outline-variant">
+            @else
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+            @endif
+            <span class="hidden md:inline text-[14px] font-semibold">{{ session('pelamar_nama') ?? 'Profil' }}</span>
+        </a>
+    </div>
+
+    {{-- Mobile Dropdown Menu — TANPA class flex di sini --}}
+    <div id="mobile-menu" class="hidden absolute top-full left-0 w-full border-b border-outline-variant bg-surface-container-lowest/95 backdrop-blur-md py-4 px-4 flex-col gap-3 shadow-lg z-40 md:hidden">
+        <a class="text-[14px] font-semibold text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="{{ route('home') }}">Lowongan Kerja</a>
+        <a class="text-[14px] font-semibold text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="{{ url('/lamaran-anda') }}">Lamaran Anda</a>
+        <a class="text-[14px] font-semibold text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="{{ route('pelamar.wawancara') }}">Wawancara</a>
+        <a class="text-[14px] font-semibold text-on-surface-variant hover:text-primary py-2.5 px-4 hover:bg-surface-container-low rounded-xl transition-all" href="{{ route('pelamar.bookmark') }}">Bookmark</a>
+    </div>
+</header>
 
     <header class="bg-gradient-to-br from-primary to-[#003B5C] text-on-primary px-4 md:px-12 py-10 relative overflow-hidden">
         <div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjIiIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')] opacity-30 mix-blend-overlay"></div>
@@ -446,6 +467,17 @@
                 });
             }
         });
+
+        function toggleMobileMenu() {
+        const menu = document.getElementById('mobile-menu');
+        if (menu.classList.contains('hidden')) {
+            menu.classList.remove('hidden');
+            menu.classList.add('flex');
+        } else {
+            menu.classList.remove('flex');
+            menu.classList.add('hidden');
+        }
+    }
     </script>
 </body>
 
