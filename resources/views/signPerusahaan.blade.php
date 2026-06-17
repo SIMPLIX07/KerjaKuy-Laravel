@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Daftar Perusahaan | KerjaYuk</title>
+    <title>Daftar Perusahaan | KerjaYok</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -296,8 +296,8 @@
     <footer class="w-full py-xl px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container-highest dark:bg-inverse-surface border-t border-outline-variant">
         <div class="w-full px-margin-desktop py-lg flex flex-col md:flex-row justify-between items-center gap-md max-w-7xl mx-auto">
             <div class="space-y-xs text-center md:text-left">
-                <span class="font-headline-md text-headline-md font-black text-primary dark:text-inverse-primary block">KerjaYuk</span>
-                <p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 KerjaYuk. Empowering your next career move.</p>
+                <span class="font-headline-md text-headline-md font-black text-primary dark:text-inverse-primary block">KerjaYok</span>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 KerjaYok. Empowering your next career move.</p>
             </div>
             <div class="flex gap-lg flex-wrap justify-center">
                 <a class="font-label-sm text-label-sm text-on-surface-variant hover:text-secondary hover:underline transition-all" href="/tentang-kami">Tentang Kami</a>

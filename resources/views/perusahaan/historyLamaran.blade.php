@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>History - KerjaYuk</title>
+    <title>History - KerjaYok</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -164,7 +164,7 @@
                 <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="block md:hidden text-primary hover:bg-surface-container-low p-2 rounded-lg transition-all" type="button">
                     <span class="material-symbols-outlined">menu</span>
                 </button>
-                <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaYuk</a>
+                <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaYok</a>
             </div>
             <nav class="hidden md:flex gap-8 items-center">
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md hover:bg-surface-container-low transition-all duration-200" href="/home-perusahaan">Lowongan Anda</a>
@@ -312,8 +312,8 @@
     <footer class="bg-primary dark:bg-tertiary-container border-t border-outline-variant/20">
         <div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop py-lg w-full max-w-7xl mx-auto">
             <div class="flex flex-col gap-xs mb-md md:mb-0">
-                <span class="text-headline-sm font-headline-sm text-white font-bold">KerjaYuk</span>
-                <span class="font-label-md text-label-md text-surface-variant">© 2024 KerjaYuk. All rights reserved.</span>
+                <span class="text-headline-sm font-headline-sm text-white font-bold">KerjaYok</span>
+                <span class="font-label-md text-label-md text-surface-variant">© 2024 KerjaYok. All rights reserved.</span>
             </div>
             <div class="flex flex-wrap justify-center gap-lg">
                 <a class="font-label-md text-label-md text-surface-variant hover:text-white hover:underline transition-colors text-decoration-none" href="#">Tentang Kami</a>

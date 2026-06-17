@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Lowongan Anda - KerjaYuk</title>
+    <title>Lowongan Anda - KerjaYok</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -163,7 +163,7 @@
                 <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="block md:hidden text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low dark:hover:bg-surface-container-low p-2 rounded-lg transition-all" type="button">
                     <span class="material-symbols-outlined">menu</span>
                 </button>
-                <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary dark:text-primary-fixed-dim">KerjaYuk</a>
+                <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary dark:text-primary-fixed-dim">KerjaYok</a>
             </div>
             <nav class="hidden md:flex gap-8 items-center">
                 <a class="text-primary dark:text-primary-fixed-dim border-b-2 border-primary dark:border-primary-fixed-dim pb-1 font-bold text-label-md font-label-md active:scale-95 transition-transform duration-150" href="/home-perusahaan">Lowongan Anda</a>
@@ -286,8 +286,8 @@
     <footer class="bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant dark:border-outline">
         <div class="w-full py-xl px-margin-desktop flex flex-col md:flex-row justify-between items-center max-w-7xl mx-auto">
             <div class="mb-md md:mb-0">
-                <span class="font-headline-md text-headline-md font-black text-secondary dark:text-secondary-fixed">KerjaYuk</span>
-                <p class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant mt-base">© 2024 KerjaYuk. All rights reserved.</p>
+                <span class="font-headline-md text-headline-md font-black text-secondary dark:text-secondary-fixed">KerjaYok</span>
+                <p class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant mt-base">© 2024 KerjaYok. All rights reserved.</p>
             </div>
             <div class="flex gap-lg flex-wrap justify-center">
                 <a class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-all" href="#">Tentang Kami</a>

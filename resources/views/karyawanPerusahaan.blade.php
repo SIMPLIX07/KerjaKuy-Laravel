@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Daftar Karyawan - KerjaYuk</title>
+    <title>Daftar Karyawan - KerjaYok</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -164,7 +164,7 @@
                 <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="block md:hidden text-primary hover:bg-surface-container-low p-2 rounded-lg transition-all" type="button">
                     <span class="material-symbols-outlined">menu</span>
                 </button>
-                <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaYuk</a>
+                <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaYok</a>
             </div>
             <nav class="hidden md:flex gap-8 items-center">
                 <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md hover:bg-surface-container-low transition-all duration-200" href="/home-perusahaan">Lowongan Kerja</a>
@@ -336,8 +336,8 @@
     <footer class="w-full py-lg mt-xl bg-surface-container-low border-t border-outline-variant">
         <div class="max-w-7xl mx-auto px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md">
             <div class="flex flex-col gap-xs items-center md:items-start">
-                <span class="font-headline-md text-headline-md text-secondary font-bold">KerjaYuk</span>
-                <p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 KerjaYuk. All rights reserved.</p>
+                <span class="font-headline-md text-headline-md text-secondary font-bold">KerjaYok</span>
+                <p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 KerjaYok. All rights reserved.</p>
             </div>
             <div class="flex gap-md">
                 <a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>

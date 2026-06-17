@@ -24,7 +24,7 @@ $pengalamanPlaceholders = [
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Edit CV - KerjaYuk</title>
+    <title>Edit CV - KerjaYok</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -143,7 +143,7 @@ $pengalamanPlaceholders = [
     <header class="bg-primary dark:bg-on-primary-fixed docked full-width top-0 shadow-md z-50">
         <div class="flex justify-between items-center px-margin-desktop w-full h-20 max-w-7xl mx-auto bg-gradient-to-r from-primary via-primary-container to-secondary">
             <div class="flex items-center gap-xl">
-                <a class="text-headline-md font-headline-md font-bold text-white tracking-tight" href="{{ route('home') }}">KerjaYuk</a>
+                <a class="text-headline-md font-headline-md font-bold text-white tracking-tight" href="{{ route('home') }}">KerjaYok</a>
                 <nav class="hidden md:flex items-center gap-lg">
                     <a class="font-body-md text-body-md text-white/80 hover:text-white transition-colors" href="{{ route('home') }}">Lowongan Kerja</a>
                     <a class="font-body-md text-body-md text-white/80 hover:text-white transition-colors" href="{{ url('/lamaran-anda') }}">Lamaran Anda</a>
@@ -337,8 +337,8 @@ $pengalamanPlaceholders = [
     <footer class="bg-primary dark:bg-tertiary-container border-t border-outline-variant/20">
         <div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop py-lg w-full max-w-7xl mx-auto">
             <div class="mb-md md:mb-0">
-                <span class="text-headline-sm font-headline-sm text-white font-bold">KerjaYuk</span>
-                <p class="font-label-md text-label-md text-surface-variant mt-xs">© 2024 KerjaYuk. All rights reserved.</p>
+                <span class="text-headline-sm font-headline-sm text-white font-bold">KerjaYok</span>
+                <p class="font-label-md text-label-md text-surface-variant mt-xs">© 2024 KerjaYok. All rights reserved.</p>
             </div>
             <div class="flex flex-wrap justify-center gap-lg">
                 <a class="font-label-md text-label-md text-surface-variant hover:text-white hover:underline transition-colors" href="#">Tentang Kami</a>

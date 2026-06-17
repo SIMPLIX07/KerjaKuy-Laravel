@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KerjaYuk</title>
+  <title>KerjaYok</title>
   <link rel="stylesheet" href="/assets/LamaranAnda/Kelola.css">
 </head>
 
@@ -12,8 +12,8 @@
   <nav class="navbar">
     <div class="nav-container">
       <div class="nav-logo">
-        <img src="/assets/LamaranAnda/asset/KerjaYuk.png" alt="Kerjakuy Logo" class="logo-img">
-        <span class="brand-text">KerjaYuk</span>
+        <img src="/assets/LamaranAnda/asset/KerjaYok.png" alt="Kerjakuy Logo" class="logo-img">
+        <span class="brand-text">KerjaYok</span>
       </div>
 
       <div class="nav-menu">

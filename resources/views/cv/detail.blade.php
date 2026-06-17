@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Profil {{ $cv->pelamar->nama_lengkap }} - KerjaYuk</title>
+    <title>Profil {{ $cv->pelamar->nama_lengkap }} - KerjaYok</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -118,7 +118,7 @@
 <!-- TopNavBar -->
 <nav class="bg-surface-container-lowest text-primary docked full-width top-0 sticky z-50 shadow-sm h-16 flex items-center">
     <div class="flex justify-between items-center w-full px-margin-desktop max-w-7xl mx-auto">
-        <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaYuk</a>
+        <a href="/" class="text-headline-md font-headline-md font-extrabold text-primary">KerjaYok</a>
         @if (session('perusahaan_id'))
         <nav class="hidden md:flex gap-8 items-center">
             <a class="text-on-surface-variant hover:text-primary transition-colors text-label-md font-label-md" href="/home-perusahaan">Lowongan Kerja</a>
@@ -368,8 +368,8 @@
 <!-- Footer -->
 <footer class="bg-surface-container-lowest dark:bg-inverse-surface border-t border-outline-variant dark:border-outline"><div class="max-w-6xl mx-auto px-gutter py-lg flex flex-col md:flex-row justify-between items-center gap-md">
   <div class="flex flex-col items-center md:items-start">
-    <span class="font-headline-lg text-headline-lg font-bold text-secondary">KerjaYuk</span>
-    <p class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant mt-xs">© 2024 KerjaYuk. All rights reserved.</p>
+    <span class="font-headline-lg text-headline-lg font-bold text-secondary">KerjaYok</span>
+    <p class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant mt-xs">© 2024 KerjaYok. All rights reserved.</p>
   </div>
   <nav class="flex flex-wrap justify-center gap-md">
     <a class="font-body-sm text-body-sm text-on-surface-variant dark:text-surface-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors" href="#">Tentang Kami</a>

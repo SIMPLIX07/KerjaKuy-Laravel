@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Pengaturan Akun Pelamar - KerjaYuk</title>
+    <title>Pengaturan Akun Pelamar - KerjaYok</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
@@ -451,7 +451,7 @@
     <footer class="bg-primary dark:bg-tertiary-container border-t border-outline-variant/20">
         <div
             class="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop py-lg w-full">
-            <span class="text-headline-sm font-headline-sm text-white mb-md md:mb-0">KerjaYuk</span>
+            <span class="text-headline-sm font-headline-sm text-white mb-md md:mb-0">KerjaYok</span>
             <div class="flex flex-wrap justify-center gap-md mb-md md:mb-0">
                 <a class="font-label-md text-label-md text-surface-variant hover:text-white transition-colors hover:underline"
                     href="#">Tentang Kami</a>
@@ -462,7 +462,7 @@
                 <a class="font-label-md text-label-md text-surface-variant hover:text-white transition-colors hover:underline"
                     href="#">Kebijakan Privasi</a>
             </div>
-            <p class="font-label-md text-label-md text-surface-variant">© 2024 KerjaYuk. All rights reserved.</p>
+            <p class="font-label-md text-label-md text-surface-variant">© 2024 KerjaYok. All rights reserved.</p>
         </div>
     </footer>
 

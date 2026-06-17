@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Blog KerjaYuk - Tips Karir &amp; Tren Industri</title>
+    <title>Blog KerjaYok - Tips Karir &amp; Tren Industri</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -128,8 +128,8 @@
     <nav class="mx-6 md:mx-16 flex justify-between items-center relative z-50 text-white">
         <!-- Logo Left -->
         <a href="/" class="flex items-center gap-3">
-            <img src="/assets/index/asset/logo.png" alt="KerjaYuk Logo" class="h-10 w-auto object-contain">
-            <span class="font-bold text-xl md:text-2xl tracking-wide text-white">KerjaYuk</span>
+            <img src="/assets/index/asset/logo.png" alt="KerjaYok Logo" class="h-10 w-auto object-contain">
+            <span class="font-bold text-xl md:text-2xl tracking-wide text-white">KerjaYok</span>
         </a>
 
         <!-- Desktop Navigation Middle -->
@@ -299,7 +299,7 @@
 <!-- Footer -->
 <footer class="w-full mt-auto bg-surface-container-highest border-t border-outline-variant py-8">
     <div class="max-w-7xl mx-auto px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4 text-gray-800">
-        <p class="font-body-sm text-body-sm text-on-surface-variant">© 2026 KerjaYuk. Hubungkan Karir Anda dengan Kecepatan.</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">© 2026 KerjaYok. Hubungkan Karir Anda dengan Kecepatan.</p>
         <div class="flex gap-gutter font-body-sm text-body-sm">
             <a class="text-on-surface-variant hover:text-secondary transition-all cursor-pointer" href="/tentang-kami">Tentang Kami</a>
             <a class="text-on-surface-variant hover:text-secondary transition-all cursor-pointer" href="/blog">Blog</a>
@@ -381,7 +381,7 @@
                 <li><strong>Miliki Fleksibilitas Belajar</strong>: Pola pikir pembelajar sepanjang hayat (<em>lifelong learner</em>) menjadi syarat wajib agar Anda dapat beradaptasi dengan alat kerja baru yang terus berkembang setiap tahunnya.</li>
             </ul>
             
-            <p>KerjaYuk berkomitmen untuk terus menghubungkan Anda dengan perusahaan-perusahaan maju yang menghargai sinergi antara kemampuan manusia dan teknologi modern.</p>
+            <p>KerjaYok berkomitmen untuk terus menghubungkan Anda dengan perusahaan-perusahaan maju yang menghargai sinergi antara kemampuan manusia dan teknologi modern.</p>
             `
         },
         {
@@ -397,7 +397,7 @@
             
             <h4 class="text-headline-md font-bold text-primary mt-md mb-xs">Strategi Jitu Negosiasi Gaji:</h4>
             <ul class="list-disc pl-md space-y-xs my-sm">
-                <li><strong>Lakukan Riset Pasar Terlebih Dahulu</strong>: Gunakan platform seperti KerjaYuk untuk membandingkan rata-rata gaji untuk peran serupa di kota Anda dengan tingkat pengalaman yang Anda miliki.</li>
+                <li><strong>Lakukan Riset Pasar Terlebih Dahulu</strong>: Gunakan platform seperti KerjaYok untuk membandingkan rata-rata gaji untuk peran serupa di kota Anda dengan tingkat pengalaman yang Anda miliki.</li>
                 <li><strong>Fokus pada Nilai yang Anda Berikan</strong>: Jelaskan kontribusi apa yang bisa Anda bawa untuk perusahaan. Sebutkan pencapaian Anda selama magang atau organisasi kampus.</li>
                 <li><strong>Gunakan Angka Kisaran yang Fleksibel</strong>: Alih-alih menyebutkan satu angka pasti, berikan rentang gaji (misalnya, Rp 6.000.000 - Rp 7.500.000) dengan batas bawah sebagai angka minimal yang Anda harapkan.</li>
                 <li><strong>Pertimbangkan Total Paket Kompensasi</strong>: Negosiasi tidak terbatas pada gaji pokok. Tunjangan kesehatan, subsidi transportasi, opsi kerja remote, dan bonus performa juga memiliki nilai yang signifikan.</li>
@@ -972,7 +972,7 @@
                 alert("Tautan artikel berhasil disalin ke papan klip!");
             });
         } else if (platform === 'twitter') {
-            const tweet = encodeURIComponent(`Membaca artikel menarik: "${modalTitle.textContent}" di KerjaYuk!`);
+            const tweet = encodeURIComponent(`Membaca artikel menarik: "${modalTitle.textContent}" di KerjaYok!`);
             window.open(`https://twitter.com/intent/tweet?text=${tweet}&url=${encodeURIComponent(url)}`, '_blank');
         }
     }

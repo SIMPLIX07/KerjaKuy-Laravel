@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Tentang KerjaYuk | Career Velocity</title>
+    <title>Tentang KerjaYok | Career Velocity</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -122,8 +122,8 @@
     <nav class="mx-6 md:mx-16 flex justify-between items-center relative z-50 text-white">
         <!-- Logo Left -->
         <a href="/" class="flex items-center gap-3">
-            <img src="/assets/index/asset/logo.png" alt="KerjaYuk Logo" class="h-10 w-auto object-contain">
-            <span class="font-bold text-xl md:text-2xl tracking-wide text-white">KerjaYuk</span>
+            <img src="/assets/index/asset/logo.png" alt="KerjaYok Logo" class="h-10 w-auto object-contain">
+            <span class="font-bold text-xl md:text-2xl tracking-wide text-white">KerjaYok</span>
         </a>
 
         <!-- Desktop Navigation Middle -->
@@ -185,7 +185,7 @@
 <div class="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row items-center gap-xl">
 <div class="md:w-1/2 space-y-md">
 <h1 class="font-headline-xl text-headline-xl leading-tight">Mempercepat Perekrutan & Pertumbuhan Bisnis Anda</h1>
-<p class="font-body-lg text-body-lg text-surface-variant opacity-90 max-w-xl">KerjaYuk lebih dari sekadar portal lowongan kerja biasa. Kami membangun ekosistem rekrutmen cerdas berbasis AI yang dirancang untuk memotong administrasi yang lambat, mempertemukan bisnis Anda dengan talenta-talenta terbaik secara instan, aman, dan efisien.</p>
+<p class="font-body-lg text-body-lg text-surface-variant opacity-90 max-w-xl">KerjaYok lebih dari sekadar portal lowongan kerja biasa. Kami membangun ekosistem rekrutmen cerdas berbasis AI yang dirancang untuk memotong administrasi yang lambat, mempertemukan bisnis Anda dengan talenta-talenta terbaik secara instan, aman, dan efisien.</p>
 <div class="flex flex-wrap gap-md pt-base">
 <a href="#visi-misi" class="bg-[#319795] text-white px-8 py-3 rounded-xl font-label-md text-label-md font-bold hover:brightness-110 transition-all shadow-lg text-center flex items-center justify-center">Misi Rekrutmen</a>
 <a href="/register/perusahaan" class="border border-secondary-fixed text-secondary-fixed px-8 py-3 rounded-xl font-label-md text-label-md font-bold hover:bg-secondary-fixed/10 transition-all text-center flex items-center justify-center">Mulai Merekrut</a>
@@ -224,8 +224,8 @@
 </div>
 <div class="order-1 md:order-2 space-y-md">
 <span class="text-secondary font-label-md text-label-md tracking-widest uppercase">The Genesis</span>
-<h2 class="font-headline-lg text-headline-lg text-primary">Bagaimana KerjaYuk Membantu Perusahaan</h2>
-<p class="text-on-surface-variant font-body-md text-body-md">Didirikan pada tahun 2024, KerjaYuk lahir dari sebuah keresahan umum para rekruter: proses penyaringan kandidat secara konvensional memakan waktu berminggu-minggu, padahal dinamika bisnis menuntut pergerakan cepat. Kami merancang platform ATS (Applicant Tracking System) cerdas untuk menyelesaikan masalah ini.</p>
+<h2 class="font-headline-lg text-headline-lg text-primary">Bagaimana KerjaYok Membantu Perusahaan</h2>
+<p class="text-on-surface-variant font-body-md text-body-md">Didirikan pada tahun 2024, KerjaYok lahir dari sebuah keresahan umum para rekruter: proses penyaringan kandidat secara konvensional memakan waktu berminggu-minggu, padahal dinamika bisnis menuntut pergerakan cepat. Kami merancang platform ATS (Applicant Tracking System) cerdas untuk menyelesaikan masalah ini.</p>
 <p class="text-on-surface-variant font-body-md text-body-md">Kami menghubungkan langsung kebutuhan spesifik perusahaan dengan kumpulan talenta terverifikasi yang dilengkapi portofolio digital nyata, menyederhanakan siklus rekrutmen mulai dari pemasangan lowongan hingga koordinasi jadwal wawancara.</p>
 <div class="flex items-center gap-md pt-base">
 <div class="flex flex-col">
@@ -312,7 +312,7 @@
 <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-xl">
 <div class="md:w-1/2 space-y-md">
 <h2 class="font-headline-lg text-headline-lg text-primary">Solusi Rekrutmen Komprehensif</h2>
-<p class="text-on-surface-variant font-body-lg text-body-lg">Di KerjaYuk, kami mendesain lingkungan rekrutmen digital yang nyaman bagi HRD. Dapatkan kendali penuh untuk menyaring kandidat terbaik dan pantau seluruh proses secara transparan.</p>
+<p class="text-on-surface-variant font-body-lg text-body-lg">Di KerjaYok, kami mendesain lingkungan rekrutmen digital yang nyaman bagi HRD. Dapatkan kendali penuh untuk menyaring kandidat terbaik dan pantau seluruh proses secara transparan.</p>
 <div class="space-y-sm">
 <div class="flex items-center gap-md">
 <span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
@@ -334,7 +334,7 @@
 <img alt="Culture 2" class="rounded-xl h-48 w-full object-cover shadow-md" data-alt="Modern workspace with people working together on a large wooden table, using laptops and whiteboards. The office design is minimalist with high ceilings and industrial elements. The lighting is high-key and natural, creating a clean, professional aesthetic that communicates efficiency and shared goals in a modern tech company." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA39sERJm2lSdmLsfjtJTA4xEf7_TNMUWK2lLR667ycFr4FEcf8v6cgOdNd7S_H3YuDsB02e_3hXcckyLxfYHDcbMSmklr6NSSzZUxbMy_6vnUvbRZh9kXIm1pJ3Q7n9CKbaVb3m3Q0iDZvaGWhEQn7xoXbUQQOHekkg8AqpMnu4jv-Ag9TaX-e3oMaVbtocpx8h2OWM8ONf4H1dpBNxU-Dw_218zstRfHKc0W6PoGvmPl-5vRG_aYwNbPSDlY6SmJs-53p7QCahdY"/>
 </div>
 <div class="space-y-sm pt-lg">
-<img alt="Culture 3" class="rounded-xl h-64 w-full object-cover shadow-md" data-alt="Corporate event with professionals engaging in networking and lively discussions. The background is a sleek, modern hall with teal lighting accents. The image focus is on dynamic interactions and career movement, using a sophisticated color palette of whites, deep blues, and teal highlights to represent the KerjaYuk brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxrMZWferGseLHQxiZk_8E6KPsijvmkeae3orcIh96pJ75CKI1eNQCN2ZDy1g4KkY8WDI7-Qh3ChNKA_x9qeVwcYq24YCxt-o56jLcGWEjoXIIl0pLB66PhTkPeVAlNuN_6RmDGTrHG4z_aYwpa5wxA_J0MlcXRO-13FSXwOSSMC8xLBkRiavc7T7qi98v-ZvT6W6Zxp_bTM1Wb_p2QEcfRy16bHFmb1yQ2-xvbAkJZjsGGcGN4EKnixDLoIR--rAzYFL2fvh8Z20"/>
+<img alt="Culture 3" class="rounded-xl h-64 w-full object-cover shadow-md" data-alt="Corporate event with professionals engaging in networking and lively discussions. The background is a sleek, modern hall with teal lighting accents. The image focus is on dynamic interactions and career movement, using a sophisticated color palette of whites, deep blues, and teal highlights to represent the KerjaYok brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxrMZWferGseLHQxiZk_8E6KPsijvmkeae3orcIh96pJ75CKI1eNQCN2ZDy1g4KkY8WDI7-Qh3ChNKA_x9qeVwcYq24YCxt-o56jLcGWEjoXIIl0pLB66PhTkPeVAlNuN_6RmDGTrHG4z_aYwpa5wxA_J0MlcXRO-13FSXwOSSMC8xLBkRiavc7T7qi98v-ZvT6W6Zxp_bTM1Wb_p2QEcfRy16bHFmb1yQ2-xvbAkJZjsGGcGN4EKnixDLoIR--rAzYFL2fvh8Z20"/>
 </div>
 </div>
 </div>
@@ -344,7 +344,7 @@
 <!-- Footer -->
 <footer class="w-full mt-auto bg-surface-container-highest border-t border-outline-variant py-8">
     <div class="max-w-7xl mx-auto px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4 text-gray-800">
-        <p class="font-body-sm text-body-sm text-on-surface-variant">© 2026 KerjaYuk. Hubungkan Karir Anda dengan Kecepatan.</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">© 2026 KerjaYok. Hubungkan Karir Anda dengan Kecepatan.</p>
         <div class="flex gap-gutter font-body-sm text-body-sm">
             <a class="text-on-surface-variant hover:text-secondary transition-all cursor-pointer" href="/tentang-kami">Tentang Kami</a>
             <a class="text-on-surface-variant hover:text-secondary transition-all cursor-pointer" href="/blog">Blog</a>

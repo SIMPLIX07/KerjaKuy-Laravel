@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Pusat Bantuan - KerjaYuk</title>
+    <title>Pusat Bantuan - KerjaYok</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -123,8 +123,8 @@
     <nav class="mx-6 md:mx-16 flex justify-between items-center relative z-50 text-white">
         <!-- Logo Left -->
         <a href="/" class="flex items-center gap-3">
-            <img src="/assets/index/asset/logo.png" alt="KerjaYuk Logo" class="h-10 w-auto object-contain">
-            <span class="font-bold text-xl md:text-2xl tracking-wide text-white">KerjaYuk</span>
+            <img src="/assets/index/asset/logo.png" alt="KerjaYok Logo" class="h-10 w-auto object-contain">
+            <span class="font-bold text-xl md:text-2xl tracking-wide text-white">KerjaYok</span>
         </a>
 
         <!-- Desktop Navigation Middle -->
@@ -184,7 +184,7 @@
     <!-- Hero Section -->
     <section class="vibrant-gradient relative py-24 overflow-hidden">
         <div class="relative z-10 max-w-7xl mx-auto px-margin-desktop text-center">
-            <h1 class="font-headline-xl text-headline-xl text-white mb-xs">Pusat Bantuan KerjaYuk</h1>
+            <h1 class="font-headline-xl text-headline-xl text-white mb-xs">Pusat Bantuan KerjaYok</h1>
             <p class="font-body-lg text-body-lg text-primary-fixed-dim mb-lg max-w-2xl mx-auto">Cari solusi untuk kendala karir Anda atau pelajari cara mengoptimalkan platform kami.</p>
             <div class="max-w-2xl mx-auto relative group">
                 <div class="search-container flex items-center bg-surface-container-lowest rounded-xl p-base border border-outline-variant transition-all">
@@ -240,7 +240,7 @@
             <div class="flex flex-col lg:flex-row gap-xl">
                 <div class="lg:w-1/3">
                     <h2 class="font-headline-lg text-headline-lg text-primary mb-sm">Pertanyaan Sering Diajukan</h2>
-                    <p class="font-body-md text-body-md text-on-surface-variant mb-md">Kami merangkum jawaban tercepat untuk pertanyaan mengenai alur kerja dan fitur yang ada di platform KerjaYuk.</p>
+                    <p class="font-body-md text-body-md text-on-surface-variant mb-md">Kami merangkum jawaban tercepat untuk pertanyaan mengenai alur kerja dan fitur yang ada di platform KerjaYok.</p>
                     <div class="hidden sm:block">
                         <img alt="Team support illustration" class="w-full h-64 object-cover rounded-2xl" data-alt="A professional collaborative workspace in a modern tech office with large windows. Young professionals are discussing while looking at a digital tablet and laptop, with soft daylight and teal accent colors reflecting a corporate yet energetic and modern atmosphere. The focus is on a group discussion showing teamwork and reliable support." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCklXL4FJwoArzFcQM3LuQuiRpd-_n7AIkEY-OlHQ3DlhNLLbXTGZdfFISkRdSbHnE3ZsfP4IgOFltAsVfCIP8Tbj4uJFTYMxgvK9e_gmeeJGNU6Spq6nK3CJsKKcOSDnW4icDKoObwWEYEiz5eA_4nU4URc2SgopmkfuM7TL2_xQTLUYm1pkqL16R6q3SsUrBUnbbbq28pDTo467cAJqW5nm_ctr213hqYODXQ7GgPEY6-VCjG5YX2KsqpRoCOLCgo_mxwsI6M2jA">
                     </div>
@@ -249,7 +249,7 @@
                     <!-- FAQ Item 1 (Pelamar) -->
                     <div class="faq-item bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden group transition-all duration-200" data-categories="pelamar cv">
                         <button class="w-full flex justify-between items-center p-md text-left transition-colors hover:bg-surface-container" onclick="toggleFaq(this)">
-                            <span class="font-headline-md text-primary faq-question">Bagaimana cara melamar lowongan pekerjaan di KerjaYuk?</span>
+                            <span class="font-headline-md text-primary faq-question">Bagaimana cara melamar lowongan pekerjaan di KerjaYok?</span>
                             <span class="material-symbols-outlined transition-transform duration-300" data-icon="expand_more">expand_more</span>
                         </button>
                         <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
@@ -267,7 +267,7 @@
                         </button>
                         <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
                             <div class="p-md pt-0 text-on-surface-variant font-body-md">
-                                Demi menjaga kredibilitas lowongan kerja, setiap pendaftaran akun Perusahaan akan masuk ke antrean verifikasi dengan status "Pending" dan tidak bisa login. Tim Admin KerjaYuk akan memvalidasi dokumen legalitas perusahaan Anda dalam kurun waktu maksimal 48 jam. Apabila disetujui, status Anda berubah menjadi "Verified" dan Anda dapat login. Apabila ditolak, Anda akan melihat alasan penolakan dan dapat mendaftar ulang.
+                                Demi menjaga kredibilitas lowongan kerja, setiap pendaftaran akun Perusahaan akan masuk ke antrean verifikasi dengan status "Pending" dan tidak bisa login. Tim Admin KerjaYok akan memvalidasi dokumen legalitas perusahaan Anda dalam kurun waktu maksimal 48 jam. Apabila disetujui, status Anda berubah menjadi "Verified" dan Anda dapat login. Apabila ditolak, Anda akan melihat alasan penolakan dan dapat mendaftar ulang.
                             </div>
                         </div>
                     </div>
@@ -293,7 +293,7 @@
                         </button>
                         <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
                             <div class="p-md pt-0 text-on-surface-variant font-body-md">
-                                Ya, pelamar dapat menghapus akun mereka secara permanen. Masuk ke menu Pengaturan Profil, navigasikan ke bagian keamanan/pengaturan akun, lalu pilih Hapus Akun. Menghapus akun akan membersihkan semua data profil, riwayat lamaran, file CV, dan portofolio Anda secara permanen dari sistem KerjaYuk.
+                                Ya, pelamar dapat menghapus akun mereka secara permanen. Masuk ke menu Pengaturan Profil, navigasikan ke bagian keamanan/pengaturan akun, lalu pilih Hapus Akun. Menghapus akun akan membersihkan semua data profil, riwayat lamaran, file CV, dan portofolio Anda secara permanen dari sistem KerjaYok.
                             </div>
                         </div>
                     </div>
@@ -319,7 +319,7 @@
                         </button>
                         <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
                             <div class="p-md pt-0 text-on-surface-variant font-body-md">
-                                KerjaYuk menyediakan fitur "Bookmark" untuk menyimpan lowongan kerja yang menarik perhatian Anda. Cukup klik ikon bookmark pada bagian kanan atas kartu lowongan di halaman pencarian. Anda dapat mengakses kembali daftar lowongan yang telah Anda simpan kapan saja lewat menu "Bookmark" pada profil akun Pelamar Anda.
+                                KerjaYok menyediakan fitur "Bookmark" untuk menyimpan lowongan kerja yang menarik perhatian Anda. Cukup klik ikon bookmark pada bagian kanan atas kartu lowongan di halaman pencarian. Anda dapat mengakses kembali daftar lowongan yang telah Anda simpan kapan saja lewat menu "Bookmark" pada profil akun Pelamar Anda.
                             </div>
                         </div>
                     </div>
@@ -327,7 +327,7 @@
                     <!-- FAQ Item 7 (Pelamar / CV) -->
                     <div class="faq-item bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden group transition-all duration-200" data-categories="pelamar cv">
                         <button class="w-full flex justify-between items-center p-md text-left transition-colors hover:bg-surface-container" onclick="toggleFaq(this)">
-                            <span class="font-headline-md text-primary faq-question">Bagaimana cara mengunggah dan mengelola portofolio digital di KerjaYuk?</span>
+                            <span class="font-headline-md text-primary faq-question">Bagaimana cara mengunggah dan mengelola portofolio digital di KerjaYok?</span>
                             <span class="material-symbols-outlined transition-transform duration-300" data-icon="expand_more">expand_more</span>
                         </button>
                         <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
@@ -349,7 +349,7 @@
                     <h2 class="font-headline-lg text-headline-lg mb-xs text-white">Masih butuh bantuan?</h2>
                     <p class="font-body-lg text-body-lg text-primary-fixed-dim mb-lg max-w-xl mx-auto">Tim support kami siap membantu Anda 24/7. Jangan ragu untuk menghubungi kami jika kendala belum teratasi.</p>
                     <div class="flex flex-col sm:flex-row gap-sm justify-center items-center">
-                        <a class="flex items-center gap-xs bg-[#319795] text-white px-lg py-md rounded-xl font-headline-md hover:bg-[#2c7a7b] transition-all transform hover:scale-105" href="mailto:support@kerjayuk.com">
+                        <a class="flex items-center gap-xs bg-[#319795] text-white px-lg py-md rounded-xl font-headline-md hover:bg-[#2c7a7b] transition-all transform hover:scale-105" href="mailto:support@kerjayok.com">
                             <span class="material-symbols-outlined" data-icon="mail">mail</span>
                             Hubungi Email Support
                         </a>
@@ -365,7 +365,7 @@
 <!-- Footer -->
 <footer class="w-full mt-auto bg-surface-container-highest border-t border-outline-variant py-8">
     <div class="max-w-7xl mx-auto px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-4 text-gray-800">
-        <p class="font-body-sm text-body-sm text-on-surface-variant">© 2026 KerjaYuk. Hubungkan Karir Anda dengan Kecepatan.</p>
+        <p class="font-body-sm text-body-sm text-on-surface-variant">© 2026 KerjaYok. Hubungkan Karir Anda dengan Kecepatan.</p>
         <div class="flex gap-gutter font-body-sm text-body-sm">
             <a class="text-on-surface-variant hover:text-secondary transition-all cursor-pointer" href="/tentang-kami">Tentang Kami</a>
             <a class="text-on-surface-variant hover:text-secondary transition-all cursor-pointer" href="/blog">Blog</a>

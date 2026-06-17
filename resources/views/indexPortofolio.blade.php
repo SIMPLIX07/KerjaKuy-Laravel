@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Daftar Portofolio - KerjaYuk</title>
+    <title>Daftar Portofolio - KerjaYok</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
@@ -124,7 +124,7 @@
 <header class="sticky top-0 z-50 bg-surface-container-lowest shadow-sm h-20 flex items-center shrink-0">
     <div class="flex justify-between items-center px-margin-desktop w-full">
         <div class="flex items-center gap-xl">
-            <a href="{{ route('home') }}" class="text-headline-md font-headline-md font-bold text-on-surface">KerjaYuk</a>
+            <a href="{{ route('home') }}" class="text-headline-md font-headline-md font-bold text-on-surface">KerjaYok</a>
             <nav class="hidden md:flex items-center gap-lg">
                 <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="{{ route('home') }}">Lowongan Kerja</a>
                 <a class="font-body-md text-on-surface-variant hover:text-primary transition-colors" href="{{ url('/lamaran-anda') }}">Lamaran Anda</a>
@@ -318,14 +318,14 @@
 <!-- Footer -->
 <footer class="bg-primary dark:bg-tertiary-container border-t border-outline-variant/20 shrink-0">
     <div class="flex flex-col md:flex-row justify-between items-center px-margin-desktop py-lg w-full">
-        <span class="text-headline-sm font-headline-sm text-white mb-md md:mb-0">KerjaYuk</span>
+        <span class="text-headline-sm font-headline-sm text-white mb-md md:mb-0">KerjaYok</span>
         <div class="flex flex-wrap justify-center gap-md mb-md md:mb-0">
             <a class="font-label-md text-label-md text-surface-variant hover:text-white transition-colors hover:underline" href="#">Tentang Kami</a>
             <a class="font-label-md text-label-md text-surface-variant hover:text-white transition-colors hover:underline" href="#">Pusat Bantuan</a>
             <a class="font-label-md text-label-md text-surface-variant hover:text-white transition-colors hover:underline" href="#">Ketentuan Layanan</a>
             <a class="font-label-md text-label-md text-surface-variant hover:text-white transition-colors hover:underline" href="#">Kebijakan Privasi</a>
         </div>
-        <p class="font-label-md text-label-md text-surface-variant">© 2024 KerjaYuk. All rights reserved.</p>
+        <p class="font-label-md text-label-md text-surface-variant">© 2024 KerjaYok. All rights reserved.</p>
     </div>
 </footer>
 

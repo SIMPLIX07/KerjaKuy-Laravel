@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Detail Lowongan: {{ $lowongan->posisi_pekerjaan }} | KerjaYuk</title>
+    <title>Detail Lowongan: {{ $lowongan->posisi_pekerjaan }} | KerjaYok</title>
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700&display=swap" rel="stylesheet" />
@@ -114,7 +114,7 @@
                 <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="block md:hidden text-primary hover:bg-surface-container-low p-2 rounded-lg transition-all" type="button">
                     <span class="material-symbols-outlined">menu</span>
                 </button>
-                <a href="/" class="text-[24px] leading-8 font-extrabold text-primary font-headline">KerjaYuk</a>
+                <a href="/" class="text-[24px] leading-8 font-extrabold text-primary font-headline">KerjaYok</a>
             </div>
             <nav class="hidden md:flex gap-8 items-center">
                 <a class="text-primary border-b-2 border-primary pb-1 font-bold text-[14px]" href="/home-perusahaan">Lowongan Anda</a>
@@ -370,13 +370,13 @@
     <!-- Footer -->
     <footer class="bg-surface-container-lowest w-full py-8 mt-auto border-t border-outline-variant">
         <div class="flex flex-col md:flex-row justify-between items-center px-4 md:px-12 max-w-7xl mx-auto gap-4">
-            <div class="text-[18px] leading-7 font-bold text-primary font-headline">KerjaYuk</div>
+            <div class="text-[18px] leading-7 font-bold text-primary font-headline">KerjaYok</div>
             <div class="flex flex-wrap justify-center gap-6 text-[14px] leading-5">
                 <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Syarat &amp; Ketentuan</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Kebijakan Privasi</a>
                 <a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Hubungi Kami</a>
             </div>
-            <div class="text-[14px] leading-5 text-primary">© 2024 KerjaYuk. Seluruh hak cipta dilindungi.</div>
+            <div class="text-[14px] leading-5 text-primary">© 2024 KerjaYok. Seluruh hak cipta dilindungi.</div>
         </div>
     </footer>
 

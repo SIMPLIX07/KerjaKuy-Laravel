@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Sign Up | KerjaYuk - Elevate Your Career</title>
+    <title>Sign Up | KerjaYok - Elevate Your Career</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;display=swap"
@@ -321,7 +321,7 @@
                             <label class="text-body-sm text-on-surface-variant" for="terms">Saya menyetujui <a
                                     class="text-secondary font-bold hover:underline" href="#">Syarat &amp;
                                     Ketentuan</a> serta <a class="text-secondary font-bold hover:underline"
-                                    href="#">Kebijakan Privasi</a> KerjaYuk.</label>
+                                    href="#">Kebijakan Privasi</a> KerjaYok.</label>
                         </div>
                         <!-- Action Button -->
                         <div class="md:col-span-2 mt-md">
@@ -376,8 +376,8 @@
         class="w-full py-xl px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md bg-surface-container-highest dark:bg-inverse-surface border-t border-outline-variant">
         <div class="flex flex-col items-center md:items-start gap-xs">
             <span
-                class="font-headline-md text-headline-md font-black text-primary dark:text-inverse-primary">KerjaYuk</span>
-            <p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 KerjaYuk. Empowering your career
+                class="font-headline-md text-headline-md font-black text-primary dark:text-inverse-primary">KerjaYok</span>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">© 2024 KerjaYok. Empowering your career
                 velocity.</p>
         </div>
         <div class="flex gap-lg flex-wrap justify-center">
@@ -470,9 +470,9 @@
 
         const firebaseConfig = {
             apiKey: "AIzaSyAp_Ef_IrW3chzKEyFyHauPQRiZprbsgpc",
-            authDomain: "kerjayuk-aea0e.firebaseapp.com",
-            projectId: "kerjayuk-aea0e",
-            storageBucket: "kerjayuk-aea0e.firebasestorage.app",
+            authDomain: "kerjayok-aea0e.firebaseapp.com",
+            projectId: "kerjayok-aea0e",
+            storageBucket: "kerjayok-aea0e.firebasestorage.app",
             messagingSenderId: "391966285572",
             appId: "1:391966285572:web:ffdd346c14323822dc7a51",
             measurementId: "G-5ZCQ89ER19"
@@ -810,7 +810,7 @@
                 </div>
                 <h3 class="font-headline-md text-xl font-bold text-primary">Persetujuan Diperlukan</h3>
                 <p class="font-body-sm text-on-surface-variant">Anda harus menyetujui Syarat & Ketentuan serta
-                    Kebijakan Privasi KerjaYuk terlebih dahulu untuk melanjutkan.</p>
+                    Kebijakan Privasi KerjaYok terlebih dahulu untuk melanjutkan.</p>
                 <button onclick="closeTermsWarningModal()"
                     class="w-full py-sm bg-secondary text-on-secondary font-headline-md rounded-xl hover:opacity-90 transition-all active:scale-95 shadow-md">
                     Saya Mengerti

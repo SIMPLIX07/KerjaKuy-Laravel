@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KerjaYuk - Temukan Karir Impian Anda</title>
+    <title>KerjaYok - Temukan Karir Impian Anda</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -222,7 +222,7 @@
                 <span class="material-symbols-outlined">menu</span>
             </button>
             <a href="{{ route('home') }}"
-                class="text-headline-md font-headline-md font-extrabold text-primary">KerjaYuk</a>
+                class="text-headline-md font-headline-md font-extrabold text-primary">KerjaYok</a>
         </div>
 
         <nav class="hidden md:flex gap-8 items-center">
@@ -557,7 +557,7 @@
     <footer
         class="bg-inverse-surface text-inverse-primary w-full px-margin-mobile md:px-margin-desktop py-12 border-t border-outline-variant">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="text-headline-md font-headline-md font-bold text-inverse-on-surface">KerjaYuk</div>
+            <div class="text-headline-md font-headline-md font-bold text-inverse-on-surface">KerjaYok</div>
             <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2">
                 <a class="text-inverse-on-surface hover:text-secondary-fixed text-label-sm font-label-sm transition-colors duration-200"
                     href="#">Kebijakan Privasi</a>
@@ -568,7 +568,7 @@
                 <a class="text-inverse-on-surface hover:text-secondary-fixed text-label-sm font-label-sm transition-colors duration-200"
                     href="#">Karir</a>
             </nav>
-            <div class="text-body-sm font-body-sm text-inverse-on-surface text-center md:text-right">© 2024 KerjaYuk.
+            <div class="text-body-sm font-body-sm text-inverse-on-surface text-center md:text-right">© 2024 KerjaYok.
                 Hubungi Kami untuk percepatan karir Anda.</div>
         </div>
     </footer>

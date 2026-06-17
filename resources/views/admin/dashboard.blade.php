@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>KerjaYuk Admin Dashboard</title>
+    <title>KerjaYok Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
@@ -146,7 +146,7 @@
                     <span class="material-symbols-outlined">menu</span>
                 </button>
                 <div class="flex items-center gap-2">
-                    <span class="font-headline-md text-primary tracking-tight">KerjaYuk</span>
+                    <span class="font-headline-md text-primary tracking-tight">KerjaYok</span>
                 </div>
                 <nav class="hidden md:flex items-center gap-6">
                     <a class="text-label-md text-primary font-semibold" href="{{ route('admin.dashboard') }}">Dashboard</a>
@@ -466,7 +466,7 @@
 
         <!-- Footer Decoration -->
         <footer class="mt-xl py-6 px-margin-desktop border-t border-outline-variant bg-surface flex justify-between items-center">
-            <p class="text-label-sm text-on-surface-variant">© 2024 KerjaYuk Enterprise. Hak cipta dilindungi undang-undang.</p>
+            <p class="text-label-sm text-on-surface-variant">© 2024 KerjaYok Enterprise. Hak cipta dilindungi undang-undang.</p>
             <div class="flex gap-6">
                 <a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Kebijakan Privasi</a>
                 <a class="text-label-sm text-on-surface-variant hover:text-secondary transition-colors" href="#">Syarat & Ketentuan</a>

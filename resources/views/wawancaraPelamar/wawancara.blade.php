@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jadwal Wawancara - KerjaYuk</title>
+    <title>Jadwal Wawancara - KerjaYok</title>
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
@@ -186,7 +186,7 @@
                     <span class="material-symbols-outlined">menu</span>
                 </button>
                 <a href="{{ route('home') }}"
-                    class="text-headline-md font-headline-md font-extrabold text-primary">KerjaYuk</a>
+                    class="text-headline-md font-headline-md font-extrabold text-primary">KerjaYok</a>
             </div>
 
             <nav class="hidden md:flex gap-8 items-center">
@@ -453,7 +453,7 @@
     <footer class="bg-surface-container-highest border-t border-outline-variant mt-auto">
         <div
             class="w-full px-margin-mobile md:px-margin-desktop py-lg flex flex-col md:flex-row justify-between items-center gap-md max-w-7xl mx-auto">
-            <div class="font-headline-md text-headline-md font-bold text-primary">KerjaYuk</div>
+            <div class="font-headline-md text-headline-md font-bold text-primary">KerjaYok</div>
             <ul class="flex flex-wrap justify-center gap-md font-label-sm text-label-sm">
                 <li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Tentang
                         Kami</a></li>
@@ -464,7 +464,7 @@
                 <li><a class="text-on-surface-variant hover:text-secondary transition-colors" href="#">Syarat
                         &amp; Ketentuan</a></li>
             </ul>
-            <div class="font-body-sm text-body-sm text-primary">© 2024 KerjaYuk. Empowering your next career move.
+            <div class="font-body-sm text-body-sm text-primary">© 2024 KerjaYok. Empowering your next career move.
             </div>
         </div>
     </footer>

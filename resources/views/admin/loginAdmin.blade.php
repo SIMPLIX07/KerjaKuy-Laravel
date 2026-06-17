@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Masuk Admin | KerjaYuk</title>
+    <title>Masuk Admin | KerjaYok</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@600;700;800&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -126,9 +126,9 @@
                 <div class="relative z-10">
                     <div class="flex items-center gap-xs mb-lg">
                         <span class="material-symbols-outlined text-secondary-fixed text-4xl" data-icon="admin_panel_settings">admin_panel_settings</span>
-                        <span class="text-white font-headline-md text-headline-md font-bold">KerjaYuk <span class="text-secondary-fixed">Admin</span></span>
+                        <span class="text-white font-headline-md text-headline-md font-bold">KerjaYok <span class="text-secondary-fixed">Admin</span></span>
                     </div>
-                    <h1 class="font-headline-xl text-headline-xl text-white mb-sm">Panel Administrasi KerjaYuk</h1>
+                    <h1 class="font-headline-xl text-headline-xl text-white mb-sm">Panel Administrasi KerjaYok</h1>
                     <p class="font-body-lg text-body-lg text-primary-fixed-dim max-w-md">Kelola platform dengan efisien. Pantau statistik, atur pengguna, dan pastikan ekosistem tetap berjalan lancar.</p>
                 </div>
                 <div class="relative z-10">
@@ -176,7 +176,7 @@
                             <label class="font-label-md text-label-md text-primary" for="email">Email Admin</label>
                             <div class="relative">
                                 <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline" data-icon="mail">mail</span>
-                                <input class="w-full pl-12 pr-md py-3 bg-surface border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all font-body-md text-body-md" id="email" name="email" value="{{ old('email') }}" placeholder="admin@kerjayuk.com" type="email" required>
+                                <input class="w-full pl-12 pr-md py-3 bg-surface border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary focus:border-transparent transition-all font-body-md text-body-md" id="email" name="email" value="{{ old('email') }}" placeholder="admin@kerjayok.com" type="email" required>
                             </div>
                         </div>
                         <!-- Password Field -->
@@ -219,8 +219,8 @@
     <footer class="bg-primary py-xl border-t border-outline-variant">
         <div class="max-w-7xl mx-auto px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-gutter">
             <div class="flex flex-col items-center md:items-start gap-xs">
-                <span class="font-headline-md text-headline-md font-bold text-on-primary">KerjaYuk</span>
-                <p class="font-label-sm text-label-sm text-on-primary-container/80">© 2024 KerjaYuk. All rights reserved.</p>
+                <span class="font-headline-md text-headline-md font-bold text-on-primary">KerjaYok</span>
+                <p class="font-label-sm text-label-sm text-on-primary-container/80">© 2024 KerjaYok. All rights reserved.</p>
             </div>
             <div class="flex gap-md">
                 <a class="font-label-sm text-label-sm text-on-primary-container/80 hover:text-secondary-fixed-dim transition-colors" href="#">About Us</a>

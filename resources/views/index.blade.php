@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KerjaYuk - Temukan Pekerjaan Impian Anda</title>
+    <title>KerjaYok - Temukan Pekerjaan Impian Anda</title>
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
@@ -16,8 +16,8 @@
     <nav class="mt-6 md:mt-10 mx-6 md:mx-16 flex justify-between items-center relative z-50">
         <!-- Logo Left -->
         <div class="flex items-center gap-3">
-            <img src="/assets/index/asset/logo.png" alt="KerjaYuk Logo" class="h-10 md:h-12 w-auto object-contain">
-            <span class="font-bold text-xl md:text-2xl tracking-wide">KerjaYuk</span>
+            <img src="/assets/index/asset/logo.png" alt="KerjaYok Logo" class="h-10 md:h-12 w-auto object-contain">
+            <span class="font-bold text-xl md:text-2xl tracking-wide">KerjaYok</span>
         </div>
 
         <!-- Desktop Navigation Middle -->
@@ -75,7 +75,7 @@
     <!-- Hero Section -->
     <div class="min-h-[70vh] md:min-h-[80vh] flex flex-col justify-center items-center text-center px-6 -mt-16 md:-mt-24">
         <h1 class="text-6xl sm:text-7xl md:text-[100px] font-black tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-white via-teal-200 to-white leading-none">
-            KerjaYuk
+            KerjaYok
         </h1>
         <p class="text-xl sm:text-2xl font-light text-teal-100 opacity-95 tracking-wide max-w-lg leading-relaxed">
             Tempat anda menemukan <br class="hidden sm:inline"> pekerjaan impian anda
@@ -97,7 +97,7 @@
             </div>
             <!-- Image -->
             <div class="w-full sm:w-8/12 md:w-5/12 rounded-2xl shadow-xl overflow-hidden">
-                <img class="w-full h-auto object-cover hover:scale-105 transition-transform duration-300 rounded-2xl" src="/assets/index/asset/person.jpg" alt="Tentang KerjaYuk">
+                <img class="w-full h-auto object-cover hover:scale-105 transition-transform duration-300 rounded-2xl" src="/assets/index/asset/person.jpg" alt="Tentang KerjaYok">
             </div>
         </div>
     </div>
@@ -242,7 +242,7 @@
     <!-- Footer Copyright -->
     <footer class="bg-[#000E3A]/60 py-8 text-center text-sm text-teal-200/40 border-t border-white/5">
         <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <p>&copy; 2026 KerjaYuk. Hubungkan Karir Anda dengan Kecepatan.</p>
+            <p>&copy; 2026 KerjaYok. Hubungkan Karir Anda dengan Kecepatan.</p>
             <div class="flex gap-6">
                 <a href="/tentang-kami" class="hover:text-teal-300 transition-colors">Tentang Kami</a>
                 <a href="/blog" class="hover:text-teal-300 transition-colors">Blog</a>
