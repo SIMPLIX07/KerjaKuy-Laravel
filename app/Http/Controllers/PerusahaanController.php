@@ -91,7 +91,7 @@ class PerusahaanController extends Controller
             'status_verifikasi' => 'pending', // Set status ke pending
         ]);
 
-        // Jangan langsung login, tapi tampilkan pesan bahwa registrasi berhasil dan tunggu verifikasi
+        // Pop Up menunggu verifikasi
         return redirect('/login/perusahaan')->with('info', 'Registrasi berhasil! Tunggu verifikasi dari admin sebelum login. Kami akan mengirimkan email konfirmasi.');
     }
 
