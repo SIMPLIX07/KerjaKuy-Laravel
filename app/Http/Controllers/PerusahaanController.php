@@ -92,7 +92,8 @@ class PerusahaanController extends Controller
         ]);
 
         // Pop Up menunggu verifikasi
-        return redirect('/login/perusahaan')->with('info', 'Registrasi berhasil! Tunggu verifikasi dari admin sebelum login. Kami akan mengirimkan email konfirmasi.');
+        return redirect('/login/perusahaan')->with('info', 'Registrasi berhasil!
+         Tunggu verifikasi dari admin sebelum login. Kami akan mengirimkan email konfirmasi.');
     }
 
     public function kategoriKaryawan()
