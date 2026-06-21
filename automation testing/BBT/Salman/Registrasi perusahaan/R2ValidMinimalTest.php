@@ -16,9 +16,8 @@ class R2ValidMinimalTest extends DuskTestCase
         $email = 'salmanregmin' . $uniqueId . '@mail.com';
         $npwp = '00.000.000.0-000.' . substr($uniqueId, -3);
 
-        // Buat berkas dummy untuk sertifikat
-        $dummySertif = tempnam(sys_get_temp_dir(), 'sertif_') . '.pdf';
-        file_put_contents($dummySertif, "%PDF-1.5\n%EOF");
+        // Berkas dummy
+        $dummySertif = 'C:\\Telkom\\Tumbal\\Kerjakuy\\Perusahaan\\Sertifikat.pdf';
 
         $this->browse(function (Browser $browser) use ($email, $npwp, $dummySertif) {
             $browser->visit('/register/perusahaan')
@@ -32,7 +31,7 @@ class R2ValidMinimalTest extends DuskTestCase
                 ->type('deskripsi', 'Perusahaan teknologi minimal.')
                 // Kosongkan foto_profil dan website
                 ->script("
-                    document.getElementById('sertifikat-input').style.display = 'block';
+                    document.getElementById('sertifikat-input').removeAttribute('hidden');
                 ");
 
             $browser->element('#sertifikat-input')->sendKeys(realpath($dummySertif));
@@ -41,7 +40,5 @@ class R2ValidMinimalTest extends DuskTestCase
                 ->waitForLocation('/login/perusahaan')
                 ->assertSee('Registrasi berhasil! Tunggu verifikasi dari admin');
         });
-
-        @unlink($dummySertif);
     }
 }

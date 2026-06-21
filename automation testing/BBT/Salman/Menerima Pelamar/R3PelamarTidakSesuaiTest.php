@@ -29,7 +29,7 @@ class R3PelamarTidakSesuaiTest extends DuskTestCase
             $browser->visit('/login/perusahaan')
                 ->type('email', $email)
                 ->type('password', 'password123')
-                ->press('Lanjut')
+                ->press('Masuk')
                 ->waitForLocation('/home-perusahaan')
                 
                 ->visit('/perusahaan/wawancara')
@@ -51,10 +51,11 @@ class R3PelamarTidakSesuaiTest extends DuskTestCase
 
             // Tunggu hingga status response didapatkan
             $browser->waitUntil("return window.lastResponseStatus !== null;", 5);
-            $status = $browser->script("return window.lastResponseStatus;");
+            $statusVal = $browser->script("return window.lastResponseStatus;");
+            $status = is_array($statusVal) ? ($statusVal[0] ?? null) : $statusVal;
 
             // Memastikan server mengembalikan status 404 (Not Found)
-            $this->assertEquals(404, $status);
+            $this->assertEquals(404, (int)$status);
         });
     }
 }

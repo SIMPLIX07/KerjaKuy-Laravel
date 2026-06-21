@@ -22,10 +22,14 @@ class R3WajibKosongTest extends DuskTestCase
                 ->select('sektor_industri', 'Teknologi Informasi')
                 ->type('alamat', 'Jl. Alamat')
                 ->type('deskripsi', 'Deskripsi singkat')
-                ->press('Daftar Sekarang')
+                ->script("
+                    document.querySelector('form').setAttribute('novalidate', 'novalidate');
+                ");
+
+            $browser->press('Daftar Sekarang')
                 // Menunggu pesan error validasi wajib muncul
                 ->assertPathIs('/register/perusahaan')
-                ->assertSee('nama perusahaan');
+                ->waitForText('nama perusahaan');
         });
     }
 }

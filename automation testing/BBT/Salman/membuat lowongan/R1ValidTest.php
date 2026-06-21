@@ -16,7 +16,6 @@ class R1ValidTest extends DuskTestCase
         $uniqueId = time();
         $email = 'salmanperusahaan' . $uniqueId . '@mail.com';
 
-        // Buat perusahaan verified di DB secara dinamis
         $perusahaan = Perusahaan::create([
             'nama_perusahaan'   => 'PT Salman Sukses ' . $uniqueId,
             'email'             => $email,
@@ -27,12 +26,13 @@ class R1ValidTest extends DuskTestCase
         ]);
 
         $this->browse(function (Browser $browser) use ($email) {
+            //proses login
             $browser->visit('/login/perusahaan')
                 ->type('email', $email)
                 ->type('password', 'password123')
                 ->press('Masuk')
                 ->waitForLocation('/home-perusahaan')
-                
+                //proses tambah lowongan
                 ->visit('/lowongan/tambah')
                 ->waitForText('Tambah Lowongan')
                 ->type('kategori', 'Teknologi')

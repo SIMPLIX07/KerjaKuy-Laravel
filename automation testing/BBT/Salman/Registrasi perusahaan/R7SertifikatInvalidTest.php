@@ -31,15 +31,15 @@ class R7SertifikatInvalidTest extends DuskTestCase
                 ->type('alamat', 'Jl. Alamat')
                 ->type('deskripsi', 'Deskripsi singkat')
                 ->script("
-                    document.getElementById('sertifikat-input').style.display = 'block';
+                    document.getElementById('sertifikat-input').removeAttribute('hidden');
                 ");
 
             $browser->element('#sertifikat-input')->sendKeys(realpath($invalidSertif));
 
             $browser->press('Daftar Sekarang')
                 ->assertPathIs('/register/perusahaan')
-                ->assertSee('sertifikat') // Peringatan format berkas salah
-                ->assertSee('harus');
+                ->waitForText('must be a file of type')
+                ->assertSee('sertifikat');
         });
 
         @unlink($invalidSertif);

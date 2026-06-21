@@ -26,15 +26,16 @@ class R2FieldKosongTest extends DuskTestCase
         ]);
 
         $this->browse(function (Browser $browser) use ($email) {
+            //proses login
             $browser->visit('/login/perusahaan')
                 ->type('email', $email)
                 ->type('password', 'password123')
                 ->press('Masuk')
                 ->waitForLocation('/home-perusahaan')
-                
+                //proses tambah lowongan
                 ->visit('/lowongan/tambah')
                 ->waitForText('Tambah Lowongan')
-                // Sengaja mengosongkan kategori dan posisi, melainkan isi field lainnya saja
+                //hanya mengisi gaji dan deskripsi singkat
                 ->type('gaji', 'Rp 12.000.000')
                 ->type('deskripsi_singkat', 'Membangun dan memelihara aplikasi web berbasis Laravel.');
 

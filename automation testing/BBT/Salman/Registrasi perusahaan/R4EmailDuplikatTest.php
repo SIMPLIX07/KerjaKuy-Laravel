@@ -26,8 +26,8 @@ class R4EmailDuplikatTest extends DuskTestCase
             'status_verifikasi' => 'verified',
         ]);
 
-        $dummySertif = tempnam(sys_get_temp_dir(), 'sertif_') . '.pdf';
-        file_put_contents($dummySertif, "%PDF-1.5\n%EOF");
+        // Berkas dummy
+        $dummySertif = 'C:\\Telkom\\Tumbal\\Kerjakuy\\Perusahaan\\Sertifikat.pdf';
 
         $this->browse(function (Browser $browser) use ($duplicateEmail, $dummySertif) {
             $browser->visit('/register/perusahaan')
@@ -40,17 +40,15 @@ class R4EmailDuplikatTest extends DuskTestCase
                 ->type('alamat', 'Jl. Baru')
                 ->type('deskripsi', 'Deskripsi baru')
                 ->script("
-                    document.getElementById('sertifikat-input').style.display = 'block';
+                    document.getElementById('sertifikat-input').removeAttribute('hidden');
                 ");
 
             $browser->element('#sertifikat-input')->sendKeys(realpath($dummySertif));
 
             $browser->press('Daftar Sekarang')
                 ->assertPathIs('/register/perusahaan')
-                ->assertSee('email') // Peringatan email sudah terdaftar
-                ->assertSee('sudah');
+                ->waitForText('already been taken')
+                ->assertSee('email');
         });
-
-        @unlink($dummySertif);
     }
 }

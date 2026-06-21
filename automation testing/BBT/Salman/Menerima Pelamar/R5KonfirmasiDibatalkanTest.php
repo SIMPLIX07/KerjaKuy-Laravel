@@ -88,7 +88,7 @@ class R5KonfirmasiDibatalkanTest extends DuskTestCase
             $browser->visit('/login/perusahaan')
                 ->type('email', $email)
                 ->type('password', 'password123')
-                ->press('Lanjut')
+                ->press('Masuk')
                 ->waitForLocation('/home-perusahaan')
                 
                 ->visit('/perusahaan/wawancara')
@@ -97,8 +97,8 @@ class R5KonfirmasiDibatalkanTest extends DuskTestCase
                 ->press('Lihat Detail')
                 ->waitForText('Undangan')
                 ->press('Terima Pelamar')
-                ->waitForText('Konfirmasi tindakan')
-                ->press('confirmDialogCancel') // Klik tombol "Batal"
+                ->waitForText('Apakah Anda yakin')
+                ->click('#confirmDialogCancel') // Klik tombol "Batal"
                 ->pause(500)
                 ->assertDontSee('Berhasil!'); // Memastikan tidak ada toast sukses
         });

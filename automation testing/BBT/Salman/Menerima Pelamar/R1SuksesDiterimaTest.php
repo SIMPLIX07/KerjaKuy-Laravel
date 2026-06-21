@@ -88,7 +88,7 @@ class R1SuksesDiterimaTest extends DuskTestCase
             $browser->visit('/login/perusahaan')
                 ->type('email', $email)
                 ->type('password', 'password123')
-                ->press('Lanjut')
+                ->press('Masuk')
                 ->waitForLocation('/home-perusahaan')
                 
                 ->visit('/perusahaan/wawancara')
@@ -97,7 +97,7 @@ class R1SuksesDiterimaTest extends DuskTestCase
                 ->press('Lihat Detail')
                 ->waitForText('Undangan')
                 ->press('Terima Pelamar')
-                ->waitForText('Konfirmasi tindakan')
+                ->waitForText('Apakah Anda yakin')
                 ->press('Terima')
                 ->waitForText('Berhasil!')
                 ->pause(1500); // Tunggu proses reload halaman

@@ -15,8 +15,8 @@ class R5PasswordPendekTest extends DuskTestCase
         $uniqueId = time();
         $email = 'salmanreg' . $uniqueId . '@mail.com';
 
-        $dummySertif = tempnam(sys_get_temp_dir(), 'sertif_') . '.pdf';
-        file_put_contents($dummySertif, "%PDF-1.5\n%EOF");
+        // Berkas dummy
+        $dummySertif = 'C:\\Telkom\\Tumbal\\Kerjakuy\\Perusahaan\\Sertifikat.pdf';
 
         $this->browse(function (Browser $browser) use ($email, $dummySertif) {
             $browser->visit('/register/perusahaan')
@@ -29,17 +29,16 @@ class R5PasswordPendekTest extends DuskTestCase
                 ->type('alamat', 'Jl. Alamat')
                 ->type('deskripsi', 'Deskripsi singkat')
                 ->script("
-                    document.getElementById('sertifikat-input').style.display = 'block';
+                    document.getElementById('sertifikat-input').removeAttribute('hidden');
+                    document.querySelector('form').setAttribute('novalidate', 'novalidate');
                 ");
 
             $browser->element('#sertifikat-input')->sendKeys(realpath($dummySertif));
 
             $browser->press('Daftar Sekarang')
                 ->assertPathIs('/register/perusahaan')
-                ->assertSee('password') // Pesan error password minimal 6 karakter
-                ->assertSee('minimal');
+                ->waitForText('at least 6 characters')
+                ->assertSee('password');
         });
-
-        @unlink($dummySertif);
     }
 }
