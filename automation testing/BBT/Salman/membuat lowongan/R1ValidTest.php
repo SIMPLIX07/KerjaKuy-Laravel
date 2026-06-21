@@ -36,15 +36,15 @@ class R1ValidTest extends DuskTestCase
                 ->visit('/lowongan/tambah')
                 ->waitForText('Tambah Lowongan')
                 ->type('kategori', 'Teknologi')
-                ->type('posisi', 'Software Developer Salman')
+                ->type('posisi', 'Software Developer')
                 ->select('jenis', 'Full-time')
                 ->type('gaji', 'Rp 12.000.000')
-                ->type('deskripsi_singkat', 'Dusk automated test short description.')
-                ->type('deskripsi', 'Dusk automated test long description details.')
-                ->type('syarat', 'PHP, Laravel, Dusk, testing.')
+                ->type('deskripsi_singkat', 'Membangun dan memelihara aplikasi web berbasis Laravel.')
+                ->type('deskripsi', 'Kami sedang mencari Software Developer yang berbakat untuk bergabung dengan tim kami. Tanggung jawab meliputi menulis kode yang bersih, merancang arsitektur database, serta berkolaborasi dengan tim produk.')
+                ->type('syarat', 'Memiliki pemahaman yang kuat tentang OOP dan MVC.')
                 ->type('pendidikan', 'S1 Teknik Informatika')
                 ->type('pengalaman', 'Minimal 1 tahun')
-                ->type('keahlian_teknis', 'Laravel, Dusk')
+                ->type('keahlian_teknis', 'PHP, Laravel, MySQL, Git')
                 ->type('provinsi', 'Jawa Barat')
                 ->type('kota', 'Bandung')
                 ->type('kecamatan', 'Coblong')
@@ -57,7 +57,7 @@ class R1ValidTest extends DuskTestCase
 
             $browser->press('Buat')
                 ->waitForLocation('/home-perusahaan')
-                ->assertSee('Software Developer Salman');
+                ->assertSee('Software Developer');
         });
     }
 }

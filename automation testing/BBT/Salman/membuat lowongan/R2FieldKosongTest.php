@@ -36,7 +36,7 @@ class R2FieldKosongTest extends DuskTestCase
                 ->waitForText('Tambah Lowongan')
                 // Sengaja mengosongkan kategori dan posisi, melainkan isi field lainnya saja
                 ->type('gaji', 'Rp 12.000.000')
-                ->type('deskripsi_singkat', 'Dusk automated test short description.');
+                ->type('deskripsi_singkat', 'Membangun dan memelihara aplikasi web berbasis Laravel.');
 
             $browser->script("document.querySelector('form').setAttribute('novalidate', 'novalidate');");
 
