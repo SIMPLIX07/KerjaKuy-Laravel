@@ -45,4 +45,12 @@ abstract class DuskTestCase extends BaseTestCase
             )
         );
     }
+
+    /**
+     * Determine whether the Dusk command has disabled headless mode.
+     */
+    protected function hasHeadlessDisabled(): bool
+    {
+        return true;
+    }
 }
