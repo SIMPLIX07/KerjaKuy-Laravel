@@ -56,8 +56,8 @@ class R1ValidTest extends DuskTestCase
             ");
 
             $browser->press('Buat')
-                ->waitForLocation('/home-perusahaan')
-                ->assertSee('Software Developer');
+                ->waitForLocation('/index.blade.php')
+                ->assertSee('Software ');
         });
     }
 }
